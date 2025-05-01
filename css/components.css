@@ -1,3 +1,125 @@
-.btn {
-    color: aliceblue;
+.btn-dark {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 16px;
+    border: 0;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #2A3647;
+    cursor: pointer;
+    transition: all 75ms;
+}
+
+.btn-dark:hover {
+    background-color: #29ABE2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.btn-dark:active {
+    background-color: #091931;
+}
+
+.btn-light {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 16px;
+    border: 2px solid #2A3647;
+    border-radius: 10px;
+    font-size: 24px;
+    color: #2A3647;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 75ms;
+}
+
+.btn-light:hover {
+    color: #29ABE2;
+    border: 2px solid #29ABE2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-light:active {
+    color: #091931;
+    border: 2px solid #091931;
+}
+
+.icon-default {
+    opacity: 1;
+}
+.icon-hover {
+    position: absolute;
+    right: 16px;
+    opacity: 0;
+}
+.icon-active {
+    position: absolute;
+    right: 16px;
+    opacity: 0;
+}
+
+.btn-light:hover .icon-default, 
+.btn-light:hover .icon-active {
+    opacity: 0;
+}
+.btn-light:hover .icon-hover {
+    opacity: 1;
+}
+
+.btn-light:active .icon-default, 
+.btn-light:active .icon-hover{
+    opacity: 0;
+}
+.btn-light:active .icon-active {
+    opacity: 1;
+}
+
+
+.btn-profile {
+    height: 56px;
+    width: 56px;
+    border: 3px solid #2A3647;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #29ABE2;
+    background-color: #fff;
+    text-transform: uppercase;
+}
+
+.btn-profile:hover {
+    background-color: #E1E6EC;
+}
+
+
+
+
+/* LABELS */
+.label {
+    color: #fff;
+    border-radius: 8px;
+    padding: 4px 16px;
+}
+
+.user-story {
+    background-color: #0038FF;
+}
+
+.technical-task {
+    background-color: #1FD7C1;
+}
+
+
+
+
+
+/* DELETE */
+
+.btn-container {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
 }
