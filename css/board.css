@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+body{
+    font-family: 'Inter';
+}
+header {
+    width: 232px;
+    background-color: #2A3647;
+    height: 100vh;
+   
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  position: fixed;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    padding-top: 64px;
+}
+
+.legal {
+    padding-bottom: 64px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 232px;
+    padding: 8px;
+    gap: 16px
+    ;
+}
+
+a:hover{
+    background-color: #091931;
+}
+
+.summery-icon{
+    background-image: url(../assets/img/icon-summary.svg);
+    width: 30px;
+    height: 30px;
+}
+.add-task-icon{
+    background-image: url(../assets/img/icon-summary.svg);
+    width: 30px;
+    height: 30px;
+}
+.board-icon{
+    background-image: url(../assets/img/icon-board.svg);
+    width: 30px;
+    height: 30px;
+}
+.contacts-icon{
+    background-image: url(../assets/img/icon-contacts.svg);
+    width: 30px;
+    height: 30px;
+}
+
+.hug{
+    height: 96px;
+}
+
+.board-navigation{
+    height: 232px;
+    background-color: #f6f7f8;
+}
+.borad-content{
+    height: 688px;
+    background-color: #f6f7f8;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    padding-left: 323px;
+}
+
+h1{
+    font-size: 96px;
+}
