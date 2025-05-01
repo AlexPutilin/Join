@@ -2,11 +2,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(4, 20, 33);
+    background-color: #F0F0F0;
     height: 100vh;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+}
+
+.splash-screen img {
+    width: 256px;
+}
+
+@media (max-width: 1024px) {
+    .splash-screen img {
+        width: 192px;
+        content: url('../assets/img/logo-white.svg');
+    }
+    .splash-screen {
+        background-color: #2A3647;
+    }
+}
+
+@media (max-width: 728px) {
+    .splash-screen img {
+        width: 168px;
+    }
+}
+
+@media (max-width: 480px) {
+    .splash-screen img {
+        width: 140px;
+    }
+}
+
+@media (max-width: 320px) {
+    .splash-screen img {
+        width: 120px;
+    }
 }
