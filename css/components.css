@@ -1,3 +1,17 @@
+button {
+    cursor: pointer;
+}
+
+a {
+    color: #A8A8A8;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #29ABE2;
+    font-weight: bold;
+}
+
 .btn-dark {
     display: flex;
     align-items: center;
@@ -9,7 +23,6 @@
     font-weight: bold;
     color: #fff;
     background-color: #2A3647;
-    cursor: pointer;
     transition: all 75ms;
 }
 
@@ -22,7 +35,6 @@
 }
 
 .btn-light {
-    position: relative;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -32,7 +44,6 @@
     font-size: 24px;
     color: #2A3647;
     background-color: transparent;
-    cursor: pointer;
     transition: all 75ms;
 }
 
@@ -47,17 +58,20 @@
     border: 2px solid #091931;
 }
 
+.icon-wrapper {
+    position: relative;
+    display: flex;
+}
+
 .icon-default {
     opacity: 1;
 }
 .icon-hover {
     position: absolute;
-    right: 16px;
     opacity: 0;
 }
 .icon-active {
     position: absolute;
-    right: 16px;
     opacity: 0;
 }
 
@@ -92,6 +106,36 @@
 
 .btn-profile:hover {
     background-color: #E1E6EC;
+}
+
+/* MENU BUTTONS */
+.btn-menu {
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border: 0;
+    font-size: 20px;
+    color: #A8A8A8;
+    background-color: transparent;
+}
+
+.btn-menu:hover {
+    background-color: #2A3D59;
+}
+
+.menu-active {
+    color: #fff;
+    background-color: #091931;
+}
+
+.btn-menu.menu-active .icon-default {
+    opacity: 0;
+}
+.btn-menu.menu-active .icon-active {
+    opacity: 1;
 }
 
 
