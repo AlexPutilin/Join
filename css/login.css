@@ -47,9 +47,8 @@
 /* ===== LOGIN PAGE ===== */
 
 main {
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    flex: 1; */
     background-color: #F0F0F0;
     height: 100vh;
 }
@@ -66,6 +65,15 @@ header div {
     align-items: flex-start;
 }
 
-header p, button {
+header p,
+button {
     font-size: 24px;
+}
+
+footer {
+    margin-top: auto;
+    padding: 48px;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
 }
