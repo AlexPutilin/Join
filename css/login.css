@@ -20,6 +20,7 @@
         width: 192px;
         content: url('../assets/img/logo-white.svg');
     }
+
     .splash-screen {
         background-color: #2A3647;
     }
@@ -41,4 +42,30 @@
     .splash-screen img {
         width: 120px;
     }
+}
+
+/* ===== LOGIN PAGE ===== */
+
+main {
+    /* display: flex;
+    flex-direction: column;
+    flex: 1; */
+    background-color: #F0F0F0;
+    height: 100vh;
+}
+
+header {
+    padding: 48px;
+    display: flex;
+    justify-content: space-between;
+}
+
+header div {
+    gap: 16px;
+    display: flex;
+    align-items: flex-start;
+}
+
+header p, button {
+    font-size: 24px;
 }
