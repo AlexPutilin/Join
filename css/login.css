@@ -1,3 +1,12 @@
+/* ========== BASE STYLES ========== */
+
+a {
+    color: #a8a8a8;
+    text-decoration: none;
+}
+
+/* ========== LAYOUT =============== */
+
 .splash-screen {
     display: flex;
     justify-content: center;
@@ -54,12 +63,12 @@ main {
 }
 
 header {
-    padding: 48px;
+    padding: 80px 77px 0 80px;
     display: flex;
     justify-content: space-between;
 }
 
-header > div > div {
+header>div>div {
     gap: 16px;
     display: flex;
     align-items: center;
@@ -72,7 +81,7 @@ button {
 
 footer {
     margin-top: auto;
-    padding: 48px;
+    padding-bottom: 40px;
     display: flex;
     justify-content: center;
     gap: 32px;
