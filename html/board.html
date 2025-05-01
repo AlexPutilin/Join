@@ -21,10 +21,10 @@
             <a href="#">
                 <div class="add-task-icon"></div>Add Task
             </a>
-            <a href="#">
+            <a class="btn-board" href="#">
                 <div class="board-icon"></div>Board
             </a>
-            <a href="#">
+            <a class="btn-contacts" href="#">
                 <div class="contacts-icon"></div>Contacts
             </a>
 
@@ -40,16 +40,33 @@
     </header>
     <main>
         <section class="hug">
-            <p>
+            <p class="kanban-text">
                 Kanban Project Management Too</p>
+            <div class="help-and-profile">
+                <img src="../assets/img/icon-help-efault.svg" alt="Help Icon">
+                <div class="profile"></div>
+            </div>
         </section>
         <section class="board-navigation">
-            <h1>Board</h1>
-            
-            <input type="text" placeholder="Find Task">
-            <button>Add Task <img src="../assets/img/icon-add-variant3-default.svg" alt=""></button>
+            <div class="board-head">
+                <h1>Board</h1>
+
+                <input type="text" placeholder="Find Task">
+                <button>Add Task <img src="../assets/img/icon-add-variant3-default.svg" alt=""></button>
+            </div>
+            <div class="workflow-stages">
+                <p>to do</p><button class="add-btn"></button>
+                <p>in progress</p><button class="add-btn"></button>
+                <p>await feedback</p><button class="add-btn"></button>
+                <p>done</p>
+            </div>
         </section>
-        <section class="borad-content"></section>
+        <section class="borad-content">
+            <div class="to-do"></div>
+            <div class="in-progress"></div>
+            <div class="await-feedback"></div>
+            <div class="done"></div>
+        </section>
     </main>
 
 </body>

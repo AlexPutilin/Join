@@ -1,33 +1,37 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    
+
 }
-body{
+
+body {
     font-family: 'Inter';
 }
+
 header {
     width: 232px;
     background-color: #2A3647;
     height: 100vh;
-   
+
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-  position: fixed;
+    position: fixed;
 }
 
 nav {
     display: flex;
     flex-direction: column;
+    color: #cdcdcd;
 }
 
+/* 
 div {
     display: flex;
     flex-direction: column;
-}
+} */
 
 .logo {
     padding-top: 64px;
@@ -45,54 +49,113 @@ a {
     justify-content: center;
     width: 232px;
     padding: 8px;
-    gap: 16px
-    ;
+    gap: 16px;
 }
 
-a:hover{
+a:hover {
     background-color: #091931;
 }
 
-.summery-icon{
+.summery-icon {
     background-image: url(../assets/img/icon-summary.svg);
     width: 30px;
     height: 30px;
 }
-.add-task-icon{
+
+.add-task-icon {
     background-image: url(../assets/img/icon-summary.svg);
     width: 30px;
     height: 30px;
 }
-.board-icon{
+
+.board-icon {
     background-image: url(../assets/img/icon-board.svg);
     width: 30px;
     height: 30px;
 }
-.contacts-icon{
+
+.contacts-icon {
     background-image: url(../assets/img/icon-contacts.svg);
     width: 30px;
     height: 30px;
 }
 
-.hug{
+.hug {
     height: 96px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.068);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* position: relative;
+    top: 0;*/
+    z-index: 99;
 }
 
-.board-navigation{
+.board-navigation {
     height: 232px;
     background-color: #f6f7f8;
 }
-.borad-content{
+
+.board-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 36px;
+}
+
+.borad-content {
     height: 688px;
     background-color: #f6f7f8;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
-    padding-left: 323px;
+    padding-left: 232px;
 }
 
-h1{
-    font-size: 96px;
+h1 {
+    font-size: 72px;
+}
+
+.add-btn {
+    background-image: url(../assets/img/icon-add-default.svg);
+}
+
+.workflow-stages {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 24px;
+    color: #42526e;
+    font-weight: 700;
+    margin-top: 36px;
+}
+
+.profile {
+    border: 2px solid black;
+    border-radius: 100%;
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
+}
+
+.help-and-profile {
+    display: flex;
+    /* position: relative; */
+    margin-right: 24px;
+}
+
+.kanban-text {
+    margin-left: 96px;
+    font-size: 24px;
+}
+
+.btn-board {
+    padding-right: 32px;
+}
+
+.btn-contacts{
+    padding-right: 14px;
 }
