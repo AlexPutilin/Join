@@ -59,10 +59,10 @@ header {
     justify-content: space-between;
 }
 
-header div {
+header > div > div {
     gap: 16px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
 }
 
 header p,
