@@ -5,3 +5,12 @@
     margin: 0;
 }
 
+h1 {
+    font-size: 72px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    padding-left: 232px;
+}
