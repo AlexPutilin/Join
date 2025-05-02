@@ -148,7 +148,7 @@ a:hover {
 }
 
 
-/* INPUTS / SELECTS */
+/* INPUTS / SELECTS / TEXTAREAS */
 .input-wrapper {
     display: flex;
     flex-direction: column;
@@ -179,12 +179,18 @@ input, select {
     /* background-color: #fff; */
 }
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #D1D1D1;
 }
 
-input:focus {
+.input-area:has(input:focus),
+textarea:focus {
     border-color: #29ABE2;
+}
+
+.input-area:has(input:invalid) {
+    border-color: #FF3D00;
 }
 
 select {
@@ -197,6 +203,18 @@ option {
     outline: none;
     box-shadow: none;
 }
+
+textarea {
+    resize: none;
+    padding: 12px;
+    outline: none;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+
+
 
 
 
