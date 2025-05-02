@@ -93,7 +93,6 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     gap: 32px;
     margin: auto;
     background-color: #fff;
@@ -102,11 +101,35 @@ form {
 }
 
 form>h1 {
+    text-align: center;
     font-size: 44px;
     text-decoration: underline;
     text-decoration-color: #29abe3;
     text-underline-offset: 16px;
     text-decoration-thickness: 2px;
+}
+
+form input {
+    padding: 12px 21px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    outline: none;
+}
+
+form input:focus {
+    border: 1px solid #29abe2;
+}
+
+form input[type=email] {
+    background-image: url("../assets/img/icon-mail.svg");
+    background-repeat: no-repeat;
+    background-position: right 21px center;
+}
+
+form input[type=password] {
+    background-image: url("../assets/img/icon-lock.svg");
+    background-repeat: no-repeat;
+    background-position: right 21px center;
 }
 
 form>div {
