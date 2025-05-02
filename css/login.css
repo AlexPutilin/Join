@@ -1,0 +1,163 @@
+/* ========== BASE STYLES ========== */
+
+a {
+    color: #a8a8a8;
+    text-decoration: none;
+}
+
+/* ========== LAYOUT =============== */
+
+.splash-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F0F0F0;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+@media (max-width: 1024px) {
+    .logo {
+        width: 192px;
+        /* content: url('../assets/img/logo-white.svg'); */
+    }
+
+    .splash-screen {
+        background-color: #2A3647;
+    }
+}
+
+@media (max-width: 728px) {
+    .logo {
+        width: 168px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        width: 140px;
+    }
+}
+
+@media (max-width: 320px) {
+    .logo {
+        width: 120px;
+    }
+}
+
+/* ===== LOGO =========== */
+
+.logo {
+    width: 274px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+}
+
+.logo--moved {
+    top: 80px;
+    left: 77px;
+    width: 100px;
+    transform: translate(0, 0);
+}
+
+/* ===== LOGIN PAGE ===== */
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #F0F0F0;
+    height: 100vh;
+}
+
+header {
+    padding: 80px 77px 0 80px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+header>div>div {
+    gap: 16px;
+    display: flex;
+    align-items: center;
+}
+
+header p,
+button {
+    font-size: 24px;
+}
+
+footer {
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+/* ========== LOGIN FORM ========== */
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 48px 115px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+form>h1 {
+    text-align: center;
+    font-size: 44px;
+    text-decoration: underline;
+    text-decoration-color: #29abe3;
+    text-underline-offset: 16px;
+    text-decoration-thickness: 2px;
+}
+
+form input {
+    width: 380px;
+    padding: 12px 21px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    outline: none;
+}
+
+form input:focus {
+    border: 1px solid #29abe2;
+}
+
+form input[type=email] {
+    background-image: url("../assets/img/icon-mail.svg");
+    background-repeat: no-repeat;
+    background-position: right 21px center;
+}
+
+form input[type=password] {
+    background-image: url("../assets/img/icon-lock.svg");
+    background-repeat: no-repeat;
+    background-position: right 21px center;
+}
+
+/* === Wrapper for Log in / Guest Log in Buttons === */
+form>div {
+    gap: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
