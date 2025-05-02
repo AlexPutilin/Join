@@ -3,26 +3,11 @@
  * Triggers the logo animation before hiding the splash screen.
  */
 function handleSplashScreen() {
-    // setLogoSrc();
     setTimeout(() => {
         animateLogoTransition();
         hideElement("splash-screen");
         changeImgSrc("logo", "./assets/img/logo.svg");
     }, 1200);
-}
-
-
-/**
- * Updates logo source based on screen width.
- */
-function setLogoSrc() {
-    let logo = document.getElementById("logo");
-    
-    if (screen.width < 1024) {
-        logo.src = "./assets/img/logo-white.svg";
-    } else {
-        logo.src = "./assets/img/logo.svg";
-    }
 }
 
 
