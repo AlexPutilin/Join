@@ -139,6 +139,56 @@ a:hover {
 }
 
 
+/* INPUTS / SELECTS */
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input-area {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    background-color: #fff;
+}
+
+.err-msg {
+    /* visibility: hidden; */
+    padding: 0 12px;
+    font-size: 14px;
+    color: #FF3D00;
+}
+
+input, select {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    /* background-color: #fff; */
+}
+
+input::placeholder {
+    color: #D1D1D1;
+}
+
+input:focus {
+    border-color: #29ABE2;
+}
+
+select {
+    padding: 12px;
+    border-radius: 10px;
+}
+
+option {
+    border: 0;
+    outline: none;
+    box-shadow: none;
+}
+
 
 
 /* LABELS */
@@ -166,4 +216,11 @@ a:hover {
     display: flex;
     gap: 24px;
     padding: 24px;
+}
+
+.input-container {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
