@@ -48,3 +48,11 @@ function changeImgSrc(id, ref) {
     let logo = document.getElementById(id);
     logo.src = ref;
 }
+
+
+function renderSignupForm() {
+    let container = document.querySelector("form-wrapper");
+    container.innerHTML = '';
+
+    container.innerHTML += getSignupFormTemplate();
+}
