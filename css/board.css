@@ -11,9 +11,12 @@
     margin-top: 36px;
 }
 
-.borad-content {
+.board-content {
     height: 688px;
     background-color: #f6f7f8;
+    display: flex;
+    justify-content: space-around;
+    gap: 36px;
 }
 
 
@@ -33,3 +36,10 @@
     margin-top: 36px;
 }
 
+.drag-drop-container{
+    border: 2px dotted grey;
+    width: 250px;
+    height: 250px;
+    border-radius: 24px;
+    background-color: #42526e23;
+}
