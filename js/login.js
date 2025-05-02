@@ -47,5 +47,4 @@ function changeImgSrc(id, ref) {
 
     let logo = document.getElementById(id);
     logo.src = ref;
-    console.log("Neues Logo gesetzt:", logo.src);
 }
