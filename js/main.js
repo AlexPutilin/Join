@@ -2,5 +2,5 @@
 function init() {
     setTimeout(() => {
         document.getElementById("splash-screen").classList.add("d-none");
-    }, 1500);
+    }, 500);
 }

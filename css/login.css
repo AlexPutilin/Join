@@ -89,15 +89,21 @@ footer {
 
 /* ========== LOGIN FORM ========== */
 
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
 form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 32px;
-    margin: auto;
     background-color: #fff;
     border-radius: 30px;
     padding: 48px 115px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 form>h1 {
@@ -110,6 +116,7 @@ form>h1 {
 }
 
 form input {
+    width: 380px;
     padding: 12px 21px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
@@ -132,8 +139,10 @@ form input[type=password] {
     background-position: right 21px center;
 }
 
+/* === Wrapper for Log in / Guest Log in Buttons === */
 form>div {
     gap: 24px;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
