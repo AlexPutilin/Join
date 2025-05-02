@@ -3,10 +3,11 @@
  * Triggers the logo animation before hiding the splash screen.
  */
 function handleSplashScreen() {
-    setLogoSrc();
+    // setLogoSrc();
     setTimeout(() => {
         animateLogoTransition();
         hideElement("splash-screen");
+        changeImgSrc("logo", "./assets/img/logo.svg");
     }, 1200);
 }
 
@@ -31,7 +32,6 @@ function setLogoSrc() {
 function animateLogoTransition() {
     let logo = document.getElementById("logo");
     logo.classList.add("logo--moved");
-    changeImgSrc("logo", "../assets/img/logo.svg");
 }
 
 
@@ -46,11 +46,21 @@ function hideElement(id) {
 
 
 /**
- * Changes the src of an image element by ID.
- * @param {string} id - The ID of the image element.
- * @param {string} ref - The new image source path.
+ * Replaces the responsive <picture> logo with a static image by:
+ * - Removing the <source> to disable media-based switching
+ * - Setting a fixed image source on the <img> element
+ *
+ * @param {string} id - The ID of the <img> element inside <picture>.
+ * @param {string} ref - The new image source path to set.
  */
 function changeImgSrc(id, ref) {
-    let logo = document.getElementById(id); 
+    let picture = document.querySelector("picture");
+    let source = picture.querySelector("source");
+    if (source) {
+        source.remove();
+    }
+
+    let logo = document.getElementById(id);
     logo.src = ref;
+    console.log("Neues Logo gesetzt:", logo.src);
 }

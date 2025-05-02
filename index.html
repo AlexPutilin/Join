@@ -17,7 +17,11 @@
 </head>
 
 <body onload="init()">
-    <img id="logo" class="logo" src="./assets/img/logo.svg" alt="Logo">
+    <picture>
+        <source media="(max-width: 1024px)" srcset="./assets/img/logo-white.svg">
+        <img id="logo" class="logo" src="./assets/img/logo.svg" alt="Logo">
+    </picture>
+    
 
     <!-- SPLASH SCREEN -->
      <!-- >>> fades out after 1200 ms -->
