@@ -20,14 +20,10 @@ a {
     left: 0;
 }
 
-.splash-screen img {
-    width: 256px;
-}
-
 @media (max-width: 1024px) {
-    .splash-screen img {
+    .logo {
         width: 192px;
-        content: url('../assets/img/logo-white.svg');
+        /* content: url('../assets/img/logo-white.svg'); */
     }
 
     .splash-screen {
@@ -36,21 +32,40 @@ a {
 }
 
 @media (max-width: 728px) {
-    .splash-screen img {
+    .logo {
         width: 168px;
     }
 }
 
 @media (max-width: 480px) {
-    .splash-screen img {
+    .logo {
         width: 140px;
     }
 }
 
 @media (max-width: 320px) {
-    .splash-screen img {
+    .logo {
         width: 120px;
     }
+}
+
+/* ===== LOGO =========== */
+
+.logo {
+    width: 274px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+}
+
+.logo--moved {
+    top: 80px;
+    left: 77px;
+    width: 100px;
+    transform: translate(0, 0);
 }
 
 /* ===== LOGIN PAGE ===== */
@@ -66,7 +81,7 @@ main {
 header {
     padding: 80px 77px 0 80px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 header>div>div {
