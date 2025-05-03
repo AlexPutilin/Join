@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/main.css">
 
+    <script src="../js/components.js"></script>
+
     <style>
         body {
             display: flex;
@@ -20,6 +22,8 @@
     </style>
 </head>
 <body>
+    <button onclick="toggleInputError()">Error Message</button>
+
     <div class="btn-container">
 
         <button class="btn-small">
@@ -97,7 +101,7 @@
                 <input type="text" placeholder="Enter a title">
                 <img src="../assets/img/icon-visibility-on.svg" alt="">
             </div>
-            <span class="err-msg">Invalid input.</span>
+            <span class="err-msg hidden">Invalid input.</span>
         </div>
 
         <div class="input-wrapper">
@@ -105,7 +109,7 @@
                 <input type="password" placeholder="password">
                 <img src="../assets/img/icon-visibility-on.svg" alt="">
             </div>
-            <span class="err-msg">Invalid input.</span>
+            <span class="err-msg hidden">Invalid input.</span>
         </div>
 
         <div class="input-wrapper">
@@ -113,13 +117,14 @@
                 <input type="email" placeholder="email">
                 <img src="../assets/img/icon-visibility-on.svg" alt="">
             </div>
-            <span class="err-msg">Invalid input.</span>
+            <span class="err-msg hidden">Invalid input.</span>
         </div>
 
         <div class="input-wrapper">
             <div class="input-area">
                 <input type="text" placeholder="Enter a title">
             </div>
+            <span class="err-msg hidden">Invalid input.</span>
         </div>
         
         <textarea placeholder="Enter a description" rows="3"></textarea>
