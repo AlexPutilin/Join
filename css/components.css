@@ -29,7 +29,7 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 16px;
+    padding: 10px 16px;
     border: 0;
     border-radius: 10px;
     font-size: 24px;
@@ -50,7 +50,7 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 16px;
+    padding: 10px 16px;
     border: 2px solid #2A3647;
     border-radius: 10px;
     font-size: 24px;
@@ -216,7 +216,50 @@ textarea {
     font-size: 20px;
 }
 
+.priority-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 10px;
+    font-size: 24px;
+    color: #091931;
+    background-color: #fff;
+    border: 1px solid #D1D1D1;
+    cursor: pointer;
+}
 
+.priority-option img,
+.priority-option span {
+    z-index: 2;
+}
+
+.bg-checked {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    border-radius: 10px;
+}
+
+.priority-option input:checked ~ span {
+    font-weight: bold;
+    color: #fff;
+}
+.priority-option input:checked ~ img {
+    filter: brightness(0) invert(1);
+}
+.priority-option.low input:checked ~ div{
+    background-color: #7AE229;
+} 
+.priority-option.medium input:checked ~ div {
+    background-color: #FFA800;
+} 
+.priority-option.urgent input:checked ~ div {
+    background-color: #FF3D00;
+}
 
 
 
