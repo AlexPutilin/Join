@@ -245,7 +245,7 @@ textarea {
 }
 
 .priority-option input:checked ~ span {
-    font-weight: bold;
+    /* font-weight: bold; */
     color: #fff;
 }
 .priority-option input:checked ~ img {
@@ -274,7 +274,6 @@ textarea {
 .user-story {
     background-color: #0038FF;
 }
-
 .technical-task {
     background-color: #1FD7C1;
 }
