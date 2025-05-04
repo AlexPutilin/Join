@@ -18,13 +18,14 @@ function resetInputError() {
     errorMessage.classList.add('hidden');
 }
 
+/**
+ * Toggles the input-type between password and text to hide and show the password.
+ */
 function togglePasswordVisibility() {
     const passwordInput = document.getElementById('password-input');
     const visibilityButton = document.getElementById('visibility-btn');
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-    visibilityButton.classList.toggle('btn-active');
-    console.log(passwordInput.type);
-    
+    visibilityButton.classList.toggle('btn-active');    
 }
 
 /**
