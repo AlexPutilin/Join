@@ -23,6 +23,7 @@ a:hover {
     border: 0;
     position: relative;
     display: flex;
+    background-color: transparent;
 }
 
 .btn-dark {
@@ -101,6 +102,17 @@ a:hover {
     opacity: 0;
 }
 .btn-light:active .icon-active {
+    opacity: 1;
+}
+.btn-active .icon- {
+    opacity: 1;
+}
+
+.btn-small.btn-active .icon-default,
+.btn-small.btn-active .icon-hover {
+    opacity: 0;
+}
+.btn-small.btn-active .icon-active {
     opacity: 1;
 }
 

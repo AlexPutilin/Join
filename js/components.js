@@ -18,6 +18,15 @@ function resetInputError() {
     errorMessage.classList.add('hidden');
 }
 
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('password-input');
+    const visibilityButton = document.getElementById('visibility-btn');
+    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+    visibilityButton.classList.toggle('btn-active');
+    console.log(passwordInput.type);
+    
+}
+
 /**
  * Returns the currently selected priority value from the radio inputs.
  *

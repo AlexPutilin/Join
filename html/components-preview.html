@@ -112,15 +112,19 @@
         <div class="input-wrapper">
             <div class="input-area">
                 <input type="text" placeholder="Enter a title" oninput="resetInputError()">
-                <img src="../assets/img/icon-visibility-on.svg" alt="">
+                
             </div>
             <span class="err-msg hidden">Invalid input.</span>
         </div>
 
         <div class="input-wrapper">
             <div class="input-area">
-                <input type="password" placeholder="password" oninput="resetInputError()">
-                <img src="../assets/img/icon-visibility-on.svg" alt="">
+                <input type="password" id="password-input" placeholder="password" oninput="resetInputError()">
+                <button class="btn-small" id="visibility-btn" onclick="togglePasswordVisibility()">
+                    <img class="icon-default" src="../assets/img/icon-visibility-off.svg">
+                    <img class="icon-hover" src="../assets/img/icon-visibility-off.svg">
+                    <img class="icon-active" src="../assets/img/icon-visibility-on.svg">
+                </button>
             </div>
             <span class="err-msg hidden">Invalid input.</span>
         </div>
@@ -128,7 +132,7 @@
         <div class="input-wrapper">
             <div class="input-area">
                 <input type="email" placeholder="email" oninput="resetInputError()">
-                <img src="../assets/img/icon-visibility-on.svg" alt="">
+                <img src="../assets/img/icon-mail.svg" alt="">
             </div>
             <span class="err-msg hidden">Invalid input.</span>
         </div>
