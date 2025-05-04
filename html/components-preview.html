@@ -22,7 +22,7 @@
     </style>
 </head>
 <body>
-    <button onclick="toggleInputError()">Error Message</button>
+    <button onclick="addInputError()">Error Message</button>
 
     <div class="btn-container">
 
@@ -107,19 +107,11 @@
     <a href="">Legal notice</a>
 
     <div class="input-container">
-        <div class="input-wrapper">
-            <select aria-placeholder="test">
-                <option selected hidden>choose option</option>
-                <option>option 1</option>
-                <option>option 2</option>
-                <option>option 3</option>
-            </select>
-            <span class="select-icon"></span>
-        </div>
+        
 
         <div class="input-wrapper">
             <div class="input-area">
-                <input type="text" placeholder="Enter a title">
+                <input type="text" placeholder="Enter a title" oninput="resetInputError()">
                 <img src="../assets/img/icon-visibility-on.svg" alt="">
             </div>
             <span class="err-msg hidden">Invalid input.</span>
@@ -127,7 +119,7 @@
 
         <div class="input-wrapper">
             <div class="input-area">
-                <input type="password" placeholder="password">
+                <input type="password" placeholder="password" oninput="resetInputError()">
                 <img src="../assets/img/icon-visibility-on.svg" alt="">
             </div>
             <span class="err-msg hidden">Invalid input.</span>
@@ -135,7 +127,7 @@
 
         <div class="input-wrapper">
             <div class="input-area">
-                <input type="email" placeholder="email">
+                <input type="email" placeholder="email" oninput="resetInputError()">
                 <img src="../assets/img/icon-visibility-on.svg" alt="">
             </div>
             <span class="err-msg hidden">Invalid input.</span>
@@ -143,7 +135,7 @@
 
         <div class="input-wrapper">
             <div class="input-area">
-                <input type="text" placeholder="Enter a title">
+                <input type="text" placeholder="Enter a title" oninput="resetInputError()">
             </div>
             <span class="err-msg hidden">Invalid input.</span>
         </div>

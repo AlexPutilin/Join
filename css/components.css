@@ -152,7 +152,7 @@ a:hover {
 }
 
 
-/* INPUTS / SELECTS / TEXTAREAS */
+/* INPUTS / TEXTAREAS / CHECKBOX */
 .input-wrapper {
     display: flex;
     flex-direction: column;
@@ -174,7 +174,7 @@ a:hover {
     color: #FF3D00;
 }
 
-input, select {
+input {
     width: 100%;
     border: none;
     outline: none;
@@ -196,17 +196,6 @@ textarea:focus {
     border-color: #FF3D00;
 }
 
-select {
-    padding: 12px;
-    border-radius: 10px;
-}
-
-option {
-    border: 0;
-    outline: none;
-    box-shadow: none;
-}
-
 textarea {
     resize: none;
     padding: 12px;
@@ -222,12 +211,11 @@ textarea {
     align-items: center;
     gap: 4px;
     padding: 10px 16px;
-    border: 0;
     border-radius: 10px;
     font-size: 24px;
     color: #091931;
     background-color: #fff;
-    border: 1px solid #D1D1D1;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
     cursor: pointer;
 }
 
@@ -242,6 +230,10 @@ textarea {
     position: absolute;
     left: 0;
     border-radius: 10px;
+}
+
+.priority-option:hover {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .priority-option input:checked ~ span {
