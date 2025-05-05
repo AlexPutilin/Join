@@ -175,3 +175,7 @@ form>div {
     cursor: pointer;
     white-space: nowrap;
 }
+
+.invisible {
+    visibility: hidden;
+}
