@@ -51,7 +51,7 @@ function changeImgSrc(id, ref) {
 
 
 function renderSignupForm() {
-    let container = document.querySelector("form-wrapper");
+    let container = document.getElementById("form-container");
     container.innerHTML = '';
 
     container.innerHTML += getSignupFormTemplate();
