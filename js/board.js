@@ -16,6 +16,11 @@ let allTasks = [];
 function initBoard() {
     fetchEntriesList();
 }
+
+/**
+ * 
+ * @param {*}
+ */
 async function fetchEntriesList() {
     console.log('test');
     let responseData = await fetch(DATA_BASE_URL + ".json");

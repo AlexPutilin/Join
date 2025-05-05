@@ -19,13 +19,6 @@
     gap: 36px;
 }
 
-
-
-
-.add-btn {
-    background-image: url(../assets/img/icon-add-default.svg);
-}
-
 .workflow-stages {
     display: flex;
     flex-direction: row;
