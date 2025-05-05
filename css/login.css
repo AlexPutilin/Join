@@ -1,0 +1,116 @@
+/* ========== BASE STYLES ========== */
+
+a {
+    color: #a8a8a8;
+    text-decoration: none;
+}
+
+/* ========== LAYOUT =============== */
+
+.splash-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F0F0F0;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.splash-screen img {
+    width: 256px;
+}
+
+@media (max-width: 1024px) {
+    .splash-screen img {
+        width: 192px;
+        content: url('../assets/img/logo-white.svg');
+    }
+
+    .splash-screen {
+        background-color: #2A3647;
+    }
+}
+
+@media (max-width: 728px) {
+    .splash-screen img {
+        width: 168px;
+    }
+}
+
+@media (max-width: 480px) {
+    .splash-screen img {
+        width: 140px;
+    }
+}
+
+@media (max-width: 320px) {
+    .splash-screen img {
+        width: 120px;
+    }
+}
+
+/* ===== LOGIN PAGE ===== */
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #F0F0F0;
+    height: 100vh;
+}
+
+header {
+    padding: 80px 77px 0 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+header>div>div {
+    gap: 16px;
+    display: flex;
+    align-items: center;
+}
+
+header p,
+button {
+    font-size: 24px;
+}
+
+footer {
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+/* ========== LOGIN FORM ========== */
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 48px 115px;
+}
+
+form>h1 {
+    font-size: 44px;
+    text-decoration: underline;
+    text-decoration-color: #29abe3;
+    text-underline-offset: 16px;
+    text-decoration-thickness: 2px;
+}
+
+form>div {
+    gap: 24px;
+    display: flex;
+    align-items: center;
+}
