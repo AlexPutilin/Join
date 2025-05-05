@@ -12,7 +12,7 @@ async function loadAllTasks() {
     try {
         const response = await fetch(`${FIREBASE_URL}/board/tasks.json`);
         const tasks = await response.json();
-        return tasks;
+        return tasks;  
     } catch (error) {
         console.error("Error while loading tasks:", error);
         return {};

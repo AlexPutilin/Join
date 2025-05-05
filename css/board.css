@@ -36,3 +36,8 @@
     border-radius: 24px;
     background-color: #42526e23;
 }
+
+.task-card{
+    border: 2px solid red;
+    padding: 16px;
+}

@@ -1,51 +1,87 @@
-const DATA_BASE_URL = `https://join-b179e-default-rtdb.europe-west1.firebasedatabase.app/`;
+const FIREBASE_URL = "https://join-b179e-default-rtdb.europe-west1.firebasedatabase.app";
 let allTasks = [];
 
-// function initBoard() {
-//     fetchEntries("");
-// }
-// async function fetchEntries(path = "") {
-//     console.log('test');
-//     let responseData = await fetch(DATA_BASE_URL + path + ".json");
-//     // console.log(responseData);
-//     let responseDataAsJson = await responseData.json();
-//     console.log(responseDataAsJson);
-// }
+/**
+ * Loads all tasks from the Kanban board stored in the Firebase database.
+ *
+ * @async
+ * @function loadAllTasks
+ * @returns {Promise<Object>} A promise that resolves to an object containing all tasks.
+ *                            If an error occurs, an empty object will be returned.
+ */
+async function loadAllTasks() {
+    try {
+        let responseTasks = await fetch(`${FIREBASE_URL}/board.json`);
+        let tasksAsJson = await responseTasks.json();
+        // console.log(tasksAsJson);
+        tasksToArray(tasksAsJson);
+    } catch (error) {
+        console.error("Error while loading tasks:", error);
+        return {};
+    }
 
-
-function initBoard() {
-    fetchEntriesList();
 }
 
 /**
- * 
- * @param {*}
+ * @function tasksToArray - Convert all loaded tasks into an Array and push in Array allTasks
+ * @param {Object} tasksAsJson - Contains the existing tasks
  */
-async function fetchEntriesList() {
-    console.log('test');
-    let responseData = await fetch(DATA_BASE_URL + ".json");
-    // console.log(responseData);
-    let responseDataAsJson = await responseData.json();
-    console.log(responseDataAsJson);
-    let taskList = responseDataAsJson.Board;
-    console.log(taskList);
-    
-    for (const letter in taskList.Task){
-        allTasks.push(taskList.Task[letter]);
+function tasksToArray(tasksAsJson) {
+    for (const task in tasksAsJson.tasks) {
+        allTasks.push(tasksAsJson.tasks[task]);
     }
-console.log(allTasks);
-
-    renderEntrie(taskList);
+    // console.log(tasksAsJson);
+    // console.log(allTasks);
+    renderTasksByStatus('toDo', 'to-do');
+    renderTasksByStatus('inProgress', 'in-progress');
+    renderTasksByStatus('awaitingFeedback', 'await-feedback');
+    renderTasksByStatus('done', 'done');
 }
 
-function renderEntrie(taskList) {
-    let contentRef = document.getElementById('board-content');
+/**
+ * @function renderTasksByStatus - Filters the Tasks by Status and renders them in the respective Container
+ * @param {string} status - Status of the Tasks
+ * @param {string} containerID - ID of the Tasks
+ */
+function renderTasksByStatus(status, containerID) {
+    let filteredStatus = allTasks.filter(allTasks => allTasks.status == status);
+    let container = document.getElementById(containerID);
+    container.innerHTML = "";
+    for (let i = 0; i < filteredStatus.length; i++) {
+        const task = filteredStatus[i];
+        container.innerHTML += getLittleTaskCard(task);
+    }
+}
+/**
+ * @function getLittleTaskCard - Render the little Task-Card in Board
+ * @param {Object} task - individual Tasks
+ */
+function getLittleTaskCard(task) {    
+    let description_short = shortenedDescription(task);
+    return `<div onclick="" class="task-card">
+                <span class="label user-story">${task.category}</span>
+                <h3>${task.title}</h3>
+                <span>${description_short}</span>
+                <div style="display: flex; gap: 16px;">
+                    <div>progressBar</div>
+                    <span>1/2 subtasks</span>
+                </div>
+                <div style="display: flex; gap: 16px;">
+                    <div>profiles</div>
+                    <div>priority</div>
+                </div>
+            </div>`;
+}
 
-    // for (let i = 0; i < taskList.length; i++) {
-    //     let taskList = taskList[i];
-    //     contentRef.innerHTML += `<div>${taskList[i]}</div>`;
-    // }
-
-    console.log(taskList);
-
-} 
+/**
+ * @function shortenedDescription - Shorten the Description for the small Task-Cards
+ * @param {Object} task - individual Tasks
+ */
+function shortenedDescription(task) {
+    let maxLength = 30;
+    let description_short = task.description_full.substring(0, maxLength) + "…";
+    if (task.description_full.length > maxLength) {
+        description_short;
+    }
+    return description_short;
+}

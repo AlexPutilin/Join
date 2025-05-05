@@ -1,10 +1,12 @@
 .help-content{
     padding: 96px;
-   
-
 }
 
 .join{
     color:#29abe2;
     text-decoration: none;
+}
+
+.headling-back-btn{
+    display: flex;
 }

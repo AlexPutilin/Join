@@ -14,11 +14,11 @@
     <link rel="stylesheet" href="../css/fonts.css">
 
     <script src="../js/board.js"></script>
-    <script type="module" src="../js/api.js"></script>
+    <!-- <script type="module" src="../js/api.js"></script> -->
     <!-- <script src="../js/main.js"></script> -->
 </head>
 
-<body onload="initBoard()">
+<body onload="loadAllTasks()">
     <header>
         <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
@@ -67,17 +67,18 @@
                 </button>
             </div>
             <div class="workflow-stages">
-                <p>to do</p><button class="add-btn"></button>
-                <p>in progress</p><button class="add-btn"></button>
-                <p>await feedback</p><button class="add-btn"></button>
+                <p>to do</p><button class="add-btn">+</button>
+                <p>in progress</p><button class="add-btn">+</button>
+                <p>await feedback</p><button class="add-btn">+
+                </button>
                 <p>done</p>
             </div>
         </section>
         <section id="board-content" class="board-content">
-            <div class="to-do drag-drop-container"></div>
-            <div class="in-progress drag-drop-container"></div>
-            <div class="await-feedback drag-drop-container"></div>
-            <div class="done drag-drop-container"></div>
+            <div onload="" id="to-do" class="to-do drag-drop-container"></div>
+            <div onload="" id="in-progress" class="in-progress drag-drop-container"></div>
+            <div onload="" id="await-feedback" class="await-feedback drag-drop-container"></div>
+            <div onload="" id="done" class="done drag-drop-container"></div>
         </section>
     </main>
 
