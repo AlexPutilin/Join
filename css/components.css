@@ -1,5 +1,10 @@
+.hidden {
+    visibility: hidden;
+}
+
 button {
     cursor: pointer;
+    transition: all 75ms;
 }
 
 a {
@@ -12,18 +17,26 @@ a:hover {
     font-weight: bold;
 }
 
+.btn-small {
+    /* width: 32px; */
+    /* height: 32px; */
+    border: 0;
+    position: relative;
+    display: flex;
+    background-color: transparent;
+}
+
 .btn-dark {
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 16px;
+    padding: 10px 16px;
     border: 0;
     border-radius: 10px;
     font-size: 24px;
     font-weight: bold;
     color: #fff;
     background-color: #2A3647;
-    transition: all 75ms;
 }
 
 .btn-dark:hover {
@@ -38,13 +51,12 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 16px;
+    padding: 10px 16px;
     border: 2px solid #2A3647;
     border-radius: 10px;
     font-size: 24px;
     color: #2A3647;
     background-color: transparent;
-    transition: all 75ms;
 }
 
 .btn-light:hover {
@@ -76,18 +88,31 @@ a:hover {
 }
 
 .btn-light:hover .icon-default, 
-.btn-light:hover .icon-active {
+.btn-light:hover .icon-active,
+.btn-small:hover .icon-default {
     opacity: 0;
 }
-.btn-light:hover .icon-hover {
+.btn-light:hover .icon-hover,
+.btn-small:hover .icon-hover {
     opacity: 1;
 }
 
 .btn-light:active .icon-default, 
-.btn-light:active .icon-hover{
+.btn-light:active .icon-hover {
     opacity: 0;
 }
 .btn-light:active .icon-active {
+    opacity: 1;
+}
+.btn-active .icon- {
+    opacity: 1;
+}
+
+.btn-small.btn-active .icon-default,
+.btn-small.btn-active .icon-hover {
+    opacity: 0;
+}
+.btn-small.btn-active .icon-active {
     opacity: 1;
 }
 
@@ -139,6 +164,108 @@ a:hover {
 }
 
 
+/* INPUTS / TEXTAREAS / CHECKBOX */
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input-area {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    background-color: #fff;
+}
+
+.err-msg {
+    padding: 0 12px;
+    font-size: 14px;
+    color: #FF3D00;
+}
+
+input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    /* background-color: #fff; */
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #D1D1D1;
+}
+
+.input-area:has(input:focus),
+textarea:focus {
+    border-color: #29ABE2;
+}
+
+.invalid-input {
+    border-color: #FF3D00;
+}
+
+textarea {
+    resize: none;
+    padding: 12px;
+    outline: none;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.priority-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 24px;
+    color: #091931;
+    background-color: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.priority-option img,
+.priority-option span {
+    z-index: 2;
+}
+
+.bg-checked {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    border-radius: 10px;
+}
+
+.priority-option:hover {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.priority-option input:checked ~ span {
+    /* font-weight: bold; */
+    color: #fff;
+}
+.priority-option input:checked ~ img {
+    filter: brightness(0) invert(1);
+}
+.priority-option.low input:checked ~ div{
+    background-color: #7AE229;
+} 
+.priority-option.medium input:checked ~ div {
+    background-color: #FFA800;
+} 
+.priority-option.urgent input:checked ~ div {
+    background-color: #FF3D00;
+}
+
+
 
 
 /* LABELS */
@@ -151,7 +278,6 @@ a:hover {
 .user-story {
     background-color: #0038FF;
 }
-
 .technical-task {
     background-color: #1FD7C1;
 }
@@ -164,6 +290,14 @@ a:hover {
 
 .btn-container {
     display: flex;
+    align-items: center;
     gap: 24px;
     padding: 24px;
+}
+
+.input-container {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
