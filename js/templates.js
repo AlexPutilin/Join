@@ -3,7 +3,7 @@ function getSignupFormTemplate() {
             <section class="form-wrapper">
             <form class="pos-rel" action="submit">
                 <!-- BACK to Login Form -->
-                <button onclick="renderForm(getLoginFormTemplate())" type="button" class="btn-small pos-abs back-signup">
+                <button onclick="renderForm(getLoginFormTemplate())" type="button" class="btn-small pos-abs back-signup bg-none">
                     <img class="icon-default" src="../assets/img/icon-back-default.svg">
                     <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
                 </button>
