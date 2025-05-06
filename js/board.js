@@ -56,7 +56,7 @@ function renderTasksByStatus(status, containerID) {
  * @function getLittleTaskCard - Render the little Task-Card in Board
  * @param {Object} task - individual Tasks
  */
-function getLittleTaskCard(task) {    
+function getLittleTaskCard(task) {
     let description_short = shortenedDescription(task);
     return `<div onclick="" class="task-card">
                 <span class="label user-story">${task.category}</span>
@@ -79,7 +79,7 @@ function getLittleTaskCard(task) {
  */
 function shortenedDescription(task) {
     let maxLength = 30;
-    let description_short = task.description_full.substring(0, maxLength) + "…";
+    let description_short = task.description_full.substring(0, maxLength) + "...";
     if (task.description_full.length > maxLength) {
         description_short;
     }
