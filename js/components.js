@@ -43,17 +43,6 @@ function resetInputError() {
 
 
 /**
- * Checks whether the email input is valid according to HTML5 validation rules.
- * 
- * @returns {boolean} True if the email input is valid, otherwise false.
- */
-function checkEmailValidity() {
-    const emailInput = document.querySelector('input[type="email"]');
-    return emailInput.checkValidity();
-}
-
-
-/**
  * Toggles the input-type between password and text to hide and show the password.
  */
 function togglePasswordVisibility() {
