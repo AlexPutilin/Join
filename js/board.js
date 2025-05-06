@@ -70,7 +70,6 @@ function calcuProgressbar(task) {
     const totalSubtaks = subtasksValue.length;
     const doneTasks = subtasksValue.filter(s => s.done).length;
 
-    
     if (totalSubtaks === 0) {
         console.log("no subtasks available");
         return 0;
@@ -78,9 +77,24 @@ function calcuProgressbar(task) {
     const progress = (doneTasks / totalSubtaks) * 100;
     console.log(progress);
     return progress;
+}
 
+/**
+ * @function getBgCategory - determines the background color of the respective category
+ * @param {String} category - possible category of tasks
+ * @returns - returns the class for the background color
+ */
+function getBgCategory(category) {
+    if (category === "User Story") {
+        return "user-story";
 
-  
+    } else if (category === "Technical Task") {
+        return "technical-task";
+
+    } else {
+        console.error("the background color could not be assigned", category);
+        return "default-category";
+    }
 }
 
 /**
@@ -89,10 +103,11 @@ function calcuProgressbar(task) {
  */
 function getLittleTaskCard(task, progress, subtasksLength, doneTasksLength) {
     console.log(task);
-
+    const bgCategory = getBgCategory(task.category);
     let description_short = shortenedDescription(task);
+
     return `<div onclick="" class="task-card">
-                <span class="label user-story">${task.category}</span>
+                <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
                 <div class="task-progress-container">
