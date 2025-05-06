@@ -70,7 +70,7 @@ a {
 
 /* ===== LOGIN PAGE ===== */
 
-main {
+.login-main-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
