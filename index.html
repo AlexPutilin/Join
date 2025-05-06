@@ -33,25 +33,38 @@
         <!-- HEADER -->
         <header>
             <!-- <img src="./assets/img/logo.svg" alt="Logo"> -->
-            <div>
+            <div id="cta-container">
                 <div>
                     <p href="#">Not a Join user?</p>
-                    <button class="btn-dark">Sign up</button>
+                    <button onclick="renderSignupForm()" class="btn-dark">Sign up</button>
                 </div>
             </div>
         </header>
 
         <!-- LOGIN FORM -->
-        <section class="form-wrapper">
+        <section id="form-container" class="form-wrapper">
             <form action="submit">
                 <h1>Log in</h1>
 
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+                <!-- <input type="email" placeholder="Email" required> -->
+                <div class="input-wrapper">
+                    <div class="input-area">
+                        <input type="email" placeholder="Email" required>
+                        <img src="../assets/img/icon-mail.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- <input type="password" placeholder="Password" required> -->
+                <div class="input-wrapper">
+                    <div class="input-area">
+                        <input type="password" placeholder="Password" required>
+                        <img src="../assets/img/icon-lock.svg" alt="">
+                    </div>
+                </div>
 
                 <div>
                     <button class="btn-dark">Log in</button>
-                    <button class="btn-light">Guest Log in</button>
+                    <button class="btn-light"><b>Guest Log in</b></button>
                 </div>
             </form>
         </section>

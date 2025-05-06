@@ -48,3 +48,24 @@ function changeImgSrc(id, ref) {
     let logo = document.getElementById(id);
     logo.src = ref;
 }
+
+
+/**
+ * Renders the signup form inside the form container and hides the CTA section.
+ */
+function renderSignupForm() {
+    let container = document.getElementById("form-container");
+    container.innerHTML = '';
+
+    container.innerHTML += getSignupFormTemplate();
+    hideCtaContainer();
+}
+
+
+/**
+ * Hides the call-to-action container by adding the 'invisible' class.
+ */
+function hideCtaContainer() {
+    let element = document.getElementById("cta-container");
+    element.classList.add("invisible");
+}
