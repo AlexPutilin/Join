@@ -11,7 +11,7 @@ function getSignupFormTemplate() {
                 <h1>Sign up</h1>
 
                 <!-- <input type="text" placeholder="Name" required> -->
-                <div class="input-wrapper">
+                <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
                         <input type="text" placeholder="Name" required>
                         <img src="./assets/img/icon-person.svg" alt="">
@@ -20,7 +20,7 @@ function getSignupFormTemplate() {
                 </div>
 
                 <!-- <input type="email" placeholder="Email" required> -->
-                <div class="input-wrapper">
+                <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
                         <input type="email" placeholder="Email" required>
                         <img src="./assets/img/icon-mail.svg" alt="">
@@ -29,7 +29,7 @@ function getSignupFormTemplate() {
                 </div>
 
                 <!-- <input type="password" placeholder="Password" required> -->
-                <div class="input-wrapper">
+                <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
                         <input type="password" placeholder="Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
@@ -38,7 +38,7 @@ function getSignupFormTemplate() {
                 </div>
 
                 <!-- <input type="password" placeholder="Password" required> -->
-                <div class="input-wrapper">
+                <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
                         <input type="password" placeholder="Confirm Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
@@ -55,7 +55,7 @@ function getSignupFormTemplate() {
                 </div>
                 
                 <div>
-                    <button class="btn-dark">Sign up</button>
+                    <button class="btn-dark cta-text-mobile-sm">Sign up</button>
                 </div>
             </form>
         </section>
@@ -70,7 +70,7 @@ function getLoginFormTemplate() {
                     <h1>Log in</h1>
 
                     <!-- <input type="email" placeholder="Email" required> -->
-                    <div class="input-wrapper">
+                    <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
                             <input type="email" placeholder="Email" required>
                             <img src="../assets/img/icon-mail.svg" alt="">
@@ -79,7 +79,7 @@ function getLoginFormTemplate() {
                     </div>
 
                     <!-- <input type="password" placeholder="Password" required> -->
-                    <div class="input-wrapper">
+                    <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
                             <input type="password" placeholder="Password" required>
                             <img src="../assets/img/icon-lock.svg" alt="">
@@ -87,9 +87,9 @@ function getLoginFormTemplate() {
                         <span class="err-msg">Invalid input.</span>
                     </div>
 
-                    <div class="login-btn-container">
-                        <button class="btn-dark">Log in</button>
-                        <button class="btn-light"><b>Guest Log in</b></button>
+                    <div class="login-btn-container form-elements-padding mobile-flex-col">
+                        <button class="btn-dark cta-text-mobile-sm">Log in</button>
+                        <button class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
                     </div>
                 </form>
             </section>

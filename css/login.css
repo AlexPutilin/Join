@@ -174,44 +174,64 @@ form>div {
 }
 
 .back-signup {
-    top: 48px;
+    top: 40px;
     left: 40px;
 }
 
-.input-padding {
+.form-elements-padding {
     padding: 0 21px;
 }
 
 /* ========== MEDIA QUERIES ========== */
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+    header {
+        padding: 32px 64px 0 64px;
+    }
     .logo--moved {
+        top: 32px;
+        left: 32px;
+        width: 64px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* .logo--moved {
         top: 40px;
         left: 40px;
         width: 64px;
-    }
+    } */
 
     header {
         padding: 36px 36px 0 36px;
     }
 
     form {
-        padding: 36px 92px;
+        padding: 32px 32px;
     }
 
     .mobile-flex-col {
         flex-direction: column;
     }
+
+    .cta-text-mobile-sm	{
+        font-size: 16px !important;
+    }
 }
 
 @media (max-width: 520px) {
     form {
-        padding: 36px 64px;
+        padding: 32px 0;
     }
 }
 
 @media (max-width: 350px) {
     form {
         padding: 32px 0;
+    }
+
+    .back-signup {
+        top: 36px;
+        left: 20px;
     }
 }
