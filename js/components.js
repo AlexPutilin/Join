@@ -1,13 +1,34 @@
-
-// THIS FUNCTION IS JUST A PROTOTYPE !!!
-function addInputError() {
-    const errorMessages = document.querySelectorAll('.err-msg');
-    const inputAreas = document.querySelectorAll('.input-area');
-    for (let i = 0; i < inputAreas.length; i++) {
-        errorMessages[i].classList.remove('hidden');
-        inputAreas[i].classList.add('invalid-input');
-    }
+/**
+ * Checks the validity of all input fields within a form.
+ * Adds error styling and messages for invalid inputs.
+ * If all inputs are valid, proceeds with form submission logic.
+ */
+function checkFormValidation() {
+    let isValid = true;
+    const inputs = document.querySelectorAll('form input');
+    inputs.forEach(input => {
+        const inputWrapper = input.closest('.input-wrapper');
+        if (!input.checkValidity()) {
+            addInputError(inputWrapper);
+            isValid = false;
+        }
+    });
+    if (isValid) console.log("submit"); // continue with other logic
 }
+
+
+/**
+ * Adds error styling to an input field and displays its associated error message.
+ *
+ * @param {HTMLElement} inputWrapper - The parent wrapper element containing the input and error message.
+ */
+function addInputError(inputWrapper) {
+    const errorMessage = inputWrapper.querySelector('.err-msg');
+    const inputArea = inputWrapper.querySelector('.input-area');
+    inputArea.classList.add('invalid-input');
+    errorMessage.classList.remove('hidden');
+}
+
 
 /**
  * Resets the validation-error from the focused textfield on input-change.
@@ -19,6 +40,7 @@ function resetInputError() {
     inputArea.classList.remove('invalid-input');
     errorMessage.classList.add('hidden');
 }
+
 
 /**
  * Checks whether the email input is valid according to HTML5 validation rules.
@@ -40,6 +62,7 @@ function togglePasswordVisibility() {
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
     visibilityButton.classList.toggle('btn-active');    
 }
+
 
 /**
  * Returns the currently selected priority value from the radio inputs.

@@ -166,6 +166,7 @@ a:hover {
 
 /* INPUTS / TEXTAREAS / CHECKBOX */
 .input-wrapper {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -209,6 +210,7 @@ textarea:focus {
 }
 
 textarea {
+    width: 100%;
     resize: none;
     padding: 12px;
     outline: none;
@@ -299,5 +301,6 @@ textarea {
     width: 500px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 12px;
 }
