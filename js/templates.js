@@ -16,6 +16,7 @@ function getSignupFormTemplate() {
                         <input type="text" placeholder="Name" required>
                         <img src="./assets/img/icon-person.svg" alt="">
                     </div>
+                    <span class="err-msg">Invalid input.</span>
                 </div>
 
                 <!-- <input type="email" placeholder="Email" required> -->
@@ -24,6 +25,7 @@ function getSignupFormTemplate() {
                         <input type="email" placeholder="Email" required>
                         <img src="./assets/img/icon-mail.svg" alt="">
                     </div>
+                    <span class="err-msg">Invalid input.</span>
                 </div>
 
                 <!-- <input type="password" placeholder="Password" required> -->
@@ -32,6 +34,7 @@ function getSignupFormTemplate() {
                         <input type="password" placeholder="Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
+                    <span class="err-msg">Invalid input.</span>
                 </div>
 
                 <!-- <input type="password" placeholder="Password" required> -->
@@ -40,8 +43,10 @@ function getSignupFormTemplate() {
                         <input type="password" placeholder="Confirm Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
+                    <span class="err-msg">Invalid input.</span>
                 </div>
 
+                <!-- <input type="checkbox" Accept Privacy policy required> -->
                 <div class="checkbox-wrapper">
                     <input type="checkbox" id="checkbox_privacy_policy" required>
                     <label for="checkbox_privacy_policy">
@@ -70,6 +75,7 @@ function getLoginFormTemplate() {
                             <input type="email" placeholder="Email" required>
                             <img src="../assets/img/icon-mail.svg" alt="">
                         </div>
+                        <span class="err-msg">Invalid input.</span>
                     </div>
 
                     <!-- <input type="password" placeholder="Password" required> -->
@@ -78,9 +84,10 @@ function getLoginFormTemplate() {
                             <input type="password" placeholder="Password" required>
                             <img src="../assets/img/icon-lock.svg" alt="">
                         </div>
+                        <span class="err-msg">Invalid input.</span>
                     </div>
 
-                    <div>
+                    <div class="login-btn-container">
                         <button class="btn-dark">Log in</button>
                         <button class="btn-light"><b>Guest Log in</b></button>
                     </div>
