@@ -131,7 +131,7 @@
 
         <div class="input-wrapper">
             <div class="input-area">
-                <input type="email" placeholder="email" oninput="resetInputError()">
+                <input type="email" placeholder="email" oninput="resetInputError(), checkEmailValidity()">
                 <img src="../assets/img/icon-mail.svg" alt="">
             </div>
             <span class="err-msg hidden">Invalid input.</span>
