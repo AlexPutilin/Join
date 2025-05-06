@@ -49,9 +49,12 @@ function renderTasksByStatus(status, containerID) {
     container.innerHTML = "";
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
-        container.innerHTML += getLittleTaskCard(task);
+        container.innerHTML += getLittleTaskCard(task);    console.log(task.subtasks);
     }
 }
+
+
+
 /**
  * @function getLittleTaskCard - Render the little Task-Card in Board
  * @param {Object} task - individual Tasks
@@ -60,11 +63,13 @@ function getLittleTaskCard(task) {
     let description_short = shortenedDescription(task);
     return `<div onclick="" class="task-card">
                 <span class="label user-story">${task.category}</span>
-                <h3>${task.title}</h3>
-                <span>${description_short}</span>
-                <div style="display: flex; gap: 16px;">
-                    <div>progressBar</div>
-                    <span>1/2 subtasks</span>
+                <h3 class="task-title">${task.title}</h3>
+                <span class="task-description-short">${description_short}</span>
+                <div class="task-progress-container">
+                    <div class="task-progressbar">
+                        <div class="task-progrssbar-content" style="width: ${task.subtasks.done / task.subtasks};"></div>
+                    </div>
+                    <span></span>
                 </div>
                 <div style="display: flex; gap: 16px;">
                     <div>profiles</div>
