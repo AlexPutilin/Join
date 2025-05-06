@@ -77,42 +77,52 @@
                 </button>
             </div>
         </section>
-        <section class="board-navigation">
-            <div class="board-head">
-                <h1>Board</h1>
-                <input type="text" placeholder="Find Task">
-                <button class="btn-dark">
-                    <span>Add Task</span>
-                    <img src="../assets/img/icon-add-white.svg" alt="">
-                </button>
-            </div>
-            <div class="workflow-stages">
-                <p>to do</p>
-                <button class="btn-small">
-                    <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                    <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                    <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
-                </button>
-                <p>in progress</p>
-                <button class="btn-small">
-                    <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                    <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                    <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
-                </button>
-                <p>await feedback</p>
-                <button class="btn-small">
-                    <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                    <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                    <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
-                </button>
-                <p>done</p>
-            </div>
-        </section>
-        <section id="board-content" class="board-content">
-            <div onload="" id="to-do" class="to-do drag-drop-container"></div>
-            <div onload="" id="in-progress" class="in-progress drag-drop-container"></div>
-            <div onload="" id="await-feedback" class="await-feedback drag-drop-container"></div>
-            <div onload="" id="done" class="done drag-drop-container"></div>
+        <section class="board">
+            <div class="board-navigation">
+                <div class="board-head">
+                    <h1>Board</h1>
+                    <input type="text" placeholder="Find Task">
+                    <button class="btn-dark">
+                        <span>Add Task</span>
+                        <img src="../assets/img/icon-add-white.svg" alt="">
+                    </button>
+                </div>
+                <div class="workflow-stages">
+                    <div class="single-stages">
+                        <p>to do</p>
+                        <button class="btn-small">
+                            <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
+                            <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
+                            <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                        </button>
+                    </div>
+                    <div class="single-stages">
+                        <p>in progress</p>
+                        <button class="btn-small">
+                            <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
+                            <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
+                            <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                        </button>
+                    </div>
+                    <div class="single-stages">
+                        <p>await feedback</p>
+                        <button class="btn-small">
+                            <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
+                            <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
+                            <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                        </button>
+                    </div>
+                    <div class="single-stages">
+                        <p>done</p>
+                    </div>
+                </div>
+
+                <div id="board-content" class="board-content">
+                    <div onload="" id="to-do" class="to-do drag-drop-container"></div>
+                    <div onload="" id="in-progress" class="in-progress drag-drop-container"></div>
+                    <div onload="" id="await-feedback" class="await-feedback drag-drop-container"></div>
+                    <div onload="" id="done" class="done drag-drop-container"></div>
+                </div>
         </section>
     </main>
 
