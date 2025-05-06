@@ -1,7 +1,13 @@
 function getSignupFormTemplate() {
     return /*html*/`
             <section class="form-wrapper">
-            <form action="submit">
+            <form class="pos-rel" action="submit">
+                <!-- BACK to Login Form -->
+                <button class="btn-small pos-abs back-signup">
+                    <img class="icon-default" src="../assets/img/icon-back-default.svg">
+                    <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
+                </button>
+
                 <h1>Sign up</h1>
 
                 <!-- <input type="text" placeholder="Name" required> -->

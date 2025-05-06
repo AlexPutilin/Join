@@ -179,3 +179,8 @@ form>div {
 .invisible {
     visibility: hidden;
 }
+
+.back-signup {
+    top: 48px;
+    left: 40px;
+}
