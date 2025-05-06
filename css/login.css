@@ -218,6 +218,14 @@ form>div {
     .cta-text-mobile-sm {
         font-size: 16px !important;
     }
+
+    .login-btn-container {
+        gap: 10px;
+    }
+
+    .login-btn-container button {
+        width: 70%;
+    }
 }
 
 @media (max-width: 520px) {
@@ -235,6 +243,12 @@ form>div {
         display: flex;
         justify-content: center;
         padding: 5rem 0;
+    }
+}
+
+@media (max-width: 428px) {
+    .login-btn-container button {
+        width: 100%;
     }
 }
 
