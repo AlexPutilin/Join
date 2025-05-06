@@ -21,7 +21,8 @@
     <!-- LOGO -->
     <picture>
         <source media="(max-width: 1024px)" srcset="./assets/img/logo-white.svg">
-    <img id="logo" class="logo" src="./assets/img/logo.svg" alt="Logo">
+        <img id="logo" class="logo" src="./assets/img/logo.svg" alt="Logo">
+    </picture>
 
     <!-- SPLASH SCREEN -->
     <!-- >>> fades out after 1200 ms -->
@@ -35,8 +36,9 @@
             <!-- <img src="./assets/img/logo.svg" alt="Logo"> -->
             <div id="cta-container">
                 <div>
-                    <p href="#">Not a Join user?</p>
-                    <button onclick="renderSignupForm()" class="btn-dark">Sign up</button>
+                    <p class="cta-text-mobile-sm">Not a Join user?</p>
+                    <button onclick="renderForm(getSignupFormTemplate())" class="btn-dark cta-text-mobile-sm">Sign
+                        up</button>
                 </div>
             </div>
         </header>
@@ -47,24 +49,26 @@
                 <h1>Log in</h1>
 
                 <!-- <input type="email" placeholder="Email" required> -->
-                <div class="input-wrapper">
+                <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
                         <input type="email" placeholder="Email" required>
                         <img src="../assets/img/icon-mail.svg" alt="">
                     </div>
+                    <span class="err-msg">Invalid input.</span>
                 </div>
 
                 <!-- <input type="password" placeholder="Password" required> -->
-                <div class="input-wrapper">
+                <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
                         <input type="password" placeholder="Password" required>
                         <img src="../assets/img/icon-lock.svg" alt="">
                     </div>
+                    <span class="err-msg">Invalid input.</span>
                 </div>
 
-                <div>
-                    <button class="btn-dark">Log in</button>
-                    <button class="btn-light"><b>Guest Log in</b></button>
+                <div class="login-btn-container form-elements-padding mobile-flex-col">
+                    <button class="btn-dark cta-text-mobile-sm">Log in</button>
+                    <button class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
                 </div>
             </form>
         </section>

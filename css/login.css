@@ -114,14 +114,16 @@ footer {
 form {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 16px;
     background-color: #fff;
     border-radius: 30px;
     padding: 48px 115px;
+    margin: 0 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 form>h1 {
+    margin-bottom: 16px;
     text-align: center;
     font-size: 44px;
     text-decoration: underline;
@@ -129,30 +131,6 @@ form>h1 {
     text-underline-offset: 16px;
     text-decoration-thickness: 2px;
 }
-
-/* form input {
-    width: 380px;
-    padding: 12px 21px;
-    border-radius: 10px;
-    border: 1px solid #D1D1D1;
-    outline: none;
-} */
-
-/* form input:focus {
-    border: 1px solid #29abe2;
-} */
-
-/* form input[type=email] {
-    background-image: url("../assets/img/icon-mail.svg");
-    background-repeat: no-repeat;
-    background-position: right 21px center;
-} */
-
-/* form input[type=password] {
-    background-image: url("../assets/img/icon-lock.svg");
-    background-repeat: no-repeat;
-    background-position: right 21px center;
-} */
 
 /* === Wrapper for Log in / Guest Log in Buttons === */
 form>div {
@@ -162,20 +140,98 @@ form>div {
     justify-content: center;
 }
 
-.checkbox-wrapper {
-    display: flex;
-    justify-content: center;
+.login-btn-container {
+    margin-top: 16px;
 }
 
-.checkbox-wrapper label {
-    display: flex;
-    align-items: center; 
-    gap: 8px; 
-    font-size: 14px;
-    cursor: pointer;
+.checkbox-wrapper {
+    margin: 16px 0;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-wrapper input {
+    width: auto;
+}
+
+.checkbox-wrapper input:hover {
+    cursor: pointer;
+}
+
+.checkbox-wrapper a {
+    color: #29abe3;
+}
+
+.checkbox-wrapper a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 .invisible {
     visibility: hidden;
+}
+
+.back-signup {
+    top: 40px;
+    left: 40px;
+}
+
+.form-elements-padding {
+    padding: 0 21px;
+}
+
+/* ========== MEDIA QUERIES ========== */
+
+@media (max-width: 1200px) {
+    header {
+        padding: 32px 64px 0 64px;
+    }
+    .logo--moved {
+        top: 32px;
+        left: 32px;
+        width: 64px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* .logo--moved {
+        top: 40px;
+        left: 40px;
+        width: 64px;
+    } */
+
+    header {
+        padding: 36px 36px 0 36px;
+    }
+
+    form {
+        padding: 32px 32px;
+    }
+
+    .mobile-flex-col {
+        flex-direction: column;
+    }
+
+    .cta-text-mobile-sm	{
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 520px) {
+    form {
+        padding: 32px 0;
+    }
+}
+
+@media (max-width: 350px) {
+    form {
+        padding: 32px 0;
+    }
+
+    .back-signup {
+        top: 36px;
+        left: 20px;
+    }
 }
