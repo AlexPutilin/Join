@@ -1,5 +1,6 @@
 button {
     cursor: pointer;
+    transition: all 75ms;
 }
 
 a {
@@ -10,6 +11,14 @@ a {
 a:hover {
     color: #29ABE2;
     font-weight: bold;
+}
+
+.btn-small {
+    /* width: 32px; */
+    /* height: 32px; */
+    border: 0;
+    position: relative;
+    display: flex;
 }
 
 .btn-dark {
@@ -23,7 +32,6 @@ a:hover {
     font-weight: bold;
     color: #fff;
     background-color: #2A3647;
-    transition: all 75ms;
 }
 
 .btn-dark:hover {
@@ -44,7 +52,6 @@ a:hover {
     font-size: 24px;
     color: #2A3647;
     background-color: transparent;
-    transition: all 75ms;
 }
 
 .btn-light:hover {
@@ -76,15 +83,17 @@ a:hover {
 }
 
 .btn-light:hover .icon-default, 
-.btn-light:hover .icon-active {
+.btn-light:hover .icon-active,
+.btn-small:hover .icon-default {
     opacity: 0;
 }
-.btn-light:hover .icon-hover {
+.btn-light:hover .icon-hover,
+.btn-small:hover .icon-hover {
     opacity: 1;
 }
 
 .btn-light:active .icon-default, 
-.btn-light:active .icon-hover{
+.btn-light:active .icon-hover {
     opacity: 0;
 }
 .btn-light:active .icon-active {
@@ -139,7 +148,7 @@ a:hover {
 }
 
 
-/* INPUTS / SELECTS */
+/* INPUTS / SELECTS / TEXTAREAS */
 .input-wrapper {
     display: flex;
     flex-direction: column;
@@ -170,12 +179,18 @@ input, select {
     /* background-color: #fff; */
 }
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #D1D1D1;
 }
 
-input:focus {
+.input-area:has(input:focus),
+textarea:focus {
     border-color: #29ABE2;
+}
+
+.input-area:has(input:invalid) {
+    border-color: #FF3D00;
 }
 
 select {
@@ -188,6 +203,18 @@ option {
     outline: none;
     box-shadow: none;
 }
+
+textarea {
+    resize: none;
+    padding: 12px;
+    outline: none;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+
+
 
 
 
@@ -214,6 +241,7 @@ option {
 
 .btn-container {
     display: flex;
+    align-items: center;
     gap: 24px;
     padding: 24px;
 }

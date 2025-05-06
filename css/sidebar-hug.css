@@ -1,0 +1,70 @@
+header {
+    width: 232px;
+    background-color: #2A3647;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+}
+nav {
+    display: flex;
+    flex-direction: column;
+    color: #cdcdcd;
+}
+.logo {
+    padding-top: 64px;
+}
+.legal {
+    padding-bottom: 64px;
+}
+
+.nav-link{
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 232px;
+    padding: 8px;
+    gap: 16px;
+}
+
+.nav-link:hover {
+    background-color: #091931;
+}
+
+.hug {
+    height: 96px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.068);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 99;
+}
+.kanban-text {
+    margin-left: 96px;
+    font-size: 24px;
+}
+.profile {
+    border: 2px solid black;
+    border-radius: 100%;
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
+}
+
+.help-and-profile {
+    display: flex;
+    /* position: relative; */
+    margin-right: 24px;
+}
+
+.btn-board {
+    padding-right: 32px;
+}
+
+.btn-contacts{
+    padding-right: 14px;
+}
