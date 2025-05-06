@@ -223,6 +223,10 @@ form>div {
     form {
         padding: 32px 0;
     }
+    .cta-container {
+        margin: 0 auto;
+        transform: translate(0, 760px);
+    }
 }
 
 @media (max-width: 350px) {
