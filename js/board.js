@@ -58,7 +58,6 @@ function renderTasksByStatus(status, containerID) {
     }
 }
 
-
 /**
  * @function calcuProgressbar - Enables progress for the progress bar
  * @param {Object} task - individual Tasks
@@ -66,7 +65,7 @@ function renderTasksByStatus(status, containerID) {
  */
 function calcuProgressbar(task) {
     const subtasksValue = Object.values(task.subtasks);
-    console.log(subtasksValue);
+    // console.log(subtasksValue);
     const totalSubtaks = subtasksValue.length;
     const doneTasks = subtasksValue.filter(s => s.done).length;
 
@@ -75,7 +74,7 @@ function calcuProgressbar(task) {
         return 0;
     }
     const progress = (doneTasks / totalSubtaks) * 100;
-    console.log(progress);
+    // console.log(progress);
     return progress;
 }
 
@@ -92,7 +91,7 @@ function getBgCategory(category) {
         return "technical-task";
 
     } else {
-        console.error("the background color could not be assigned", category);
+        console.error("the background-color could not be assigned", category);
         return "default-category";
     }
 }
@@ -102,7 +101,7 @@ function getBgCategory(category) {
  * @param {Object} task - individual Tasks
  */
 function getLittleTaskCard(task, progress, subtasksLength, doneTasksLength) {
-    console.log(task);
+    // console.log(task);
     const bgCategory = getBgCategory(task.category);
     let description_short = shortenedDescription(task);
 
