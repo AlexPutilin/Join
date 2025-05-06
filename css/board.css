@@ -77,7 +77,7 @@
 
 .task-progressbar {
     background-color: #ccc;
-    width: 100%;
+    width: 50%;
     height: 8px;
     border-radius: 4px;
 }
@@ -87,4 +87,8 @@
     height: 8px;
     width: 50%;
     border-radius: 4px;
+}
+
+.task-progressbar-quotient{
+    font-size: 12px;
 }

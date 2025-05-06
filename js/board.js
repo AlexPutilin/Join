@@ -49,17 +49,47 @@ function renderTasksByStatus(status, containerID) {
     container.innerHTML = "";
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
-        container.innerHTML += getLittleTaskCard(task);    console.log(task.subtasks);
+        const subtasksLength = Object.keys(task.subtasks).length;
+        const doneSubtasksLength = Object.values(task.subtasks);
+        const doneTasksLength = doneSubtasksLength.filter(s => s.done).length;
+        console.log(subtasksLength);
+        const progress = calcuProgressbar(task);
+        container.innerHTML += getLittleTaskCard(task, progress, subtasksLength, doneTasksLength);
     }
 }
 
 
+/**
+ * @function calcuProgressbar - Enables progress for the progress bar
+ * @param {Object} task - individual Tasks
+ * @returns progress - shows the calculated progress
+ */
+function calcuProgressbar(task) {
+    const subtasksValue = Object.values(task.subtasks);
+    console.log(subtasksValue);
+    const totalSubtaks = subtasksValue.length;
+    const doneTasks = subtasksValue.filter(s => s.done).length;
+
+    
+    if (totalSubtaks === 0) {
+        console.log("no subtasks available");
+        return 0;
+    }
+    const progress = (doneTasks / totalSubtaks) * 100;
+    console.log(progress);
+    return progress;
+
+
+  
+}
 
 /**
  * @function getLittleTaskCard - Render the little Task-Card in Board
  * @param {Object} task - individual Tasks
  */
-function getLittleTaskCard(task) {
+function getLittleTaskCard(task, progress, subtasksLength, doneTasksLength) {
+    console.log(task);
+
     let description_short = shortenedDescription(task);
     return `<div onclick="" class="task-card">
                 <span class="label user-story">${task.category}</span>
@@ -67,13 +97,13 @@ function getLittleTaskCard(task) {
                 <span class="task-description-short">${description_short}</span>
                 <div class="task-progress-container">
                     <div class="task-progressbar">
-                        <div class="task-progrssbar-content" style="width: ${task.subtasks.done / task.subtasks};"></div>
+                        <div class="task-progrssbar-content" style="width: ${progress}%;"></div>
                     </div>
-                    <span></span>
+                    <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
                 </div>
                 <div style="display: flex; gap: 16px;">
                     <div>profiles</div>
-                    <div>priority</div>
+                    <div ></div>
                 </div>
             </div>`;
 }
