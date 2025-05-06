@@ -43,9 +43,9 @@ function getSignupFormTemplate() {
                 </div>
 
                 <div class="checkbox-wrapper">
-                    <label>
-                        <input type="checkbox">
-                        <span>I accept the <a>Privacy policy</a></span>
+                    <input type="checkbox" id="checkbox_privacy_policy" required>
+                    <label for="checkbox_privacy_policy">
+                        I accept the <a href="#">Privacy policy</a>
                     </label>
                 </div>
                 
