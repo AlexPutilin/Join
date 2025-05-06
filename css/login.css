@@ -58,7 +58,7 @@ a {
     left: 50%;
     z-index: 999;
     transform: translate(-50%, -50%);
-    transition: all 0.5s ease;
+    transition: all 225ms ease;
 }
 
 .logo--moved {
@@ -130,29 +130,29 @@ form>h1 {
     text-decoration-thickness: 2px;
 }
 
-form input {
+/* form input {
     width: 380px;
     padding: 12px 21px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
     outline: none;
-}
+} */
 
-form input:focus {
+/* form input:focus {
     border: 1px solid #29abe2;
-}
+} */
 
-form input[type=email] {
+/* form input[type=email] {
     background-image: url("../assets/img/icon-mail.svg");
     background-repeat: no-repeat;
     background-position: right 21px center;
-}
+} */
 
-form input[type=password] {
+/* form input[type=password] {
     background-image: url("../assets/img/icon-lock.svg");
     background-repeat: no-repeat;
     background-position: right 21px center;
-}
+} */
 
 /* === Wrapper for Log in / Guest Log in Buttons === */
 form>div {
