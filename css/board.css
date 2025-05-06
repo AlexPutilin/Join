@@ -1,43 +1,61 @@
-.board-navigation {
-    height: 232px;
+.board {
     background-color: #f6f7f8;
+    min-height: 920px;
+    padding: 96px;
 }
+
+/* .board-navigation {
+   
+    
+} */
 
 .board-head {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    margin-top: 36px;
+    justify-content: space-between;
+
 }
 
 .board-content {
-    height: 688px;
-    background-color: #f6f7f8;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 36px;
 }
 
 .workflow-stages {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     font-size: 24px;
     color: #42526e;
     font-weight: 700;
-    margin-top: 36px;
+    padding: 36px 0px;
 }
 
-.drag-drop-container{
-    border: 2px dotted grey;
+.single-stages {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 240px;
+    justify-content: space-between;
+
+}
+
+.drag-drop-container {
+    border: 2px dotted #e7e7e7;
     width: 250px;
-    height: 250px;
+    height: 30px;
     border-radius: 24px;
     background-color: #42526e23;
-}
+    z-index: 1;
+  }
+  
 
-.task-card{
+
+  
+
+.task-card {
     border: 2px solid red;
     padding: 16px;
 }
