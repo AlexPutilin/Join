@@ -195,6 +195,18 @@ form>div {
 
 /* ========== MEDIA QUERIES ========== */
 
+@media (min-width: 1921px) {
+    .back-signup {
+        top: 48px;
+    }
+}
+
+@media (max-width: 1920px) {
+    .back-signup {
+        top: 48px;
+    }
+}
+
 @media (max-width: 1200px) {
     header {
         padding: 32px 64px 0 64px;
@@ -236,6 +248,10 @@ form>div {
 
     .login-btn-container button {
         width: 70%;
+    }
+
+    .back-signup {
+        top: 36px;
     }
 }
 
