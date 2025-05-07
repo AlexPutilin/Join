@@ -18,6 +18,17 @@ a {
     right: 0;
     bottom: 0;
     left: 0;
+    z-index: 998;
+}
+
+@media (min-width: 1921px) {
+    .login-main-content {
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+    body {
+        background-color: #f0f0f0;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -63,7 +74,7 @@ a {
 
 .logo--moved {
     top: 80px;
-    left: 77px;
+    left: 80px;
     width: 100px;
     transform: translate(0, 0);
 }
@@ -81,7 +92,8 @@ a {
 header {
     padding: 80px 77px 0 80px;
     display: flex;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
+    justify-content: space-between;
 }
 
 header>div>div {
@@ -184,23 +196,35 @@ form>div {
 
 /* ========== MEDIA QUERIES ========== */
 
+@media (min-width: 1921px) {
+    .back-signup {
+        top: 48px;
+    }
+}
+
+@media (max-width: 1920px) {
+    .back-signup {
+        top: 48px;
+    }
+}
+
 @media (max-width: 1200px) {
     header {
         padding: 32px 64px 0 64px;
     }
+
     .logo--moved {
         top: 32px;
-        left: 32px;
-        width: 64px;
+        left: 64px;
+        /* width: 64px; */
     }
 }
 
 @media (max-width: 768px) {
-    /* .logo--moved {
-        top: 40px;
-        left: 40px;
-        width: 64px;
-    } */
+    .logo--moved {
+        left: 36px;
+        top: 36px;
+    }
 
     header {
         padding: 36px 36px 0 36px;
@@ -214,14 +238,45 @@ form>div {
         flex-direction: column;
     }
 
-    .cta-text-mobile-sm	{
+    .cta-text-mobile-sm {
         font-size: 16px !important;
+    }
+
+    .login-btn-container {
+        gap: 10px;
+    }
+
+    .login-btn-container button {
+        width: 70%;
+    }
+
+    .back-signup {
+        top: 36px;
     }
 }
 
 @media (max-width: 520px) {
     form {
         padding: 32px 0;
+    }
+
+    .cta-container {
+        /* margin: 0 auto;
+        transform: translate(0, 760px); */
+        z-index: 997;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        padding: 5rem 0;
+    }
+}
+
+@media (max-width: 428px) {
+    .login-btn-container button {
+        width: 100%;
     }
 }
 
