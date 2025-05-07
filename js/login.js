@@ -53,14 +53,6 @@ function changeImgSrc(id, ref) {
 /**
  * Renders the signup form inside the form container and hides the CTA section.
  */
-// function renderSignupForm() {
-//     let container = document.getElementById("form-container");
-//     container.innerHTML = '';
-
-//     container.innerHTML += getSignupFormTemplate();
-//     hideCtaContainer();
-// }
-
 function renderForm(form) {
     let container = document.getElementById("form-container");
     container.innerHTML = '';
