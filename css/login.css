@@ -18,6 +18,7 @@ a {
     right: 0;
     bottom: 0;
     left: 0;
+    z-index: 998;
 }
 
 @media (min-width: 1921px) {
@@ -262,6 +263,7 @@ form>div {
     .cta-container {
         /* margin: 0 auto;
         transform: translate(0, 760px); */
+        z-index: 997;
         width: 100%;
         position: fixed;
         bottom: 0;
