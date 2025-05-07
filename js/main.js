@@ -1,7 +1,10 @@
 /** Initializes the app once the DOM is fully loaded. */
 function init() {
-    // handleSplashScreen();
-   
+    setTimeout(() => {
+        document.getElementById("splash-screen").classList.add("d-none");
+    }, 1500);
+    
+    handleSplashScreen();
 }
 
 /**
