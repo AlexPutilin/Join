@@ -73,7 +73,7 @@ a {
 
 .logo--moved {
     top: 80px;
-    left: 77px;
+    left: 80px;
     width: 100px;
     transform: translate(0, 0);
 }
@@ -91,7 +91,8 @@ a {
 header {
     padding: 80px 77px 0 80px;
     display: flex;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
+    justify-content: space-between;
 }
 
 header>div>div {
