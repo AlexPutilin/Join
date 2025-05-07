@@ -49,11 +49,23 @@ function renderTasksByStatus(status, containerID) {
     container.innerHTML = "";
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
-        const subtasksLength = Object.keys(task.subtasks).length;
-        const doneSubtasksLength = Object.values(task.subtasks);
-        const doneTasksLength = doneSubtasksLength.filter(s => s.done).length;
-        console.log(subtasksLength);
-        const progress = calcuProgressbar(task);
+
+        let subtasksLength = 0;
+        let doneSubtasksLength = 0;
+        let doneTasksLength = 0;
+        let progress = 0;
+        if (task.subtasks) {
+            subtasksLength = Object.keys(task.subtasks).length;
+            doneSubtasksLength = Object.values(task.subtasks);
+            doneTasksLength = doneSubtasksLength.filter(s => s.done).length;
+            progress = calcuProgressbar(task);
+
+        } else {
+            // subtasksLength = 0;
+            console.log(`no subtasks for tasks: ${task.title}`);
+        }
+        // console.log(subtasksLength);
+     
         container.innerHTML += getLittleTaskCard(task, progress, subtasksLength, doneTasksLength);
     }
 }
@@ -101,10 +113,8 @@ function getBgCategory(category) {
  * @param {Object} task - individual Tasks
  */
 function getLittleTaskCard(task, progress, subtasksLength, doneTasksLength) {
-    // console.log(task);
     const bgCategory = getBgCategory(task.category);
     let description_short = shortenedDescription(task);
-
     return `<div onclick="" class="task-card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
