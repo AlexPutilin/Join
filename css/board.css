@@ -45,13 +45,6 @@
 }
 
 .drag-drop-container {
-    border: 2px dotted #e7e7e7;
-    width: 260px;
-    height: 30px;
-    border-radius: 8px;
-    background-color: #42526e23;
-    z-index: 1;
-    
 
 }
 
@@ -60,6 +53,7 @@
 
 
 .task-card {
+    width: 260px;
     border-radius: 16px;
     padding: 16px;
     background-color: #ffffff;
@@ -93,6 +87,29 @@
     border-radius: 4px;
 }
 
-.task-progressbar-quotient{
+.task-progressbar-quotient {
     font-size: 12px;
 }
+
+.no-tasks-text {
+    font-size: 19px;
+    color: #a8a8a8;
+    margin: 0;
+}
+
+.placeholder-box {
+    width: 260px;
+    height: 48px;
+    border: 1px dashed #a8a8a8;
+    border-radius: 8px;
+    background-color: #e7e7e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.d-none{
+    display: none;
+}
+
+
