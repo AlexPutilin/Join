@@ -1,0 +1,41 @@
+.add-task-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f6f7f8;
+  min-height: 920px;
+  padding: 96px;
+}
+
+.headline{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.add-task-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.add-task-left,
+.add-task-right {
+    flex: 1;
+}
+
+.priority-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.priority-buttons label {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    transition: background-color 0.3s ease;
+}
