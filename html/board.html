@@ -118,11 +118,20 @@
                 </div>
 
                 <div id="board-content" class="board-content">
-                    <div onload="" id="to-do" class="to-do drag-drop-container"><p class="no-tasks-text">no tasks to do</p></div>
-                    <div onload="" id="in-progress" class="in-progress drag-drop-container"><p class="no-tasks-text">no tasks in progress</p></div>
-                    <div onload="" id="await-feedback" class="await-feedback drag-drop-container"><p class="no-tasks-text">no tasks awaiting feedback</p></div>
-                    <div onload="" id="done" class="done drag-drop-container"><p class="no-tasks-text">no tasks done</p></div>
+                    <div ondrop="moveTo('to-do')" ondragover="allowDrop(event)" id="to-do" class="to-do drag-drop-container">
+                        <p class="no-tasks-text">no tasks to do</p>
+                    </div>
+                    <div ondrop="moveTo('in-progress')" ondragover="allowDrop(event)" id="in-progress" class="in-progress drag-drop-container">
+                        <p class="no-tasks-text">no tasks in progress</p>
+                    </div>
+                    <div ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)" id="await-feedback" class="await-feedback drag-drop-container">
+                        <p class="no-tasks-text">no tasks awaiting feedback</p>
+                    </div>
+                    <div ondrop="moveTo('done')" ondragover="allowDrop(event)" id="done" class="done drag-drop-container">
+                        <p class="no-tasks-text">no tasks done</p>
+                    </div>
                 </div>
+            </div>
         </section>
     </main>
 

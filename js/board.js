@@ -1,6 +1,6 @@
 const FIREBASE_URL = "https://join-b179e-default-rtdb.europe-west1.firebasedatabase.app";
 let allTasks = [];
-
+let currentDraggedElement;
 /**
  * Loads all tasks from the Kanban board stored in the Firebase database.
  *
@@ -129,6 +129,22 @@ function getBgCategory(category) {
     }
 }
 
+function moveTo(tasks, status) {
+    tasks[currentDraggedElement]['status'] = status;
+    renderTasksByStatus('toDo', 'to-do');
+    renderTasksByStatus('inProgress', 'in-progress');
+    renderTasksByStatus('awaitingFeedback', 'await-feedback');
+    renderTasksByStatus('done', 'done');
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function startDragging(tasks) {
+    currentDraggedElement = tasks;
+
+}
 /**
  * @function getLittleTaskCard - Render the little Task-Card in Board
  * @param {Object} task - individual Tasks
@@ -136,7 +152,7 @@ function getBgCategory(category) {
 function getLittleTaskCard(task, progress, subtasksLength, doneTasksLength) {
     const bgCategory = getBgCategory(task.category);
     let description_short = shortenedDescription(task);
-    return `<div onclick="" id="task-card" class="task-card">
+    return `<div draggable="true"  ondragstart="startDragging(${task.title})" onclick="" id="task-card" class="task-card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>

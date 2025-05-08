@@ -45,6 +45,8 @@
 }
 
 .drag-drop-container {
+    width: 260px;
+    height: 100%;
 
 }
 
@@ -108,8 +110,6 @@
     justify-content: center;
 }
 
-.d-none{
+.d-none {
     display: none;
 }
-
-
