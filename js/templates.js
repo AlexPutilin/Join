@@ -13,7 +13,7 @@ function getSignupFormTemplate() {
                 <!-- <input type="text" placeholder="Name" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="text" placeholder="Name" required>
+                        <input id="signup_name" type="text" placeholder="Name" required>
                         <img src="./assets/img/icon-person.svg" alt="">
                     </div>
                     <span class="err-msg">Invalid input.</span>
@@ -22,7 +22,7 @@ function getSignupFormTemplate() {
                 <!-- <input type="email" placeholder="Email" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="email" placeholder="Email" required>
+                        <input id="signup_email" type="email" placeholder="Email" required>
                         <img src="./assets/img/icon-mail.svg" alt="">
                     </div>
                     <span class="err-msg">Invalid input.</span>
@@ -31,7 +31,7 @@ function getSignupFormTemplate() {
                 <!-- <input type="password" placeholder="Password" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="password" placeholder="Password" required>
+                        <input id="signup_password" type="password" placeholder="Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
                     <span class="err-msg">Invalid input.</span>
@@ -55,7 +55,7 @@ function getSignupFormTemplate() {
                 </div>
                 
                 <div>
-                    <button class="btn-dark cta-text-mobile-sm">Sign up</button>
+                    <button onclick="handleSignup()" class="btn-dark cta-text-mobile-sm">Sign up</button>
                 </div>
             </form>
         </section>

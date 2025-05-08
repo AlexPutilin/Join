@@ -84,3 +84,48 @@ function toggleCtaContainer() {
     let element = document.getElementById("cta-container");
     element.classList.toggle("invisible");
 }
+
+
+/**
+ * Signup functin -> in progress...
+ */
+function handleSignup() {
+    console.log("Signup läuft...");
+    // (!) -> checkFormValidation();
+
+    let inputData = getInput();
+    console.log(inputData);
+    
+    // -> inputData in firebase "pushen"
+    postData("/users", inputData);
+}
+
+
+function getInput() {
+    let nameRef = document.getElementById('signup_name');
+    let emailRef = document.getElementById('signup_email');
+    let passwordRef = document.getElementById('signup_password');
+
+    let updatedInputData = [];
+
+    updatedInputData.push({
+        "name" : nameRef.value,
+        "email" : emailRef.value,
+        "password" : passwordRef.value
+    });
+
+    return updatedInputData;
+}
+
+
+async function postData(path="", data={}) {
+    let response = await fetch(FIREBASE_URL + path + ".json", {
+        method: "POST",
+        header: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    return responseAsJson = await response.json();
+}
