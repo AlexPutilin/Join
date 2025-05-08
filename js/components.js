@@ -1,7 +1,9 @@
 /**
- * Checks the validity of all input fields within a form.
- * Adds error styling and messages for invalid inputs.
- * If all inputs are valid, proceeds with form submission logic.
+ * Validates all input fields within the specified form selector.
+ * Adds error styling and messages for any invalid inputs.
+ *
+ * @param {string} form - A selector string targeting the form to validate.
+ * @returns {boolean} Returns true if all inputs are valid, otherwise false.
  */
 function checkFormValidation(form) {
     let isValid = true;
