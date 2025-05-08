@@ -1,6 +1,6 @@
 .board {
     background-color: #f6f7f8;
-    min-height: 920px;
+    min-height: 845px;
     padding: 96px;
 }
 
@@ -21,6 +21,8 @@
     display: flex;
     justify-content: space-between;
     gap: 36px;
+    overflow-x: hidden;
+    height: 480px;
 }
 
 .workflow-stages {
@@ -49,6 +51,8 @@
     border-radius: 8px;
     background-color: #42526e23;
     z-index: 1;
+    
+
 }
 
 
