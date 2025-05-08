@@ -78,16 +78,19 @@
         </section>
 
         <section class="add-task-form">
-            <div class="headline">
+            <div>
             <h1>Add Task</h1>
             </div>
             <div class="add-task-container">
         
                 <div class="add-task-left">
                     <div class="input-wrapper">
-                        <p>Title*</p>
+                        <div class="required-description">
+                        <p>Title</p>
+                        <p class="redstar">*</p>
+                    </div>
                         <div class="input-area">
-                            <input type="text" placeholder="Enter a title" oninput="resetInputError()">
+                            <input type="text" placeholder="Enter a title" required oninput="resetInputError()">
                         </div>
                         <span class="err-msg hidden">This field is required.</span>
                     </div>
@@ -100,22 +103,24 @@
                     </div>
         
                     <div class="input-wrapper">
-                        <p>Due date*</p>
+                        <div class="required-description">
+                        <p>Due date</p>
+                        <p class="redstar">*</p>
+                    </div>
                         <div class="input-area">
-                            <input type="date">
+                            <input type="date" required>
                         </div>
                     </div>
                 </div>
         
-                <!-- Right Side -->
                 <div class="add-task-right">
                     <div class="input-wrapper">
                         <p>Priority</p>
                         <div class="priority-buttons">
-                            <label class="priority-option low">
-                                <input type="radio" name="priority" value="low" hidden>
-                                <span>Low</span>
-                                <img src="../assets/img/icon-prio-low.svg" alt="">
+                            <label class="priority-option urgent">
+                                <input type="radio" name="priority" value="urgent" hidden>
+                                <span>Urgent</span>
+                                <img src="../assets/img/icon-prio-urgent.svg" alt="">
                                 <div class="bg-checked"></div>
                             </label>
                             <label class="priority-option medium">
@@ -124,11 +129,10 @@
                                 <img src="../assets/img/icon-prio-medium.svg" alt="">
                                 <div class="bg-checked"></div>
                             </label>
-                            
-                            <label class="priority-option urgent">
-                                <input type="radio" name="priority" value="urgent" hidden>
-                                <span>Urgent</span>
-                                <img src="../assets/img/icon-prio-urgent.svg" alt="">
+                            <label class="priority-option low">
+                                <input type="radio" name="priority" value="low" hidden>
+                                <span>Low</span>
+                                <img src="../assets/img/icon-prio-low.svg" alt="">
                                 <div class="bg-checked"></div>
                             </label>
                         </div>
@@ -136,15 +140,20 @@
         
                     <div class="input-wrapper">
                         <p>Assigned to</p>
-                        <select>
+                        <select class="select-design">
                             <option>Select contacts to assign</option>
                         </select>
                     </div>
         
                     <div class="input-wrapper">
-                        <p>Category*</p>
-                        <select>
+                        <div class="required-description">
+                        <p>Category</p>
+                        <p class="redstar">*</p>
+                    </div>
+                        <select required class="select-design">
                             <option>Select task category</option>
+                            <option value="technicalTask">Technical Task</option>
+                            <option value="userStory">User Story</option>
                         </select>
                     </div>
         
@@ -152,7 +161,7 @@
                         <p>Subtasks</p>
                         <div class="input-area subtasks">
                             <input type="text" placeholder="Add new subtask">
-                            <button>+</button>
+                            <button class="subtask-btn">+</button>
                         </div>
                     </div>
                 </div>
