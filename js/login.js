@@ -91,17 +91,18 @@ function toggleCtaContainer() {
  */
 function handleSignup() {
     console.log("Signup läuft...");
-    // (!) -> checkFormValidation();
 
-    let inputData = getInput();
-    console.log(inputData);
+    let inputData = getSignupInput();
+    console.log(inputData); 
+
+    // (!) -> checkFormValidation(inputData);
     
     // -> inputData in firebase "pushen"
     postData("/users", inputData);
 }
 
 
-function getInput() {
+function getSignupInput() {
     let nameRef = document.getElementById('signup_name');
     let emailRef = document.getElementById('signup_email');
     let passwordRef = document.getElementById('signup_password');
@@ -114,14 +115,14 @@ function getInput() {
         "password" : passwordRef.value
     });
 
-    return updatedInputData;
+    return updatedInputData[0];
 }
 
 
 async function postData(path="", data={}) {
     let response = await fetch(FIREBASE_URL + path + ".json", {
         method: "POST",
-        header: {
+        headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
@@ -129,3 +130,6 @@ async function postData(path="", data={}) {
 
     return responseAsJson = await response.json();
 }
+
+// -> next Step:
+// -> Logik, die den nächsten freien userX-Key ermittelt und dann via PUT speichert
