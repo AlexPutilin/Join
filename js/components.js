@@ -3,9 +3,9 @@
  * Adds error styling and messages for invalid inputs.
  * If all inputs are valid, proceeds with form submission logic.
  */
-function checkFormValidation() {
+function checkFormValidation(form) {
     let isValid = true;
-    const inputs = document.querySelectorAll('form input');
+    const inputs = document.querySelectorAll(`${form} input`);
     inputs.forEach(input => {
         const inputWrapper = input.closest('.input-wrapper');
         if (!input.checkValidity()) {
@@ -13,7 +13,7 @@ function checkFormValidation() {
             isValid = false;
         }
     });
-    if (isValid) console.log('submit');
+    return isValid;
 }
 
 
@@ -61,4 +61,22 @@ function togglePasswordVisibility() {
 function getSelectedPriority() {
     const priority = document.querySelector('input[name="priority"]:checked');
     return priority ? priority.value : null;
+}
+
+
+
+
+// BEISPIELE / NACHHER LÖSCHEN
+function onLogin() {
+    if (checkFormValidation('#login-form')) {
+        fetchData('summary');
+        openPage('./html/summary');
+    }
+}
+
+function createNewContact() {
+    if (checkFormValidation('#contact-form')) {
+        pushData('contacts');
+        closeContactsForm();
+    }
 }
