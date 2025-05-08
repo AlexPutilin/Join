@@ -13,7 +13,7 @@ function checkFormValidation() {
             isValid = false;
         }
     });
-    if (isValid) console.log("submit"); // continue with other logic
+    if (isValid) console.log('submit');
 }
 
 

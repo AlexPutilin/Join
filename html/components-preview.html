@@ -106,7 +106,7 @@
 
     <a href="">Legal notice</a>
         
-        <form class="input-container">
+        <form class="input-container" id="test-form">
 
             <div class="input-wrapper">
                 <div class="input-area">
@@ -136,10 +136,16 @@
             </div>
 
             <div class="input-wrapper">
-                <div class="input-area">
-                    <input type="text" placeholder="Enter a title" oninput="resetInputError()">
+                <div class="input-area drop-down-input" onclick="console.log('dropdown')">
+                    <input type="text" placeholder="Select contacts to assign">
+                    <button type="button" class="btn-small">
+                        <img class="icon-default" src="../assets/img/icon-down-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
+                    </button>
                 </div>
-                <span class="err-msg hidden">Invalid input.</span>
+                <div class="drop-down-menu">
+                    <span>test</span>
+                </div>
             </div>
             
             <textarea placeholder="Enter a description" rows="3"></textarea>

@@ -167,9 +167,9 @@ a:hover {
 /* INPUTS / TEXTAREAS / CHECKBOX */
 .input-wrapper {
     width: 100%;
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 4px;
 }
 
 .input-area {
@@ -267,7 +267,27 @@ textarea {
     background-color: #FF3D00;
 }
 
+/* DROP DOWN MENU */
+.drop-down-input {
+    width: 100%;
+    position: absolute;
+}
 
+.drop-down-input, .drop-down-input input {
+    cursor: pointer;
+}
+
+.drop-down-input input::placeholder {
+    color: #2A3647;
+}
+
+.drop-down-menu {
+    height: 200px;
+    padding-top: 60px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
 
 
 /* LABELS */
