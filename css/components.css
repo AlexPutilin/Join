@@ -170,29 +170,32 @@ a:hover {
     position: relative;
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .input-area {
     display: flex;
     justify-content: space-between;
-    padding: 12px;
+    align-items: center;
+    padding-right: 12px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
     background-color: #fff;
 }
 
 .err-msg {
-    padding: 0 12px;
     font-size: 14px;
     color: #FF3D00;
 }
 
 input {
+    height: 48px;
     width: 100%;
     border: none;
     outline: none;
     font-size: 20px;
-    /* background-color: #fff; */
+    text-indent: 12px;
+    border-radius: 10px;
 }
 
 input::placeholder,

@@ -33,41 +33,41 @@
 
         <button class="btn-small">
             <img class="icon-default" src="../assets/img/icon-close-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-close-hover.svg" alt="">
+            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
         </button>
 
         <button class="btn-light">
             <span>Cancel</span>
             <div class="icon-wrapper">
-                <img class="icon-default" src="../assets/img/icon-cancel-default.svg" alt="">
-                <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg" alt="">
-                <img class="icon-active" src="../assets/img/icon-cancel-click.svg" alt="">
+                <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
+                <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
             </div>
         </button>
 
         <button class="btn-dark">
             <span>Add Task</span>
-            <img src="../assets/img/icon-add-white.svg" alt="">
+            <img src="../assets/img/icon-add-white.svg">
         </button>
         
         <label class="priority-option low">
             <input type="radio" name="priority" value="low" hidden>
             <span>Low</span>
-            <img src="../assets/img/icon-prio-low.svg" alt="">
+            <img src="../assets/img/icon-prio-low.svg">
             <div class="bg-checked"></div>
         </label>
 
         <label class="priority-option medium">
             <input type="radio" name="priority" value="medium" hidden>
             <span>Medium</span>
-            <img src="../assets/img/icon-prio-medium.svg" alt="">
+            <img src="../assets/img/icon-prio-medium.svg">
             <div class="bg-checked"></div>
         </label>
         
         <label class="priority-option urgent">
             <input type="radio" name="priority" value="urgent" hidden>
             <span>Urgent</span>
-            <img src="../assets/img/icon-prio-urgent.svg" alt="">
+            <img src="../assets/img/icon-prio-urgent.svg">
             <div class="bg-checked"></div>
         </label>
 
@@ -81,16 +81,16 @@
 
         <button class="btn-menu">
             <div class="icon-wrapper">
-                <img class="icon-default" src="../assets/img/icon-summary.svg" alt="">
-                <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="">
+                <img class="icon-default" src="../assets/img/icon-summary.svg">
+                <img class="icon-active" src="../assets/img/icon-summary-active.svg">
             </div>
             <span>Summary</span>
         </button>
 
         <button class="btn-menu menu-active">
             <div class="icon-wrapper">
-                <img class="icon-default" src="../assets/img/icon-summary.svg" alt="">
-                <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="">
+                <img class="icon-default" src="../assets/img/icon-summary.svg">
+                <img class="icon-active" src="../assets/img/icon-summary-active.svg">
             </div>
             <span>Summary</span>
         </button>
@@ -109,6 +109,7 @@
         <form class="input-container" id="test-form">
 
             <div class="input-wrapper">
+                <label for="">Title<span class="text-required">*</span></label>
                 <div class="input-area">
                     <input type="text" placeholder="Enter a title" required oninput="resetInputError()">
                 </div>
@@ -116,6 +117,7 @@
             </div>
 
             <div class="input-wrapper">
+                <label for="">Password</label> 
                 <div class="input-area">
                     <input type="password" id="password-input" required placeholder="password" oninput="resetInputError()">
                     <button type="button" class="btn-small" id="visibility-btn" onclick="togglePasswordVisibility()">
