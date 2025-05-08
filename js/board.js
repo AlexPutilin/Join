@@ -38,36 +38,57 @@ function tasksToArray(tasksAsJson) {
     renderTasksByStatus('done', 'done');
 }
 
+function updateBoardCard() {
+
+}
+
 /**
  * @function renderTasksByStatus - Filters the Tasks by Status and renders them in the respective Container
  * @param {string} status - Status of the Tasks
  * @param {string} containerID - ID of the Tasks
  */
 function renderTasksByStatus(status, containerID) {
-    let filteredStatus = allTasks.filter(allTasks => allTasks.status == status);
+    let filteredStatus = allTasks.filter(task => task.status === status);
     let container = document.getElementById(containerID);
     container.innerHTML = "";
+
+    if (filteredStatus.length === 0) {
+        return updateNoTasksDisplay(status, container);
+    }
+
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
-
         let subtasksLength = 0;
         let doneSubtasksLength = 0;
         let doneTasksLength = 0;
         let progress = 0;
-        if (task.subtasks) {
-            subtasksLength = Object.keys(task.subtasks).length;
-            doneSubtasksLength = Object.values(task.subtasks);
-            doneTasksLength = doneSubtasksLength.filter(s => s.done).length;
-            progress = calcuProgressbar(task);
 
+        if (task.subtasks) {
+            ({ subtasksLength, doneSubtasksLength, doneTasksLength, progress } = updateSubtasks(subtasksLength, task, doneSubtasksLength, doneTasksLength, progress));
         } else {
-            // subtasksLength = 0;
-            console.log(`no subtasks for tasks: ${task.title}`);
+            console.log(`no subtasks for task: ${task.title}`);
         }
-        // console.log(subtasksLength);
-     
         container.innerHTML += getLittleTaskCard(task, progress, subtasksLength, doneTasksLength);
     }
+}
+
+function updateSubtasks(subtasksLength, task, doneSubtasksLength, doneTasksLength, progress) {
+    subtasksLength = Object.keys(task.subtasks).length;
+    doneSubtasksLength = Object.values(task.subtasks);
+    doneTasksLength = doneSubtasksLength.filter(s => s.done).length;
+    progress = calcuProgressbar(task);
+    return { subtasksLength, doneSubtasksLength, doneTasksLength, progress };
+}
+
+function updateNoTasksDisplay(status, container) {
+    let message = "no tasks";
+    if (status === "toDo") message = "no tasks to do";
+    else if (status === "inProgress") message = "no tasks in progress";
+    else if (status === "awaitingFeedback") message = "no tasks awaiting feedback";
+    else if (status === "done") message = "no tasks done";
+
+    container.innerHTML = `<div class="placeholder-box"><p class="no-tasks-text">${message}</p></div>`;
+    return;
 }
 
 /**
@@ -115,18 +136,18 @@ function getBgCategory(category) {
 function getLittleTaskCard(task, progress, subtasksLength, doneTasksLength) {
     const bgCategory = getBgCategory(task.category);
     let description_short = shortenedDescription(task);
-    return `<div onclick="" class="task-card">
+    return `<div onclick="" id="task-card" class="task-card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
-                <div class="task-progress-container">
+                <div id="task-progress-container" class="task-progress-container">
                     <div class="task-progressbar">
                         <div class="task-progrssbar-content" style="width: ${progress}%;"></div>
                     </div>
                     <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
                 </div>
-                <div style="display: flex; gap: 16px;">
-                    <div>profiles</div>
+                <div class="profiles-priority" style="display: flex; gap: 16px;">
+                    <div></div>
                     <div ></div>
                 </div>
             </div>`;
@@ -140,7 +161,6 @@ function shortenedDescription(task) {
     let maxLength = 30;
     let description_short = task.description_full.substring(0, maxLength) + "...";
     if (task.description_full.length > maxLength) {
-        description_short;
+        return description_short;
     }
-    return description_short;
 }
