@@ -66,11 +66,32 @@ function getSelectedPriority() {
 }
 
 
+function toggleDropDown(triggerElement) {
+    const inputWrapper = triggerElement.closest('.input-wrapper')
+    const input = inputWrapper.querySelector('input');
+    const dropDownMenu = inputWrapper.querySelector('.drop-down-menu');
+    dropDownMenu.classList.toggle('d-none');
+}
+
+
+function openDropDown(triggerElement) {
+    const input = triggerElement.querySelector('input');
+    const dropDownMenu = triggerElement.querySelector('.drop-down-menu');
+    input.placeholder = "";
+    dropDownMenu.classList.remove('d-none');
+}
+
+
+function closeDropDown() {
+
+}
+
 
 
 // BEISPIELE / NACHHER LÖSCHEN
 function onLogin() {
     if (checkFormValidation('#login-form')) {
+        getFormInput()
         fetchData('summary');
         openPage('./html/summary');
     }
@@ -78,6 +99,7 @@ function onLogin() {
 
 function createNewContact() {
     if (checkFormValidation('#contact-form')) {
+        
         pushData('contacts');
         closeContactsForm();
     }

@@ -1,6 +1,13 @@
+/* MAIN CLASSES */
 .hidden {
     visibility: hidden;
 }
+
+.d-none {
+    display: none !important;
+}
+/* MAIN CLASSES */
+
 
 button {
     cursor: pointer;
@@ -133,6 +140,17 @@ a:hover {
     background-color: #E1E6EC;
 }
 
+.icon-contact {
+    width: 42px;
+    height: 42px;
+    align-content: center;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    color: #fff;
+    background-color: #0038FF;
+}
+
 /* MENU BUTTONS */
 .btn-menu {
     width: 100%;
@@ -185,6 +203,10 @@ a:hover {
 
 .err-msg {
     font-size: 14px;
+    color: #FF3D00;
+}
+
+.required-mark {
     color: #FF3D00;
 }
 
@@ -272,8 +294,7 @@ textarea {
 
 /* DROP DOWN MENU */
 .drop-down-input {
-    width: 100%;
-    position: absolute;
+    z-index: 2;
 }
 
 .drop-down-input, .drop-down-input input {
@@ -285,13 +306,39 @@ textarea {
 }
 
 .drop-down-menu {
-    height: 200px;
+    /* height: 200px; */
+    width: 100%;
     padding-top: 60px;
     border-radius: 10px;
+    position: absolute;
     background-color: #fff;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    animation: drop-down 125ms;
 }
 
+@keyframes drop-down {
+    from {
+        opacity: 0;
+        /* transform: translateY(-10px); */
+    }
+    to {
+        opacity: 1;
+        /* transform: translateY(0); */
+    }
+}
+
+.select-contact {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.select-contact > div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
 
 /* LABELS */
 .label {
@@ -326,4 +373,9 @@ textarea {
     flex-direction: column;
     align-items: center;
     gap: 12px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
 }
