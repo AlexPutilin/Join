@@ -5,8 +5,7 @@
   align-items: flex-start;
   background-color: #f6f7f8;
   min-height: 920px;
-  padding: 96px;
-  padding: 96px;
+  padding: 48px 96px;
 }
 
 .headline{
@@ -26,6 +25,7 @@
     display: flex;
     gap: 40px;
     margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .add-task-left {
@@ -89,3 +89,78 @@ select {
 select:hover{
     background-image: url('/assets/img/icon-down-hover.svg');
 }
+
+.custom-dropdown {
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+  }
+  
+  .dropdown-selected {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    background-image: url('../assets/img/icon-down-default.svg');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    transition: background-image 0.2s ease;
+  }
+  
+  .dropdown-options {
+    margin-top: 4px;
+    background: white;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    max-height: 300px;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .dropdown-options.hidden {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .dropdown-single-option {
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .dropdown-single-option:hover {
+    background-color: #D1D1D1;
+  }
+  
+  .err-msg {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .clear-save-btn-wrapper {
+    display: flex;
+    width: 100%;
+  }
+  
+  .clear-save-btn {
+    margin-top: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 0 24px;  
+  }
+  .clear-save-btn-pos {
+    display: flex;
+    gap: 16px;
+  }
+  

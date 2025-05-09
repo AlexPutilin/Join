@@ -15,6 +15,7 @@
 
 
     <script src="../js/main.js"></script>
+    <script src="../js/addTask.js"></script>
 </head>
 
 <body onload="init()">
@@ -147,16 +148,19 @@
         
                     <div class="input-wrapper">
                         <div class="required-description">
-                        <p>Category</p>
-                        <p class="redstar">*</p>
-                    </div>
-                        <select required class="select-design">
-                            <option>Select task category</option>
-                            <option value="technicalTask">Technical Task</option>
-                            <option value="userStory">User Story</option>
-                        </select>
-                    </div>
-        
+                          <p>Category</p>
+                          <p class="redstar">*</p>
+                        </div>
+                        <div class="custom-dropdown" id="category-dropdown">
+                            <div class="dropdown-selected" id="selected-category" onclick="toggleCategoryDropdown()">Select task category</div>
+                            <div class="dropdown-options hidden" id="category-options">
+                              <div class="dropdown-single-option" data-value="technicalTask" onclick="selectCategory(this)">Technical Task</div>
+                              <div class="dropdown-single-option" data-value="userStory" onclick="selectCategory(this)">User Story</div>
+                            </div>
+                          </div>                          
+                        <span class="err-msg hidden" id="category-error">Please select a category.</span>
+                      </div>
+                      
                     <div class="input-wrapper">
                         <p>Subtasks</p>
                         <div class="input-area subtasks">
@@ -165,8 +169,32 @@
                         </div>
                     </div>
                 </div>
-        
             </div>
+
+            <div class="clear-save-btn-wrapper">
+                <div class="clear-save-btn">
+                  <div class="required-description">
+                    <p class="redstar">*</p>
+                    <p>This field is required</p>
+                  </div>
+              
+                  <div class="clear-save-btn-pos">
+                    <button class="btn-light">
+                      <span>Cancel</span>
+                      <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
+                        <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
+                      </div>
+                    </button>
+              
+                    <button class="btn-dark">
+                      <span>Create Task</span>
+                      <img src="../assets/img/icon-add-white.svg">
+                    </button>
+                  </div>
+                </div>
+              </div>              
     </main>
 
 </body>
