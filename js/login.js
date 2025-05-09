@@ -7,7 +7,22 @@ function handleSplashScreen() {
         animateLogoTransition();
         hideElement("splash-screen");
         changeImgSrc("logo", "./assets/img/logo.svg");
+        replaceLogo(); 
     }, 1200);
+}
+
+
+/**
+ * Replaces the current logo with a new one, placed inside header
+ * after a short delay.
+ */
+function replaceLogo() {
+    setTimeout(() => {
+        let currentLogo = document.getElementById('logo');
+        currentLogo.classList.add('d-none');
+        let newLogo = document.getElementById('logo_new');
+        newLogo.classList.toggle('invisible');
+    }, 225);
 }
 
 
@@ -47,4 +62,25 @@ function changeImgSrc(id, ref) {
 
     let logo = document.getElementById(id);
     logo.src = ref;
+}
+
+
+/**
+ * Renders the signup form inside the form container and hides the CTA section.
+ */
+function renderForm(form) {
+    let container = document.getElementById("form-container");
+    container.innerHTML = '';
+
+    container.innerHTML += form;
+    toggleCtaContainer();
+}
+
+
+/**
+ * Hides the call-to-action container by adding the 'invisible' class.
+ */
+function toggleCtaContainer() {
+    let element = document.getElementById("cta-container");
+    element.classList.toggle("invisible");
 }
