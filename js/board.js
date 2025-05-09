@@ -32,15 +32,15 @@ function tasksToArray(tasksAsJson) {
     }
     // console.log(tasksAsJson);
     // console.log(allTasks);
-    renderTasksByStatus('toDo', 'to-do');
-    renderTasksByStatus('inProgress', 'in-progress');
-    renderTasksByStatus('awaitingFeedback', 'await-feedback');
+    renderTasksByStatus('to-do', 'to-do');
+    renderTasksByStatus('in-progress', 'in-progress');
+    renderTasksByStatus('await-feedback', 'await-feedback');
     renderTasksByStatus('done', 'done');
 }
 
-function updateBoardCard() {
+// function updateBoardCard() {
 
-}
+// }
 
 /**
  * @function renderTasksByStatus - Filters the Tasks by Status and renders them in the respective Container
@@ -62,13 +62,14 @@ function renderTasksByStatus(status, containerID) {
         let doneSubtasksLength = 0;
         let doneTasksLength = 0;
         let progress = 0;
+        let id = task.id;
 
         if (task.subtasks) {
             ({ subtasksLength, doneSubtasksLength, doneTasksLength, progress } = updateSubtasks(subtasksLength, task, doneSubtasksLength, doneTasksLength, progress));
         } else {
             console.log(`no subtasks for task: ${task.title}`);
         }
-        container.innerHTML += getLittleTaskCard(task, progress, subtasksLength, doneTasksLength);
+        container.innerHTML += getLittleTaskCard(task, progress, subtasksLength, doneTasksLength, id);
     }
 }
 
@@ -82,14 +83,19 @@ function updateSubtasks(subtasksLength, task, doneSubtasksLength, doneTasksLengt
 
 function updateNoTasksDisplay(status, container) {
     let message = "no tasks";
-    if (status === "toDo") message = "no tasks to do";
-    else if (status === "inProgress") message = "no tasks in progress";
-    else if (status === "awaitingFeedback") message = "no tasks awaiting feedback";
-    else if (status === "done") message = "no tasks done";
+    if (status === "to-do") {
+        message = "no tasks to do";
+    } else if (status === "in-progress") {
+        message = "no tasks in progress";
+    } else if (status === "await-feedback") {
+        message = "no tasks await feedback";
+    } else if (status === "done") {
+        message = "no tasks done";
+    }
 
     container.innerHTML = `<div class="placeholder-box"><p class="no-tasks-text">${message}</p></div>`;
-    return;
 }
+
 
 /**
  * @function calcuProgressbar - Enables progress for the progress bar
@@ -129,11 +135,14 @@ function getBgCategory(category) {
     }
 }
 
-function moveTo(tasks, status) {
-    tasks[currentDraggedElement]['status'] = status;
-    renderTasksByStatus('toDo', 'to-do');
-    renderTasksByStatus('inProgress', 'in-progress');
-    renderTasksByStatus('awaitingFeedback', 'await-feedback');
+function moveTo(status) {
+    console.log("Dropping task into:", status);
+
+
+    allTasks[currentDraggedElement]['status'] = status;
+    renderTasksByStatus('to-do', 'to-do');
+    renderTasksByStatus('in-progress', 'in-progress');
+    renderTasksByStatus('await-feedback', 'await-feedback');
     renderTasksByStatus('done', 'done');
 }
 
@@ -141,18 +150,19 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
-function startDragging(tasks) {
-    currentDraggedElement = tasks;
+function startDragging(id) {
+    currentDraggedElement = id;
+    console.log("Started dragging task ID:", id);
 
 }
 /**
  * @function getLittleTaskCard - Render the little Task-Card in Board
  * @param {Object} task - individual Tasks
  */
-function getLittleTaskCard(task, progress, subtasksLength, doneTasksLength) {
+function getLittleTaskCard(task, progress, subtasksLength, doneTasksLength, id) {
     const bgCategory = getBgCategory(task.category);
     let description_short = shortenedDescription(task);
-    return `<div draggable="true"  ondragstart="startDragging(${task.title})" onclick="" id="task-card" class="task-card">
+    return `<div draggable="true"  ondragstart="startDragging(${id})" onclick="" id="task-card" class="task-card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
