@@ -126,7 +126,6 @@ footer {
 form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
     background-color: #fff;
     border-radius: 30px;
     padding: 48px 115px;
@@ -135,7 +134,7 @@ form {
 }
 
 form>h1 {
-    margin-bottom: 16px;
+    margin-bottom: 32px;
     text-align: center;
     font-size: 44px;
     text-decoration: underline;

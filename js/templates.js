@@ -16,7 +16,7 @@ function getSignupFormTemplate() {
                         <input id="signup_name" type="text" placeholder="Name" required>
                         <img src="./assets/img/icon-person.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
                 <!-- <input type="email" placeholder="Email" required> -->
@@ -25,7 +25,7 @@ function getSignupFormTemplate() {
                         <input id="signup_email" type="email" placeholder="Email" required>
                         <img src="./assets/img/icon-mail.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
                 <!-- <input type="password" placeholder="Password" required> -->
@@ -34,7 +34,7 @@ function getSignupFormTemplate() {
                         <input id="signup_password" type="password" placeholder="Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
                 <!-- <input type="password" placeholder="Password" required> -->
@@ -43,7 +43,7 @@ function getSignupFormTemplate() {
                         <input type="password" placeholder="Confirm Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
                 <!-- <input type="checkbox" Accept Privacy policy required> -->
@@ -55,7 +55,7 @@ function getSignupFormTemplate() {
                 </div>
                 
                 <div>
-                    <button onclick="handleSignup()" class="btn-dark cta-text-mobile-sm">Sign up</button>
+                    <button type="button" onclick="handleSignup()" class="btn-dark cta-text-mobile-sm">Sign up</button>
                 </div>
             </form>
         </section>
@@ -75,7 +75,7 @@ function getLoginFormTemplate() {
                             <input type="email" placeholder="Email" required>
                             <img src="../assets/img/icon-mail.svg" alt="">
                         </div>
-                        <span class="err-msg">Invalid input.</span>
+                        <span class="err-msg hidden">Invalid input.</span>
                     </div>
 
                     <!-- <input type="password" placeholder="Password" required> -->
@@ -84,12 +84,12 @@ function getLoginFormTemplate() {
                             <input type="password" placeholder="Password" required>
                             <img src="../assets/img/icon-lock.svg" alt="">
                         </div>
-                        <span class="err-msg">Invalid input.</span>
+                        <span class="err-msg hidden">Invalid input.</span>
                     </div>
 
                     <div class="login-btn-container form-elements-padding mobile-flex-col">
-                        <button class="btn-dark cta-text-mobile-sm">Log in</button>
-                        <button class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
+                        <button type="button" class="btn-dark cta-text-mobile-sm">Log in</button>
+                        <button type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
                     </div>
                 </form>
             </section>
