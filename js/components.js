@@ -1,11 +1,13 @@
 /**
- * Checks the validity of all input fields within a form.
- * Adds error styling and messages for invalid inputs.
- * If all inputs are valid, proceeds with form submission logic.
+ * Validates all input fields within the specified form selector.
+ * Adds error styling and messages for any invalid inputs.
+ *
+ * @param {string} form - A selector string targeting the form to validate.
+ * @returns {boolean} Returns true if all inputs are valid, otherwise false.
  */
-function checkFormValidation() {
+function checkFormValidation(form) {
     let isValid = true;
-    const inputs = document.querySelectorAll('form input');
+    const inputs = document.querySelectorAll(`${form} input`);
     inputs.forEach(input => {
         const inputWrapper = input.closest('.input-wrapper');
         if (!input.checkValidity()) {
@@ -13,7 +15,7 @@ function checkFormValidation() {
             isValid = false;
         }
     });
-    if (isValid) console.log("submit"); // continue with other logic
+    return isValid;
 }
 
 
@@ -61,4 +63,55 @@ function togglePasswordVisibility() {
 function getSelectedPriority() {
     const priority = document.querySelector('input[name="priority"]:checked');
     return priority ? priority.value : null;
+}
+
+
+function toggleDropDown(triggerElement) {
+    const inputWrapper = triggerElement.closest('.input-wrapper')
+    const input = inputWrapper.querySelector('input');
+    const menu = inputWrapper.querySelector('.drop-down-menu');
+    const icons = inputWrapper.querySelectorAll('.icon-wrapper');
+    if (menu.dataset.open === 'false') {
+        openDropDownMenu(input, menu, icons);
+        menu.dataset.open = 'true';
+    } else {
+        closeDropDownMenu(input, menu, icons);
+        menu.dataset.open = 'false';
+    }
+}
+
+function openDropDownMenu(input, menu, icons) {
+    menu.classList.remove('d-none');
+    icons[0].classList.toggle('d-none');
+    icons[1].classList.toggle('d-none');
+    input.style.cursor = "text"
+    input.placeholder = input.dataset.placeholderActive;
+    input.focus();
+}
+
+function closeDropDownMenu(input, menu, icons) {
+    menu.classList.add('d-none');
+    icons[0].classList.toggle('d-none');
+    icons[1].classList.toggle('d-none');
+    input.style.cursor = "pointer"
+    input.placeholder = input.dataset.placeholder;
+}
+
+
+
+// BEISPIELE / NACHHER LÖSCHEN
+function onLogin() {
+    if (checkFormValidation('#login-form')) {
+        getFormInput()
+        fetchData('summary');
+        openPage('./html/summary');
+    }
+}
+
+function createNewContact() {
+    if (checkFormValidation('#contact-form')) {
+        
+        pushData('contacts');
+        closeContactsForm();
+    }
 }

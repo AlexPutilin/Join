@@ -39,8 +39,7 @@
             <div class="cta-container" id="cta-container">
                 <div>
                     <p class="cta-text-mobile-sm">Not a Join user?</p>
-                    <button onclick="renderForm(getSignupFormTemplate())" class="btn-dark cta-text-mobile-sm">Sign
-                        up</button>
+                    <button onclick="renderForm(getSignupFormTemplate())" class="btn-dark cta-text-mobile-sm">Sign up</button>
                 </div>
             </div>
         </header>
@@ -56,7 +55,7 @@
                         <input type="email" placeholder="Email" required>
                         <img src="../assets/img/icon-mail.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
                 <!-- <input type="password" placeholder="Password" required> -->
@@ -65,12 +64,12 @@
                         <input type="password" placeholder="Password" required>
                         <img src="../assets/img/icon-lock.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
                 <div class="login-btn-container form-elements-padding mobile-flex-col">
-                    <button class="btn-dark cta-text-mobile-sm">Log in</button>
-                    <button class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
+                    <button type="button" class="btn-dark cta-text-mobile-sm">Log in</button>
+                    <button type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
                 </div>
             </form>
         </section>
