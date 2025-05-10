@@ -80,6 +80,7 @@ function toggleDropDown(triggerElement) {
     }
 }
 
+
 function openDropDownMenu(input, menu, icons) {
     menu.classList.remove('d-none');
     icons[0].classList.toggle('d-none');
@@ -88,6 +89,7 @@ function openDropDownMenu(input, menu, icons) {
     input.placeholder = input.dataset.placeholderActive;
     input.focus();
 }
+
 
 function closeDropDownMenu(input, menu, icons) {
     menu.classList.add('d-none');
@@ -98,11 +100,52 @@ function closeDropDownMenu(input, menu, icons) {
 }
 
 
+function getInputData(form) {
+    const inputs = document.querySelectorAll(`${form} input, textarea`);
+    let data = {};
+    inputs.forEach(input => {
+        const key = input.name;
+        const type = input.type;
+        if (!key) return;
+        switch (type) {
+            case 'checkbox':
+                storeCheckboxInput(input, data);
+                break;
+            case 'radio':
+                storeRadioInput(input, data);
+                break;
+            default:
+                storeTextInput(input, data);
+        }
+    });
+    return data; 
+}
+
+function storeCheckboxInput(input, data) {
+    if (input.checked) {
+        if (!data[input.name]) {
+            data[input.name] = [];
+        }
+        data[input.name].push(input.value);
+    };
+}
+
+function storeRadioInput(input, data) {
+    if (input.checked) {
+        data[input.name] = input.value;
+    };
+}
+
+function storeTextInput(input, data) {
+    data[input.name] = input.value;
+}
+
 
 // BEISPIELE / NACHHER LÖSCHEN
 function onLogin() {
-    if (checkFormValidation('#login-form')) {
-        getFormInput()
+    const form = '#login-form'
+    if (checkFormValidation(form)) {
+        const loginData = getInputData(form);
         fetchData('summary');
         openPage('./html/summary');
     }
@@ -110,8 +153,8 @@ function onLogin() {
 
 function createNewContact() {
     if (checkFormValidation('#contact-form')) {
-        
-        pushData('contacts');
+        const data = getFormInput();
+        pushData('contacts', data);
         closeContactsForm();
     }
 }

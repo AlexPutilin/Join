@@ -130,7 +130,7 @@
             <div class="input-wrapper">
                 <label for="">Title<span class="required-mark">*</span> </label>
                 <div class="input-area">
-                    <input type="text" placeholder="Enter a title" required oninput="resetInputError()">
+                    <input type="text" name="title" placeholder="Enter a title" required oninput="resetInputError()">
                 </div>
                 <span class="err-msg hidden">Invalid input.</span>
             </div>
@@ -139,7 +139,7 @@
             <div class="input-wrapper">
                 <label for="">Password<span class="required-mark">*</span> </label>
                 <div class="input-area">
-                    <input type="password" id="password-input" required placeholder="password" oninput="resetInputError()">
+                    <input type="password" id="password-input" name="password" required placeholder="password" oninput="resetInputError()">
                     <button type="button" class="btn-small" id="visibility-btn" onclick="togglePasswordVisibility()">
                         <img class="icon-default" src="../assets/img/icon-visibility-off.svg">
                         <img class="icon-hover" src="../assets/img/icon-visibility-off.svg">
@@ -153,7 +153,7 @@
             <div class="input-wrapper">
                 <label for="">E-Mail<span class="required-mark">*</span> </label>
                 <div class="input-area">
-                    <input type="email" placeholder="email" required oninput="resetInputError()">
+                    <input type="email" name="email" placeholder="email" required oninput="resetInputError()">
                     <img src="../assets/img/icon-mail.svg" alt="">
                 </div>
                 <span class="err-msg hidden">Invalid input.</span>
@@ -181,7 +181,7 @@
                             <span>Person A</span>
                         </div>
                         <label class="checkbox">
-                            <input type="checkbox" hidden>
+                            <input type="checkbox" name="contacts" value="person-A" hidden>
                             <div class="icon-wrapper icon-checkbox-default">
                                 <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
                                 <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
@@ -284,10 +284,10 @@
             </div>
 
             
-            <textarea placeholder="Enter a description" rows="3"></textarea>
+            <textarea name="description" placeholder="Enter a description" rows="3"></textarea>
 
 
-            <button class="btn-dark" type="button" onclick="checkFormValidation('#test-form')">
+            <button class="btn-dark" type="button" onclick="checkFormValidation('#test-form'), getInputData('#test-form')">
                 <span>Make something</span>
             </button>
 
