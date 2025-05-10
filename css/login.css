@@ -273,12 +273,6 @@ form>div {
     }
 }
 
-@media (max-width: 428px) {
-    .login-btn-container button {
-        width: 100%;
-    }
-}
-
 @media (max-width: 350px) {
     form {
         padding: 32px 0;
