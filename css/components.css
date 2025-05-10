@@ -9,7 +9,7 @@
 /* MAIN CLASSES */
 
 
-button {
+button, .checkbox {
     cursor: pointer;
     transition: all 75ms;
 }
@@ -96,11 +96,13 @@ a:hover {
 
 .btn-light:hover .icon-default, 
 .btn-light:hover .icon-active,
-.btn-small:hover .icon-default {
+.btn-small:hover .icon-default,
+.checkbox:hover .icon-default {
     opacity: 0;
 }
 .btn-light:hover .icon-hover,
-.btn-small:hover .icon-hover {
+.btn-small:hover .icon-hover,
+.checkbox:hover .icon-hover {
     opacity: 1;
 }
 
@@ -276,7 +278,6 @@ textarea {
 }
 
 .priority-option input:checked ~ span {
-    /* font-weight: bold; */
     color: #fff;
 }
 .priority-option input:checked ~ img {
@@ -292,12 +293,27 @@ textarea {
     background-color: #FF3D00;
 }
 
+.checkbox input[type="checkbox"] ~ .icon-checkbox-default {
+    display: flex;
+}
+.checkbox input[type="checkbox"] ~ .icon-checkbox-checked {
+    display: none;
+}
+
+.checkbox input[type="checkbox"]:checked ~ .icon-checkbox-default {
+    display: none;
+}
+.checkbox input[type="checkbox"]:checked ~ .icon-checkbox-checked {
+    display: flex;
+}
+
+
 /* DROP DOWN MENU */
 .drop-down-input {
     z-index: 2;
 }
 
-.drop-down-input, .drop-down-input input {
+.drop-down-input input {
     cursor: pointer;
 }
 
@@ -306,29 +322,54 @@ textarea {
 }
 
 .drop-down-menu {
-    /* height: 200px; */
     width: 100%;
-    padding-top: 60px;
+    max-height: 240px;
+    padding: 60px 16px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     border-radius: 10px;
-    position: absolute;
+    transform: translateY(-48px);
     background-color: #fff;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-    animation: drop-down 125ms;
+    /* box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); */
+    overflow: auto;
+    animation: drop-down 125ms ease-in-out;
 }
 
 @keyframes drop-down {
     from {
         opacity: 0;
-        /* transform: translateY(-10px); */
     }
     to {
         opacity: 1;
-        /* transform: translateY(0); */
     }
 }
 
+.drop-down-menu::-webkit-scrollbar {
+    width: 6px;
+    margin-top: 48px;
+}
+.drop-down-menu::-webkit-scrollbar-track {
+    margin-top: 48px;
+    margin-bottom: 10px;
+}
+.drop-down-menu::-webkit-scrollbar-thumb {
+  background: #A8A8A8;
+  border-radius: 4px;
+}
+
+option {
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+option:hover {
+    background-color: #eee;
+}
+
 .select-contact {
-    padding: 8px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
