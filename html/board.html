@@ -19,6 +19,7 @@
 </head>
 
 <body onload="loadAllTasks()">
+    <div id="overlay" class="overlay d-none" ></div>
     <aside>
         <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
@@ -116,8 +117,8 @@
                         <p>done</p>
                     </div>
                 </div>
+
                 
-                <div id="dialog"></div>
 
                 <div id="board-content" class="board-content">
                     <div ondrop="moveTo('to-do')" ondragover="allowDrop(event)" id="to-do" class="drag-drop-container">
