@@ -62,7 +62,7 @@ function renderTasksByStatus(status) {
             ({ subtasksLength, doneSubtasksLength, doneTasksLength, progress } = updateSubtasks(task));
         } else {
             console.log(`no subtasks for task: ${task.title}`);
-            document.getElementById('task-progress-container').classList.add('d-none');
+            document.getElementById('task-progress-container').classList.add('hidden');
         }
         container.innerHTML += getTaskCard(task, progress, subtasksLength, doneTasksLength);
     }
