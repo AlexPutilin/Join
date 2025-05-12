@@ -120,6 +120,12 @@
     justify-content: center;
 }
 
+.card-overview {
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+}
+
 .d-none {
     display: none;
 }
