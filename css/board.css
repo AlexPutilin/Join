@@ -60,6 +60,9 @@
     padding: 16px;
     background-color: #ffffff;
 }
+.task-card:hover{
+    cursor: pointer;
+}
 
 .task-title {
     padding: 24px 0px 16px 0px;
