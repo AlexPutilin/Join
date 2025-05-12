@@ -192,26 +192,57 @@ function showOverview(id) {
 
 function getOverviewTemplate(task) {
     const bgCategory = getBgCategory(task.category);
-    return `    <div class="card-overview"><br>
-                    
-                    <span class="label ${bgCategory}">${task.category}</span><br>
+    return `    <div class="card-overview">
+                    <div class="card-overview-header">
+                        <span class="label ${bgCategory}">${task.category}</span><br>
+                        <button onclick="closeOverview()" class="btn-small">
+                            <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                        </button>
+                    </div>
+
                     <h2 class="task-title">${task.title}</h2><br>
                     <span class="task-description">${task.description_full}</span><br><br>
-                    <span>Due Date: ${task.due_date}</span><br>
-                    <div class="priority-wrapper">
-                    <span>Priority: ${task.priority} </span>
-                    ${getPriority(task)}
+
+                    <div class="">
+                        <span style="padding-right: 16px;" class="font-color ">Due Date:</span>
+                        <span> ${task.due_date}</span>
                     </div>
+<br>
+                    <div class="priority-wrapper ">
+                        <span style="padding-right: 36px;" class="font-color">Priority:</span>
+                        <span > ${task.priority} </span>
+                        ${getPriority(task)}
+                    </div>
+
+
+
                     <br>
                     <div>
-                        <span>Assigned To:</span>
+                        <span class="font-color">Assigned To:</span>
 
                     </div>
                     <div>
-                        <span>Subtasks:</span>
+                        <span class="font-color">Subtasks:</span>
 
                     </div>
+
+                    <div class="delet-and-edit-wrapper">
+                        <button class="btn-light">
+                            <span>Cancel</span>
+                            <div class="icon-wrapper">
+                                <img class="icon-default" src="../assets/img/icon-edit-huge-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-edit-huge-hover.svg">
+                                <img class="icon-active" src="../assets/img/icon-edit-huge-click.svg">
+                            </div>
+                        </button>
+                    </div>
                 </div>`;
+}
+
+function closeOverview() {
+    let overlayRef = document.getElementById('overlay');
+    overlayRef.classList.add('d-none');
 }
 
 /**

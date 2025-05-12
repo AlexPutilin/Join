@@ -138,15 +138,27 @@
     /* box-shadow: 2px 2px 2px 1px #e3e3e3; */
 
     top: 20%;
-    left: 30%;
+    left: 40%;
     width: 25%;
     height: 60%;
     padding: 24px;
 }
-.priority-wrapper{
+
+.card-overview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.font-color {
+    color: #42526e;
+}
+
+.priority-wrapper {
     display: flex;
     align-items: center;
 }
+
 .d-none {
     display: none;
 }
