@@ -19,7 +19,7 @@
 </head>
 
 <body onload="loadAllTasks()">
-    <div id="overlay" class="overlay d-none" ></div>
+    <div id="overlay" class="overlay d-none"></div>
     <aside>
         <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
@@ -82,11 +82,25 @@
             <div class="board-navigation">
                 <div class="board-head">
                     <h1>Board</h1>
-                    <input type="text" placeholder="Find Task">
-                    <button class="btn-dark">
-                        <span>Add Task</span>
-                        <img src="../assets/img/icon-add-white.svg" alt="">
-                    </button>
+
+                    <div class="search-area-wrapper">
+
+                        <div class="input-area">
+                            <input type="text" id="search-input" required="" placeholder="Find Task" oninput="">
+                            <button type="button" class="btn-small" id="visibility-btn" onclick="">
+                                <div class="beam"></div>
+                                <img class="icon-default" src="../assets/img/icon-search-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-search-hover.svg">
+                                <img class="icon-active" src="../assets/img/icon-search-click.svg">
+                            </button>
+                        </div>
+                        <button class="btn-dark">
+                            <span>Add Task</span>
+                            <img src="../assets/img/icon-add-white.svg" alt="">
+                        </button>
+
+                    </div>
+
                 </div>
                 <div class="workflow-stages">
                     <div class="single-stages">
@@ -118,7 +132,7 @@
                     </div>
                 </div>
 
-                
+
 
                 <div id="board-content" class="board-content">
                     <div ondrop="moveTo('to-do')" ondragover="allowDrop(event)" id="to-do" class="drag-drop-container">
