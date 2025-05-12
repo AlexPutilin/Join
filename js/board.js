@@ -177,31 +177,41 @@ function getPriority(task) {
     }
 }
 
-//    getBgCategory(task.category);
-//         <span class="label ${getBgCategory(category)}">${task.category}</span>
+//    
+//        
 
-function showOverview(id)  {
+function showOverview(id) {
     const task = allTasks.find(t => t.id === id);
-    document.getElementById('dialog').innerHTML = getOverviewTemplate(task);
+    console.log(id);
+    let overlayRef = document.getElementById('overlay');
+    overlayRef.classList.remove('d-none');
+
+    overlayRef.innerHTML = getOverviewTemplate(task);
 
 }
 
-function getOverviewTemplate(task){
-    return `    <div class="card-overview">
+function getOverviewTemplate(task) {
+    const bgCategory = getBgCategory(task.category);
+    return `    <div class="card-overview"><br>
+                    
+                    <span class="label ${bgCategory}">${task.category}</span><br>
+                    <h2 class="task-title">${task.title}</h2><br>
+                    <span class="task-description">${task.description_full}</span><br><br>
+                    <span>Due Date: ${task.due_date}</span><br>
+                    <div class="priority-wrapper">
+                    <span>Priority: ${task.priority} </span>
+                    ${getPriority(task)}
+                    </div>
+                    <br>
+                    <div>
+                        <span>Assigned To:</span>
 
-        <h2 class="task-title">${task.title}</h2>
-        <span class="task-description">${task.description_full}</span>
-        <span>Due Date: ${task.due_date}</span>
-        <span>Priority: ${task.priority} ${getPriority(task)}</span>
-        <div>
-            <span>Assigned To:</span>
+                    </div>
+                    <div>
+                        <span>Subtasks:</span>
 
-        </div>
-        <div>
-            <span>Subtasks:</span>
-           
-        </div>
-    </div>`;
+                    </div>
+                </div>`;
 }
 
 /**
