@@ -228,14 +228,8 @@ function getOverviewTemplate(task) {
                     </div>
 
                     <div class="delet-and-edit-wrapper">
-                        <button class="btn-light">
-                            <span>Cancel</span>
-                            <div class="icon-wrapper">
-                                <img class="icon-default" src="../assets/img/icon-edit-huge-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-edit-huge-hover.svg">
-                                <img class="icon-active" src="../assets/img/icon-edit-huge-click.svg">
-                            </div>
-                        </button>
+
+                    
                     </div>
                 </div>`;
 }
