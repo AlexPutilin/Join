@@ -89,16 +89,48 @@ function toggleCtaContainer() {
 /**
  * Signup functin -> in progress...
  */
-function handleSignup() {
-    console.log("Signup läuft...");
+async function handleSignup() {
+    if (checkFormValidation('#signup_form')) {
+        await addNewUser();
+    }
+}
 
+
+/**
+ * Adds a new user to the Firebase Realtime Database.
+ * Retrieves input data, loads existing users, generates a new user ID,
+ * and sends the new user data to the server.
+ */
+async function addNewUser() {
     let inputData = getSignupInput();
-    console.log(inputData); 
+    let allUsersArr = await loadAllUserEntries();
+    let newUserID = generateNewUserID(allUsersArr);
+    console.log(newUserID);
 
-    // (!) -> checkFormValidation(inputData);
-    
-    // -> inputData in firebase "pushen"
     postData("/users", inputData);
+}
+
+
+/**
+ * Loads all user entries from the Firebase Realtime Database.
+ * @returns {Promise<Array>} An array of [key, userObject] entries.
+ */
+async function loadAllUserEntries() {
+    let allUsersRef = await getData('/users');
+    return Object.entries(allUsersRef);
+}
+
+
+/**
+ * Generates a new user ID based on the number of existing users.
+ * @param {Array} array - The array of existing user entries.
+ * @returns {number} The next user ID number.
+ */
+function generateNewUserID(array) {
+    let allUsersArr = loadAllUserEntries();
+
+    let currentUserCount = array.length;
+    return currentUserCount + 1;
 }
 
 
