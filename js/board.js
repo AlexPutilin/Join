@@ -73,7 +73,7 @@ function updateSubtasks(task) {
     const subtasksLength = subtasks.length;
     const doneTasksLength = subtasks.filter(s => s.done).length;
     const progress = calcuProgressbar(task);
-    return { subtasksLength, doneTasksLength, progress};
+    return { subtasksLength, doneTasksLength, progress };
 }
 
 
@@ -160,9 +160,21 @@ function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
                 </div>
                 <div class="profiles-priority" style="display: flex; gap: 16px;">
                     <div></div>
-                    <div></div>
+                    <div>${getPriority(task)}</div>
                 </div>
             </div>`;
+}
+
+function getPriority(task) {
+    if (task.priority === "urgent") {
+        return `<img src="../assets/img/icon-prio-urgent.svg" alt="">`;
+    } else if (task.priority === "medium") {
+        return `<img src="../assets/img/icon-prio-medium.svg" alt="">`;
+    } else if (task.priority === "low") {
+        return `<img src="../assets/img/icon-prio-low.svg" alt="">`;
+    } else{
+        return "";
+    }
 }
 
 /**
