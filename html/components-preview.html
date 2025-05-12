@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/main.css">
 
+
     <script src="../js/components.js"></script>
 
     <style>
@@ -22,54 +23,67 @@
     </style>
 </head>
 <body>
-    <button onclick="addInputError()">Error Message</button>
+
+    <aside>
+        <nav>
+            
+        </nav>
+    </aside>
 
     <div class="btn-container">
+
 
         <button class="btn-small">
             <img class="icon-default" src="../assets/img/icon-back-default.svg">
             <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
         </button>
 
+
         <button class="btn-small">
             <img class="icon-default" src="../assets/img/icon-close-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-close-hover.svg" alt="">
+            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
         </button>
+
 
         <button class="btn-light">
             <span>Cancel</span>
             <div class="icon-wrapper">
-                <img class="icon-default" src="../assets/img/icon-cancel-default.svg" alt="">
-                <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg" alt="">
-                <img class="icon-active" src="../assets/img/icon-cancel-click.svg" alt="">
+                <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
+                <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
             </div>
         </button>
 
+
         <button class="btn-dark">
             <span>Add Task</span>
-            <img src="../assets/img/icon-add-white.svg" alt="">
+            <img src="../assets/img/icon-add-white.svg">
         </button>
         
+
         <label class="priority-option low">
             <input type="radio" name="priority" value="low" hidden>
             <span>Low</span>
-            <img src="../assets/img/icon-prio-low.svg" alt="">
+            <img src="../assets/img/icon-prio-low.svg">
             <div class="bg-checked"></div>
         </label>
+
 
         <label class="priority-option medium">
             <input type="radio" name="priority" value="medium" hidden>
             <span>Medium</span>
-            <img src="../assets/img/icon-prio-medium.svg" alt="">
+            <img src="../assets/img/icon-prio-medium.svg">
             <div class="bg-checked"></div>
         </label>
         
+
         <label class="priority-option urgent">
             <input type="radio" name="priority" value="urgent" hidden>
             <span>Urgent</span>
-            <img src="../assets/img/icon-prio-urgent.svg" alt="">
+            <img src="../assets/img/icon-prio-urgent.svg">
             <div class="bg-checked"></div>
         </label>
+
 
         <button class="btn-profile">
             <span>ds</span>
@@ -79,25 +93,29 @@
 
     <div class="btn-container" style="flex-direction: column; width: 300px; background-color: #2A3647; padding: 0;">
 
+
         <button class="btn-menu">
             <div class="icon-wrapper">
-                <img class="icon-default" src="../assets/img/icon-summary.svg" alt="">
-                <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="">
+                <img class="icon-default" src="../assets/img/icon-summary.svg">
+                <img class="icon-active" src="../assets/img/icon-summary-active.svg">
             </div>
             <span>Summary</span>
         </button>
 
+
         <button class="btn-menu menu-active">
             <div class="icon-wrapper">
-                <img class="icon-default" src="../assets/img/icon-summary.svg" alt="">
-                <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="">
+                <img class="icon-default" src="../assets/img/icon-summary.svg">
+                <img class="icon-active" src="../assets/img/icon-summary-active.svg">
             </div>
             <span>Summary</span>
         </button>
+
 
         <button class="btn-menu">
             <span>Privacy Policy</span>
         </button>
+
 
     </div>
     
@@ -105,48 +123,175 @@
     <div class="label technical-task">technical task</div>
 
     <a href="">Legal notice</a>
-
-    <div class="input-container">
         
+        <form class="input-container" id="test-form">
 
-        <div class="input-wrapper">
-            <div class="input-area">
-                <input type="text" placeholder="Enter a title" oninput="resetInputError()">
-                
-            </div>
-            <span class="err-msg hidden">Invalid input.</span>
-        </div>
 
-        <div class="input-wrapper">
-            <div class="input-area">
-                <input type="password" id="password-input" placeholder="password" oninput="resetInputError()">
-                <button class="btn-small" id="visibility-btn" onclick="togglePasswordVisibility()">
-                    <img class="icon-default" src="../assets/img/icon-visibility-off.svg">
-                    <img class="icon-hover" src="../assets/img/icon-visibility-off.svg">
-                    <img class="icon-active" src="../assets/img/icon-visibility-on.svg">
-                </button>
+            <div class="input-wrapper">
+                <label for="">Title<span class="required-mark">*</span> </label>
+                <div class="input-area">
+                    <input type="text" placeholder="Enter a title" required oninput="resetInputError()">
+                </div>
+                <span class="err-msg hidden">Invalid input.</span>
             </div>
-            <span class="err-msg hidden">Invalid input.</span>
-        </div>
 
-        <div class="input-wrapper">
-            <div class="input-area">
-                <input type="email" placeholder="email" oninput="resetInputError()">
-                <img src="../assets/img/icon-mail.svg" alt="">
-            </div>
-            <span class="err-msg hidden">Invalid input.</span>
-        </div>
 
-        <div class="input-wrapper">
-            <div class="input-area">
-                <input type="text" placeholder="Enter a title" oninput="resetInputError()">
+            <div class="input-wrapper">
+                <label for="">Password<span class="required-mark">*</span> </label>
+                <div class="input-area">
+                    <input type="password" id="password-input" required placeholder="password" oninput="resetInputError()">
+                    <button type="button" class="btn-small" id="visibility-btn" onclick="togglePasswordVisibility()">
+                        <img class="icon-default" src="../assets/img/icon-visibility-off.svg">
+                        <img class="icon-hover" src="../assets/img/icon-visibility-off.svg">
+                        <img class="icon-active" src="../assets/img/icon-visibility-on.svg">
+                    </button>
+                </div>
+                <span class="err-msg hidden">Invalid input.</span>
             </div>
-            <span class="err-msg hidden">Invalid input.</span>
-        </div>
-        
-        <textarea placeholder="Enter a description" rows="3"></textarea>
-        
-    </div>
+
+
+            <div class="input-wrapper">
+                <label for="">E-Mail<span class="required-mark">*</span> </label>
+                <div class="input-area">
+                    <input type="email" placeholder="email" required oninput="resetInputError()">
+                    <img src="../assets/img/icon-mail.svg" alt="">
+                </div>
+                <span class="err-msg hidden">Invalid input.</span>
+            </div>
+
+
+            <div class="input-wrapper">
+                <div class="input-area drop-down-input">
+                    <input type="text" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active="">
+                    <button type="button" class="btn-small" onclick="toggleDropDown(this)">
+                        <div class="icon-wrapper">
+                            <img class="icon-default" src="../assets/img/icon-down-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
+                        </div>
+                        <div class="icon-wrapper d-none">
+                            <img class="icon-default" src="../assets/img/icon-up-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
+                        </div>
+                    </button>
+                </div>
+                <div class="drop-down-menu d-none" data-open="false">
+                    <div class="select-contact">
+                        <div>
+                            <div class="icon-contact">PA</div>
+                            <span>Person A</span>
+                        </div>
+                        <label class="checkbox">
+                            <input type="checkbox" hidden>
+                            <div class="icon-wrapper icon-checkbox-default">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                            </div>
+                            <div class="icon-wrapper icon-checkbox-checked">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="select-contact">
+                        <div>
+                            <div class="icon-contact">PA</div>
+                            <span>Person A</span>
+                        </div>
+                        <label class="checkbox">
+                            <input type="checkbox" hidden>
+                            <div class="icon-wrapper icon-checkbox-default">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                            </div>
+                            <div class="icon-wrapper icon-checkbox-checked">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="select-contact">
+                        <div>
+                            <div class="icon-contact">PA</div>
+                            <span>Person A</span>
+                        </div>
+                        <label class="checkbox">
+                            <input type="checkbox" hidden>
+                            <div class="icon-wrapper icon-checkbox-default">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                            </div>
+                            <div class="icon-wrapper icon-checkbox-checked">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="select-contact">
+                        <div>
+                            <div class="icon-contact">PA</div>
+                            <span>Person A</span>
+                        </div>
+                        <label class="checkbox">
+                            <input type="checkbox" hidden>
+                            <div class="icon-wrapper icon-checkbox-default">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                            </div>
+                            <div class="icon-wrapper icon-checkbox-checked">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="select-contact">
+                        <div>
+                            <div class="icon-contact">PA</div>
+                            <span>Person A</span>
+                        </div>
+                        <label class="checkbox">
+                            <input type="checkbox" hidden>
+                            <div class="icon-wrapper icon-checkbox-default">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                            </div>
+                            <div class="icon-wrapper icon-checkbox-checked">
+                                <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="input-area drop-down-input">
+                    <input type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Select task category">
+                    <button type="button" class="btn-small" onclick="toggleDropDown(this)">
+                        <div class="icon-wrapper">
+                            <img class="icon-default" src="../assets/img/icon-down-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
+                        </div>
+                        <div class="icon-wrapper d-none">
+                            <img class="icon-default" src="../assets/img/icon-up-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
+                        </div>
+                    </button>
+                </div>
+                <div class="drop-down-menu d-none" data-open="false">
+                    <option value="userstory">User Story</option>
+                    <option value="technicaltask">Technical Task</option>
+                </div>
+            </div>
+
+            
+            <textarea placeholder="Enter a description" rows="3"></textarea>
+
+
+            <button class="btn-dark" type="button" onclick="checkFormValidation('#test-form')">
+                <span>Make something</span>
+            </button>
+
+        </form>
 
 </body>
 </html>

@@ -17,3 +17,15 @@ main {
     flex-direction: column;
     padding-left: 232px;
 }
+
+.pos-rel {
+    position: relative;
+}
+
+.pos-abs {
+    position: absolute;
+}
+
+.bg-none {
+    background: none;
+}

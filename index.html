@@ -24,48 +24,52 @@
         <img id="logo" class="logo" src="./assets/img/logo.svg" alt="Logo">
     </picture>
 
+
     <!-- SPLASH SCREEN -->
     <!-- >>> fades out after 1200 ms -->
     <section id="splash-screen" class="splash-screen ">
     </section>
 
     <!-- PAGE CONTENT -->
-    <main>
+    <section class="login-main-content">
         <!-- HEADER -->
         <header>
+            <img id="logo_new" class="invisible" src="./assets/img/logo.svg" alt="Logo">
             <!-- <img src="./assets/img/logo.svg" alt="Logo"> -->
-            <div>
+            <div class="cta-container" id="cta-container">
                 <div>
-                    <p href="#">Not a Join user?</p>
-                    <button class="btn-dark">Sign up</button>
+                    <p class="cta-text-mobile-sm">Not a Join user?</p>
+                    <button onclick="renderForm(getSignupFormTemplate())" class="btn-dark cta-text-mobile-sm">Sign up</button>
                 </div>
             </div>
         </header>
 
         <!-- LOGIN FORM -->
-        <section class="form-wrapper">
+        <section id="form-container" class="form-wrapper">
             <form action="submit">
                 <h1>Log in</h1>
 
                 <!-- <input type="email" placeholder="Email" required> -->
-                <div class="input-wrapper">
+                <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="email" placeholder="email" required>
+                        <input type="email" placeholder="Email" required>
                         <img src="../assets/img/icon-mail.svg" alt="">
                     </div>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
                 <!-- <input type="password" placeholder="Password" required> -->
-                <div class="input-wrapper">
+                <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="password" placeholder="password" required>
+                        <input type="password" placeholder="Password" required>
                         <img src="../assets/img/icon-lock.svg" alt="">
                     </div>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
-                <div>
-                    <button class="btn-dark">Log in</button>
-                    <button class="btn-light"><b>Guest Log in</b></button>
+                <div class="login-btn-container form-elements-padding mobile-flex-col">
+                    <button type="button" class="btn-dark cta-text-mobile-sm">Log in</button>
+                    <button type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
                 </div>
             </form>
         </section>
@@ -75,7 +79,7 @@
             <a href="#">Privacy Policy</a>
             <a href="#">Legal Notice</a>
         </footer>
-    </main>
+    </section>
 
 </body>
 
