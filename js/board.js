@@ -148,7 +148,7 @@ function startDragging(id) {
 function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
     const bgCategory = getBgCategory(task.category);
     let description_short = getShortenedDescription(task);
-    return `<div draggable="true"  ondragstart="startDragging(${task.id})" onclick="" id="task-card" class="task-card">
+    return `<div draggable="true" ondragstart="startDragging(${task.id})" onclick="showOverview(${task.id})" id="task-card" class="task-card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
@@ -166,15 +166,42 @@ function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
 }
 
 function getPriority(task) {
-    if (task.priority === "urgent") {
+    if (task.priority === "Urgent") {
         return `<img src="../assets/img/icon-prio-urgent.svg" alt="">`;
-    } else if (task.priority === "medium") {
+    } else if (task.priority === "Medium") {
         return `<img src="../assets/img/icon-prio-medium.svg" alt="">`;
-    } else if (task.priority === "low") {
+    } else if (task.priority === "Low") {
         return `<img src="../assets/img/icon-prio-low.svg" alt="">`;
-    } else{
+    } else {
         return "";
     }
+}
+
+//    getBgCategory(task.category);
+//         <span class="label ${getBgCategory(category)}">${task.category}</span>
+
+function showOverview(id)  {
+    const task = allTasks.find(t => t.id === id);
+    document.getElementById('dialog').innerHTML = getOverviewTemplate(task);
+
+}
+
+function getOverviewTemplate(task){
+    return `    <div class="card-overview">
+
+        <h2 class="task-title">${task.title}</h2>
+        <span class="task-description">${task.description_full}</span>
+        <span>Due Date: ${task.due_date}</span>
+        <span>Priority: ${task.priority} ${getPriority(task)}</span>
+        <div>
+            <span>Assigned To:</span>
+
+        </div>
+        <div>
+            <span>Subtasks:</span>
+           
+        </div>
+    </div>`;
 }
 
 /**
