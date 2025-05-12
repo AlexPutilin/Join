@@ -116,10 +116,11 @@
                         <p>done</p>
                     </div>
                 </div>
+                
+                <div id="dialog"></div>
 
                 <div id="board-content" class="board-content">
-                    <div ondrop="moveTo('to-do')" ondragover="allowDrop(event)" id="to-do" 
-                    class="drag-drop-container">
+                    <div ondrop="moveTo('to-do')" ondragover="allowDrop(event)" id="to-do" class="drag-drop-container">
                     </div>
                     <div ondrop="moveTo('in-progress')" ondragover="allowDrop(event)" id="in-progress"
                         class="drag-drop-container">
@@ -127,8 +128,7 @@
                     <div ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)" id="await-feedback"
                         class="drag-drop-container">
                     </div>
-                    <div ondrop="moveTo('done')" ondragover="allowDrop(event)" id="done" 
-                    class="drag-drop-container">
+                    <div ondrop="moveTo('done')" ondragover="allowDrop(event)" id="done" class="drag-drop-container">
                     </div>
                 </div>
             </div>
