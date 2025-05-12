@@ -147,7 +147,7 @@ function startDragging(id) {
  */
 function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
     const bgCategory = getBgCategory(task.category);
-    let description_short = shortenedDescription(task);
+    let description_short = getShortenedDescription(task);
     return `<div draggable="true"  ondragstart="startDragging(${task.id})" onclick="" id="task-card" class="task-card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
@@ -160,16 +160,16 @@ function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
                 </div>
                 <div class="profiles-priority" style="display: flex; gap: 16px;">
                     <div></div>
-                    <div ></div>
+                    <div></div>
                 </div>
             </div>`;
 }
 
 /**
- * @function shortenedDescription - Shorten the Description for the small Task-Cards
+ * @function getShortenedDescription - Shorten the Description for the small Task-Cards
  * @param {Object} task - individual Tasks
  */
-function shortenedDescription(task) {
+function getShortenedDescription(task) {
     let maxLength = 30;
     if (task.description_full.length > maxLength) {
         return task.description_full.substring(0, maxLength) + "...";
