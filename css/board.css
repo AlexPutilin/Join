@@ -93,6 +93,13 @@
     font-size: 12px;
 }
 
+.profiles-priority-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+}
+
 .no-tasks-text {
     font-size: 19px;
     color: #a8a8a8;
