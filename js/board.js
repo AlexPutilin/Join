@@ -159,7 +159,7 @@ function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
                     <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
                 </div>
                 <div class="profiles-priority-container">
-                    <div></div>
+                    <div style="border: 2px solid black; border-radius: 100%; width: 32px; height: 32px;"></div>
                     <div>${getPriority(task)}</div>
                 </div>
             </div>`;
