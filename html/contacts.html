@@ -8,50 +8,73 @@
     <link rel="shortcut icon" href="../assets/img/logo.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
-    <link rel="stylesheet" href="../css/contacts.css">
+
+    <script src="../js/main.js"></script>
 </head>
 
 <body onload="init()">
-    <header>
+    <aside>
         <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
-            <a class="nav-link" href="summary.html">
-                <img src="../assets/img/icon-summary.svg" alt="Summary Icon">Summery
-            </a>
-            <a class="nav-link" href="add-task.html">
-                <img src="../assets/img/icon-task.svg" alt="Add Task Icon">Add Task
-            </a>
-            <a class="btn-board nav-link" href="board.html">
-                <img src="../assets/img/icon-board.svg" alt="Board Icon">Board
-            </a>
-            <a class="btn-contacts nav-link" href="contacts.html">
-                <img src="../assets/img/icon-contacts.svg" alt="Contacts Icon">Contacts
-            </a>
+            <button onclick="openPage('summary.html')" class="btn-menu">
+                <div class="icon-wrapper">
+                    <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                    <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="summary active icon">
+                </div>
+                <span>Summary</span>
+            </button>
+
+            <button onclick="openPage('addTask.html')" class="btn-menu ">
+                <div class="icon-wrapper">
+                    <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                    <img class="icon-active" src="../assets/img/icon-task-active.svg" alt="add task active icon">
+                </div>
+                <span>Add Task</span>
+            </button>
+
+            <button onclick="openPage('board.html')" class="btn-menu btn-board">
+                <div class="icon-wrapper">
+                    <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                    <img class="icon-active" src="../assets/img/icon-board-active.svg" alt="board active icon">
+                </div>
+                <span>Board</span>
+            </button>
+
+            <button onclick="openPage('contacts.html')" class="btn-menu menu-active btn-contacts">
+                <div class="icon-wrapper">
+                    <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                    <img class="icon-active" src="../assets/img/icon-contacts-active.svg" alt="contacts active icon">
+                </div>
+                <span>Contacts</span>
+            </button>
 
         </nav>
+
         <div class="legal">
-            <a class="nav-link" href="privacy-policy.html">
-                <div class="privacy-policy"></div>Privacy Policy
-            </a>
-            <a class="nav-link" href="legal-notice.html">
-                <div class="legal-notice"></div>Legal notice
-            </a>
+            <a class="" href="privacy-policy.html">Privacy Policy</a>
+            <a class="" href="legal-notice.html">Legal notice</a>
         </div>
-    </header>
+    </aside>
     <main>
         <section class="hug">
             <p class="kanban-text">
                 Kanban Project Management Tool</p>
             <div class="help-and-profile">
-                <a href="help.html"><img src="../assets/img/icon-help-efault.svg" alt="Help Icon"></a>
-                <div class="profile"></div>
+
+                <button onclick="openPage('help.html')" class="btn-small">
+                    <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
+                    <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
+                </button>
+
+                <button class="btn-profile">
+                    <span>ds</span>
+                </button>
             </div>
         </section>
-
     </main>
-
 </body>
 
 </html>
