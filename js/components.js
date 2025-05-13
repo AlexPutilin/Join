@@ -74,7 +74,49 @@ function togglePasswordVisibility() {
 }
 
 
+function getInput(element) {
+    const inputWrapper = element.closest('.input-wrapper');
+    const input = inputWrapper.querySelector('input');
+    return input;
+}
 
+
+function toggleInputBtns(input) {
+    const inputWrapper = input.closest('.input-wrapper');
+    const defaultButton = inputWrapper.querySelector('.btn-small');
+    const btnCollection = inputWrapper.querySelector('.btn-collection-container');
+    if (input.value !== "") {
+        defaultButton.classList.add('d-none');
+        btnCollection.classList.remove('d-none');
+    } else {
+        btnCollection.classList.add('d-none');
+        defaultButton.classList.remove('d-none');
+    }
+}
+
+
+function addSubtask(triggerElement) {
+    const inputWrapper = triggerElement.closest('.input-wrapper');
+    const input = inputWrapper.querySelector('input');
+    const subtaskList = inputWrapper.querySelector('.list-subtasks');
+    subtaskList.innerHTML += getSubtaskTemplate(input.value);
+    resetInput(triggerElement);
+}
+
+
+function resetInput(triggerElement) {
+    const inputWrapper = triggerElement.closest('.input-wrapper');
+    const input = inputWrapper.querySelector('input');
+    input.value = "";
+    toggleInputBtns(input);
+}
+
+
+function setInputFocus(triggerElement) {
+    const inputWrapper = triggerElement.closest('.input-wrapper');
+    const input = inputWrapper.querySelector('input');
+    input.focus();
+}
 
 
 /**
