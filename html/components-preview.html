@@ -34,14 +34,18 @@
 
 
         <button class="btn-small">
-            <img class="icon-default" src="../assets/img/icon-back-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
+            <div class="icon-wrapper">
+                <img class="icon-default" src="../assets/img/icon-back-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
+            </div>
         </button>
 
 
         <button class="btn-small">
-            <img class="icon-default" src="../assets/img/icon-close-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+            <div class="icon-wrapper">
+                <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+            </div>
         </button>
 
 
@@ -304,6 +308,31 @@
                     <option value="userstory">User Story</option>
                     <option value="technicaltask">Technical Task</option>
                 </div>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="input-area">
+                    <input type="text" placeholder="Add new subtask" data-placeholder="Add new subtask" data-placeholder-active="">
+                    <button type="button" class="btn-small">
+                        <div class="icon-wrapper">
+                            <img class="icon-default" src="../assets/img/icon-add-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-add-hover.svg">
+                        </div>
+                    </button>
+                    <button type="button" class="btn-small">
+                        <div class="icon-wrapper">
+                            <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-add-hover.svg">
+                        </div>
+                    </button>
+                    <button type="button" class="btn-small">
+                        <div class="icon-wrapper">
+                            <img class="icon-default" src="../assets/img/icon-add-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-add-hover.svg">
+                        </div>
+                    </button>
+                </div>
+                <div class="list-subtasks" id="list-subtasks"></div>
             </div>
 
             
