@@ -78,15 +78,15 @@ function updateSubtasks(task) {
 
 
 function updateNoTasksDisplay(status, container) {
-    let message = "no tasks";
+    let message = "No Tasks";
     if (status === "to-do") {
-        message = "no tasks to do";
+        message = "No Tasks To Do";
     } else if (status === "in-progress") {
-        message = "no tasks in progress";
+        message = "No Tasks In Progress";
     } else if (status === "await-feedback") {
-        message = "no tasks await feedback";
+        message = "No Tasks Await Feedback";
     } else if (status === "done") {
-        message = "no tasks done";
+        message = "No Tasks Done";
     }
     container.innerHTML = `<div class="placeholder-box"><p class="no-tasks-text">${message}</p></div>`;
 }
