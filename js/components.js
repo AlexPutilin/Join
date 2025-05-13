@@ -74,15 +74,7 @@ function togglePasswordVisibility() {
 }
 
 
-/**
- * Returns the currently selected priority value from the radio inputs.
- *
- * @returns {string|null} The value of the selected radio button ("low", "medium", "urgent"), or null if none is selected.
- */
-function getSelectedPriority() {
-    const priority = document.querySelector('input[name="priority"]:checked');
-    return priority ? priority.value : null;
-}
+
 
 
 /**

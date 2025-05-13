@@ -155,6 +155,19 @@ a:hover {
     background-color: #0038FF;
 }
 
+.btn-collection-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px
+}
+
+.btn-seperator {
+    width: 1px;
+    height: 24px;
+    background-color: #A8A8A8;
+}
+
 /* MENU BUTTONS */
 .btn-menu {
     width: 100%;
@@ -308,6 +321,8 @@ textarea {
 .checkbox input[type="checkbox"]:checked ~ .icon-checkbox-checked {
     display: flex;
 }
+
+
 
 
 /* DROP DOWN MENU */
