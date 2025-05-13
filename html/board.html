@@ -86,8 +86,8 @@
                     <div class="search-area-wrapper">
 
                         <div class="input-area">
-                            <input type="text" id="search-input" required="" placeholder="Find Task" oninput="">
-                            <button type="button" class="btn-small" id="visibility-btn" onclick="">
+                            <input type="text" id="search-input" required="" placeholder="Find Task" oninput="filterAndShowTasks(this.value)">
+                            <button type="button" class="btn-small" id="visibility-btn" onclick="searchTask()">
                                 <div class="beam"></div>
                                 <div class="icon-wrapper">
                                     <img class="icon-default" src="../assets/img/icon-search-default.svg">
