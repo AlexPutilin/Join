@@ -39,13 +39,13 @@
     display: flex;
     align-items: center;
     gap: 40px;
-    width: 245px;
+    width: 260px;
     justify-content: space-between;
 
 }
 
 .drag-drop-container {
-    width: 260px;
+    width: 300px;
     height: 100%;
 
 }
@@ -55,7 +55,7 @@
 
 
 .task-card {
-    width: 260px;
+    width: 280px;
     border-radius: 16px;
     padding: 16px;
     background-color: #ffffff;
