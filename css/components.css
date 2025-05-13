@@ -420,3 +420,8 @@ input[type="checkbox"] {
     width: 20px;
     height: 20px;
 }
+
+#test-form {
+    background-color: #d4d4d4;
+    padding: 40px;
+}

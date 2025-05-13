@@ -66,6 +66,10 @@ function getSelectedPriority() {
 }
 
 
+/**
+ * Toggles the visibility of the drop-down menu.
+ * @param {HTMLElement} triggerElement - The element that triggered the toggle.
+ */
 function toggleDropDown(triggerElement) {
     const inputWrapper = triggerElement.closest('.input-wrapper')
     const input = inputWrapper.querySelector('input');
@@ -81,6 +85,12 @@ function toggleDropDown(triggerElement) {
 }
 
 
+/**
+ * Opens the drop-down menu and updates UI elements accordingly.
+ * @param {HTMLInputElement} input - The input element within the wrapper.
+ * @param {HTMLElement} menu - The drop-down menu element to show.
+ * @param {NodeListOf<HTMLElement>} icons - The icon elements to toggle visibility.
+ */
 function openDropDownMenu(input, menu, icons) {
     menu.classList.remove('d-none');
     icons[0].classList.toggle('d-none');
@@ -91,6 +101,12 @@ function openDropDownMenu(input, menu, icons) {
 }
 
 
+/**
+ * Closes the drop-down menu and resets UI elements.
+ * @param {HTMLInputElement} input - The input element within the wrapper.
+ * @param {HTMLElement} menu - The drop-down menu element to hide.
+ * @param {NodeListOf<HTMLElement>} icons - The icon elements to toggle visibility.
+ */
 function closeDropDownMenu(input, menu, icons) {
     menu.classList.add('d-none');
     icons[0].classList.toggle('d-none');
@@ -100,6 +116,13 @@ function closeDropDownMenu(input, menu, icons) {
 }
 
 
+/**
+ * Collects and returns form input data from a specified form.
+ * Supports text, textarea, checkbox, and radio inputs.
+ *
+ * @param {string} form - A CSS selector string for the form container.
+ * @returns {Object} An object containing the input data, where keys are input names and values are their corresponding values.
+ */
 function getInputData(form) {
     const inputs = document.querySelectorAll(`${form} input, textarea`);
     let data = {};
@@ -118,9 +141,19 @@ function getInputData(form) {
                 storeTextInput(input, data);
         }
     });
+    console.log(data);
+    
     return data; 
 }
 
+
+/**
+ * Stores the value of a checked checkbox input into the data object.
+ * If multiple checkboxes share the same name, their values are grouped in an array.
+ *
+ * @param {HTMLInputElement} input - The checkbox input element.
+ * @param {Object} data - The object where the input value will be stored.
+ */
 function storeCheckboxInput(input, data) {
     if (input.checked) {
         if (!data[input.name]) {
@@ -130,15 +163,36 @@ function storeCheckboxInput(input, data) {
     };
 }
 
+
+/**
+ * Stores the value of a checked radio input into the data object.
+ * Only the selected radio button's value is stored.
+ *
+ * @param {HTMLInputElement} input - The radio input element.
+ * @param {Object} data - The object where the input value will be stored.
+ */
 function storeRadioInput(input, data) {
     if (input.checked) {
         data[input.name] = input.value;
     };
 }
 
+
+/**
+ * Stores the value of a text-based input or textarea into the data object.
+ *
+ * @param {HTMLInputElement|HTMLTextAreaElement} input - The text, email, password, or textarea input element.
+ * @param {Object} data - The object where the input value will be stored.
+ */
 function storeTextInput(input, data) {
     data[input.name] = input.value;
 }
+
+
+
+
+
+
 
 
 // BEISPIELE / NACHHER LÖSCHEN
