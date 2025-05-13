@@ -168,9 +168,9 @@
 }
 
 .beam {
-    height: 36px;
+    height: 30px;
     width: 1px;
-    background-color: #d1d1d1;
+    background-color: #d1d1d1 !important;
 }
 
 .search-area-wrapper {
@@ -178,3 +178,12 @@
     align-items: center;
     gap: 36px;
 }
+
+.delete-and-edit-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* color: #2A3647; */
+    gap: 16px;
+}
+

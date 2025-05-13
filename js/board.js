@@ -227,9 +227,24 @@ function getOverviewTemplate(task) {
 
                     </div>
 
-                    <div class="delet-and-edit-wrapper">
+                    <div class="delete-and-edit-wrapper">
+                        <button class="btn-small">
+                            <div class="icon-wrapper">
+                                <img class="icon-default" src="../assets/img/icon-delete-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
+                                <span>Delete</span>
+                            </div>
+                        </button>
 
-                    
+                        <div class="beam"></div>
+
+                        <button class="btn-small">
+                            <div class="icon-wrapper">
+                                <img class="icon-default" src="../assets/img/icon-edit-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
+                                <span>Edit</span>
+                            </div>   
+                        </button>
                     </div>
                 </div>`;
 }
