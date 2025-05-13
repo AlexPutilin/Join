@@ -170,6 +170,7 @@
 .beam {
     height: 30px;
     width: 1px;
+    margin: 0px 8px;
     background-color: #d1d1d1 !important;
 }
 
