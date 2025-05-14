@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 .board {
     background-color: #f6f7f8;
     min-height: 845px;
@@ -21,7 +25,7 @@
     display: flex;
     justify-content: space-between;
     gap: 36px;
-    overflow-x: hidden;
+    overflow: hidden;
     height: 480px;
 }
 
@@ -46,18 +50,34 @@
 
 .drag-drop-container {
     width: 300px;
-    height: 100%;
-
+    height: 460px;
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
 }
 
+.drag-drop-container::-webkit-scrollbar {
+  width: 10px;
+}
 
+.drag-drop-container::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+.drag-drop-container::-webkit-scrollbar-thumb {
+  background: #2a3647; 
+  border-radius: 10px;
+}
 
-
+.drag-drop-container::-webkit-scrollbar-thumb:hover {
+  background: #2a3d59; 
+}
 
 .task-card {
-    width: 280px;
+    width: 270px;
     border-radius: 16px;
     padding: 16px;
+    margin: 4px;
     background-color: #ffffff;
 }
 
@@ -187,4 +207,3 @@
     /* color: #2A3647; */
     gap: 16px;
 }
-
