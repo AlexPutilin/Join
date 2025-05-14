@@ -1,5 +1,7 @@
 const FIREBASE_URL = "https://join-b179e-default-rtdb.europe-west1.firebasedatabase.app";
 let allTasks = [];
+let currentDraggedElement;
+const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 
 /**
  * Loads all tasks from the Kanban board stored in the Firebase database.
@@ -21,6 +23,9 @@ async function loadAllTasks() {
     }
 
 }
+function renderAllTasks() {
+    statuses.forEach(status => renderTasksByStatus(status));
+}
 
 /**
  * @function tasksToArray - Convert all loaded tasks into an Array and push in Array allTasks
@@ -30,45 +35,62 @@ function tasksToArray(tasksAsJson) {
     for (const task in tasksAsJson.tasks) {
         allTasks.push(tasksAsJson.tasks[task]);
     }
-    // console.log(tasksAsJson);
-    // console.log(allTasks);
-    renderTasksByStatus('toDo', 'to-do');
-    renderTasksByStatus('inProgress', 'in-progress');
-    renderTasksByStatus('awaitingFeedback', 'await-feedback');
-    renderTasksByStatus('done', 'done');
+    renderAllTasks();
 }
+
+// function updateBoardCard() {
+
+// }
 
 /**
  * @function renderTasksByStatus - Filters the Tasks by Status and renders them in the respective Container
  * @param {string} status - Status of the Tasks
- * @param {string} containerID - ID of the Tasks
+ * @param {string} status - corresponds to the ID
  */
-function renderTasksByStatus(status, containerID) {
-    let filteredStatus = allTasks.filter(allTasks => allTasks.status == status);
-    let container = document.getElementById(containerID);
+function renderTasksByStatus(status) {
+    let container = document.getElementById(status);
+    let filteredStatus = allTasks.filter(task => task.status === status);
     container.innerHTML = "";
+
+    if (filteredStatus.length === 0) {
+        return updateNoTasksDisplay(status, container);
+    }
+
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
-
-        let subtasksLength = 0;
-        let doneSubtasksLength = 0;
-        let doneTasksLength = 0;
-        let progress = 0;
         if (task.subtasks) {
-            subtasksLength = Object.keys(task.subtasks).length;
-            doneSubtasksLength = Object.values(task.subtasks);
-            doneTasksLength = doneSubtasksLength.filter(s => s.done).length;
-            progress = calcuProgressbar(task);
-
+            ({ subtasksLength, doneSubtasksLength, doneTasksLength, progress } = updateSubtasks(task));
         } else {
-            // subtasksLength = 0;
-            console.log(`no subtasks for tasks: ${task.title}`);
+            console.log(`no subtasks for task: ${task.title}`);
+            document.getElementById('task-progress-container').classList.add('hidden');
         }
-        // console.log(subtasksLength);
-     
-        container.innerHTML += getLittleTaskCard(task, progress, subtasksLength, doneTasksLength);
+        container.innerHTML += getTaskCard(task, progress, subtasksLength, doneTasksLength);
     }
 }
+
+function updateSubtasks(task) {
+    const subtasks = Object.values(task.subtasks || {});
+    const subtasksLength = subtasks.length;
+    const doneTasksLength = subtasks.filter(s => s.done).length;
+    const progress = calcuProgressbar(task);
+    return { subtasksLength, doneTasksLength, progress };
+}
+
+
+function updateNoTasksDisplay(status, container) {
+    let message = "No Tasks";
+    if (status === "to-do") {
+        message = "No Tasks To Do";
+    } else if (status === "in-progress") {
+        message = "No Tasks In Progress";
+    } else if (status === "await-feedback") {
+        message = "No Tasks Await Feedback";
+    } else if (status === "done") {
+        message = "No Tasks Done";
+    }
+    container.innerHTML = `<div class="placeholder-box"><p class="no-tasks-text">${message}</p></div>`;
+}
+
 
 /**
  * @function calcuProgressbar - Enables progress for the progress bar
@@ -77,7 +99,6 @@ function renderTasksByStatus(status, containerID) {
  */
 function calcuProgressbar(task) {
     const subtasksValue = Object.values(task.subtasks);
-    // console.log(subtasksValue);
     const totalSubtaks = subtasksValue.length;
     const doneTasks = subtasksValue.filter(s => s.done).length;
 
@@ -86,7 +107,6 @@ function calcuProgressbar(task) {
         return 0;
     }
     const progress = (doneTasks / totalSubtaks) * 100;
-    // console.log(progress);
     return progress;
 }
 
@@ -98,49 +118,134 @@ function calcuProgressbar(task) {
 function getBgCategory(category) {
     if (category === "User Story") {
         return "user-story";
-
     } else if (category === "Technical Task") {
         return "technical-task";
-
     } else {
         console.error("the background-color could not be assigned", category);
         return "default-category";
     }
 }
 
+function moveTo(status) {
+    console.log("Dropping task into:", status);
+    allTasks[currentDraggedElement]['status'] = status;
+    renderAllTasks();
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function startDragging(id) {
+    currentDraggedElement = id;
+    console.log("Started dragging task ID:", id);
+}
+
 /**
- * @function getLittleTaskCard - Render the little Task-Card in Board
+ * @function getTaskCard - Render the little Task-Card in Board
  * @param {Object} task - individual Tasks
  */
-function getLittleTaskCard(task, progress, subtasksLength, doneTasksLength) {
+function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
     const bgCategory = getBgCategory(task.category);
-    let description_short = shortenedDescription(task);
-    return `<div onclick="" class="task-card">
+    let description_short = getShortenedDescription(task);
+    return `<div draggable="true" ondragstart="startDragging(${task.id})" onclick="showOverview(${task.id})" id="task-card" class="task-card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
-                <div class="task-progress-container">
+                <div id="task-progress-container" class="task-progress-container">
                     <div class="task-progressbar">
                         <div class="task-progrssbar-content" style="width: ${progress}%;"></div>
                     </div>
                     <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
                 </div>
-                <div style="display: flex; gap: 16px;">
-                    <div>profiles</div>
-                    <div ></div>
+                <div class="profiles-priority-container">
+                    <div style="border: 2px solid black; border-radius: 100%; width: 32px; height: 32px;"></div>
+                    <div>${getPriority(task)}</div>
                 </div>
             </div>`;
 }
 
+function getPriority(task) {
+    if (task.priority === "Urgent") {
+        return `<img src="../assets/img/icon-prio-urgent.svg" alt="">`;
+    } else if (task.priority === "Medium") {
+        return `<img src="../assets/img/icon-prio-medium.svg" alt="">`;
+    } else if (task.priority === "Low") {
+        return `<img src="../assets/img/icon-prio-low.svg" alt="">`;
+    } else {
+        return "";
+    }
+}
+
+//    
+//        
+
+function showOverview(id) {
+    const task = allTasks.find(t => t.id === id);
+    console.log(id);
+    let overlayRef = document.getElementById('overlay');
+    overlayRef.classList.remove('d-none');
+
+    overlayRef.innerHTML = getOverviewTemplate(task);
+
+}
+
+function getOverviewTemplate(task) {
+    const bgCategory = getBgCategory(task.category);
+    return `    <div class="card-overview">
+                    <div class="card-overview-header">
+                        <span class="label ${bgCategory}">${task.category}</span><br>
+                        <button onclick="closeOverview()" class="btn-small">
+                            <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                        </button>
+                    </div>
+
+                    <h2 class="task-title">${task.title}</h2><br>
+                    <span class="task-description">${task.description_full}</span><br><br>
+
+                    <div class="">
+                        <span style="padding-right: 16px;" class="font-color ">Due Date:</span>
+                        <span> ${task.due_date}</span>
+                    </div>
+<br>
+                    <div class="priority-wrapper ">
+                        <span style="padding-right: 36px;" class="font-color">Priority:</span>
+                        <span > ${task.priority} </span>
+                        ${getPriority(task)}
+                    </div>
+
+
+
+                    <br>
+                    <div>
+                        <span class="font-color">Assigned To:</span>
+
+                    </div>
+                    <div>
+                        <span class="font-color">Subtasks:</span>
+
+                    </div>
+
+                    <div class="delet-and-edit-wrapper">
+
+                    
+                    </div>
+                </div>`;
+}
+
+function closeOverview() {
+    let overlayRef = document.getElementById('overlay');
+    overlayRef.classList.add('d-none');
+}
+
 /**
- * @function shortenedDescription - Shorten the Description for the small Task-Cards
+ * @function getShortenedDescription - Shorten the Description for the small Task-Cards
  * @param {Object} task - individual Tasks
  */
-function shortenedDescription(task) {
+function getShortenedDescription(task) {
     let maxLength = 30;
-    let description_short = task.description_full.substring(0, maxLength) + "...";
     if (task.description_full.length > maxLength) {
-        description_short;
+        return task.description_full.substring(0, maxLength) + "...";
     }
-    return description_short;
 }

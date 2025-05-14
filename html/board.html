@@ -19,7 +19,8 @@
 </head>
 
 <body onload="loadAllTasks()">
-    <header>
+    <div id="overlay" class="overlay d-none"></div>
+    <aside>
         <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
             <button onclick="openPage('summary.html')" class="btn-menu">
@@ -58,9 +59,9 @@
 
         <div class="legal">
             <a class="" href="privacy-policy.html">Privacy Policy</a>
-            <a class="" href="legal-notice.html">Legal notice</a>
+            <a class="" href="legal-notice.html">Legal Notice</a>
         </div>
-    </header>
+    </aside>
     <main>
         <section class="hug">
             <p class="kanban-text">
@@ -81,15 +82,30 @@
             <div class="board-navigation">
                 <div class="board-head">
                     <h1>Board</h1>
-                    <input type="text" placeholder="Find Task">
-                    <button class="btn-dark">
-                        <span>Add Task</span>
-                        <img src="../assets/img/icon-add-white.svg" alt="">
-                    </button>
+
+                    <div class="search-area-wrapper">
+
+                        <div class="input-area">
+                            <input type="text" id="search-input" required="" placeholder="Find Task" oninput="">
+                            <button type="button" class="btn-small" id="visibility-btn" onclick="">
+                                <div class="beam"></div>
+                                <img class="icon-default" src="../assets/img/icon-search-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-search-hover.svg">
+                                <img class="icon-active" src="../assets/img/icon-search-click.svg">
+                            </button>
+                        </div>
+
+                        <button class="btn-dark">
+                            <span>Add Task</span>
+                            <img src="../assets/img/icon-add-white.svg" alt="">
+                        </button>
+
+                    </div>
+
                 </div>
                 <div class="workflow-stages">
                     <div class="single-stages">
-                        <p>to do</p>
+                        <p>To Do</p>
                         <button class="btn-small">
                             <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
                             <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
@@ -97,7 +113,7 @@
                         </button>
                     </div>
                     <div class="single-stages">
-                        <p>in progress</p>
+                        <p>In Progress</p>
                         <button class="btn-small">
                             <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
                             <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
@@ -105,7 +121,7 @@
                         </button>
                     </div>
                     <div class="single-stages">
-                        <p>await feedback</p>
+                        <p>Await Feedback</p>
                         <button class="btn-small">
                             <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
                             <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
@@ -113,16 +129,25 @@
                         </button>
                     </div>
                     <div class="single-stages">
-                        <p>done</p>
+                        <p>Done</p>
                     </div>
                 </div>
 
+
+
                 <div id="board-content" class="board-content">
-                    <div onload="" id="to-do" class="to-do drag-drop-container"></div>
-                    <div onload="" id="in-progress" class="in-progress drag-drop-container"></div>
-                    <div onload="" id="await-feedback" class="await-feedback drag-drop-container"></div>
-                    <div onload="" id="done" class="done drag-drop-container"></div>
+                    <div ondrop="moveTo('to-do')" ondragover="allowDrop(event)" id="to-do" class="drag-drop-container">
+                    </div>
+                    <div ondrop="moveTo('in-progress')" ondragover="allowDrop(event)" id="in-progress"
+                        class="drag-drop-container">
+                    </div>
+                    <div ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)" id="await-feedback"
+                        class="drag-drop-container">
+                    </div>
+                    <div ondrop="moveTo('done')" ondragover="allowDrop(event)" id="done" class="drag-drop-container">
+                    </div>
                 </div>
+            </div>
         </section>
     </main>
 

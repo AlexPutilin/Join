@@ -95,3 +95,26 @@ function getLoginFormTemplate() {
             </section>
    `;
 }
+
+
+function getContactSelectionTemplate(param) {
+    return `
+        <div class="select-contact">
+            <div>
+                <div class="icon-contact">${param}</div>
+                <span>${param}</span>
+            </div>
+            <label class="checkbox">
+                <input type="checkbox" hidden>
+                <div class="icon-wrapper icon-checkbox-default">
+                    <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                    <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                </div>
+                <div class="icon-wrapper icon-checkbox-checked">
+                    <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                    <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                </div>
+            </label>
+        </div>
+    `
+}

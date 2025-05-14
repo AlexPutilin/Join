@@ -7,7 +7,7 @@
     text-decoration: none;
 }
 
-.headling-back-btn{
+.headling-back-wrapper{
     display: flex;
     justify-content: space-between;
     align-items: center;

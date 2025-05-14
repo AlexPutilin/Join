@@ -69,21 +69,32 @@ function getSelectedPriority() {
 function toggleDropDown(triggerElement) {
     const inputWrapper = triggerElement.closest('.input-wrapper')
     const input = inputWrapper.querySelector('input');
-    const dropDownMenu = inputWrapper.querySelector('.drop-down-menu');
-    dropDownMenu.classList.toggle('d-none');
+    const menu = inputWrapper.querySelector('.drop-down-menu');
+    const icons = inputWrapper.querySelectorAll('.icon-wrapper');
+    if (menu.dataset.open === 'false') {
+        openDropDownMenu(input, menu, icons);
+        menu.dataset.open = 'true';
+    } else {
+        closeDropDownMenu(input, menu, icons);
+        menu.dataset.open = 'false';
+    }
 }
 
-
-function openDropDown(triggerElement) {
-    const input = triggerElement.querySelector('input');
-    const dropDownMenu = triggerElement.querySelector('.drop-down-menu');
-    input.placeholder = "";
-    dropDownMenu.classList.remove('d-none');
+function openDropDownMenu(input, menu, icons) {
+    menu.classList.remove('d-none');
+    icons[0].classList.toggle('d-none');
+    icons[1].classList.toggle('d-none');
+    input.style.cursor = "text"
+    input.placeholder = input.dataset.placeholderActive;
+    input.focus();
 }
 
-
-function closeDropDown() {
-
+function closeDropDownMenu(input, menu, icons) {
+    menu.classList.add('d-none');
+    icons[0].classList.toggle('d-none');
+    icons[1].classList.toggle('d-none');
+    input.style.cursor = "pointer"
+    input.placeholder = input.dataset.placeholder;
 }
 
 

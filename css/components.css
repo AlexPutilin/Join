@@ -9,7 +9,7 @@
 /* MAIN CLASSES */
 
 
-button {
+button, .checkbox {
     cursor: pointer;
     transition: all 75ms;
 }
@@ -96,11 +96,13 @@ a:hover {
 
 .btn-light:hover .icon-default, 
 .btn-light:hover .icon-active,
-.btn-small:hover .icon-default {
+.btn-small:hover .icon-default,
+.checkbox:hover .icon-default {
     opacity: 0;
 }
 .btn-light:hover .icon-hover,
-.btn-small:hover .icon-hover {
+.btn-small:hover .icon-hover,
+.checkbox:hover .icon-hover {
     opacity: 1;
 }
 
@@ -206,6 +208,7 @@ a:hover {
     color: #FF3D00;
 }
 
+
 .required-mark {
     color: #FF3D00;
 }
@@ -276,7 +279,6 @@ textarea {
 }
 
 .priority-option input:checked ~ span {
-    /* font-weight: bold; */
     color: #fff;
 }
 .priority-option input:checked ~ img {

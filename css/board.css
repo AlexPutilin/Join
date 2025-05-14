@@ -1,6 +1,6 @@
 .board {
     background-color: #f6f7f8;
-    min-height: 920px;
+    min-height: 845px;
     padding: 96px;
 }
 
@@ -21,6 +21,8 @@
     display: flex;
     justify-content: space-between;
     gap: 36px;
+    overflow-x: hidden;
+    height: 480px;
 }
 
 .workflow-stages {
@@ -37,18 +39,15 @@
     display: flex;
     align-items: center;
     gap: 40px;
-    width: 240px;
+    width: 245px;
     justify-content: space-between;
 
 }
 
 .drag-drop-container {
-    border: 2px dotted #e7e7e7;
     width: 260px;
-    height: 30px;
-    border-radius: 8px;
-    background-color: #42526e23;
-    z-index: 1;
+    height: 100%;
+
 }
 
 
@@ -56,9 +55,14 @@
 
 
 .task-card {
+    width: 260px;
     border-radius: 16px;
     padding: 16px;
     background-color: #ffffff;
+}
+
+.task-card:hover {
+    cursor: pointer;
 }
 
 .task-title {
@@ -89,6 +93,88 @@
     border-radius: 4px;
 }
 
-.task-progressbar-quotient{
+.task-progressbar-quotient {
     font-size: 12px;
+}
+
+.profiles-priority-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+}
+
+.no-tasks-text {
+    font-size: 19px;
+    color: #a8a8a8;
+    margin: 0;
+}
+
+.placeholder-box {
+    width: 260px;
+    height: 48px;
+    border: 1px dashed #a8a8a8;
+    border-radius: 8px;
+    background-color: #e7e7e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.26);
+    position: absolute;
+    z-index: 10;
+}
+
+.card-overview {
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+    border: 1px solid #f1f1f1;
+    border-radius: 16px;
+    /* box-shadow: 2px 2px 2px 1px #e3e3e3; */
+
+    top: 20%;
+    left: 40%;
+    width: 25%;
+    height: 60%;
+    padding: 24px;
+}
+
+.card-overview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.font-color {
+    color: #42526e;
+}
+
+.priority-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.d-none {
+    display: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.beam {
+    height: 36px;
+    width: 1px;
+    background-color: #d1d1d1;
+}
+
+.search-area-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 36px;
 }
