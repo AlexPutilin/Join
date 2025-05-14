@@ -13,12 +13,15 @@
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
 
+
+
+    <!-- <script src="../js/api.js"></script> -->
     <script src="../js/board.js"></script>
-    <!-- <script type="module" src="../js/api.js"></script> -->
+
     <script src="../js/main.js"></script>
 </head>
 
-<body onload="loadAllTasks()">
+<body onload="initBoard()">
     <div id="overlay" class="overlay d-none"></div>
     <aside>
         <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
@@ -86,7 +89,8 @@
                     <div class="search-area-wrapper">
 
                         <div class="input-area">
-                            <input type="text" id="search-input" required="" placeholder="Find Task" oninput="filterAndShowTasks(this.value)">
+                            <input type="text" id="search-input" required="" placeholder="Find Task"
+                                oninput="filterAndShowTasks(this.value)">
                             <button type="button" class="btn-small" id="visibility-btn" onclick="searchTask()">
                                 <div class="beam"></div>
                                 <div class="icon-wrapper">
