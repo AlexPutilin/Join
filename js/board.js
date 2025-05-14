@@ -4,26 +4,28 @@ let currentTasks = [];
 let currentDraggedElement;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 
+async function initBoard() {
+    await getData('/board');
+}
 /**
- * Loads all tasks from the Kanban board stored in the Firebase database.
- *
- * @async
- * @function loadAllTasks
- * @returns {Promise<Object>} A promise that resolves to an object containing all tasks.
- *                            If an error occurs, an empty object will be returned.
+ * Fetches data from the Firebase Realtime Database at the specified path.
+ * 
+ * @param {string} [path=""] - The path in the database to fetch data from.
+ * @returns {Promise<any>} - A promise that resolves to the fetched JSON data.
  */
-async function loadAllTasks() {
+async function getData(path = "") {
     try {
-        let responseTasks = await fetch(`${FIREBASE_URL}/board.json`);
-        let tasksAsJson = await responseTasks.json();
-        // console.log(tasksAsJson);
-        tasksToArray(tasksAsJson);
-    } catch (error) {
+        let response = await fetch(FIREBASE_URL + path + ".json");
+        let responseAsJson = await response.json();
+        tasksToArray(responseAsJson);
+        return responseAsJson;
+    }
+    catch (error) {
         console.error("Error while loading tasks:", error);
         return {};
     }
-
 }
+
 function renderAllTasks(taskList = allTasks) {
     statuses.forEach(status => renderTasksByStatus(status, taskList));
 }
@@ -38,7 +40,6 @@ function tasksToArray(tasksAsJson) {
     }
     currentTasks = allTasks;
     renderAllTasks();
-
 }
 
 // function updateBoardCard() {
@@ -270,14 +271,14 @@ function getShortenedDescription(task) {
 console.log(allTasks);
 function filterAndShowTasks(filterTask) {
 
- 
+
 
     if (filterTask.trim().length > 0) {
-       const filteredTasks = allTasks.filter(task =>
+        const filteredTasks = allTasks.filter(task =>
             task.title.toLowerCase().includes(filterTask.toLowerCase())
-       );
-       console.log(filterTask);
-       
+        );
+        console.log(filterTask);
+
         renderAllTasks(filteredTasks);
     } else {
         renderAllTasks(allTasks);
@@ -287,7 +288,7 @@ function filterAndShowTasks(filterTask) {
 
 }
 
-function searchTask(){
+function searchTask() {
     let searchValueRef = document.getElementById('search-input').value;
     filterAndShowTasks(searchValueRef);
 }
