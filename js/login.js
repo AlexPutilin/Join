@@ -90,6 +90,8 @@ function toggleCtaContainer() {
  * Signup functin -> in progress...
  */
 async function handleSignup() {
+    console.log("btn_signup enabled");
+    
     if (checkFormValidation('#signup_form')) {
         await addNewUser();
     }
@@ -134,6 +136,12 @@ function generateNewUserID(array) {
 }
 
 
+/**
+ * Sends data to a specific Firebase Realtime Database path using PUT (overwrites data at the given path).
+ * @param {string} path - The Firebase DB path (e.g. "users/user1").
+ * @param {Object} data - The data object to store at the given path.
+ * @returns {Promise<Object>} - The response JSON from Firebase.
+ */
 async function putData(path="", data={}) {
     let response = await fetch(FIREBASE_URL + path + ".json", {
         method: "PUT",
@@ -147,6 +155,10 @@ async function putData(path="", data={}) {
 }
 
 
+/**
+ * Reads the values from the signup form input fields and returns them as a user object.
+ * @returns {{name: string, email: string, password: string}} - The user input data.
+ */
 function getSignupInput() {
     let nameRef = document.getElementById('signup_name');
     let emailRef = document.getElementById('signup_email');
@@ -163,5 +175,3 @@ function getSignupInput() {
     return updatedInputData[0];
 }
 
-// -> next Step:
-// -> Neue User via "PUT" hinzufügen mit dem key -> /user${newUserID}
