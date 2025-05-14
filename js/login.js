@@ -104,10 +104,10 @@ async function handleSignup() {
 async function addNewUser() {
     let inputData = getSignupInput();
     let allUsersArr = await loadAllUserEntries();
-    let newUserID = generateNewUserID(allUsersArr);
-    console.log(newUserID);
 
-    postData("/users", inputData);
+    let newUserID = generateNewUserID(allUsersArr);
+
+    putData(`/users/user${newUserID}`, inputData);
 }
 
 
@@ -134,6 +134,19 @@ function generateNewUserID(array) {
 }
 
 
+async function putData(path="", data={}) {
+    let response = await fetch(FIREBASE_URL + path + ".json", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    return responseAsJson = await response.json();
+}
+
+
 function getSignupInput() {
     let nameRef = document.getElementById('signup_name');
     let emailRef = document.getElementById('signup_email');
@@ -150,18 +163,5 @@ function getSignupInput() {
     return updatedInputData[0];
 }
 
-
-async function postData(path="", data={}) {
-    let response = await fetch(FIREBASE_URL + path + ".json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    });
-
-    return responseAsJson = await response.json();
-}
-
 // -> next Step:
-// -> Logik, die den nächsten freien userX-Key ermittelt und dann via PUT speichert
+// -> Neue User via "PUT" hinzufügen mit dem key -> /user${newUserID}
