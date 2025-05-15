@@ -174,8 +174,3 @@ function getSignupInput() {
 
     return updatedInputData[0];
 }
-
-
-
-
-console.log("hallo");
