@@ -1,45 +1,180 @@
-.board-navigation {
-    height: 232px;
+.board {
     background-color: #f6f7f8;
+    min-height: 845px;
+    padding: 96px;
 }
+
+/* .board-navigation {
+   
+    
+} */
 
 .board-head {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    margin-top: 36px;
+    justify-content: space-between;
+
 }
 
 .board-content {
-    height: 688px;
-    background-color: #f6f7f8;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 36px;
-}
-
-
-
-
-.add-btn {
-    background-image: url(../assets/img/icon-add-default.svg);
+    overflow-x: hidden;
+    height: 480px;
 }
 
 .workflow-stages {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     font-size: 24px;
     color: #42526e;
     font-weight: 700;
-    margin-top: 36px;
+    padding: 36px 0px;
 }
 
-.drag-drop-container{
-    border: 2px dotted grey;
-    width: 250px;
-    height: 250px;
-    border-radius: 24px;
-    background-color: #42526e23;
+.single-stages {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 245px;
+    justify-content: space-between;
+
+}
+
+.drag-drop-container {
+    width: 260px;
+    height: 100%;
+
+}
+
+
+
+
+
+.task-card {
+    width: 260px;
+    border-radius: 16px;
+    padding: 16px;
+    background-color: #ffffff;
+}
+
+.task-card:hover {
+    cursor: pointer;
+}
+
+.task-title {
+    padding: 24px 0px 16px 0px;
+}
+
+.task-description-short {
+    color: #cecece;
+}
+
+.task-progress-container {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0px;
+}
+
+.task-progressbar {
+    background-color: #ccc;
+    width: 50%;
+    height: 8px;
+    border-radius: 4px;
+}
+
+.task-progrssbar-content {
+    background-color: #4589ff;
+    height: 8px;
+    width: 50%;
+    border-radius: 4px;
+}
+
+.task-progressbar-quotient {
+    font-size: 12px;
+}
+
+.profiles-priority-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+}
+
+.no-tasks-text {
+    font-size: 19px;
+    color: #a8a8a8;
+    margin: 0;
+}
+
+.placeholder-box {
+    width: 260px;
+    height: 48px;
+    border: 1px dashed #a8a8a8;
+    border-radius: 8px;
+    background-color: #e7e7e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.26);
+    position: absolute;
+    z-index: 10;
+}
+
+.card-overview {
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+    border: 1px solid #f1f1f1;
+    border-radius: 16px;
+    /* box-shadow: 2px 2px 2px 1px #e3e3e3; */
+
+    top: 20%;
+    left: 40%;
+    width: 25%;
+    height: 60%;
+    padding: 24px;
+}
+
+.card-overview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.font-color {
+    color: #42526e;
+}
+
+.priority-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.d-none {
+    display: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.beam {
+    height: 36px;
+    width: 1px;
+    background-color: #d1d1d1;
+}
+
+.search-area-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 36px;
 }

@@ -4,17 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legal notice</title>
+    <title>add Task</title>
     <link rel="shortcut icon" href="../assets/img/logo.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
-    <link rel="stylesheet" href="../css/components.css">
+
+
+    <script src="../js/main.js"></script>
 </head>
 
 <body onload="init()">
-    <aside>
+    <header>
         <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
             <button onclick="openPage('summary.html')" class="btn-menu">
@@ -25,7 +28,7 @@
                 <span>Summary</span>
             </button>
 
-            <button onclick="openPage('addTask.html')" class="btn-menu ">
+            <button onclick="openPage('addTask.html')" class="btn-menu menu-active">
                 <div class="icon-wrapper">
                     <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
                     <img class="icon-active" src="../assets/img/icon-task-active.svg" alt="add task active icon">
@@ -55,7 +58,7 @@
             <a class="" href="privacy-policy.html">Privacy Policy</a>
             <a class="" href="legal-notice.html">Legal notice</a>
         </div>
-    </aside>
+    </header>
     <main>
         <section class="hug">
             <p class="kanban-text">
@@ -78,3 +81,4 @@
 </body>
 
 </html>
+
