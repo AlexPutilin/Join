@@ -1,11 +1,11 @@
-
 let allTasks = [];
 let currentTasks = [];
 let currentDraggedElement;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 
 async function initBoard() {
-    await getData('/board');
+    // await getData('/board');
+    await tasksToArray();
 }
 
 function renderAllTasks(taskList = allTasks) {
@@ -16,17 +16,22 @@ function renderAllTasks(taskList = allTasks) {
  * @function tasksToArray - Convert all loaded tasks into an Array and push in Array allTasks
  * @param {Object} tasksAsJson - Contains the existing tasks
  */
-function tasksToArray(tasksAsJson) {
-    for (const task in tasksAsJson.tasks) {
-        allTasks.push(tasksAsJson.tasks[task]);
+async function tasksToArray() {
+    let taskResponse = await getData("/board/tasks");
+    allTasks = [];
+
+    for (let key in taskResponse) {
+        let task = taskResponse[key];
+        allTasks.push({
+            id: key,
+            ...task
+        });
     }
+
+    console.log("All Tasks:", allTasks);
     currentTasks = allTasks;
     renderAllTasks();
 }
-
-// function updateBoardCard() {
-
-// }
 
 /**
  * @function renderTasksByStatus - Filters the Tasks by Status and renders them in the respective Container
@@ -112,9 +117,41 @@ function getBgCategory(category) {
     }
 }
 
+
+
+
+async function updateTaskInFirebase(taskId, updatedTask) {
+    try {
+        await fetch(`${FIREBASE_URL}/board/tasks/${taskId}.json`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedTask)
+        });
+        console.log(`Task ${taskId} erfolgreich aktualisiert`);
+    } catch (error) {
+        console.error("Error while loading tasks(PUT):", error);
+    }
+}
+
+
 function moveTo(status) {
     console.log("Dropping task into:", status);
-    allTasks[currentDraggedElement]['status'] = status;
+
+    let taskIndex = allTasks.findIndex(t => t.id === currentDraggedElement);
+    if (taskIndex === -1) {
+        console.error("Task not found:", currentDraggedElement);
+        return;
+    }
+
+    let task = allTasks[taskIndex];
+
+    task.status = status;
+
+    updateTaskInFirebase(task.id, task);
+
+    allTasks[taskIndex] = task;
     renderAllTasks();
 }
 
@@ -123,8 +160,9 @@ function allowDrop(event) {
 }
 
 function startDragging(id) {
-    currentDraggedElement = id;
-    console.log("Started dragging task ID:", id);
+    console.log(allTasks.tasks);
+    currentDraggedElement = task.id;
+    console.log("Started dragging task ID:", task.id);
 }
 
 /**
@@ -132,9 +170,10 @@ function startDragging(id) {
  * @param {Object} task - individual Tasks
  */
 function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
+    console.log(task);
     const bgCategory = getBgCategory(task.category);
     let description_short = getShortenedDescription(task);
-    return `<div draggable="true" ondragstart="startDragging(${task.id})" onclick="showOverview(${task.id})" id="task-card" class="task-card">
+    return `<div draggable="true" ondragstart="startDragging(${task.id})" onclick="showOverview(${task.id})" id="${task.id}" class="task-card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
@@ -248,29 +287,18 @@ function getShortenedDescription(task) {
     let maxLength = 30;
     if (task.description_full.length > maxLength) {
         return task.description_full.substring(0, maxLength) + "...";
+    } else {
+        return task.description_full;
     }
 }
-console.log(allTasks);
+
 function filterAndShowTasks(filterTask) {
-
-
-
     if (filterTask.trim().length > 0) {
         const filteredTasks = allTasks.filter(task =>
             task.title.toLowerCase().includes(filterTask.toLowerCase())
         );
-        console.log(filterTask);
-
         renderAllTasks(filteredTasks);
     } else {
         renderAllTasks(allTasks);
     }
-
-
-
-}
-
-function searchTask() {
-    let searchValueRef = document.getElementById('search-input').value;
-    filterAndShowTasks(searchValueRef);
 }
