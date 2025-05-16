@@ -84,3 +84,6 @@ function toggleCtaContainer() {
     let element = document.getElementById("cta-container");
     element.classList.toggle("invisible");
 }
+
+
+console.log("hallo");
