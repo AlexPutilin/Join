@@ -1,4 +1,4 @@
-const FIREBASE_URL = "https://join-b179e-default-rtdb.europe-west1.firebasedatabase.app";
+
 let allTasks = [];
 let currentTasks = [];
 let currentDraggedElement;
@@ -6,24 +6,6 @@ const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 
 async function initBoard() {
     await getData('/board');
-}
-/**
- * Fetches data from the Firebase Realtime Database at the specified path.
- * 
- * @param {string} [path=""] - The path in the database to fetch data from.
- * @returns {Promise<any>} - A promise that resolves to the fetched JSON data.
- */
-async function getData(path = "") {
-    try {
-        let response = await fetch(FIREBASE_URL + path + ".json");
-        let responseAsJson = await response.json();
-        tasksToArray(responseAsJson);
-        return responseAsJson;
-    }
-    catch (error) {
-        console.error("Error while loading tasks:", error);
-        return {};
-    }
 }
 
 function renderAllTasks(taskList = allTasks) {
