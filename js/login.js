@@ -65,6 +65,49 @@ function changeImgSrc(id, ref) {
 }
 
 
+function showSignupForm() {
+    renderForm(getSignupFormTemplate());
+    initSignupForm(); // -> handle disabled attribute of btn_signup
+}
+
+
+/**
+ * Initializes the signup form by attaching input listeners to all required fields.
+ * Enables or disables the signup button depending on whether all required fields are filled.
+ */
+function initSignupForm() {
+    let inputs = document.querySelectorAll('#signup_form input[required]');
+    let signupBtn = document.getElementById('btn_signup');
+
+    checkInputs(inputs, signupBtn);
+
+    inputs.forEach(input => {
+        input.addEventListener('input', () => checkInputs(inputs, signupBtn));
+    });
+}
+
+
+/**
+ * Checks whether all given input fields are filled.
+ * If all required inputs have non-empty values, enables the signup button.
+ * Otherwise, disables the signup button.
+ *
+ * @param {NodeListOf<HTMLInputElement>} inputs - List of required input fields to check.
+ * @param {HTMLButtonElement} signupBtn - The signup button to enable or disable.
+ */
+function checkInputs(inputs, signupBtn) {
+    let allFilled = true;
+
+    inputs.forEach(input => {
+        if (input.value.trim() === '') {
+            allFilled = false;
+        }
+    });
+
+    signupBtn.disabled = !allFilled;
+}
+
+
 /**
  * Renders the signup form inside the form container and hides the CTA section.
  */
