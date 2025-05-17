@@ -55,7 +55,7 @@ function getSignupFormTemplate() {
                 </div>
                 
                 <div>
-                    <button id="btn_signup" type="button" onclick="handleSignup()" class="btn-dark cta-text-mobile-sm">Sign up</button>
+                    <button id="btn_signup" type="button" onclick="handleSignup()" class="btn-dark cta-text-mobile-sm" disabled>Sign up</button>
                 </div>
             </form>
         </section>

@@ -105,34 +105,49 @@ async function handleSignup() {
  */
 async function addNewUser() {
     let inputData = getSignupInput();
-    let allUsersArr = await loadAllUserEntries();
-
-    let newUserID = generateNewUserID(allUsersArr);
+    let newUserID = await generateUID('/users');
 
     putData(`/users/user${newUserID}`, inputData);
 }
 
 
+// async function addNewTask() {
+//     // let inputData = ...
+//     let newTaskID = await generateUID('/board/tasks');
+
+//     putData(`/tasks/task${newTaskID}`, inputData);
+// }
+
+
 /**
- * Loads all user entries from the Firebase Realtime Database.
- * @returns {Promise<Array>} An array of [key, userObject] entries.
+ * Retrieves all entries from the given database path and returns them as an array of key-value pairs.
+ *
+ * @async
+ * @function getAllEntries
+ * @param {string} path - The path in the database from which to retrieve the entries.
+ * @returns {Promise<Array<[string, any]>>} - A promise that resolves to an array of key-value pairs from the database object.
  */
-async function loadAllUserEntries() {
-    let allUsersRef = await getData('/users');
-    return Object.entries(allUsersRef);
+async function getAllEntries(path) {
+    let allEntriesRef = await getData(path);
+    return Object.entries(allEntriesRef);
 }
 
 
-/**
- * Generates a new user ID based on the number of existing users.
- * @param {Array} array - The array of existing user entries.
- * @returns {number} The next user ID number.
- */
-function generateNewUserID(array) {
-    let allUsersArr = loadAllUserEntries();
 
-    let currentUserCount = array.length;
-    return currentUserCount + 1;
+/**
+ * Generates a new unique ID based on the number of existing entries at the given path.
+ * The ID is computed as the current count of entries plus one.
+ *
+ * @async
+ * @function generateUID
+ * @param {string} path - The path in the database where entries are stored (e.g. '/users').
+ * @returns {Promise<number>} - A promise that resolves to the next unique numeric ID.
+ */
+async function generateUID(path) {  
+    let allEntries = await getAllEntries(path);
+    let currentCount = allEntries.length;
+    
+    return currentCount + 1;
 }
 
 
