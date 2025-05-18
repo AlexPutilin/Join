@@ -154,45 +154,6 @@ async function addNewUser() {
 }
 
 
-// async function addNewTask() {
-//     // let inputData = ...
-//     let newTaskID = await generateUID('/board/tasks');
-
-//     putData(`/tasks/task${newTaskID}`, inputData);
-// }
-
-
-/**
- * Retrieves all entries from the given database path and returns them as an array of key-value pairs.
- *
- * @async
- * @function getAllEntries
- * @param {string} path - The path in the database from which to retrieve the entries.
- * @returns {Promise<Array<[string, any]>>} - A promise that resolves to an array of key-value pairs from the database object.
- */
-async function getAllEntries(path) {
-    let allEntriesRef = await getData(path);
-    return Object.entries(allEntriesRef);
-}
-
-
-/**
- * Generates a new unique ID based on the number of existing entries at the given path.
- * The ID is computed as the current count of entries plus one.
- *
- * @async
- * @function generateUID
- * @param {string} path - The path in the database where entries are stored (e.g. '/users').
- * @returns {Promise<number>} - A promise that resolves to the next unique numeric ID.
- */
-async function generateUID(path) {  
-    let allEntries = await getAllEntries(path);
-    let currentCount = allEntries.length;
-    
-    return currentCount + 1;
-}
-
-
 /**
  * Sends data to a specific Firebase Realtime Database path using PUT (overwrites data at the given path).
  * @param {string} path - The Firebase DB path (e.g. "users/user1").
