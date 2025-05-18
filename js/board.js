@@ -155,14 +155,67 @@ function moveTo(status) {
     renderAllTasks();
 }
 
-function allowDrop(event) {
-    event.preventDefault();
-}
+// function allowDrop(event) {
+//     event.preventDefault();
+// }
 
-function startDragging(id) {
-    console.log(allTasks.tasks);
-    currentDraggedElement = task.id;
-    console.log("Started dragging task ID:", task.id);
+// function startDragging(id) {
+//     console.log(allTasks.tasks);
+//     currentDraggedElement = task.id;
+//     console.log("Started dragging task ID:", task.id);
+// }
+
+const draggables = document.querySelectorAll('.card');
+const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
+
+draggables.forEach(draggable => {
+    draggable.addEventListener('dragstart', () => {
+        draggable.classList.add('dragging');
+        currentDraggedElement = draggable.id;
+    })
+
+    draggable.addEventListener('dragend', () => {
+        draggable.classList.remove('dragging');
+    })
+})
+
+dragAndDropContainers.forEach(dragAndDropContainer => {
+    dragAndDropContainer.addEventListener('dragover', event => {
+        event.preventDefault();
+        const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
+        const draggable = document.querySelector('.dragging');
+        if (draggable) {
+            if (afterElement == null) {
+                dragAndDropContainer.appendChild(draggable)
+            } else {
+                dragAndDropContainer.insertBefore(draggable, afterElement)
+            }
+        } else {
+            console.warn("Kein Element mit Klasse '.dragging' gefunden!");
+        }
+    })
+})
+
+dragAndDropContainers.forEach(dragAndDropContainer => {
+    dragAndDropContainer.addEventListener('drop', event => {
+        event.preventDefault();
+        const status = dragAndDropContainer.id;
+        moveTo(status);
+    })
+})
+
+function getDragAfterElement(dragAndDropContainer, y) {
+    const draggableElements = [...dragAndDropContainer.querySelectorAll('.dragging:not(.dragging)')]
+
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child }
+        } else {
+            return closest
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element
 }
 
 /**
@@ -173,7 +226,7 @@ function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
     console.log(task);
     const bgCategory = getBgCategory(task.category);
     let description_short = getShortenedDescription(task);
-    return `<div draggable="true" ondragstart="startDragging(${task.id})" onclick="showOverview(${task.id})" id="${task.id}" class="task-card">
+    return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
@@ -206,7 +259,7 @@ function getPriority(task) {
 //        
 
 function showOverview(id) {
-    const task = allTasks.find(t => t.id === id);
+    const task = allTasks.find(t => t.id.toString() === id.toString());
     console.log(id);
     let overlayRef = document.getElementById('overlay');
     overlayRef.classList.remove('d-none');
