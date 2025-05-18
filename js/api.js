@@ -17,3 +17,40 @@ async function getData(path = "") {
         return {};
     }
 }
+
+/**
+ * Generates a new unique ID based on the number of existing entries at the given path.
+ * The ID is computed as the current count of entries plus one.
+ * @async
+ * @function generateUID
+ * @param {string} path - The path in the database where entries are stored (e.g. '/users').
+ * @returns {Promise<number>} - A promise that resolves to the next unique numeric ID.
+ */
+async function generateUID(path) {
+    const allEntries = await getAllEntries(path);
+    const currentCount = allEntries ? Object.keys(allEntries).length : 0;
+    return currentCount + 1;
+  }
+  
+  
+  async function getAllEntries(path = "") {
+    try {
+        const response = await fetch(`${FIREBASE_URL}${path}.json`);
+        const json = await response.json();
+        return json || {};
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Daten:", error);
+        return {};
+    }
+  }
+  
+  async function putData(path, data) {
+    try {
+        await fetch(`${FIREBASE_URL}${path}.json`, {
+            method: "PUT",
+            body: JSON.stringify(data)
+        });
+    } catch (error) {
+        console.error("Fehler beim Speichern in Firebase:", error);
+    }
+  }

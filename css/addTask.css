@@ -43,21 +43,9 @@
     padding-left: 40px; 
 }
 
-.priority-buttons {
+.priority-buttons-wrapper {
     display: flex;
     gap: 10px;
-}
-
-.priority-buttons label {
-    background-color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px; 
-    transition: background-color 0.3s ease;
 }
 
 .subtask-btn{
@@ -66,62 +54,10 @@
     font-size: 24px;
 }
 
-.select-design{
-    height: 48px;
-    width: 100%;
-    border: 1px solid #D1D1D1;
-    outline: none;
-    font-size: 20px;
-    text-indent: 12px;
-    border-radius: 10px;
+.drop-down-menu {
+  background-color: white;
+  border-radius: 10px;
 }
-
-select {
-    appearance: none;
-    background-image: url(/assets/img/icon-down-default.svg);
-    background-repeat: no-repeat;
-    background-position: right 20px center;
-    background-size: 24px;
-    padding-right: 30px;
-    cursor: pointer;
-}
-
-select:hover{
-    background-image: url('/assets/img/icon-down-hover.svg');
-}
-
-.custom-dropdown {
-    position: relative;
-    background-color: #fff;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 16px;
-  }
-  
-  .dropdown-selected {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    cursor: pointer;
-    background-image: url('../assets/img/icon-down-default.svg');
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 16px;
-    transition: background-image 0.2s ease;
-  }
-  
-  .dropdown-options {
-    margin-top: 4px;
-    background: white;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    overflow: hidden;
-    max-height: 300px;
-    opacity: 1;
-    visibility: visible;
-  }
-  
   .dropdown-options.hidden {
     max-height: 0;
     opacity: 0;
@@ -136,13 +72,6 @@ select:hover{
   
   .dropdown-single-option:hover {
     background-color: #D1D1D1;
-  }
-  
-  .err-msg {
-    color: red;
-    font-size: 14px;
-    margin-top: 4px;
-    display: block;
   }
 
   .clear-save-btn-wrapper {
@@ -159,6 +88,7 @@ select:hover{
     max-width: 800px;
     padding: 0 24px;  
   }
+
   .clear-save-btn-pos {
     display: flex;
     gap: 16px;

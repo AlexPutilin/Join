@@ -13,8 +13,10 @@
     <link rel="stylesheet" href="../css/fonts.css">
     <link rel="stylesheet" href="../css/addTask.css">
 
+    <script src="../js/api.js"></script>
     <script src="../js/components.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/templates.js"></script>
     <script src="../js/addTask.js"></script>
 </head>
 
@@ -80,70 +82,69 @@
 
         <section class="add-task-form">
             <div>
-            <h1>Add Task</h1>
+              <h1>Add Task</h1>
             </div>
-            <div class="add-task-container">
-        
-                <div class="add-task-left">
-                    <div class="input-wrapper">
-                        <div class="required-description">
-                        <span>Title</span>
-                        <span class="redstar">*</span>
-                    </div>
-                        <div class="input-area">
-                            <input type="text" placeholder="Enter a title" required oninput="resetInputError()">
-                        </div>
-                        <span class="err-msg hidden">This field is required.</span>
-                    </div>
-        
-                    <div class="input-wrapper">
-                        <span>Description</span>
-                        <div class="textarea">
-                            <textarea placeholder="Enter a description"></textarea>
-                        </div>
-                    </div>
-        
-                    <div class="input-wrapper">
-                        <div class="required-description">
-                        <span>Due date</span>
-                        <span class="redstar">*</span>
-                    </div>
-                        <div class="input-area">
-                            <input type="date" required>
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="add-task-right">
-                    <div class="input-wrapper">
-                        <span>Priority</span>
-                        <div class="priority-buttons">
-                            <label class="priority-option urgent">
-                                <input type="radio" name="priority" value="urgent" hidden>
-                                <span>Urgent</span>
-                                <img src="../assets/img/icon-prio-urgent.svg" alt="">
-                                <div class="bg-checked"></div>
-                            </label>
-                            <label class="priority-option medium">
-                                <input type="radio" name="priority" value="medium" hidden>
-                                <span>Medium</span>
-                                <img src="../assets/img/icon-prio-medium.svg" alt="">
-                                <div class="bg-checked"></div>
-                            </label>
-                            <label class="priority-option low">
-                                <input type="radio" name="priority" value="low" hidden>
-                                <span>Low</span>
-                                <img src="../assets/img/icon-prio-low.svg" alt="">
-                                <div class="bg-checked"></div>
-                            </label>
-                        </div>
-                    </div>
-        
+          
 
+            <form id="add-task-form" onsubmit="handleSubmit(event)">
+              <div class="add-task-container">
+                <div class="add-task-left">
+                  <div class="input-wrapper">
+                    <div class="required-description">
+                      <span>Title</span>
+                      <span class="redstar">*</span>
+                    </div>
+                    <div class="input-area">
+                      <input type="text" placeholder="Enter a title" required oninput="resetInputError()">
+                    </div>
+                    <span class="err-msg hidden">This field is required.</span>
+                  </div>
+                  <div class="input-wrapper">
+                    <span>Description</span>
+                    <div class="textarea">
+                      <textarea placeholder="Enter a description"></textarea>
+                    </div>
+                  </div>
+                  <div class="input-wrapper">
+                    <div class="required-description">
+                      <span>Due date</span>
+                      <span class="redstar">*</span>
+                    </div>
+                    <div class="input-area">
+                      <input type="date" required>
+                    </div>
+                  </div>
+                </div>
+          
+
+                <div class="add-task-right">
+                  <div class="input-wrapper">
+                    <span>Priority</span>
+                    <div class="priority-buttons-wrapper">
+                      <label class="priority-option urgent">
+                        <input type="radio" name="priority" value="urgent" hidden>
+                        <span>Urgent</span>
+                        <img src="../assets/img/icon-prio-urgent.svg" alt="">
+                        <div class="bg-checked"></div>
+                      </label>
+                      <label class="priority-option medium">
+                        <input type="radio" name="priority" value="medium" hidden>
+                        <span>Medium</span>
+                        <img src="../assets/img/icon-prio-medium.svg" alt="">
+                        <div class="bg-checked"></div>
+                      </label>
+                      <label class="priority-option low">
+                        <input type="radio" name="priority" value="low" hidden>
+                        <span>Low</span>
+                        <img src="../assets/img/icon-prio-low.svg" alt="">
+                        <div class="bg-checked"></div>
+                      </label>
+                    </div>
+                  </div>
                     <div class="input-wrapper">
                         <div class="required-description">
                             <span>Assigned to</span>
-                        </div>
+                          </div>
                         <div class="input-area drop-down-input">
                             <input type="text" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active="">
                             <button type="button" class="btn-small" onclick="toggleDropDown(this)">
@@ -157,168 +158,158 @@
                                 </div>
                             </button>
                         </div>
-                    <div class="drop-down-menu d-none" data-open="false">
-                        <div class="select-contact">
-                            <div>
-                                <div class="icon-contact">PA</div>
-                                <span>Person A</span>
+                        <div class="drop-down-menu d-none" data-open="false">
+                            <div class="select-contact">
+                                <div>
+                                    <div class="icon-contact">PA</div>
+                                    <span>Person A</span>
+                                </div>
+                                <label class="checkbox">
+                                    <input type="checkbox" hidden>
+                                    <div class="icon-wrapper icon-checkbox-default">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                                    </div>
+                                    <div class="icon-wrapper icon-checkbox-checked">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                                    </div>
+                                </label>
                             </div>
-                            <label class="checkbox">
-                                <input type="checkbox" hidden>
-                                <div class="icon-wrapper icon-checkbox-default">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                            <div class="select-contact">
+                                <div>
+                                    <div class="icon-contact">PA</div>
+                                    <span>Person A</span>
                                 </div>
-                                <div class="icon-wrapper icon-checkbox-checked">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-                                </div>
-                            </label>
-                        </div>
-                        <div class="select-contact">
-                            <div>
-                                <div class="icon-contact">PA</div>
-                                <span>Person A</span>
+                                <label class="checkbox">
+                                    <input type="checkbox" hidden>
+                                    <div class="icon-wrapper icon-checkbox-default">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                                    </div>
+                                    <div class="icon-wrapper icon-checkbox-checked">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                                    </div>
+                                </label>
                             </div>
-                            <label class="checkbox">
-                                <input type="checkbox" hidden>
-                                <div class="icon-wrapper icon-checkbox-default">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                            <div class="select-contact">
+                                <div>
+                                    <div class="icon-contact">PA</div>
+                                    <span>Person A</span>
                                 </div>
-                                <div class="icon-wrapper icon-checkbox-checked">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-                                </div>
-                            </label>
-                        </div>
-                        <div class="select-contact">
-                            <div>
-                                <div class="icon-contact">PA</div>
-                                <span>Person A</span>
+                                <label class="checkbox">
+                                    <input type="checkbox" hidden>
+                                    <div class="icon-wrapper icon-checkbox-default">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                                    </div>
+                                    <div class="icon-wrapper icon-checkbox-checked">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                                    </div>
+                                </label>
                             </div>
-                            <label class="checkbox">
-                                <input type="checkbox" hidden>
-                                <div class="icon-wrapper icon-checkbox-default">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                            <div class="select-contact">
+                                <div>
+                                    <div class="icon-contact">PA</div>
+                                    <span>Person A</span>
                                 </div>
-                                <div class="icon-wrapper icon-checkbox-checked">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-                                </div>
-                            </label>
-                        </div>
-                        <div class="select-contact">
-                            <div>
-                                <div class="icon-contact">PA</div>
-                                <span>Person A</span>
+                                <label class="checkbox">
+                                    <input type="checkbox" hidden>
+                                    <div class="icon-wrapper icon-checkbox-default">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                                    </div>
+                                    <div class="icon-wrapper icon-checkbox-checked">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                                    </div>
+                                </label>
                             </div>
-                            <label class="checkbox">
-                                <input type="checkbox" hidden>
-                                <div class="icon-wrapper icon-checkbox-default">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                            <div class="select-contact">
+                                <div>
+                                    <div class="icon-contact">PA</div>
+                                    <span>Person A</span>
                                 </div>
-                                <div class="icon-wrapper icon-checkbox-checked">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-                                </div>
-                            </label>
-                        </div>
-                        <div class="select-contact">
-                            <div>
-                                <div class="icon-contact">PA</div>
-                                <span>Person A</span>
+                                <label class="checkbox">
+                                    <input type="checkbox" hidden>
+                                    <div class="icon-wrapper icon-checkbox-default">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                                    </div>
+                                    <div class="icon-wrapper icon-checkbox-checked">
+                                        <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                                    </div>
+                                </label>
                             </div>
-                            <label class="checkbox">
-                                <input type="checkbox" hidden>
-                                <div class="icon-wrapper icon-checkbox-default">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
-                                </div>
-                                <div class="icon-wrapper icon-checkbox-checked">
-                                    <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-                                </div>
-                            </label>
                         </div>
                     </div>
-                </div>
-
-
-                <div class="input-wrapper">
+                  <div class="input-wrapper">
                     <div class="required-description">
-                        <span>Category</span>
-                        <span class="redstar">*</span>
+                      <span>Category</span>
+                      <span class="redstar">*</span>
                     </div>
                     <div class="input-area drop-down-input">
-                        <input type="text" placeholder="Select task category" data-placeholder="Select contacts to assign" data-placeholder-active="">
-                        <button type="button" class="btn-small" onclick="toggleDropDown(this)">
-                            <div class="icon-wrapper">
-                                <img class="icon-default" src="../assets/img/icon-down-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
-                            </div>
-                            <div class="icon-wrapper d-none">
-                                <img class="icon-default" src="../assets/img/icon-up-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
-                            </div>
-                        </button>
-                    </div>
-    
-                
-
-
-                   <!--
-                    <div class="input-wrapper">
-                        <div class="required-description">
-                          <p>Category</p>
-                          <p class="redstar">*</p>
+                      <input type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" readonly required>
+                      <button type="button" class="btn-small" onclick="toggleDropDown(this)">
+                        <div class="icon-wrapper">
+                          <img class="icon-default" src="../assets/img/icon-down-default.svg">
+                          <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
                         </div>
-                        <div class="custom-dropdown" id="category-dropdown">
-                            <div class="dropdown-selected" id="selected-category" onclick="toggleCategoryDropdown()">Select task category</div>
-                            <div class="dropdown-options hidden" id="category-options">
-                              <div class="dropdown-single-option" data-value="technicalTask" onclick="selectCategory(this)">Technical Task</div>
-                              <div class="dropdown-single-option" data-value="userStory" onclick="selectCategory(this)">User Story</div>
-                            </div>
-                          </div>                          
-                        <span class="err-msg hidden" id="category-error">Please select a category.</span>
-                      </div> 
-                    -->
-                      
-                    <div class="input-wrapper">
-                        <p>Subtasks</p>
-                        <div class="input-area subtasks">
-                            <input type="text" placeholder="Add new subtask">
-                            <button class="subtask-btn">+</button>
+                        <div class="icon-wrapper d-none">
+                          <img class="icon-default" src="../assets/img/icon-up-default.svg">
+                          <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
                         </div>
+                      </button>
                     </div>
+          
+                    <div class="drop-down-menu d-none" data-open="false">
+                      <div class="dropdown-single-option" onclick="selectCategoryOption(this)">Technical Task</div>
+                      <div class="dropdown-single-option" onclick="selectCategoryOption(this)">User Story</div>
+                    </div>
+          
+                    <span class="err-msg hidden" id="category-error">Please select a category.</span>
+                  </div>
+          
+
+                  <div class="input-wrapper">
+                    <p>Subtasks</p>
+                    <div class="input-area subtasks">
+                      <input type="text" placeholder="Add new subtask">
+                      <button type="button" class="subtask-btn">+</button>
+                    </div>
+                  </div>
                 </div>
             </div>
-              </div> 
-              <div class="clear-save-btn-wrapper">
-                <div class="clear-save-btn">
-                  <div class="required-description">
-                    <p class="redstar">*</p>
-                    <p>This field is required</p>
-                  </div>
-              
-                  <div class="clear-save-btn-pos">
-                    <button class="btn-light" onclick="clearAddTaskForm()">
-                      <span>Cancel</span>
-                      <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
-                        <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
-                        <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
+        </form>
+                  <div class="clear-save-btn-wrapper">
+                    <div class="clear-save-btn">
+                      <div class="required-description">
+                        <p class="redstar">*</p>
+                        <p>This field is required</p>
                       </div>
-                    </button>
-              
-                    <button class="btn-dark">
-                      <span>Create Task</span>
-                      <img src="../assets/img/icon-add-white.svg">
-                    </button>
+                    
+                      <div class="clear-save-btn-pos">
+                        <button type="button" class="btn-light" onclick="clearAddTaskForm()">
+                          <span>Cancel</span>
+                          <div class="icon-wrapper">
+                            <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
+                            <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
+                          </div>
+                        </button>
+          
+                        <button type="submit" class="btn-dark" onclick="addTask()">
+                          <span>Create Task</span>
+                          <img src="../assets/img/icon-add-white.svg">
+                        </button>
+                    </div>
                   </div>
-                </div>             
+                </div>
+          </section>
+                  
     </main>
 
 </body>
