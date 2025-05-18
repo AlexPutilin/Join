@@ -176,7 +176,6 @@ async function getAllEntries(path) {
 }
 
 
-
 /**
  * Generates a new unique ID based on the number of existing entries at the given path.
  * The ID is computed as the current count of entries plus one.
