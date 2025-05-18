@@ -6,7 +6,7 @@ function selectCategoryOption(element) {
   const icons = inputWrapper.querySelectorAll('.icon-wrapper');
 
   input.value = categoryValue;
-  closeDropDownMenu(input, menu, icons);
+  toggleDropDown(triggerElement);
   menu.dataset.open = 'false';
 
   document.getElementById('category-error')?.classList.add('hidden');
