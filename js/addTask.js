@@ -31,7 +31,7 @@ function getInputValues() {
   const description = document.querySelector('textarea[placeholder="Enter a description"]').value.trim();
   const due_date = document.querySelector('input[type="date"]').value;
   const category = document.querySelector('input[placeholder="Select task category"]').value.trim();
-  const priority = document.querySelector('input[name="priority"]:checked')?.value || "medium";
+  const priority = document.querySelector('input[name="priority"]:checked')?.value || "low";
 
   return { title, description_full: description, due_date, category, priority, status: "to-do" };
 }
