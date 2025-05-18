@@ -20,7 +20,7 @@
     <script src="../js/addTask.js"></script>
 </head>
 
-<body onload="init()">
+<body>
     <aside>
         <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
@@ -252,7 +252,8 @@
                       <span class="redstar">*</span>
                     </div>
                     <div class="input-area drop-down-input">
-                      <input type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" readonly required>
+                      <input type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" readonly required oninput="resetInputError()">
+                      <span class="err-msg hidden">This field is required.</span>
                       <button type="button" class="btn-small" onclick="toggleDropDown(this)">
                         <div class="icon-wrapper">
                           <img class="icon-default" src="../assets/img/icon-down-default.svg">
@@ -293,7 +294,7 @@
                     
                       <div class="clear-save-btn-pos">
                         <button type="button" class="btn-light" onclick="clearAddTaskForm()">
-                          <span>Cancel</span>
+                          <span>Clear</span>
                           <div class="icon-wrapper">
                             <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
                             <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
