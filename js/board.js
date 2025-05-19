@@ -130,7 +130,6 @@ async function updateTaskInFirebase(taskId, updatedTask) {
             },
             body: JSON.stringify(updatedTask)
         });
-        console.log(`Task ${taskId} erfolgreich aktualisiert`);
     } catch (error) {
         console.error("Error while loading tasks(PUT):", error);
     }
