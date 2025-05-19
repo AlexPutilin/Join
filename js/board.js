@@ -10,6 +10,7 @@ async function initBoard() {
 
 function renderAllTasks(taskList = allTasks) {
     statuses.forEach(status => renderTasksByStatus(status, taskList));
+    initDragEvents();
 }
 
 /**
@@ -165,47 +166,59 @@ function moveTo(status) {
 //     console.log("Started dragging task ID:", task.id);
 // }
 
-const draggables = document.querySelectorAll('.card');
-const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
+function initDragEvents() {
+    const draggables = document.querySelectorAll('.card');
+    const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
+    enableTaskDragging(draggables);
+    enableDragReordering(dragAndDropContainers);
+    enableTaskDropByStatus(dragAndDropContainers);
+}
 
-draggables.forEach(draggable => {
-    draggable.addEventListener('dragstart', () => {
-        draggable.classList.add('dragging');
-        currentDraggedElement = draggable.id;
-    })
+function enableTaskDragging(draggables) {
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
+            currentDraggedElement = draggable.id;
+            console.log("Dragging Task ID:", currentDraggedElement);
+        });
 
-    draggable.addEventListener('dragend', () => {
-        draggable.classList.remove('dragging');
-    })
-})
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+        });
+    });
+}
 
-dragAndDropContainers.forEach(dragAndDropContainer => {
-    dragAndDropContainer.addEventListener('dragover', event => {
-        event.preventDefault();
-        const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
-        const draggable = document.querySelector('.dragging');
-        if (draggable) {
-            if (afterElement == null) {
-                dragAndDropContainer.appendChild(draggable)
+function enableDragReordering(dragAndDropContainers) {
+    dragAndDropContainers.forEach(dragAndDropContainer => {
+        dragAndDropContainer.addEventListener('dragover', event => {
+            event.preventDefault();
+            const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
+            const draggable = document.querySelector('.dragging');
+            if (draggable) {
+                if (afterElement == null) {
+                    dragAndDropContainer.appendChild(draggable);
+                } else {
+                    dragAndDropContainer.insertBefore(draggable, afterElement);
+                }
             } else {
-                dragAndDropContainer.insertBefore(draggable, afterElement)
+                console.warn("No element with class '.dragging' found!");
             }
-        } else {
-            console.warn("Kein Element mit Klasse '.dragging' gefunden!");
-        }
-    })
-})
+        });
+    });
+}
 
-dragAndDropContainers.forEach(dragAndDropContainer => {
-    dragAndDropContainer.addEventListener('drop', event => {
-        event.preventDefault();
-        const status = dragAndDropContainer.id;
-        moveTo(status);
-    })
-})
+function enableTaskDropByStatus(dragAndDropContainers) {
+    dragAndDropContainers.forEach(dragAndDropContainer => {
+        dragAndDropContainer.addEventListener('drop', event => {
+            event.preventDefault();
+            const status = dragAndDropContainer.id;
+            moveTo(status);
+        });
+    });
+}
 
 function getDragAfterElement(dragAndDropContainer, y) {
-    const draggableElements = [...dragAndDropContainer.querySelectorAll('.dragging:not(.dragging)')]
+    const draggableElements = [...dragAndDropContainer.querySelectorAll('.card:not(.dragging)')];
 
     return draggableElements.reduce((closest, child) => {
         const box = child.getBoundingClientRect();
