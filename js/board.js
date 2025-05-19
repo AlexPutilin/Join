@@ -350,7 +350,7 @@ function closeOverview() {
  * @param {Object} task - individual Tasks
  */
 function getShortenedDescription(task) {
-    let maxLength = 30;
+    let maxLength = 20;
     if (task.description_full.length > maxLength) {
         return task.description_full.substring(0, maxLength) + "...";
     } else {
