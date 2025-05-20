@@ -35,42 +35,45 @@ async function tasksToArray() {
     renderAllTasks();
 }
 
+
+function updateSubtasks(task) {
+    let subtasks = Object.values(task.subtasks || {});
+    let subtasksLength = subtasks.length;
+    let doneTasksLength = subtasks.filter(s => s.done).length;
+    let calcuProgress = calcuProgressbar(task);
+    return { subtasksLength, doneTasksLength, calcuProgress };
+}
+
+
 /**
  * @function renderTasksByStatus - Filters the Tasks by Status and renders them in the respective Container
  * @param {string} status - Status of the Tasks
  * @param {string} status - corresponds to the ID
  */
 function renderTasksByStatus(status, taskList) {
-    let container = document.getElementById(status);
-    container.innerHTML = "";
+    let statusContainer = document.getElementById(status);
+    statusContainer.innerHTML = "";
     let filteredStatus = taskList.filter(task => task.status === status).sort((a, b) => (a.order || 0) - (b.order || 0));
     if (filteredStatus.length === 0) {
-        return updateNoTasksDisplay(status, container);
+        return updateNoTasksDisplay(status, statusContainer);
     }
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
-        if (task.subtasks) {
-            ({ subtasksLength, doneSubtasksLength, doneTasksLength, progress } = updateSubtasks(task));
-        } else {
-            console.log(`no subtasks for task: ${task.title}`);
-            document.querySelectorAll('.task-progress-container').forEach(container => {
-                container.classList.add('d-none');
-            });
+        let subtasksLength = 0;
+        let doneTasksLength = 0;
+        let calcuProgress = 0;
+        let showProgress = false;
+        if (task.subtasks && Object.keys(task.subtasks).length > 0) {
+            ({ subtasksLength, doneTasksLength, calcuProgress } = updateSubtasks(task));
+            showProgress = true;
         }
-        container.innerHTML += getTaskCard(task, progress, subtasksLength, doneTasksLength);
+        statusContainer.innerHTML += getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress);
     }
 }
 
-function updateSubtasks(task) {
-    const subtasks = Object.values(task.subtasks || {});
-    const subtasksLength = subtasks.length;
-    const doneTasksLength = subtasks.filter(s => s.done).length;
-    const progress = calcuProgressbar(task);
-    return { subtasksLength, doneTasksLength, progress };
-}
 
 
-function updateNoTasksDisplay(status, container) {
+function updateNoTasksDisplay(status, statusContainer) {
     let message = "No Tasks";
     if (status === "to-do") {
         message = "No Tasks To Do";
@@ -81,7 +84,7 @@ function updateNoTasksDisplay(status, container) {
     } else if (status === "done") {
         message = "No Tasks Done";
     }
-    container.innerHTML = `<div class="placeholder-box"><p class="no-tasks-text">${message}</p></div>`;
+    statusContainer.innerHTML = `<div class="placeholder-box"><p class="no-tasks-text">${message}</p></div>`;
 }
 
 
@@ -247,17 +250,15 @@ function updateOrderInContainer(container, status) {
 
         let updated = false;
 
-        if (task.status !== status || task.order !== index) {
+        if (task.status !== status) {
             task.status = status;
-            task.order = index;
-
             updated = true;
         }
 
-        // if (task.order !== index) {
-        //     task.order = index;
-        //     updated = true;
-        // }
+        if (task.order !== index) {
+            task.order = index;
+            updated = true;
+        }
 
         if (updated) {
             updateTaskInFirebase(task.id, task);
@@ -271,20 +272,23 @@ function updateOrderInContainer(container, status) {
  * @function getTaskCard - Render the little Task-Card in Board
  * @param {Object} task - individual Tasks
  */
-function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
+function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength,showProgress) {
     console.log(task);
     const bgCategory = getBgCategory(task.category);
     let description_short = getShortenedDescription(task);
+    let getSubtasksProgressTemplate =  showProgress ? `
+        <div class="task-progress-container">
+            <div class="task-progressbar">
+                <div class="task-progrssbar-content" style="width: ${calcuProgress}%;"></div>
+            </div>
+            <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
+        </div>` : '';
+
     return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
-                <div class="task-progress-container">
-                    <div class="task-progressbar">
-                        <div class="task-progrssbar-content" style="width: ${progress}%;"></div>
-                    </div>
-                    <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
-                </div>
+                ${getSubtasksProgressTemplate}
                 <div class="profiles-priority-container">
                     <div style="border: 2px solid black; border-radius: 100%; width: 32px; height: 32px;"></div>
                     <div>${getPriority(task)}</div>
@@ -303,9 +307,6 @@ function getPriority(task) {
         return "";
     }
 }
-
-//    
-//        
 
 function showOverview(id) {
     const task = allTasks.find(t => t.id.toString() === id.toString());
