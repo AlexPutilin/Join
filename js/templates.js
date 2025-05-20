@@ -22,7 +22,7 @@ function getSubtaskTemplate(name) {
             <div class="subtask-item-editmenu d-none">
                 <input type="text">
                 <div class="btn-collection-container">
-                    <button type="button" class="btn-small" onclick="closeSubtaskEditMenu(this)">
+                    <button type="button" class="btn-small" onclick="closeAllSubtaskEdits()">
                         <div class="icon-wrapper">
                             <img class="icon-default" src="../assets/img/icon-cancel-task-default.svg">
                             <img class="icon-hover" src="../assets/img/icon-cancel-task-hover.svg">

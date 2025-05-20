@@ -120,6 +120,7 @@ function setInputFocus(triggerElement) {
 
 
 function openSubtaskEditMenu(triggerElement) {
+    closeAllSubtaskEdits();
     const subtaskContainer = triggerElement.closest('.subtask-item-container');
     const subtaskItem = subtaskContainer.querySelector('.subtask-item');
     const subtaskEditMenu = subtaskContainer.querySelector('.subtask-item-editmenu');
@@ -129,22 +130,24 @@ function openSubtaskEditMenu(triggerElement) {
     subtaskEditMenu.classList.remove('d-none');
     editInput.value = subtaskValue.slice(1).trim();
     editInput.focus();
+    disableAddTaskInput();
 }
 
 
 function deleteSubtaskItem(triggerElement) {
+    closeAllSubtaskEdits();
     const subtaskContainer = triggerElement.closest('.subtask-item-container');
     subtaskContainer.remove();
 }
 
 
-function closeSubtaskEditMenu(triggerElement) {
-    const subtaskContainer = triggerElement.closest('.subtask-item-container');
-    const subtaskItem = subtaskContainer.querySelector('.subtask-item');
-    const subtaskEditMenu = subtaskContainer.querySelector('.subtask-item-editmenu');
-    subtaskEditMenu.classList.add('d-none');
-    subtaskItem.classList.remove('d-none');
-}
+// function closeSubtaskEditMenu(triggerElement) {
+//     const subtaskContainer = triggerElement.closest('.subtask-item-container');
+//     const subtaskItem = subtaskContainer.querySelector('.subtask-item');
+//     const subtaskEditMenu = subtaskContainer.querySelector('.subtask-item-editmenu');
+//     subtaskEditMenu.classList.add('d-none');
+//     subtaskItem.classList.remove('d-none');
+// }
 
 
 function commitEditSubtask(triggerElement) {
@@ -154,7 +157,18 @@ function commitEditSubtask(triggerElement) {
     const subtaskValue = subtaskItem.querySelector('.subtask-name')
     const inputValue = subtaskEditMenu.querySelector('input').value;
     subtaskValue.innerText = "• " + inputValue;
-    closeSubtaskEditMenu(triggerElement);
+    closeAllSubtaskEdits();
+}
+
+
+function closeAllSubtaskEdits() {
+    const subtaskContainers = document.querySelectorAll('.subtask-item-container');
+    subtaskContainers.forEach(item => {
+        const subtaskItem = item.querySelector('.subtask-item');
+        const subtaskEditMenu = item.querySelector('.subtask-item-editmenu');
+        subtaskEditMenu.classList.add('d-none');
+        subtaskItem.classList.remove('d-none');
+    });
 }
 
 
