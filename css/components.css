@@ -323,8 +323,6 @@ textarea {
 }
 
 
-
-
 /* DROP DOWN MENU */
 .drop-down-input {
     z-index: 2;
@@ -398,6 +396,32 @@ option:hover {
     gap: 16px;
 }
 
+
+/* SUBTASKS */
+.subtask-item {
+    height: 40px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.subtask-item > .btn-collection-container {
+    display: none;
+}
+
+.subtask-item:hover > .btn-collection-container {
+    display: flex;
+}
+
+.subtask-item:hover {
+    border: 1px solid #D1D1D1;
+    /* background-color: #D1D1D1; */
+}
+
+
 /* LABELS */
 .label {
     color: #fff;
@@ -439,6 +463,6 @@ input[type="checkbox"] {
 }
 
 #test-form {
-    background-color: #d4d4d4;
+    /* background-color: #ffffff; */
     padding: 40px;
 }

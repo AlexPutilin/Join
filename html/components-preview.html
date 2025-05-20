@@ -132,10 +132,11 @@
 
 
             <label class="priority-option low">
-                <input type="radio" name="priority" value="low" checked hidden>
+                <input type="radio" name="priority" value="low" hidden>
                 <span>Low</span>
                 <img src="../assets/img/icon-prio-low.svg">
                 <div class="bg-checked"></div>
+                <span class="err-msg hidden">Invalid input.</span>
             </label>
 
 
@@ -144,6 +145,7 @@
                 <span>Medium</span>
                 <img src="../assets/img/icon-prio-medium.svg">
                 <div class="bg-checked"></div>
+                <span class="err-msg hidden">Invalid input.</span>
             </label>
         
 
@@ -152,6 +154,7 @@
                 <span>Urgent</span>
                 <img src="../assets/img/icon-prio-urgent.svg">
                 <div class="bg-checked"></div>
+                <span class="err-msg hidden">Invalid input.</span>
             </label>
 
             <div class="input-wrapper">
@@ -292,7 +295,7 @@
 
             <div class="input-wrapper">
                 <div class="input-area drop-down-input">
-                    <input type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Select task category">
+                    <input type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Select task category" required>
                     <button type="button" class="btn-small" onclick="toggleDropDown(this)">
                         <div class="icon-wrapper">
                             <img class="icon-default" src="../assets/img/icon-down-default.svg">
@@ -308,6 +311,7 @@
                     <option value="userstory">User Story</option>
                     <option value="technicaltask">Technical Task</option>
                 </div>
+                <span class="err-msg hidden">Invalid input.</span>
             </div>
 
             <div class="input-wrapper">

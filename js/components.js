@@ -74,11 +74,11 @@ function togglePasswordVisibility() {
 }
 
 
-function getInput(element) {
-    const inputWrapper = element.closest('.input-wrapper');
-    const input = inputWrapper.querySelector('input');
-    return input;
-}
+// function getInput(element) {
+//     const inputWrapper = element.closest('.input-wrapper');
+//     const input = inputWrapper.querySelector('input');
+//     return input;
+// }
 
 
 function toggleInputBtns(input) {
@@ -195,7 +195,6 @@ function getInputData(form) {
         }
     });
     console.log(data);
-    
     return data; 
 }
 
@@ -247,16 +246,16 @@ function storeTextInput(input, data) {
 
 
 
-
 // BEISPIELE / NACHHER LÖSCHEN
 function onLogin() {
     const form = '#login-form'
     if (checkFormValidation(form)) {
         const loginData = getInputData(form);
-        fetchData('summary');
+        fetchData(loginData);
         openPage('./html/summary');
     }
 }
+
 
 function createNewContact() {
     if (checkFormValidation('#contact-form')) {
