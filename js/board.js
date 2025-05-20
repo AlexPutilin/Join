@@ -25,6 +25,7 @@ async function tasksToArray() {
         let task = taskResponse[key];
         allTasks.push({
             id: key,
+            order: task.order || 0,
             ...task
         });
     }
@@ -41,20 +42,20 @@ async function tasksToArray() {
  */
 function renderTasksByStatus(status, taskList) {
     let container = document.getElementById(status);
-    let filteredStatus = taskList.filter(task => task.status === status);
     container.innerHTML = "";
-
+    let filteredStatus = taskList.filter(task => task.status === status).sort((a, b) => (a.order || 0) - (b.order || 0));
     if (filteredStatus.length === 0) {
         return updateNoTasksDisplay(status, container);
     }
-
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
         if (task.subtasks) {
             ({ subtasksLength, doneSubtasksLength, doneTasksLength, progress } = updateSubtasks(task));
         } else {
             console.log(`no subtasks for task: ${task.title}`);
-            document.getElementById('task-progress-container').classList.add('hidden');
+            document.querySelectorAll('.task-progress-container').forEach(container => {
+                container.classList.add('d-none');
+            });
         }
         container.innerHTML += getTaskCard(task, progress, subtasksLength, doneTasksLength);
     }
@@ -134,11 +135,15 @@ async function updateTaskInFirebase(taskId, updatedTask) {
         console.error("Error while loading tasks(PUT):", error);
     }
 }
+// let taskIndex = allTasks.findIndex(t => t.id.toString());
+// if (taskIndex === -1) {
+//     console.error("Task not found:", currentDraggedElement);
+//     return;
+// }
 
 
 function moveTo(status) {
     console.log("Dropping task into:", status);
-
     let taskIndex = allTasks.findIndex(t => t.id === currentDraggedElement);
     if (taskIndex === -1) {
         console.error("Task not found:", currentDraggedElement);
@@ -176,8 +181,9 @@ function initDragEvents() {
 function enableTaskDragging(draggables) {
     draggables.forEach(draggable => {
         draggable.addEventListener('dragstart', () => {
-            draggable.classList.add('dragging');
             currentDraggedElement = draggable.id;
+            draggable.classList.add('dragging');
+
             console.log("Dragging Task ID:", currentDraggedElement);
         });
 
@@ -207,14 +213,17 @@ function enableDragReordering(dragAndDropContainers) {
 }
 
 function enableTaskDropByStatus(dragAndDropContainers) {
-    dragAndDropContainers.forEach(dragAndDropContainer => {
-        dragAndDropContainer.addEventListener('drop', event => {
+    dragAndDropContainers.forEach(container => {
+        container.addEventListener('drop', event => {
             event.preventDefault();
-            const status = dragAndDropContainer.id;
-            moveTo(status);
+            const targetStatus = container.id;
+            const draggedCard = document.querySelector('.dragging');
+            const afterElement = getDragAfterElement(container, event.clientY);
+            updateOrderInContainer(container, targetStatus);
         });
     });
 }
+
 
 function getDragAfterElement(dragAndDropContainer, y) {
     const draggableElements = [...dragAndDropContainer.querySelectorAll('.card:not(.dragging)')];
@@ -229,6 +238,34 @@ function getDragAfterElement(dragAndDropContainer, y) {
         }
     }, { offset: Number.NEGATIVE_INFINITY }).element
 }
+function updateOrderInContainer(container, status) {
+    const cardElements = Array.from(container.querySelectorAll('.card'));
+
+    cardElements.forEach((card, index) => {
+        const task = allTasks.find(t => t.id === card.id);
+        if (!task) return;
+
+        let updated = false;
+
+        if (task.status !== status || task.order !== index) {
+            task.status = status;
+            task.order = index;
+
+            updated = true;
+        }
+
+        // if (task.order !== index) {
+        //     task.order = index;
+        //     updated = true;
+        // }
+
+        if (updated) {
+            updateTaskInFirebase(task.id, task);
+        }
+    });
+
+    renderAllTasks();
+}
 
 /**
  * @function getTaskCard - Render the little Task-Card in Board
@@ -242,7 +279,7 @@ function getTaskCard(task, progress, subtasksLength, doneTasksLength) {
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
-                <div id="task-progress-container" class="task-progress-container">
+                <div class="task-progress-container">
                     <div class="task-progressbar">
                         <div class="task-progrssbar-content" style="width: ${progress}%;"></div>
                     </div>
