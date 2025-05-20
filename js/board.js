@@ -69,6 +69,7 @@ function renderTasksByStatus(status, taskList) {
         }
         statusContainer.innerHTML += getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress);
     }
+
 }
 
 
@@ -198,12 +199,13 @@ function enableTaskDragging(draggables) {
         draggable.addEventListener('dragstart', () => {
             currentDraggedElement = draggable.id;
             draggable.classList.add('dragging');
-
+            document.body.classList.add('drag-active');
             console.log("Dragging Task ID:", currentDraggedElement);
         });
 
         draggable.addEventListener('dragend', () => {
             draggable.classList.remove('dragging');
+            document.body.classList.remove('drag-active');
         });
     });
 }
