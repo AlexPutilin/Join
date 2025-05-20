@@ -84,7 +84,7 @@ function updateNoTasksDisplay(status, statusContainer) {
     } else if (status === "done") {
         message = "No Tasks Done";
     }
-    statusContainer.innerHTML = `<div class="placeholder-box"><p class="no-tasks-text">${message}</p></div>`;
+    statusContainer.innerHTML = `<div class="placeholder-box-no-task"><p class="no-tasks-text">${message}</p></div>`;
 }
 
 
@@ -179,6 +179,18 @@ function initDragEvents() {
     enableTaskDragging(draggables);
     enableDragReordering(dragAndDropContainers);
     enableTaskDropByStatus(dragAndDropContainers);
+    enableDragPlaceholderCleanup(dragAndDropContainers);
+}
+
+function enableDragPlaceholderCleanup(dragAndDropContainers) {
+    dragAndDropContainers.forEach(dragAndDropContainer => {
+        dragAndDropContainer.addEventListener('dragleave', () => {
+            const placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+        });
+    });
 }
 
 function enableTaskDragging(draggables) {
@@ -197,16 +209,20 @@ function enableTaskDragging(draggables) {
 }
 
 function enableDragReordering(dragAndDropContainers) {
+    const placeholder = document.createElement('div');
+    placeholder.classList.add('drop-placeholder');
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('dragover', event => {
             event.preventDefault();
             const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
             const draggable = document.querySelector('.dragging');
+            const existingPlaceholder = dragAndDropContainer.querySelector('.drop-placeholder');
+            if (existingPlaceholder) { existingPlaceholder.remove(); }
             if (draggable) {
                 if (afterElement == null) {
-                    dragAndDropContainer.appendChild(draggable);
+                    dragAndDropContainer.appendChild(placeholder);
                 } else {
-                    dragAndDropContainer.insertBefore(draggable, afterElement);
+                    dragAndDropContainer.insertBefore(placeholder, afterElement);
                 }
             } else {
                 console.warn("No element with class '.dragging' found!");
@@ -216,13 +232,25 @@ function enableDragReordering(dragAndDropContainers) {
 }
 
 function enableTaskDropByStatus(dragAndDropContainers) {
-    dragAndDropContainers.forEach(container => {
-        container.addEventListener('drop', event => {
+    dragAndDropContainers.forEach(dragAndDropContainer => {
+        dragAndDropContainer.addEventListener('drop', event => {
             event.preventDefault();
-            const targetStatus = container.id;
-            const draggedCard = document.querySelector('.dragging');
-            const afterElement = getDragAfterElement(container, event.clientY);
-            updateOrderInContainer(container, targetStatus);
+            console.log('DROPPED IN:', dragAndDropContainer.id);
+            console.log('Current dragged:', currentDraggedElement);
+            console.log("Task status after drop:", allTasks.find(t => t.id === currentDraggedElement)?.status);
+
+            const draggedCard = document.getElementById(currentDraggedElement);
+            const placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
+            if (draggedCard) {
+                if (placeholder) {
+                    dragAndDropContainer.insertBefore(draggedCard, placeholder);
+                    placeholder.remove();
+                } else {
+                    dragAndDropContainer.appendChild(draggedCard);
+                }
+            }
+            // const afterElement = getDragAfterElement(container, event.clientY);
+            updateOrderInContainer(dragAndDropContainer, dragAndDropContainer.id);
         });
     });
 }
@@ -272,11 +300,11 @@ function updateOrderInContainer(container, status) {
  * @function getTaskCard - Render the little Task-Card in Board
  * @param {Object} task - individual Tasks
  */
-function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength,showProgress) {
+function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress) {
     console.log(task);
     const bgCategory = getBgCategory(task.category);
     let description_short = getShortenedDescription(task);
-    let getSubtasksProgressTemplate =  showProgress ? `
+    let getSubtasksProgressTemplate = showProgress ? `
         <div class="task-progress-container">
             <div class="task-progressbar">
                 <div class="task-progrssbar-content" style="width: ${calcuProgress}%;"></div>
@@ -348,11 +376,13 @@ function getOverviewTemplate(task) {
                     <br>
                     <div>
                         <span class="font-color">Assigned To:</span>
-
+                        <p>
+                        
+                        </p>
                     </div>
                     <div>
                         <span class="font-color">Subtasks:</span>
-
+                            ${getSubtasks(task)}
                     </div>
 
                     <div class="delete-and-edit-wrapper">
@@ -375,6 +405,23 @@ function getOverviewTemplate(task) {
                         </button>
                     </div>
                 </div>`;
+}
+
+function getSubtasks(task) {
+    if (task.subtasks && Object.keys(task.subtasks).length > 0) {
+        const subtasksArray = Object.values(task.subtasks);
+        let subtaksTemplate = "";
+        for (const subtask of subtasksArray) {
+            const checked = subtask.done ? 'checked' : "";
+            subtaksTemplate += `<div class="subtask-item">
+                    <input type="checkbox" disabled ${checked}>
+                    <label>${subtask.title}</label>
+                </div>`;
+        }
+        return subtaksTemplate;
+    } else {
+        return "";
+    }
 }
 
 function closeOverview() {
