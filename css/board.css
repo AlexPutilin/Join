@@ -49,13 +49,14 @@ body {
 }
 
 .drag-drop-container {
-    width: 100%;
+    width: 98%;
     height: 480px;
 
     overflow-x: hidden;
 }
 
 .drop-placeholder {
+    width: 270px;
     height: 80px;
     margin: 8px 0;
     border: 2px dashed #aaa;
@@ -160,7 +161,7 @@ body {
 }
 
 .placeholder-box-no-task {
-    width: 260px;
+    width: 270px;
     height: 48px;
     border: 1px dashed #a8a8a8;
     border-radius: 8px;

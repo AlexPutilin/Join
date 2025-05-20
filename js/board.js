@@ -216,9 +216,15 @@ function enableDragReordering(dragAndDropContainers) {
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('dragover', event => {
             event.preventDefault();
+
             const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
             const draggable = document.querySelector('.dragging');
             const existingPlaceholder = dragAndDropContainer.querySelector('.drop-placeholder');
+
+            if (existingPlaceholder && (afterElement === existingPlaceholder || afterElement === existingPlaceholder.nextSibling)) {
+                return;
+            }
+
             if (existingPlaceholder) { existingPlaceholder.remove(); }
             if (draggable) {
                 if (afterElement == null) {
