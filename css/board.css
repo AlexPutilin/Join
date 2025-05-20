@@ -49,42 +49,48 @@ body {
 }
 
 .drag-drop-container {
-    width: 300px;
-    height: 460px;
-    /* overflow-y: scroll; */
+    width: 100%;
+    height: 480px;
+
     overflow-x: hidden;
+}
+
+.drop-placeholder {
+    height: 80px;
+    margin: 8px 0;
+    border: 2px dashed #aaa;
+    border-radius: 8px;
 }
 
 .drag-drop-container::-webkit-scrollbar {
     width: 10px;
+
 }
 
 .drag-drop-container::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
+
 }
 
 .drag-drop-container::-webkit-scrollbar-thumb {
     background: #2a3647;
     border-radius: 10px;
+
 }
+
 
 .drag-drop-container::-webkit-scrollbar-thumb:hover {
     background: #2a3d59;
+
 }
 
-/* [class^="card-"] {
-    width: 270px;
-    border-radius: 16px;
-    padding: 16px;
-    margin: 4px;
-    background-color: #ffffff;
+.safe-scrollbar {
+    width: 350px;
+    height: 500px;
+    padding: 24px;
 }
 
-
-[class^="card-"]:hover {
-    cursor: move;
-} */
 
 
 [class^="card"] {
@@ -99,6 +105,7 @@ body {
 [class^="card"]:hover {
     cursor: move;
 }
+
 .draggable.dragging {
     opacity: .5;
 }
@@ -148,7 +155,7 @@ body {
     margin: 0;
 }
 
-.placeholder-box {
+.placeholder-box-no-task {
     width: 260px;
     height: 48px;
     border: 1px dashed #a8a8a8;
@@ -186,6 +193,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0;
+    width: 100%;
 }
 
 .font-color {
