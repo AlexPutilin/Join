@@ -404,6 +404,7 @@ option:hover {
     border-radius: 8px;
     border: 1px solid transparent;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     cursor: pointer;
 }
@@ -419,6 +420,21 @@ option:hover {
 .subtask-item:hover {
     border: 1px solid #D1D1D1;
     /* background-color: #D1D1D1; */
+}
+
+.subtask-item-editmenu {
+    height: 40px;
+    padding: 0 12px;
+    display: flex;
+    border-radius: 0;
+    border-bottom: 1px solid #29ABE2;
+    background-color: #fff;
+}
+
+.subtask-item-editmenu > input[type="text"] {
+    height: 100%;
+    font-size: 16px;
+    text-indent: 0;
 }
 
 

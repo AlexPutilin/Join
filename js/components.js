@@ -119,6 +119,45 @@ function setInputFocus(triggerElement) {
 }
 
 
+function openSubtaskEditMenu(triggerElement) {
+    const subtaskContainer = triggerElement.closest('.subtask-item-container');
+    const subtaskItem = subtaskContainer.querySelector('.subtask-item');
+    const subtaskEditMenu = subtaskContainer.querySelector('.subtask-item-editmenu');
+    const subtaskValue = subtaskItem.querySelector('.subtask-name').innerText;
+    const editInput = subtaskEditMenu.querySelector('input');
+    subtaskItem.classList.add('d-none');
+    subtaskEditMenu.classList.remove('d-none');
+    editInput.value = subtaskValue.slice(1).trim();
+    editInput.focus();
+}
+
+
+function deleteSubtaskItem(triggerElement) {
+    const subtaskContainer = triggerElement.closest('.subtask-item-container');
+    subtaskContainer.remove();
+}
+
+
+function closeSubtaskEditMenu(triggerElement) {
+    const subtaskContainer = triggerElement.closest('.subtask-item-container');
+    const subtaskItem = subtaskContainer.querySelector('.subtask-item');
+    const subtaskEditMenu = subtaskContainer.querySelector('.subtask-item-editmenu');
+    subtaskEditMenu.classList.add('d-none');
+    subtaskItem.classList.remove('d-none');
+}
+
+
+function commitEditSubtask(triggerElement) {
+    const subtaskContainer = triggerElement.closest('.subtask-item-container');
+    const subtaskItem = subtaskContainer.querySelector('.subtask-item');
+    const subtaskEditMenu = subtaskContainer.querySelector('.subtask-item-editmenu');
+    const subtaskValue = subtaskItem.querySelector('.subtask-name')
+    const inputValue = subtaskEditMenu.querySelector('input').value;
+    subtaskValue.innerText = "• " + inputValue;
+    closeSubtaskEditMenu(triggerElement);
+}
+
+
 /**
  * Toggles the visibility of the drop-down menu.
  * @param {HTMLElement} triggerElement - The element that triggered the toggle.
