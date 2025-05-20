@@ -36,14 +36,14 @@ body {
     font-size: 24px;
     color: #42526e;
     font-weight: 700;
-    padding: 36px 0px;
+    padding: 36px 48px 0px 36px;
 }
 
 .single-stages {
     display: flex;
     align-items: center;
     gap: 40px;
-    width: 260px;
+    width: 250px;
     justify-content: space-between;
 
 }
