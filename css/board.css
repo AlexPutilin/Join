@@ -103,7 +103,7 @@ body {
 
 
 [class^="card"]:hover {
-    cursor: move;
+    cursor: pointer;
 }
 
 .draggable.dragging {
