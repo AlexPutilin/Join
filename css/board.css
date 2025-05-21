@@ -50,9 +50,9 @@ body {
 
 .drag-drop-container {
     width: 98%;
-    height: 480px;
-
+    height: 98%;
     overflow-x: hidden;
+    /* scrollbar-color: #2a3d59 #e3e4e5; */
 }
 
 .drop-placeholder {
@@ -76,7 +76,7 @@ body {
 }
 
 .drag-drop-container::-webkit-scrollbar-thumb {
-    background: #2a3647;
+    background: hsl(215, 26%, 22%);
     border-radius: 10px;
 
 }
