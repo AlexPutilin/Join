@@ -445,3 +445,7 @@ function filterAndShowTasks(filterTask) {
         renderAllTasks(allTasks);
     }
 }
+
+function eventBubblingProtection(event) {
+    event.stopPropagation();
+}
