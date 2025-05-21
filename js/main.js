@@ -48,6 +48,25 @@ async function getAllEntries(path) {
 
 
 /**
+ * Sends data to a specific Firebase Realtime Database path using PUT (overwrites data at the given path).
+ * @param {string} path - The Firebase DB path (e.g. "users/user1").
+ * @param {Object} data - The data object to store at the given path.
+ * @returns {Promise<Object>} - The response JSON from Firebase.
+ */
+async function putData(path = "", data = {}) {
+    let response = await fetch(FIREBASE_URL + path + ".json", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    return responseAsJson = await response.json();
+}
+
+
+/**
  * Retrieves the value of an input element by its ID.
  *
  * @param {string} element - The ID of the input element.

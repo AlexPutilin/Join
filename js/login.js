@@ -136,12 +136,32 @@ async function handleSignup() {
     console.log("btn_signup enabled");
 
     if (checkFormValidation('#signup_form')) {
-        if (checkPasswordValidation()) {
-            await addNewUser();
+        if (isUniqueEmail()) {
+            if (checkPasswordValidation()) {
+                await addNewUser();
+            } else {
+                alert('Passwörter stimmen nicht überein!')
+            }
         } else {
-            alert('Passwörter stimmen nicht überein!')
+            alert('Angegebene Email-Adresse ist bereits registriert!')
         }
     }
+}
+
+
+async function isUniqueEmail() {
+    let allUsers = await getAllEntries('/users');
+    let allEmails = [];
+
+    for (let i = 0; i < allUsers.length; i++) {
+        const singleUserMail = allUsers[i][1].email;
+        allEmails.push(singleUserMail);
+    }
+
+    console.table(allEmails);
+    
+
+    // -> allUsers[i][1].email
 }
 
 
@@ -165,25 +185,6 @@ async function addNewUser() {
     let newUserID = await generateUID('/users');
 
     putData(`/users/user${newUserID}`, inputData);
-}
-
-
-/**
- * Sends data to a specific Firebase Realtime Database path using PUT (overwrites data at the given path).
- * @param {string} path - The Firebase DB path (e.g. "users/user1").
- * @param {Object} data - The data object to store at the given path.
- * @returns {Promise<Object>} - The response JSON from Firebase.
- */
-async function putData(path = "", data = {}) {
-    let response = await fetch(FIREBASE_URL + path + ".json", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    });
-
-    return responseAsJson = await response.json();
 }
 
 
