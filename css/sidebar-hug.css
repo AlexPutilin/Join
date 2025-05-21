@@ -1,0 +1,57 @@
+aside {
+    width: 232px;
+    background-color: #2A3647;
+    height: 100vh;
+    position: fixed;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    color: #cdcdcd;
+}
+
+.logo {
+    padding-top: 64px;
+    padding-left: 65.5px;
+    padding-bottom: 146px;
+}
+
+.legal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    bottom: 36px;
+    position: fixed;
+    left: 63.5px;
+}
+
+.hug {
+    height: 96px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.068);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 99;
+}
+
+.kanban-text {
+    margin-left: 96px;
+    font-size: 24px;
+}
+
+.help-and-profile {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+    gap: 16px;
+}
+
+.btn-board {
+    padding-right: 40px;
+}
+
+.btn-contacts{
+    padding-right: 16px;
+}

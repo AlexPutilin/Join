@@ -1,19 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Join</title>
 
-        <link rel="stylesheet" href="./css/fonts.css">
-        <link rel="stylesheet" href="./css/components.css">
-        <link rel="stylesheet" href="./css/main.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
 
-        <script src="./js/templates.js"></script>
-        <script src="./js/main.js"></script>
-    </head>
-    
-    <body>
-        
-    </body>
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/fonts.css">
+    <link rel="stylesheet" href="./css/components.css">
+    <link rel="stylesheet" href="./css/main.css">
+
+    <script src="./js/login.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/templates.js"></script>
+    <script src="./js/main.js"></script>
+</head>
+
+<body onload="init()">
+    <!-- LOGO -->
+    <picture>
+        <source media="(max-width: 1024px)" srcset="./assets/img/logo-white.svg">
+        <img id="logo" class="logo" src="./assets/img/logo.svg" alt="Logo">
+    </picture>
+
+
+    <!-- SPLASH SCREEN -->
+    <!-- >>> fades out after 1200 ms -->
+    <section id="splash-screen" class="splash-screen ">
+    </section>
+
+    <!-- PAGE CONTENT -->
+    <section class="login-main-content">
+        <!-- HEADER -->
+        <header>
+            <img id="logo_new" class="invisible" src="./assets/img/logo.svg" alt="Logo">
+            <!-- <img src="./assets/img/logo.svg" alt="Logo"> -->
+            <div class="cta-container" id="cta-container">
+                <div>
+                    <p class="cta-text-mobile-sm">Not a Join user?</p>
+                    <button onclick="renderForm(getSignupFormTemplate())" class="btn-dark cta-text-mobile-sm">Sign up</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- LOGIN FORM -->
+        <section id="form-container" class="form-wrapper">
+            <form action="submit">
+                <h1>Log in</h1>
+
+                <!-- <input type="email" placeholder="Email" required> -->
+                <div class="input-wrapper form-elements-padding">
+                    <div class="input-area">
+                        <input type="email" placeholder="Email" required>
+                        <img src="../assets/img/icon-mail.svg" alt="">
+                    </div>
+                    <span class="err-msg hidden">Invalid input.</span>
+                </div>
+
+                <!-- <input type="password" placeholder="Password" required> -->
+                <div class="input-wrapper form-elements-padding">
+                    <div class="input-area">
+                        <input type="password" placeholder="Password" required>
+                        <img src="../assets/img/icon-lock.svg" alt="">
+                    </div>
+                    <span class="err-msg hidden">Invalid input.</span>
+                </div>
+
+                <div class="login-btn-container form-elements-padding mobile-flex-col">
+                    <button type="button" class="btn-dark cta-text-mobile-sm">Log in</button>
+                    <button type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
+                </div>
+            </form>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Legal Notice</a>
+        </footer>
+    </section>
+
+</body>
+
 </html>
