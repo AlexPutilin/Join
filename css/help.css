@@ -2,7 +2,7 @@
     padding: 80px;
 }
 
-.join{
+.link-style{
     color:#29abe2;
     text-decoration: none;
 }
@@ -12,3 +12,14 @@
     justify-content: space-between;
     align-items: center;
 }
+
+  ol {
+  
+    margin-left: 30px;
+    
+  }
+
+  li::marker{
+    font-size: 18px;
+    font-weight: bold;
+  }
