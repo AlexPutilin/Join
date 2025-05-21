@@ -360,11 +360,7 @@ function getOverviewTemplate(task) {
                         
                         </p>
                     </div>
-                   
-                        
                             ${getSubtasksContent(task)}
-                  
-
                     <div class="delete-and-edit-wrapper">
                         <button class="btn-small">
                             <div class="icon-wrapper">
