@@ -393,13 +393,13 @@ function getOverviewTemplate(task) {
 
                     <br>
                     <div>
-                        <span class="font-color">Assigned To:</span>
+                        <span class="font-color-grey">Assigned To:</span>
                         <p>
                         
                         </p>
                     </div>
                     <div>
-                        <span class="font-color">Subtasks:</span>
+                        <span class="font-color-grey">Subtasks:</span>
                             ${getSubtasks(task)}
                     </div>
 
