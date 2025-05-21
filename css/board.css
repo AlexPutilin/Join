@@ -26,7 +26,7 @@ body {
     justify-content: space-between;
     gap: 36px;
     overflow: hidden;
-    height: 480px;
+    height: 600px;
 }
 
 .workflow-stages {
@@ -89,7 +89,7 @@ body {
 
 .safe-scrollbar {
     width: 350px;
-    height: 500px;
+    height: 600px;
     padding: 24px;
 }
 
