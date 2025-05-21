@@ -29,8 +29,6 @@ async function tasksToArray() {
             ...task
         });
     }
-
-    console.log("All Tasks:", allTasks);
     currentTasks = allTasks;
     renderAllTasks();
 }
@@ -139,11 +137,7 @@ async function updateTaskInFirebase(taskId, updatedTask) {
         console.error("Error while loading tasks(PUT):", error);
     }
 }
-// let taskIndex = allTasks.findIndex(t => t.id.toString());
-// if (taskIndex === -1) {
-//     console.error("Task not found:", currentDraggedElement);
-//     return;
-// }
+
 
 
 function moveTo(status) {
@@ -153,26 +147,12 @@ function moveTo(status) {
         console.error("Task not found:", currentDraggedElement);
         return;
     }
-
     let task = allTasks[taskIndex];
-
     task.status = status;
-
     updateTaskInFirebase(task.id, task);
-
     allTasks[taskIndex] = task;
     renderAllTasks();
 }
-
-// function allowDrop(event) {
-//     event.preventDefault();
-// }
-
-// function startDragging(id) {
-//     console.log(allTasks.tasks);
-//     currentDraggedElement = task.id;
-//     console.log("Started dragging task ID:", task.id);
-// }
 
 function initDragEvents() {
     const draggables = document.querySelectorAll('.card');
@@ -180,19 +160,8 @@ function initDragEvents() {
     enableTaskDragging(draggables);
     enableDragReordering(dragAndDropContainers);
     enableTaskDropByStatus(dragAndDropContainers);
-    enableDragPlaceholderCleanup(dragAndDropContainers);
 }
 
-function enableDragPlaceholderCleanup(dragAndDropContainers) {
-    dragAndDropContainers.forEach(dragAndDropContainer => {
-        dragAndDropContainer.addEventListener('dragleave', () => {
-            const placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
-            if (placeholder) {
-                placeholder.remove();
-            }
-        });
-    });
-}
 
 function enableTaskDragging(draggables) {
     draggables.forEach(draggable => {
@@ -216,16 +185,12 @@ function enableDragReordering(dragAndDropContainers) {
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('dragover', event => {
             event.preventDefault();
-
             const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
             const draggable = document.querySelector('.dragging');
             const existingPlaceholder = dragAndDropContainer.querySelector('.drop-placeholder');
-
-            if (existingPlaceholder && (afterElement === existingPlaceholder || afterElement === existingPlaceholder.nextSibling)) {
-                return;
+            if (existingPlaceholder) {
+                existingPlaceholder.remove();
             }
-
-            if (existingPlaceholder) { existingPlaceholder.remove(); }
             if (draggable) {
                 if (afterElement == null) {
                     dragAndDropContainer.appendChild(placeholder);
@@ -243,9 +208,8 @@ function enableTaskDropByStatus(dragAndDropContainers) {
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('drop', event => {
             event.preventDefault();
-            console.log('DROPPED IN:', dragAndDropContainer.id);
-            console.log('Current dragged:', currentDraggedElement);
-            console.log("Task status after drop:", allTasks.find(t => t.id === currentDraggedElement)?.status);
+            console.log('dropped in:', dragAndDropContainer.id);
+            console.log('current dragged:', currentDraggedElement);
 
             const draggedCard = document.getElementById(currentDraggedElement);
             const placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
@@ -257,7 +221,6 @@ function enableTaskDropByStatus(dragAndDropContainers) {
                     dragAndDropContainer.appendChild(draggedCard);
                 }
             }
-            // const afterElement = getDragAfterElement(container, event.clientY);
             updateOrderInContainer(dragAndDropContainer, dragAndDropContainer.id);
         });
     });
@@ -266,7 +229,7 @@ function enableTaskDropByStatus(dragAndDropContainers) {
 
 
 function getDragAfterElement(dragAndDropContainer, y) {
-    const draggableElements = [...dragAndDropContainer.querySelectorAll('.card:not(.dragging)')];
+    const draggableElements = [...dragAndDropContainer.querySelectorAll('.card:not(.dragging):not(.drop-placeholder)')];
 
     return draggableElements.reduce((closest, child) => {
         const box = child.getBoundingClientRect();
@@ -279,31 +242,30 @@ function getDragAfterElement(dragAndDropContainer, y) {
     }, { offset: Number.NEGATIVE_INFINITY }).element
 }
 
+
+
+
 function updateOrderInContainer(container, status) {
     const cardElements = Array.from(container.querySelectorAll('.card'));
-
     cardElements.forEach((card, index) => {
         const task = allTasks.find(t => t.id === card.id);
-        if (!task) return;
-
-        let updated = false;
-
+        if (!task) {
+            return;
+        }
+        let changeStatusOrOrder = false;
         if (task.status !== status) {
             task.status = status;
-            updated = true;
+            changeStatusOrOrder = true;
         }
-
         if (task.order !== index) {
             task.order = index;
-            updated = true;
+            changeStatusOrOrder = true;
         }
-
-        if (updated) {
+        if (changeStatusOrOrder) {
             updateTaskInFirebase(task.id, task);
         }
     });
-
-    renderAllTasks();
+        renderAllTasks();
 }
 
 /**
@@ -315,7 +277,7 @@ function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showP
     const bgCategory = getBgCategory(task.category);
     let description_short = getShortenedDescription(task);
     let subtasksProgress = getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength);
-    
+
     return getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress);
 }
 
@@ -382,7 +344,7 @@ function getOverviewTemplate(task) {
                         <span style="padding-right: 16px;" class="font-color ">Due Date:</span>
                         <span> ${task.due_date}</span>
                     </div>
-<br>
+                    <br>
                     <div class="priority-wrapper ">
                         <span style="padding-right: 36px;" class="font-color">Priority:</span>
                         <span > ${task.priority} </span>
