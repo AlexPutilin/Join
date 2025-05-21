@@ -38,7 +38,8 @@ a:hover {
 .btn-dark {
     display: flex;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    gap: 8px;
     padding: 10px 16px;
     border: 0;
     border-radius: 10px;
