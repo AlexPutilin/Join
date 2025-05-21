@@ -139,7 +139,6 @@ async function updateTaskInFirebase(taskId, updatedTask) {
 }
 
 
-
 function moveTo(status) {
     console.log("Dropping task into:", status);
     let taskIndex = allTasks.findIndex(t => t.id === currentDraggedElement);
@@ -167,9 +166,12 @@ function enableTaskDragging(draggables) {
     draggables.forEach(draggable => {
         draggable.addEventListener('dragstart', () => {
             currentDraggedElement = draggable.id;
+
             draggable.classList.add('dragging');
             document.body.classList.add('drag-active');
             console.log("Dragging Task ID:", currentDraggedElement);
+
+
         });
 
         draggable.addEventListener('dragend', () => {
@@ -247,25 +249,31 @@ function getDragAfterElement(dragAndDropContainer, y) {
 
 function updateOrderInContainer(container, status) {
     const cardElements = Array.from(container.querySelectorAll('.card'));
+    console.log('Order after drop:');
     cardElements.forEach((card, index) => {
+        console.log(`${card.id} => ${index}`);
+
         const task = allTasks.find(t => t.id === card.id);
         if (!task) {
             return;
         }
         let changeStatusOrOrder = false;
+        task.order = index;
         if (task.status !== status) {
             task.status = status;
             changeStatusOrOrder = true;
+            console.log("dragging Task Order-No", task.order);
         }
-        if (task.order !== index) {
-            task.order = index;
-            changeStatusOrOrder = true;
-        }
+
+
+
+
         if (changeStatusOrOrder) {
             updateTaskInFirebase(task.id, task);
         }
     });
-    renderAllTasks();
+    setTimeout(() => renderAllTasks(), 50);
+
 }
 
 /**
@@ -362,7 +370,7 @@ function getOverviewTemplate(task) {
                     </div>
                             ${getSubtasksContent(task)}
                     <div class="delete-and-edit-wrapper">
-                        <button class="btn-small">
+                        <button onclick="deleteAndUpdateTasks('${task.id}')" class="btn-small">
                             <div class="icon-wrapper">
                                 <img class="icon-default" src="../assets/img/icon-delete-default.svg">
                                 <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
@@ -381,6 +389,15 @@ function getOverviewTemplate(task) {
                         </button>
                     </div>
                 </div>`;
+}
+
+async function deleteAndUpdateTasks(taskID) {
+    console.log('delete the task with id:', taskID);
+
+    await deleteData(`/board/tasks/${taskID}`);
+    closeOverview();
+    await tasksToArray();
+
 }
 
 
