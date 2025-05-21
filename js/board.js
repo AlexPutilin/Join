@@ -328,7 +328,7 @@ function showOverview(id) {
 
 function getOverviewTemplate(task) {
     const bgCategory = getBgCategory(task.category);
-    return `    <div class="card-overview">
+    return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
                     <div class="card-overview-header">
                         <span class="label ${bgCategory}">${task.category}</span><br>
                         <button onclick="closeOverview()" class="btn-small">
