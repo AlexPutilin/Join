@@ -7,7 +7,7 @@ function handleSplashScreen() {
         animateLogoTransition();
         hideElement("splash-screen");
         changeImgSrc("logo", "./assets/img/logo.svg");
-        replaceLogo(); 
+        replaceLogo();
     }, 1200);
 }
 
@@ -134,9 +134,32 @@ function toggleCtaContainer() {
  */
 async function handleSignup() {
     console.log("btn_signup enabled");
-    
+
     if (checkFormValidation('#signup_form')) {
-        await addNewUser();
+        let validPassword = checkPasswordValidation();
+
+        if (validPassword) {
+            await addNewUser();
+        } else {
+            alert('Passwörter stimmen nicht überein!')
+        }
+    }
+}
+
+
+/**
+ * Checks whether the entered password and confirmation password match.
+ *
+ * @returns {boolean} Returns true if both passwords match, otherwise false.
+ */
+function checkPasswordValidation() {
+    let chosenPassword = getInput('signup_password');
+    let confirmedPassword = getInput('signup_password_confirmed');
+
+    if (chosenPassword === confirmedPassword) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -160,7 +183,7 @@ async function addNewUser() {
  * @param {Object} data - The data object to store at the given path.
  * @returns {Promise<Object>} - The response JSON from Firebase.
  */
-async function putData(path="", data={}) {
+async function putData(path = "", data = {}) {
     let response = await fetch(FIREBASE_URL + path + ".json", {
         method: "PUT",
         headers: {
@@ -185,9 +208,9 @@ function getSignupInput() {
     let updatedInputData = [];
 
     updatedInputData.push({
-        "name" : nameRef.value,
-        "email" : emailRef.value,
-        "password" : passwordRef.value
+        "name": nameRef.value,
+        "email": emailRef.value,
+        "password": passwordRef.value
     });
 
     return updatedInputData[0];

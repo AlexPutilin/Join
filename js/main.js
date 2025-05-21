@@ -45,3 +45,14 @@ async function getAllEntries(path) {
     let allEntriesRef = await getData(path);
     return Object.entries(allEntriesRef);
 }
+
+
+/**
+ * Retrieves the value of an input element by its ID.
+ *
+ * @param {string} element - The ID of the input element.
+ * @returns {string} The value of the input element.
+ */
+function getInput(element) {
+    return document.getElementById(element).value;
+}

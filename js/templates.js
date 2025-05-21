@@ -40,7 +40,7 @@ function getSignupFormTemplate() {
                 <!-- <input type="password" placeholder="Password" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="password" placeholder="Confirm Password" required>
+                        <input id="signup_password_confirmed" type="password" placeholder="Confirm Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
                     <span class="err-msg hidden">Invalid input.</span>
