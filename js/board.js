@@ -261,6 +261,7 @@ function enableTaskDropByStatus(dragAndDropContainers) {
             updateOrderInContainer(dragAndDropContainer, dragAndDropContainer.id);
         });
     });
+
 }
 
 
@@ -277,6 +278,7 @@ function getDragAfterElement(dragAndDropContainer, y) {
         }
     }, { offset: Number.NEGATIVE_INFINITY }).element
 }
+
 function updateOrderInContainer(container, status) {
     const cardElements = Array.from(container.querySelectorAll('.card'));
 
@@ -312,19 +314,27 @@ function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showP
     console.log(task);
     const bgCategory = getBgCategory(task.category);
     let description_short = getShortenedDescription(task);
-    let getSubtasksProgressTemplate = showProgress ? `
+    let subtasksProgress = getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength);
+    
+    return getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress);
+}
+
+function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength) {
+    return showProgress ? `
         <div class="task-progress-container">
             <div class="task-progressbar">
                 <div class="task-progrssbar-content" style="width: ${calcuProgress}%;"></div>
             </div>
             <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
         </div>` : '';
+}
 
+function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress) {
     return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h3 class="task-title">${task.title}</h3>
                 <span class="task-description-short">${description_short}</span>
-                ${getSubtasksProgressTemplate}
+                ${subtasksProgress}
                 <div class="profiles-priority-container">
                     <div style="border: 2px solid black; border-radius: 100%; width: 32px; height: 32px;"></div>
                     <div>${getPriority(task)}</div>
