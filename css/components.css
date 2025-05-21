@@ -1,14 +1,3 @@
-/* MAIN CLASSES */
-.hidden {
-    visibility: hidden;
-}
-
-.d-none {
-    display: none !important;
-}
-/* MAIN CLASSES */
-
-
 button, .checkbox {
     cursor: pointer;
     transition: all 75ms;
