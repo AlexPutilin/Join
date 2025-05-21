@@ -136,7 +136,7 @@ async function handleSignup() {
     console.log("btn_signup enabled");
 
     if (checkFormValidation('#signup_form')) {
-        if (isUniqueEmail()) {
+        if (await isUniqueEmail()) {
             if (checkPasswordValidation()) {
                 await addNewUser();
             } else {
@@ -149,6 +149,13 @@ async function handleSignup() {
 }
 
 
+/**
+ * Checks whether the input email is unique among all user entries.
+ *
+ * @async
+ * @function
+ * @returns {Promise<boolean>} A promise that resolves to true if the email is unique, false otherwise.
+ */
 async function isUniqueEmail() {
     let allUsers = await getAllEntries('/users');
     let allEmails = [];
@@ -158,10 +165,8 @@ async function isUniqueEmail() {
         allEmails.push(singleUserMail);
     }
 
-    console.table(allEmails);
-    
-
-    // -> allUsers[i][1].email
+    let result = allEmails.filter(email => email === getInput('signup_email'));
+    return result.length === 0;
 }
 
 
