@@ -136,9 +136,7 @@ async function handleSignup() {
     console.log("btn_signup enabled");
 
     if (checkFormValidation('#signup_form')) {
-        let validPassword = checkPasswordValidation();
-
-        if (validPassword) {
+        if (checkPasswordValidation()) {
             await addNewUser();
         } else {
             alert('Passwörter stimmen nicht überein!')
@@ -153,14 +151,7 @@ async function handleSignup() {
  * @returns {boolean} Returns true if both passwords match, otherwise false.
  */
 function checkPasswordValidation() {
-    let chosenPassword = getInput('signup_password');
-    let confirmedPassword = getInput('signup_password_confirmed');
-
-    if (chosenPassword === confirmedPassword) {
-        return true;
-    } else {
-        return false;
-    }
+    return getInput('signup_password') === getInput('signup_password_confirmed');
 }
 
 
