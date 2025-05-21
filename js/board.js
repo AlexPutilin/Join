@@ -265,7 +265,7 @@ function updateOrderInContainer(container, status) {
             updateTaskInFirebase(task.id, task);
         }
     });
-        renderAllTasks();
+    renderAllTasks();
 }
 
 /**
@@ -360,10 +360,10 @@ function getOverviewTemplate(task) {
                         
                         </p>
                     </div>
-                    <div>
-                        <span class="font-color-grey">Subtasks:</span>
-                            ${getSubtasks(task)}
-                    </div>
+                   
+                        
+                            ${getSubtasksContent(task)}
+                  
 
                     <div class="delete-and-edit-wrapper">
                         <button class="btn-small">
@@ -387,7 +387,20 @@ function getOverviewTemplate(task) {
                 </div>`;
 }
 
-function getSubtasks(task) {
+
+function getSubtasksContent(task) {
+    let template = getSubtasksTemplate(task);
+    if (template) {
+        return `<div>
+                    <span class="font-color-grey">Subtasks:</span>
+                    ${template}
+                </div>`;
+    } else {
+        return "";
+    }
+}
+
+function getSubtasksTemplate(task) {
     if (task.subtasks && Object.keys(task.subtasks).length > 0) {
         const subtasksArray = Object.values(task.subtasks);
         let subtaksTemplate = "";
