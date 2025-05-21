@@ -341,12 +341,12 @@ function getOverviewTemplate(task) {
                     <span class="task-description">${task.description_full}</span><br><br>
 
                     <div class="">
-                        <span style="padding-right: 16px;" class="font-color ">Due Date:</span>
+                        <span style="padding-right: 16px;" class="font-color-grey">Due Date:</span>
                         <span> ${task.due_date}</span>
                     </div>
                     <br>
                     <div class="priority-wrapper ">
-                        <span style="padding-right: 36px;" class="font-color">Priority:</span>
+                        <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
                         <span > ${task.priority} </span>
                         ${getPriority(task)}
                     </div>
