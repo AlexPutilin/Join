@@ -314,7 +314,7 @@
                 <span class="err-msg hidden">Invalid input.</span>
             </div>
 
-            <div class="input-wrapper">
+            <div class="input-wrapper" id="subtask-input">
                 <div class="input-area">
                     <input type="text" placeholder="Add new subtask" data-placeholder="Add new subtask" data-placeholder-active="" oninput="toggleInputBtns(this)" onfocus="closeAllSubtaskEdits()">
                     <button type="button" class="btn-small" onclick="setInputFocus(this)">
@@ -324,14 +324,14 @@
                         </div>
                     </button>
                     <div class="btn-collection-container d-none">
-                        <button type="button" class="btn-small" onclick="resetInput(this)">
+                        <button type="button" class="btn-small" onclick="resetSubtaskInput()">
                             <div class="icon-wrapper">
                                 <img class="icon-default" src="../assets/img/icon-cancel-task-default.svg">
                                 <img class="icon-hover" src="../assets/img/icon-cancel-task-hover.svg">
                             </div>
                         </button>
                         <div class="btn-seperator"></div>
-                        <button type="button" class="btn-small" onclick="addSubtask(this)">
+                        <button type="button" class="btn-small" onclick="addSubtask()">
                             <div class="icon-wrapper">
                                 <img class="icon-default" src="../assets/img/icon-check-default.svg">
                                 <img class="icon-hover" src="../assets/img/icon-check-hover.svg">

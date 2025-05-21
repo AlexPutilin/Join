@@ -82,9 +82,10 @@ function togglePasswordVisibility() {
 
 
 function toggleInputBtns(input) {
-    const inputWrapper = input.closest('.input-wrapper');
-    const defaultButton = inputWrapper.querySelector('.btn-small');
-    const btnCollection = inputWrapper.querySelector('.btn-collection-container');
+    const subtaskInputField = document.getElementById('subtask-input');
+    // const inputWrapper = input.closest('.input-wrapper');
+    const defaultButton = subtaskInputField.querySelector('.btn-small');
+    const btnCollection = subtaskInputField.querySelector('.btn-collection-container');
     if (input.value !== "") {
         defaultButton.classList.add('d-none');
         btnCollection.classList.remove('d-none');
@@ -95,18 +96,20 @@ function toggleInputBtns(input) {
 }
 
 
-function addSubtask(triggerElement) {
-    const inputWrapper = triggerElement.closest('.input-wrapper');
-    const input = inputWrapper.querySelector('input');
-    const subtaskList = inputWrapper.querySelector('.list-subtasks');
+function addSubtask() {
+    const subtaskInputField = document.getElementById('subtask-input');
+    // const inputWrapper = triggerElement.closest('.input-wrapper');
+    const input = subtaskInputField.querySelector('input');
+    const subtaskList = subtaskInputField.querySelector('.list-subtasks');
     subtaskList.innerHTML += getSubtaskTemplate(input.value);
-    resetInput(triggerElement);
+    resetSubtaskInput();
 }
 
 
-function resetInput(triggerElement) {
-    const inputWrapper = triggerElement.closest('.input-wrapper');
-    const input = inputWrapper.querySelector('input');
+function resetSubtaskInput() {
+    const subtaskInputField = document.getElementById('subtask-input');
+    // const inputWrapper = triggerElement.closest('.input-wrapper');
+    const input = subtaskInputField.querySelector('input');
     input.value = "";
     toggleInputBtns(input);
 }
@@ -120,6 +123,7 @@ function setInputFocus(triggerElement) {
 
 
 function openSubtaskEditMenu(triggerElement) {
+    resetSubtaskInput();
     closeAllSubtaskEdits();
     const subtaskContainer = triggerElement.closest('.subtask-item-container');
     const subtaskItem = subtaskContainer.querySelector('.subtask-item');
@@ -130,11 +134,11 @@ function openSubtaskEditMenu(triggerElement) {
     subtaskEditMenu.classList.remove('d-none');
     editInput.value = subtaskValue.slice(1).trim();
     editInput.focus();
-    disableAddTaskInput();
 }
 
 
 function deleteSubtaskItem(triggerElement) {
+    resetSubtaskInput();
     closeAllSubtaskEdits();
     const subtaskContainer = triggerElement.closest('.subtask-item-container');
     subtaskContainer.remove();
