@@ -139,7 +139,7 @@ async function updateTaskInFirebase(taskId, updatedTask) {
 }
 
 
-function moveTo(status) {
+async function moveTo(status) {
     console.log("Dropping task into:", status);
     let taskIndex = allTasks.findIndex(t => t.id === currentDraggedElement);
     if (taskIndex === -1) {
@@ -148,7 +148,7 @@ function moveTo(status) {
     }
     let task = allTasks[taskIndex];
     task.status = status;
-    updateTaskInFirebase(task.id, task);
+    await updateTaskInFirebase(task.id, task);
     allTasks[taskIndex] = task;
     renderAllTasks();
 }
@@ -245,36 +245,34 @@ function getDragAfterElement(dragAndDropContainer, y) {
 }
 
 
-
-
-function updateOrderInContainer(container, status) {
+async function updateOrderInContainer(container, status) {
     const cardElements = Array.from(container.querySelectorAll('.card'));
-    console.log('Order after drop:');
+
     cardElements.forEach((card, index) => {
-        console.log(`${card.id} => ${index}`);
-
         const task = allTasks.find(t => t.id === card.id);
-        if (!task) {
-            return;
-        }
-        let changeStatusOrOrder = false;
-        task.order = index;
+        if (!task) return;
+
+        let updated = false;
+
         if (task.status !== status) {
-            task.status = status;
-            changeStatusOrOrder = true;
-            console.log("dragging Task Order-No", task.order);
+            
+            updated = true;
         }
 
+        if (task.order !== index) {
+            
+            updated = true;
+        }
 
-
-
-        if (changeStatusOrOrder) {
+        if (updated) {
             updateTaskInFirebase(task.id, task);
         }
     });
-    setTimeout(() => renderAllTasks(), 50);
 
+
+    renderAllTasks();
 }
+
 
 /**
  * @function getTaskCard - Render the little Task-Card in Board
@@ -397,7 +395,6 @@ async function deleteAndUpdateTasks(taskID) {
     await deleteData(`/board/tasks/${taskID}`);
     closeOverview();
     await tasksToArray();
-
 }
 
 
