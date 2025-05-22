@@ -1,11 +1,31 @@
+function selectCategoryOption(element) {
+  const categoryValue = element.innerText;
+  const input = document.getElementById('task-category'); 
+  if (!input) return;
+
+  input.value = categoryValue;
+
+  const inputWrapper = input.closest('.input-wrapper');
+  const menu = inputWrapper?.querySelector('.drop-down-menu');
+  const toggleButton = inputWrapper?.querySelector('button');
+
+  if (toggleButton) toggleDropDown(toggleButton);
+  if (menu) menu.dataset.open = 'false';
+
+  document.getElementById('category-error')?.classList.add('hidden');
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const mediumInput = document.querySelector('input[name="priority"][value="medium"]');
   const allPriorityOptions = document.querySelectorAll('.priority-option');
+
   if (mediumInput) {
     mediumInput.checked = true;
     const mediumLabel = mediumInput.closest('.priority-option');
     if (mediumLabel) mediumLabel.classList.add('active');
   }
+
   allPriorityOptions.forEach(option => {
     option.addEventListener('click', () => {
       allPriorityOptions.forEach(opt => opt.classList.remove('active'));
@@ -15,23 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (input) input.checked = true;
     });
   });
+
+  const form = document.getElementById("add-task-form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // verhindert Reload
+    await addTask();
+  });
 });
-
-
-
-function selectCategoryOption(element) {
-  const categoryValue = element.innerText;
-  const inputWrapper = element.closest('.input-wrapper');
-  const input = inputWrapper.querySelector('input');
-  const menu = inputWrapper.querySelector('.drop-down-menu');
-  const icons = inputWrapper.querySelectorAll('.icon-wrapper');
-
-  input.value = categoryValue;
-  toggleDropDown(triggerElement);
-  menu.dataset.open = 'false';
-
-  document.getElementById('category-error')?.classList.add('hidden');
-}
 
 
 async function addTask() {

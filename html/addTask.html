@@ -86,7 +86,7 @@
             </div>
           
 
-            <form id="add-task-form" onsubmit="handleSubmit(event)">
+            <form id="add-task-form">
               <div class="add-task-container">
                 <div class="add-task-left">
                   <div class="input-wrapper">
@@ -252,7 +252,7 @@
                       <span class="redstar">*</span>
                     </div>
                     <div class="input-area drop-down-input">
-                      <input id="task-category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" readonly required oninput="resetInputError()">
+                      <input id="task-category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" readonly required oninput="resetInputError(event)">
                       <span class="err-msg hidden">This field is required.</span>
                       <button type="button" class="btn-small" onclick="toggleDropDown(this)">
                         <div class="icon-wrapper">
@@ -302,7 +302,7 @@
                           </div>
                         </button>
           
-                        <button type="submit" class="btn-dark" id="create-task-btn" onclick="addTask()" disabled>
+                        <button type="submit" class="btn-dark" id="create-task-btn" disabled>
                           <span>Create Task</span>
                           <img src="../assets/img/icon-add-white.svg">
                         </button>
