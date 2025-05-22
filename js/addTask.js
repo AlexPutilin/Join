@@ -1,3 +1,24 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const mediumInput = document.querySelector('input[name="priority"][value="medium"]');
+  const allPriorityOptions = document.querySelectorAll('.priority-option');
+  if (mediumInput) {
+    mediumInput.checked = true;
+    const mediumLabel = mediumInput.closest('.priority-option');
+    if (mediumLabel) mediumLabel.classList.add('active');
+  }
+  allPriorityOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      allPriorityOptions.forEach(opt => opt.classList.remove('active'));
+      option.classList.add('active');
+
+      const input = option.querySelector('input[name="priority"]');
+      if (input) input.checked = true;
+    });
+  });
+});
+
+
+
 function selectCategoryOption(element) {
   const categoryValue = element.innerText;
   const inputWrapper = element.closest('.input-wrapper');
@@ -11,6 +32,7 @@ function selectCategoryOption(element) {
 
   document.getElementById('category-error')?.classList.add('hidden');
 }
+
 
 async function addTask() {
   if (!checkFormValidation('#add-task-form')) return;
@@ -31,7 +53,7 @@ function getInputValues() {
   const description = document.querySelector('textarea[placeholder="Enter a description"]').value.trim();
   const due_date = document.querySelector('input[type="date"]').value;
   const category = document.querySelector('input[placeholder="Select task category"]').value.trim();
-  const priority = document.querySelector('input[name="priority"]:checked')?.value || "low";
+  const priority = document.querySelector('input[name="priority"]:checked')?.value || "medium";
 
   return { title, description_full: description, due_date, category, priority, status: "to-do" };
 }
