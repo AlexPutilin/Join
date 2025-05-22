@@ -5,6 +5,7 @@ body {
 .board {
     background-color: #f6f7f8;
     min-height: 845px;
+    height: 100vh;
     padding: 56px;
 }
 
