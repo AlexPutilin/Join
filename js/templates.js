@@ -173,13 +173,13 @@ function getContactListContainer(param) {
 }
 
 
-function getContactTemplate(param) {
+function getContactTemplate(contact) {
     return `
         <div class="contact">
-            <div class="contact-icon">${param}</div>
+            <div class="contact-icon">${getContactInitials(contact.name)}</div>
             <div class="contact-infos">
-                <span class="contact-name">${param}</span>
-                <span class="contact-mail">${param}</span>
+                <span class="contact-name">${contact.name}</span>
+                <span class="contact-mail">${contact.email}</span>
             </div>
         </div>
     `
