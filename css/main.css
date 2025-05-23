@@ -8,14 +8,21 @@
 .d-none {
     display: none !important;
 }
+
+.hidden {
+    visibility: hidden;
+}
+
 h1 {
     font-size: 72px;
 }
 
 main {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     padding-left: 232px;
+    background-color: #F6F7F8;
 }
 
 .pos-rel {

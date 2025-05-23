@@ -1,14 +1,3 @@
-/* MAIN CLASSES */
-.hidden {
-    visibility: hidden;
-}
-
-.d-none {
-    display: none !important;
-}
-/* MAIN CLASSES */
-
-
 button, .checkbox {
     cursor: pointer;
     transition: all 75ms;
@@ -25,18 +14,21 @@ a:hover {
 }
 
 .btn-small {
-    /* width: 32px; */
-    /* height: 32px; */
     border: 0;
-    position: relative;
     display: flex;
+    align-items: center;
     background-color: transparent;
+}
+
+.btn-small:hover {
+    color: #29ABE2;
 }
 
 .btn-dark {
     display: flex;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    gap: 8px;
     padding: 10px 16px;
     border: 0;
     border-radius: 10px;
@@ -151,6 +143,19 @@ a:hover {
     border: 1px solid #fff;
     color: #fff;
     background-color: #0038FF;
+}
+
+.btn-collection-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px
+}
+
+.btn-seperator {
+    width: 1px;
+    height: 24px;
+    background-color: #A8A8A8;
 }
 
 /* MENU BUTTONS */
@@ -297,6 +302,48 @@ textarea {
 
 
 
+
+/* SUBTASKS */
+.subtask-item {
+    height: 40px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.subtask-item > .btn-collection-container {
+    display: none;
+}
+
+.subtask-item:hover > .btn-collection-container {
+    display: flex;
+}
+
+.subtask-item:hover {
+    border: 1px solid #D1D1D1;
+    /* background-color: #D1D1D1; */
+}
+
+.subtask-item-editmenu {
+    height: 40px;
+    padding: 0 12px;
+    display: flex;
+    border-radius: 0;
+    border-bottom: 1px solid #29ABE2;
+    background-color: #fff;
+}
+
+.subtask-item-editmenu > input[type="text"] {
+    height: 100%;
+    font-size: 16px;
+    text-indent: 0;
+}
+
+
 /* LABELS */
 .label {
     color: #fff;
@@ -331,4 +378,9 @@ textarea {
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
+}
+
+#test-form {
+    /* background-color: #ffffff; */
+    padding: 40px;
 }
