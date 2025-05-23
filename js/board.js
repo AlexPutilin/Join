@@ -25,7 +25,8 @@ async function tasksToArray() {
         let task = taskResponse[key];
         allTasks.push({
             id: key,
-            order: task.order || 0,
+            order: task.order,
+            //   order: task.order || 0,
             ...task
         });
     }
@@ -156,6 +157,7 @@ async function moveTo(status) {
 function initDragEvents() {
     const draggables = document.querySelectorAll('.card');
     const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
+
     enableTaskDragging(draggables);
     enableDragReordering(dragAndDropContainers);
     enableTaskDropByStatus(dragAndDropContainers);
@@ -172,11 +174,13 @@ function enableTaskDragging(draggables) {
             console.log("Dragging Task ID:", currentDraggedElement);
 
 
+
         });
 
         draggable.addEventListener('dragend', () => {
             draggable.classList.remove('dragging');
             document.body.classList.remove('drag-active');
+
         });
     });
 }
@@ -190,87 +194,112 @@ function enableDragReordering(dragAndDropContainers) {
             const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
             const draggable = document.querySelector('.dragging');
             const existingPlaceholder = dragAndDropContainer.querySelector('.drop-placeholder');
+
             if (existingPlaceholder) {
                 existingPlaceholder.remove();
             }
+
             if (draggable) {
                 if (afterElement == null) {
                     dragAndDropContainer.appendChild(placeholder);
                 } else {
                     dragAndDropContainer.insertBefore(placeholder, afterElement);
                 }
-            } else {
-                console.warn("No element with class '.dragging' found!");
             }
         });
+
     });
 }
+
+
 
 function enableTaskDropByStatus(dragAndDropContainers) {
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('drop', event => {
             event.preventDefault();
-            console.log('dropped in:', dragAndDropContainer.id);
-            console.log('current dragged:', currentDraggedElement);
+
+            console.log("Current DOM order after drop:");
+            const cardElements = Array.from(dragAndDropContainer.querySelectorAll('.card'));
+            cardElements.forEach((el, i) => console.log(`${i}: ${el.id}`));
+
 
             const draggedCard = document.getElementById(currentDraggedElement);
             const placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
-            if (draggedCard) {
-                if (placeholder) {
-                    dragAndDropContainer.insertBefore(draggedCard, placeholder);
-                    placeholder.remove();
-                } else {
-                    dragAndDropContainer.appendChild(draggedCard);
-                }
+            if (placeholder) {
+                console.log("Inserting draggedCard before placeholder");
+                dragAndDropContainer.insertBefore(draggedCard, placeholder);
+                placeholder.remove();
+            } else {
+                console.log("Appending draggedCard at the end");
+                dragAndDropContainer.appendChild(draggedCard);
             }
+
+
+
             updateOrderInContainer(dragAndDropContainer, dragAndDropContainer.id);
+            console.log("Status (container ID):", dragAndDropContainer.id);
+
         });
+
     });
 
+
 }
 
 
-function getDragAfterElement(dragAndDropContainer, y) {
-    const draggableElements = [...dragAndDropContainer.querySelectorAll('.card:not(.dragging):not(.drop-placeholder)')];
+function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('.card:not(.dragging):not(.drop-placeholder)')];
 
-    return draggableElements.reduce((closest, child) => {
+    let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
+
+    for (const child of draggableElements) {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
+
         if (offset < 0 && offset > closest.offset) {
-            return { offset: offset, element: child }
-        } else {
-            return closest
+            closest = { offset, element: child };
         }
-    }, { offset: Number.NEGATIVE_INFINITY }).element
+    }
+
+    return closest.element;
 }
+
+
+
 
 
 async function updateOrderInContainer(container, status) {
-    const cardElements = Array.from(container.querySelectorAll('.card'));
 
-    cardElements.forEach((card, index) => {
-        const task = allTasks.find(t => t.id === card.id);
-        if (!task) return;
+    const cardElements = Array.from(dragAndDropContainer.querySelectorAll('.card'));
+    // const updatePromises = [];
 
-        let updated = false;
+    for (let index = 0; index < cardElements.length; index++) {
+        const cardId = cardElements[index].id;
+        const taskIndex = allTasks.findIndex(t => t.id === cardId);
+        if (taskIndex === -1) { continue; }
 
-        if (task.status !== status) {
-            
-            updated = true;
+        let task = allTasks[taskIndex];
+        const oldOrder = task.order;
+        const oldStatus = task.status;
+
+        const newOrder = index;
+        const newStatus = status;
+
+        const hasChangedOrder = oldOrder !== newOrder;
+        const hasChangedStatus = oldStatus !== newStatus;
+
+        if (hasChangedOrder || hasChangedStatus) {
+            task.order = newOrder;
+            task.status = newStatus;
+            allTasks[taskIndex] = task;
+            // updatePromises.push();
+            updateTaskInFirebase(task.id, task)
+            console.log(`Will update task: ${task.id}, Order: ${newOrder}, Status: ${newStatus}`);
         }
-
-        if (task.order !== index) {
-            
-            updated = true;
-        }
-
-        if (updated) {
-            updateTaskInFirebase(task.id, task);
-        }
-    });
-
-
-    renderAllTasks();
+        console.log(`Task ${task.id}: oldOrder=${oldOrder}, newOrder=${newOrder}, oldStatus=${oldStatus}, newStatus=${newStatus}`);
+        console.log(`Before: ${task.status} → After: ${newStatus}`);
+    }
+    await Promise.all(updatePromises);
 }
 
 
