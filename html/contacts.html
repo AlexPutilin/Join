@@ -17,7 +17,7 @@
         <script src="../js/components.js"></script>
     </head>
 
-    <body onload="">
+    <body onload="initContactList()">
         <aside>
             <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
             <nav>
@@ -77,12 +77,53 @@
                 </div>
             </section>
 
-            <section id="contact-board">
-                <div id="contact-list">
+            <section id="contacts-board">
+                <div id="contacts-container">
                     <button class="btn-dark">
                         <span>Add new contact</span>
                         <img src="../assets/img/icon-person-add.svg">
                     </button>
+
+                    <div class="contact-list" data-sort-Letter="A">
+                        <span>A</span>
+                        <div class="contact">
+                            <div class="contact-icon">AP</div>
+                            <div class="contact-infos">
+                                <span class="contact-name">Alexander Putilin</span>
+                                <span class="contact-mail">meinemail@mail.com</span>
+                            </div>
+                        </div>
+                        <div class="contact">
+                            <div class="contact-icon">AP</div>
+                            <div class="contact-infos">
+                                <span class="contact-name">Alexander Putilin</span>
+                                <span class="contact-mail">meinemail@mail.com</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-list" data-sort-Letter="B">
+                        <span>B</span>
+                        <div class="contact">
+                            <div class="contact-icon">AP</div>
+                            <div class="contact-infos">
+                                <span class="contact-name">Alexander Putilin</span>
+                                <span class="contact-mail">meinemail@mail.com</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-list" data-sort-Letter="C">
+                        <span>C</span>
+                        <div class="contact">
+                            <div class="contact-icon">AP</div>
+                            <div class="contact-infos">
+                                <span class="contact-name">Alexander Putilin</span>
+                                <span class="contact-mail">meinemail@mail.com</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div id="contact-display-container">

@@ -134,13 +134,13 @@ a:hover {
     background-color: #E1E6EC;
 }
 
-.icon-contact {
+.contact-icon {
     width: 42px;
     height: 42px;
     align-content: center;
     text-align: center;
     border-radius: 50%;
-    border: 1px solid #fff;
+    border: 2px solid #fff;
     color: #fff;
     background-color: #0038FF;
 }

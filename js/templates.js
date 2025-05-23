@@ -101,7 +101,7 @@ function getContactSelectionTemplate(param) {
     return `
         <div class="select-contact">
             <div>
-                <div class="icon-contact">${param}</div>
+                <div class="contact-icon">${param}</div>
                 <span>${param}</span>
             </div>
             <label class="checkbox">
@@ -158,6 +158,28 @@ function getSubtaskTemplate(name) {
                         </div>
                     </button>
                 </div>
+            </div>
+        </div>
+    `
+}
+
+
+function getContactListContainer(param) {
+    return `
+        <div class="contact-list" data-sort-Letter="${param}">
+            <span>${param}</span>
+        </div>
+    `
+}
+
+
+function getContactTemplate(param) {
+    return `
+        <div class="contact">
+            <div class="contact-icon">${param}</div>
+            <div class="contact-infos">
+                <span class="contact-name">${param}</span>
+                <span class="contact-mail">${param}</span>
             </div>
         </div>
     `

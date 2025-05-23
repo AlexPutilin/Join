@@ -1,15 +1,17 @@
-#contact-board {
+#contacts-board {
     height: 100%;
     display: flex;
 
 }
 
-#contact-list {
+#contacts-container {
     width: 456px;
     height: 100%;
-    min-height: 300px;
+    padding: 24px 48px;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
+    gap: 24px;
     background-color: #fff;
     box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.068);
 }
@@ -23,8 +25,52 @@
     background-color: aquamarine;
 }
 
-.test {
-    height: 200px;
-    width: 200px;
-    background-color: blueviolet;
+.contact-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-list > span {
+    height: 48px;
+    border-bottom: 2px solid #ddd;
+    font-size: 20px;
+    text-indent: 42px;
+}
+
+
+
+/* COMPONENTS */
+
+.contact {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    border-radius: 16px;
+}
+
+.contact:hover {
+    background-color: #F9F9F9;
+}
+
+.contact-active {
+    color: #fff;
+    background-color: #2A3647;
+}
+
+.contact > .contact-icon {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1/1;
+}
+
+.contact-infos {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 20px;
+}
+
+.contact-mail {
+    color: #29ABE2;
 }
