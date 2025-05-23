@@ -8,16 +8,43 @@ async function initContactList() {
     contactIDs.forEach(id => contacts.push(contactData[id]))
 
     console.log(contacts);
-    
+
+    createContactSections();
     renderContactList();
 }
 
 
-function renderContactList() {
-    const contactList = document.querySelector('.contact-list');
-    for (let i = 0; i < contacts.length; i++) {
-        contactList.innerHTML += getContactTemplate(contacts[i]);
+function createContactSections() {
+    const sectionContainer = document.getElementById('contacts-container');
+    const alphaticList = getAlphabeticList();
+    for (let i = 0; i < alphaticList.length; i++) {
+        sectionContainer.innerHTML += getContactSectionTemplate(alphaticList[i]);
     }
+}
+
+
+function renderContactList() {
+    const contactSection = document.querySelectorAll('.contact-section');
+    contactSection.forEach(section => {
+        contacts.forEach(contact => {
+            if (section.dataset.sectionLetter === contact.name.charAt(0)) {
+                section.innerHTML += getContactTemplate(contact)
+            }
+        });
+    });
+}
+
+
+function getAlphabeticList() {
+    let list = [];
+    contacts.forEach(contact => {
+        const letter = contact.name.charAt(0);
+        if (!list.includes(letter)) {
+            list.push(letter);
+        } else return;
+    });
+    list.sort();
+    return list;
 }
 
 
@@ -26,4 +53,5 @@ function getContactInitials(name) {
     initials = initials[0].charAt(0) + initials[1].charAt(0);
     return initials;
 }
+
 

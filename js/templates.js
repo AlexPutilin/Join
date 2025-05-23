@@ -164,10 +164,10 @@ function getSubtaskTemplate(name) {
 }
 
 
-function getContactListContainer(param) {
+function getContactSectionTemplate(letter) {
     return `
-        <div class="contact-list" data-sort-Letter="${param}">
-            <span>${param}</span>
+        <div class="contact-section" data-section-letter="${letter}">
+            <span>${letter}</span>
         </div>
     `
 }
