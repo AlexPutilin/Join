@@ -19,16 +19,17 @@ const randomColors = [
 let contacts = [];
 
 
-async function initContactList() {
-    const contactData = await getData("/contacts");
-
-    const contactIDs = Object.keys(contactData);
-    contactIDs.forEach(id => contacts.push(contactData[id]));
-
-    console.log(contacts);
-
+async function initContactPage() {
+    await loadContacts();
     createContactSections();
     renderContactList();
+}
+
+
+async function loadContacts() {
+    const contactData = await getData("/contacts");
+    const contactIDs = Object.keys(contactData);
+    contactIDs.forEach(id => contacts.push(contactData[id]));
 }
 
 
@@ -77,3 +78,27 @@ function getRandomBackgroundColor() {
     const randomIndex = Math.floor(Math.random() * randomColors.length);
     return randomColors[randomIndex];
 } 
+
+
+
+
+doSomething();
+
+function doSomething() {
+    first();
+    second();
+    third();
+}
+
+
+function first() {
+    console.log("im the first function");
+}
+
+function second() {
+    console.log("im the second function");
+}
+
+function third() {
+    console.log("im the third function");
+}
