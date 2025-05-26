@@ -340,11 +340,11 @@ function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgre
 }
 
 function getPriority(task) {
-    if (task.priority === "Urgent") {
+    if (task.priority === "urgent") {
         return `<img src="../assets/img/icon-prio-urgent.svg" alt="">`;
-    } else if (task.priority === "Medium") {
+    } else if (task.priority === "medium") {
         return `<img src="../assets/img/icon-prio-medium.svg" alt="">`;
-    } else if (task.priority === "Low") {
+    } else if (task.priority === "low") {
         return `<img src="../assets/img/icon-prio-low.svg" alt="">`;
     } else {
         return "";
