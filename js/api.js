@@ -22,7 +22,7 @@ async function getData(path = "") {
  * Deletes data from the Firebase real-time database at the specified path.
  *
  * @param {string} [path=""] - The path in the database from which the data should be deleted.
- * @returns {Promise<any>} - A promise that resolves to the fetched JSON data.
+ * @returns {Promise<any>} - Resolves when the data has been deleted.
  */
 async function deleteData(path = "") {
     try {
@@ -31,6 +31,6 @@ async function deleteData(path = "") {
         });
         return await response.json();
     } catch (error) {
-        console.error("Error while loading tasks(DELETE):", error);
+        console.error("Error while deleting data from Firebase:", error);
     }
 }

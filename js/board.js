@@ -71,7 +71,11 @@ function renderTasksByStatus(status, taskList) {
 
 }
 
-
+/**
+ * @function updateNoTasksDisplay - Shows a “no tasks” message in the status column when it's empty
+ * @param {string} status - Reflects the Status
+ * @param {string} statusContainer - Displays the respective Container
+ */
 
 function updateNoTasksDisplay(status, statusContainer) {
     let message = "No Tasks";
@@ -108,7 +112,7 @@ function calcuProgressbar(task) {
 
 /**
  * @function getBgCategory - determines the background color of the respective category
- * @param {String} category - possible category of tasks
+ * @param {string} category - possible category of tasks
  * @returns - returns the class for the background color
  */
 function getBgCategory(category) {
@@ -124,7 +128,11 @@ function getBgCategory(category) {
 
 
 
-
+/**
+ * @function updateTaskInFirebase - Synchronizes task changes with Firebase.
+ * @param {string} taskId - Individual ID of the respective Task
+ * @param {Object} updatedTask - The changed Task
+ */
 async function updateTaskInFirebase(taskId, updatedTask) {
     try {
         await fetch(`${FIREBASE_URL}/board/tasks/${taskId}.json`, {
@@ -157,7 +165,6 @@ async function moveTo(status) {
 function initDragEvents() {
     const draggables = document.querySelectorAll('.card');
     const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
-
     enableTaskDragging(draggables);
     enableDragReordering(dragAndDropContainers);
     enableTaskDropByStatus(dragAndDropContainers);
@@ -168,19 +175,13 @@ function enableTaskDragging(draggables) {
     draggables.forEach(draggable => {
         draggable.addEventListener('dragstart', () => {
             currentDraggedElement = draggable.id;
-
             draggable.classList.add('dragging');
             document.body.classList.add('drag-active');
             console.log("Dragging Task ID:", currentDraggedElement);
-
-
-
         });
-
         draggable.addEventListener('dragend', () => {
             draggable.classList.remove('dragging');
             document.body.classList.remove('drag-active');
-
         });
     });
 }
@@ -194,11 +195,9 @@ function enableDragReordering(dragAndDropContainers) {
             const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
             const draggable = document.querySelector('.dragging');
             const existingPlaceholder = dragAndDropContainer.querySelector('.drop-placeholder');
-
             if (existingPlaceholder) {
                 existingPlaceholder.remove();
             }
-
             if (draggable) {
                 if (afterElement == null) {
                     dragAndDropContainer.appendChild(placeholder);
@@ -207,7 +206,6 @@ function enableDragReordering(dragAndDropContainers) {
                 }
             }
         });
-
     });
 }
 
@@ -339,6 +337,12 @@ function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgre
             </div>`;
 }
 
+/**
+ * @function getPriority - Returns a priority icon based on the given priority level.
+ * @param {Object} task - individual Tasks
+ * @returns - individual Priority depending on the Task
+ */
+
 function getPriority(task) {
     if (task.priority === "urgent") {
         return `<img src="../assets/img/icon-prio-urgent.svg" alt="">`;
@@ -351,16 +355,23 @@ function getPriority(task) {
     }
 }
 
+/**
+ * @function showOverview -
+ * @param {string} id - 
+ */
 function showOverview(id) {
     const task = allTasks.find(t => t.id.toString() === id.toString());
     console.log(id);
     let overlayRef = document.getElementById('overlay');
     overlayRef.classList.remove('d-none');
-
     overlayRef.innerHTML = getOverviewTemplate(task);
-
 }
 
+/**
+ * @function getOverviewTemplate - Returns the HTML template for the task detail view.
+ * @param {Object} task - The individual task object.
+ * @returns {string} - HTML-Template representing the task detail view.
+ */
 function getOverviewTemplate(task) {
     const bgCategory = getBgCategory(task.category);
     return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
@@ -382,7 +393,7 @@ function getOverviewTemplate(task) {
                     <br>
                     <div class="priority-wrapper ">
                         <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
-                        <span > ${task.priority} </span>
+                        <span style="text-transform: capitalize;"> ${task.priority} </span>
                         ${getPriority(task)}
                     </div>
 
@@ -418,15 +429,24 @@ function getOverviewTemplate(task) {
                 </div>`;
 }
 
+
+/**
+ * @function deleteAndUpdateTasks - Deletes a task by ID, closes overview and refreshes tasks.
+ * @param {string} taskID - The ID of the task to delete.
+ */
 async function deleteAndUpdateTasks(taskID) {
     console.log('delete the task with id:', taskID);
-
     await deleteData(`/board/tasks/${taskID}`);
     closeOverview();
     await tasksToArray();
 }
 
 
+/**
+ * @function getSubtasksContent - Returns HTML-Template for subtasks section or empty string.
+ * @param {Object} task - individually Task 
+ * @returns {string} - Returns Subtasks Container
+ */
 function getSubtasksContent(task) {
     let template = getSubtasksTemplate(task);
     if (template) {
@@ -439,23 +459,31 @@ function getSubtasksContent(task) {
     }
 }
 
+/**
+ * @function getSubtasksTemplate -  Returns HTML-Template for subtasks and checkboxes or empty string.
+ * @param {Object} task - individually Task 
+ * @returns {string} - Returns Subtasks and Checkboxes
+ */
 function getSubtasksTemplate(task) {
     if (task.subtasks && Object.keys(task.subtasks).length > 0) {
         const subtasksArray = Object.values(task.subtasks);
-        let subtaksTemplate = "";
+        let subtasksTemplate = "";
         for (const subtask of subtasksArray) {
             const checked = subtask.done ? 'checked' : "";
-            subtaksTemplate += `<div class="subtask-item">
+            subtasksTemplate += `<div class="subtask-item">
                     <input type="checkbox" disabled ${checked}>
                     <label>${subtask.title}</label>
                 </div>`;
         }
-        return subtaksTemplate;
+        return subtasksTemplate;
     } else {
         return "";
     }
 }
 
+/**
+ * @function closeOverview - Closes the task detail view.
+ */
 function closeOverview() {
     let overlayRef = document.getElementById('overlay');
     overlayRef.classList.add('d-none');
@@ -474,6 +502,10 @@ function getShortenedDescription(task) {
     }
 }
 
+/**
+ * @function filterAndShowTasks - Filters tasks by title and displays matching results. If the search input is empty, all tasks are displayed.
+ * @param {string} filterTask - The search string used to filter tasks by their title.
+ */
 function filterAndShowTasks(filterTask) {
     if (filterTask.trim().length > 0) {
         const filteredTasks = allTasks.filter(task =>
@@ -485,6 +517,11 @@ function filterAndShowTasks(filterTask) {
     }
 }
 
+/**
+ * Stops the propagation of the event to parent elements.
+ *
+ * @param {Event} event - The event object to stop from bubbling.
+ */
 function eventBubblingProtection(event) {
     event.stopPropagation();
 }
