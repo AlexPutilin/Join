@@ -15,6 +15,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding-left: 24px;
+    max-width: 90%;
 }
 
 .board-content {
@@ -22,36 +23,43 @@ body {
     justify-content: space-between;
     gap: 36px;
     overflow: hidden;
-    height: 600px;
+    height: 100%;
 }
 
 .workflow-stages {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 24px;
-    color: #42526e;
-    font-weight: 700;
+
     padding: 36px 48px 0px 36px;
 }
 
 .single-stages {
     display: flex;
-    align-items: center;
-    gap: 40px;
-    width: 250px;
     justify-content: space-between;
+
+    width: 95%;
+
+    font-size: 24px;
+    color: #42526e;
+    font-weight: 700;
+    padding: 8px 16px 8px 8px;
 }
+
+
+
+
 
 .drag-drop-container {
     width: 98%;
     height: 98%;
     overflow-x: hidden;
     /* scrollbar-color: #2a3d59 #e3e4e5; */
+    padding: 8px 0px;
 }
 
 .drop-placeholder {
-    width: 270px;
+    width: 90%;
     height: 80px;
     margin: 8px 0;
     border: 2px dashed #aaa;
@@ -68,7 +76,7 @@ body {
 }
 
 .drag-drop-container::-webkit-scrollbar-thumb {
-    background: hsl(215, 26%, 22%);
+    background: rgb(42, 54, 71);
     border-radius: 10px;
 }
 
@@ -88,7 +96,7 @@ body {
 }
 
 [class^="card"] {
-    width: 270px;
+    width: 90%;
     border-radius: 16px;
     padding: 16px;
     margin: 4px;
@@ -149,7 +157,7 @@ body {
 }
 
 .placeholder-box-no-task {
-    width: 270px;
+    width: 90%;
     height: 48px;
     border: 1px dashed #a8a8a8;
     border-radius: 8px;
@@ -226,3 +234,151 @@ body {
     /* color: #2A3647; */
     gap: 16px;
 }
+
+@media (min-width: 1940px) and (max-width: 4440px) {
+
+    .safe-scrollbar {
+        width: 700px;
+        height: 1000px;
+        padding: 24px;
+    }
+}
+
+@media (max-width: 1800px) {
+    .board-head {
+        padding-left: 12px;
+    }
+
+    .safe-scrollbar {
+           padding: 12px;
+    }
+}
+
+@media (max-width: 1600px) {
+    .single-stages {
+
+        font-size: 22px;
+
+
+        padding: 4px 8px 4px 4px;
+    }
+}
+
+@media (max-width: 1460px) {
+    .single-stages {
+        font-size: 20px;
+    }
+
+    .board {
+
+        padding: 40px;
+    }
+}
+
+@media (max-width: 1400px) {
+        .board {
+
+        padding: 28px;
+    }
+    .single-stages {
+
+
+
+
+        padding: 2px 4px 2px 2px;
+    }
+
+    .no-tasks-text {
+        font-size: 16px;
+    }
+
+    [class^="card"] {
+
+        padding: 16px 8px;
+
+    }
+}
+
+@media (max-width: 1300px) {
+
+    .board {
+
+        padding: 24px;
+    }
+}
+
+@media (max-width: 1270px) {
+    .board-content {
+        flex-direction: column;
+
+    }
+
+    .board {
+        overflow-y: auto;
+    }
+
+    .board::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .board::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    .board::-webkit-scrollbar-thumb {
+        background: rgb(42, 54, 71);
+        border-radius: 10px;
+    }
+
+
+    .board::-webkit-scrollbar-thumb:hover {
+        background: #2a3d59;
+    }
+
+    .drag-drop-container {
+        display: flex;
+    }
+
+
+
+    @media (max-width: 1400px) {
+        [class^="card"] {
+            height: 250px;
+            width: 250px;
+        }
+    }
+
+    .safe-scrollbar {
+        width: 100vw;
+        height: 300px;
+       
+    }
+}
+
+@media (max-width: 1200px) {
+    .single-stages {}
+}
+
+@media (max-width: 992px) {
+    .single-stages {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {}
+
+@media (max-width: 576px) {}
+
+@media (max-width: 480px) {}
+
+@media (max-width: 350px) {}
+
+/* 
+Breakpoint	Class	Dimensions
+X-Small	None	< 576px
+Small	sm	≥ 576px
+Medium	md	≥ 768px
+Large	lg	≥ 992px
+Extra large	xl	≥ 1200px
+Extra extra large	xxl	≥ 1400px */
