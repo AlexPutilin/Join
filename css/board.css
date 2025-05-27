@@ -9,11 +9,6 @@ body {
     padding: 56px;
 }
 
-/* .board-navigation {
-   
-    
-} */
-
 .board-head {
     display: flex;
     flex-direction: row;
@@ -46,7 +41,6 @@ body {
     gap: 40px;
     width: 250px;
     justify-content: space-between;
-
 }
 
 .drag-drop-container {
@@ -64,28 +58,23 @@ body {
     border-radius: 8px;
 }
 
-
 .drag-drop-container::-webkit-scrollbar {
     width: 10px;
-
 }
 
 .drag-drop-container::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
-
 }
 
 .drag-drop-container::-webkit-scrollbar-thumb {
     background: hsl(215, 26%, 22%);
     border-radius: 10px;
-
 }
 
 
 .drag-drop-container::-webkit-scrollbar-thumb:hover {
     background: #2a3d59;
-
 }
 
 .safe-scrollbar {
@@ -98,7 +87,6 @@ body {
     display: none;
 }
 
-
 [class^="card"] {
     width: 270px;
     border-radius: 16px;
@@ -107,13 +95,12 @@ body {
     background-color: #ffffff;
 }
 
-
 [class^="card"]:hover {
     cursor: pointer;
 }
 
 .draggable.dragging {
-    opacity: .5;
+    opacity: 0.5;
 }
 
 .task-title {
@@ -187,7 +174,6 @@ body {
     border: 1px solid #f1f1f1;
     border-radius: 16px;
     /* box-shadow: 2px 2px 2px 1px #e3e3e3; */
-
     top: 20%;
     left: 40%;
     width: 25%;
@@ -203,13 +189,13 @@ body {
     width: 100%;
 }
 
-.font-color-grey {
-    color: #42526e;
-}
-
 .priority-wrapper {
     display: flex;
     align-items: center;
+}
+
+.font-color-grey {
+    color: #42526e;
 }
 
 .d-none {
