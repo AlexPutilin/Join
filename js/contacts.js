@@ -1,21 +1,4 @@
-const randomColors = [
-    '#FF7A00',
-    '#FF5EB3',
-    '#6E52FF',
-    '#9327FF',
-    '#00BEE8',
-    '#1FD7C1',
-    '#FF745E',
-    '#FFA35E',
-    '#FC71FF',
-    '#FFC701',
-    '#0038FF',
-    '#C3FF2B',
-    '#FFE62B',
-    '#FF4646',
-    '#FFBB2B',
-]
-
+const randomColors = ['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#FFC701','#0038FF','#C3FF2B','#FFE62B','#FF4646','#FFBB2B',]
 let contacts = [];
 
 
@@ -77,28 +60,21 @@ function getContactInitials(name) {
 function getRandomBackgroundColor() {
     const randomIndex = Math.floor(Math.random() * randomColors.length);
     return randomColors[randomIndex];
-} 
-
-
-
-
-doSomething();
-
-function doSomething() {
-    first();
-    second();
-    third();
 }
 
 
-function first() {
-    console.log("im the first function");
+function addContactActiveState(contact) {
+    const allContacts = document.querySelectorAll('.contact');
+    allContacts.forEach(contact => {
+        contact.classList.remove('contact-active');
+    });
+    contact.classList.add('contact-active');
 }
 
-function second() {
-    console.log("im the second function");
-}
 
-function third() {
-    console.log("im the third function");
-}
+
+
+// document.getElementById('contact-display-icon');
+// document.getElementById('contact-display-name');
+// document.getElementById('contact-display-mail');
+// document.getElementById('contact-display-phone');
