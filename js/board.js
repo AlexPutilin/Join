@@ -327,7 +327,8 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
 function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress) {
     return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
-                <h3 class="task-title">${task.title}</h3>
+                <h4
+                 class="task-title">${task.title}</h4>
                 <span class="task-description-short">${description_short}</span>
                 ${subtasksProgress}
                 <div class="profiles-priority-container">
