@@ -15,7 +15,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding-left: 24px;
-    max-width: 90%;
+    max-width: 95%;
 }
 
 .board-content {
@@ -101,6 +101,7 @@ body {
     padding: 16px;
     margin: 4px;
     background-color: #ffffff;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
 }
 
 [class^="card"]:hover {
@@ -235,14 +236,45 @@ body {
     gap: 16px;
 }
 
-@media (min-width: 1940px) and (max-width: 4440px) {
+@media (min-width: 1941px) and (max-width: 7680px) {
 
     .safe-scrollbar {
-        width: 700px;
+        /* width: 450px; */
         height: 1000px;
         padding: 24px;
     }
+
+    .board-head,
+    .board-content {
+        justify-content: flex-start;
+    }
+
+    .board-head {
+        gap: 700px;
+    }
+
+    .single-stages {
+
+        width: 280px;
+    }
+
+    [class^="card"] {
+        width: 270px;
+    }
+
+    .placeholder-box-no-task {
+        width: 260px;
+    }
+
 }
+
+/* @media (min-width: 2560px) {
+    [class^="card"] {
+    width: 300px;}
+}
+@media (min-width: 1941px) and (max-width: 2251px){
+    
+} */
 
 @media (max-width: 1800px) {
     .board-head {
@@ -250,7 +282,7 @@ body {
     }
 
     .safe-scrollbar {
-           padding: 12px;
+        padding: 12px;
     }
 }
 
@@ -275,11 +307,15 @@ body {
     }
 }
 
+
+
+
 @media (max-width: 1400px) {
-        .board {
+    .board {
 
         padding: 28px;
     }
+
     .single-stages {
 
 
@@ -296,6 +332,13 @@ body {
 
         padding: 16px 8px;
 
+    }
+}
+
+@media (max-width: 1400px) {
+    [class^="card"] {
+        height: 250px;
+        width: 250px;
     }
 }
 
@@ -338,26 +381,57 @@ body {
 
     .drag-drop-container {
         display: flex;
-    }
-
-
-
-    @media (max-width: 1400px) {
-        [class^="card"] {
-            height: 250px;
-            width: 250px;
-        }
+        overflow-y: scroll;
     }
 
     .safe-scrollbar {
         width: 100vw;
         height: 300px;
-       
+
     }
 }
 
 @media (max-width: 1200px) {
-    .single-stages {}
+    /* .single-stages {} */
+}
+
+@media (max-width: 1175px) {
+    .board-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .search-area-wrapper{
+        padding: 12px 0px;
+    }
+}
+
+/* 768–1023 px 
+-aside unten
+-PP & LN in aside ausblenden
+-
+
+
+aside {
+    width: 100vw;
+    height: 96px;
+    bottom: 0;
+    
+
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+}
+ {
+    width: 232px;
+    background-color: #2A3647;
+    height: 100vh;
+    position: fixed;
+}
+*/
+@media (min-width: 768px)and (max-width: 1023px) {
+
+
 }
 
 @media (max-width: 992px) {
@@ -382,3 +456,11 @@ Medium	md	≥ 768px
 Large	lg	≥ 992px
 Extra large	xl	≥ 1200px
 Extra extra large	xxl	≥ 1400px */
+
+/* chat gpt
+Gerätetyp	                         Bildschirmbreite (px)	      Design-Stil
+Mobil (klein)	                            < 480 px	        Kompaktes, mobiles Design
+Mobil (groß)	                          481–767 px	        Mobiles Design
+Tablet (hoch)	                         768–1023 px	        Tablet-Layout, evtl. angepasst
+Tablet (quer) / kleiner Desktop	        1024–1279 px	        Übergangsdesign / Desktop light
+Desktop	                                   ≥ 1280 px	        Vollständiges Desktop-Layout */
