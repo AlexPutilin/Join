@@ -97,15 +97,15 @@ function getLoginFormTemplate() {
 }
 
 
-function getContactSelectionTemplate(param) {
+function getContactSelectionTemplate({ initials, name, id }) {
     return `
         <div class="select-contact">
             <div>
-                <div class="icon-contact">${param}</div>
-                <span>${param}</span>
+                <div class="icon-contact">${initials}</div>
+                <span>${name}</span>
             </div>
             <label class="checkbox">
-                <input type="checkbox" hidden>
+                <input type="checkbox" hidden data-contact-id="${id}">
                 <div class="icon-wrapper icon-checkbox-default">
                     <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
                     <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">

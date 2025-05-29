@@ -1,140 +1,239 @@
-/**
- * Selects a category option from the dropdown and updates the input field.
- *
- * @param {HTMLElement} element - The clicked category option element.
- */
-function selectCategoryOption(element) {
-  const categoryValue = element.innerText;
-  const input = document.getElementById('task-category');
-  if (!input) return;
+document.addEventListener("DOMContentLoaded", () => {
+  renderCategoryField();
+  renderAssignedToField();
+  setDefaultPriority();
+  enablePrioritySelection();
+});
 
-  input.value = categoryValue;
 
-  const inputWrapper = input.closest('.input-wrapper');
-  const menu = inputWrapper?.querySelector('.drop-down-menu');
-  const toggleButton = inputWrapper?.querySelector('button');
-
-  if (toggleButton) toggleDropDown(toggleButton);
-  if (menu) menu.dataset.open = 'false';
-
-  document.getElementById('category-error')?.classList.add('hidden');
+function setDefaultPriority() {
+  const mediumInput = document.querySelector('input[name="priority"][value="medium"]');
+  if (!mediumInput) return;
+  mediumInput.checked = true;
+  const mediumLabel = mediumInput.closest('.priority-option');
+  if (mediumLabel) mediumLabel.classList.add('active');
 }
 
-/**
- * Initializes the page after DOM is loaded.
- * Sets default priority, binds priority selection logic,
- * and adds a form submit handler.
- */
-document.addEventListener("DOMContentLoaded", () => {
-  const mediumInput = document.querySelector('input[name="priority"][value="medium"]');
-  const allPriorityOptions = document.querySelectorAll('.priority-option');
 
-  if (mediumInput) {
-    mediumInput.checked = true;
-    const mediumLabel = mediumInput.closest('.priority-option');
-    if (mediumLabel) mediumLabel.classList.add('active');
-  }
-
-  allPriorityOptions.forEach(option => {
-    option.addEventListener('click', () => {
-      allPriorityOptions.forEach(opt => opt.classList.remove('active'));
-      option.classList.add('active');
-
-      const input = option.querySelector('input[name="priority"]');
+function enablePrioritySelection() {
+  document.querySelectorAll('.priority-option').forEach(label => {
+    label.addEventListener('click', () => {
+      document.querySelectorAll('.priority-option')
+              .forEach(l => l.classList.remove('active'));
+      label.classList.add('active');
+      const input = label.querySelector('input[name="priority"]');
       if (input) input.checked = true;
     });
   });
+}
 
-  const form = document.getElementById("add-task-form");
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    await addTask();
+
+function getCategoryTemplate() {
+  return `
+    <div class="input-wrapper">
+      <div class="required-description">
+        <span>Category</span><span class="redstar">*</span>
+      </div>
+      <div class="input-area drop-down-input">
+        <input
+         id="task-category"
+         name="category"
+         type="text"
+         placeholder="Select task category"
+         data-placeholder="Select task category"
+         data-placeholder-active="Search category"
+         readonly required
+         oninput="resetInputError(event)">
+        <span class="err-msg hidden">This field is required.</span>
+        <button type="button" class="btn-small" onclick="toggleDropDown(this)">
+          <div class="icon-wrapper">
+            <img class="icon-default" src="../assets/img/icon-down-default.svg">
+            <img class="icon-hover"   src="../assets/img/icon-down-hover.svg">
+          </div>
+          <div class="icon-wrapper d-none">
+            <img class="icon-default" src="../assets/img/icon-up-default.svg">
+            <img class="icon-hover"   src="../assets/img/icon-up-hover.svg">
+          </div>
+        </button>
+      </div>
+      <div id="category-options-container" class="drop-down-menu d-none" data-open="false"></div>
+      <span class="err-msg hidden" id="category-error">Please select a category.</span>
+    </div>
+  `;
+}
+
+
+function renderCategoryField() {
+  const catgeoryFieldWrapper = document.getElementById('category-wrapper-template');
+  if (!catgeoryFieldWrapper) return;
+  catgeoryFieldWrapper.innerHTML = getCategoryTemplate();
+  renderCategoryOptions();
+}
+
+
+function renderCategoryOptions() {
+  const categories = ['Technical Task', 'User Story'];
+  const categoryContainer = document.getElementById('category-options-container');
+  if (!categoryContainer) return;
+  categoryContainer.innerHTML = '';
+
+  categories.forEach(categoryName => {
+    const optionDiv = document.createElement('div');
+    optionDiv.classList.add('dropdown-single-option');
+    optionDiv.textContent = categoryName;
+    optionDiv.onclick = () => selectCategoryOption(optionDiv);
+    categoryContainer.appendChild(optionDiv);
   });
-});
-
-/**
- * Handles form submission: validates form, gathers input values,
- * sends task data to Firebase, and clears the form.
- *
- * @returns {Promise<void>}
- */
-async function addTask() {
-  if (!checkFormValidation('#add-task-form')) return;
-
-  const inputData = getInputValues();
-  const assignedTo = getAssignedUsers();
-  const subtasks = getSubtasks();
-
-  await saveTaskToFirebase({ ...inputData, assigned_to: assignedTo, subtasks });
-
-  clearAddTaskForm();
-  alert("Task successfully created!");
 }
 
-/**
- * Collects all form input values into a structured task object.
- *
- * @returns {Object} Task data with title, description, due date, category, priority, and status.
- */
-function getInputValues() {
-  const title = document.querySelector('input[placeholder="Enter a title"]').value.trim();
-  const description = document.querySelector('textarea[placeholder="Enter a description"]').value.trim();
-  const due_date = document.querySelector('input[type="date"]').value;
-  const category = document.querySelector('input[placeholder="Select task category"]').value.trim();
-  const priority = document.querySelector('input[name="priority"]:checked')?.value || "medium";
 
-  return { title, description_full: description, due_date, category, priority, status: "to-do" };
+
+function selectCategoryOption(optionElement) {
+  const selectedValue = optionElement.innerText;
+  const categoryInput = document.getElementById('task-category');
+  if (!categoryInput) return;
+  categoryInput.value = selectedValue;
+  const toggleBtn = categoryInput.closest('.input-wrapper').querySelector('button');
+  toggleDropDown(toggleBtn);
+  document.getElementById('category-error')?.classList.add('hidden');
 }
 
-/**
- * Retrieves a list of assigned users (currently empty placeholder).
- *
- * @returns {Array} Array of assigned user identifiers.
- */
-function getAssignedUsers() {
-  return [];
+
+
+function getAssignedToTemplate() {
+  return `
+    <div class="input-wrapper">
+      <div class="required-description">
+        <span>Assigned to</span>
+      </div>
+      <div class="input-area drop-down-input">
+        <input
+          type="text"
+          name="assigned_to"
+          placeholder="Select contacts to assign"
+          data-placeholder="Select contacts to assign"
+          data-placeholder-active=""
+          readonly>
+        <button type="button" class="btn-small" onclick="toggleDropDown(this)">
+          <div class="icon-wrapper">
+            <img class="icon-default" src="../assets/img/icon-down-default.svg">
+            <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
+          </div>
+          <div class="icon-wrapper d-none">
+            <img class="icon-default" src="../assets/img/icon-up-default.svg">
+            <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
+          </div>
+        </button>
+      </div>
+      <div class="drop-down-menu d-none" data-open="false" id="contacts-dropdown"></div>
+    </div>
+    <div id="assigned-chips-container" class="assigned-chips"></div>
+  `;
 }
 
-/**
- * Retrieves a list of subtasks (currently empty placeholder).
- *
- * @returns {Array} Array of subtask data.
- */
-function getSubtasks() {
-  return [];
+
+async function renderAssignedToField() {
+  const assignedToWrapper = document.getElementById('assigned-to-wrapper-template');
+  if (!assignedToWrapper) {
+    console.warn('Assigned-to container not found');
+    return;
+  } assignedToWrapper.innerHTML = getAssignedToTemplate();
+  const contacts = await getData('/contacts');
+  if (contacts) {
+    renderContacts(contacts);
+  }
+
+  setupContactSelection();
+  updateAssignedToChips();
 }
 
-/**
- * Saves the task object to Firebase using a generated task ID.
- *
- * @param {Object} taskData - The task data to be stored in Firebase.
- * @returns {Promise<void>}
- */
+
+
+function renderContacts(contacts) {
+  const contactContainer = document.getElementById('contacts-dropdown');
+  if (!contactContainer) return;
+  contactContainer.innerHTML = '';
+  Object.entries(contacts).forEach(([contactId, contact]) => {
+    const initials = getInitials(contact.name);
+    const contactHTML = getContactSelectionTemplate({initials, name: contact.name, id: contactId});
+    contactContainer.insertAdjacentHTML('beforeend', contactHTML);
+  });
+}
+
+
+
+function getInitials(name) {
+  if (!name) return "";
+  return name
+    .split(' ')
+    .map(part => part.charAt(0).toUpperCase())
+    .join('')
+    .slice(0, 2);
+}
+
+
+function setupContactSelection() {
+  document.querySelectorAll('.select-contact .checkbox input').forEach(input => {
+      input.addEventListener('change', updateAssignedToChips);
+    });
+}
+
+function updateAssignedToChips() {
+  const assignedChipsContainer = document.getElementById('assigned-chips-container');
+  assignedChipsContainer.innerHTML = '';
+  document.querySelectorAll('.select-contact .checkbox input:checked')
+    .forEach(input => {const initials = input.closest('.select-contact').querySelector('.icon-contact').textContent;
+      
+      const chipDiv = document.createElement('div');
+      chipDiv.classList.add('assigned-chip');
+      chipDiv.textContent = initials;
+      
+      assignedChipsContainer.appendChild(chipDiv);
+    });
+}
+
+
+
 async function saveTaskToFirebase(taskData) {
   const taskID = await generateUID('/board/tasks');
   await putData(`/board/tasks/task${taskID}`, taskData);
 }
 
-/**
- * Resets the entire add-task form, including inputs, priorities,
- * checkboxes, category dropdowns, subtasks, and error messages.
- */
+async function addTask() {
+  if (!checkFormValidation('#add-task-form')) return;
+  const data = getInputData('#add-task-form');
+  data.subtasks = getSubtasks();
+  await saveTaskToFirebase(data);
+  clearAddTaskForm();
+  alert("Task successfully created!");
+}
+
+
 function clearAddTaskForm() {
   document.querySelectorAll('input[type="text"], input[type="date"], textarea')
     .forEach(input => input.value = "");
   document.querySelectorAll('input[name="priority"]')
     .forEach(radio => radio.checked = false);
-  document.querySelectorAll('input[type="checkbox"]')
+  document.querySelectorAll('.drop-down-menu input[type="checkbox"]')
     .forEach(cb => cb.checked = false);
   document.querySelectorAll('.drop-down-input input[type="text"]')
     .forEach(input => {
       input.value = "";
       input.removeAttribute("data-placeholder-active");
     });
+  document.querySelectorAll('.drop-down-menu')
+    .forEach(menu => {
+      menu.classList.add('d-none');
+      menu.dataset.open = 'false';
+    });
+  document.getElementById('assigned-chips-container').replaceChildren();
   document.querySelector(".subtasks-container")?.replaceChildren();
   document.querySelectorAll('.err-msg')
     .forEach(msg => msg.classList.add('hidden'));
-}
+} 
+
+
+
 
 
   

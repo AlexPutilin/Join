@@ -94,3 +94,79 @@
     gap: 16px;
   }
   
+  
+  .select-contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+  }
+  
+  .select-contact:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .contact-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .icon-contact {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .contact-name {
+    font-size: 16px;
+    color: #2A3647;
+  }
+  
+  
+  .drop-down-menu {
+    max-height: 240px;      
+    overflow-y: auto;        
+    overflow-x: hidden;      
+    padding-right: 4px;      
+  }
+  
+.checkbox .icon-checkbox-default {
+  display: block;
+}
+.checkbox .icon-checkbox-checked {
+  display: none;
+}
+
+.checkbox input:checked + .icon-checkbox-default {
+  display: none;
+}
+.checkbox input:checked + .icon-checkbox-default + .icon-checkbox-checked {
+  display: block;
+}
+
+.assigned-chips {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.assigned-chip {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #6E52FF; /* oder dynamisch je nach Kontakt */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
