@@ -89,3 +89,9 @@ function showContactInformation(contact) {
     contactDisplay.phone.innerText = contactData.phone;
     contactDisplay.display.classList.remove('d-none');
 }
+
+
+function toggleCreateContactDialog() {
+    const overlay = document.getElementById('overlay');
+    overlay.classList.toggle('d-none');
+}

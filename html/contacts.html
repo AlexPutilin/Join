@@ -22,8 +22,8 @@
 
     <body onload="initContactPage()">
 
-        <div id="overlay" class="overlay">
-            <div class="add-contact-dialog">
+        <div id="overlay" class="overlay d-none" onclick="toggleCreateContactDialog()">
+            <div class="add-contact-dialog" onclick="event.stopPropagation()">
                 <div>
                     <img class="logo-small" src="../assets/img/logo-white.svg" alt="Logo">
                     <h1>Add Contact</h1>
@@ -31,7 +31,7 @@
                     <div class="underline-accent"></div>
                 </div>
                 <div>
-                    <button class="btn-small">
+                    <button class="btn-small" onclick="toggleCreateContactDialog()">
                         <div class="icon-wrapper">
                             <img class="icon-default" src="../assets/img/icon-close-default.svg">
                             <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
@@ -62,7 +62,7 @@
                                 <span class="err-msg hidden">Invalid input.</span>
                             </div>
                             <div class="form-btn-container">
-                                <button class="btn-light" type="button">
+                                <button class="btn-light" type="button" onclick="toggleCreateContactDialog()">
                                     <span>Cancel</span>
                                     <div class="icon-wrapper">
                                         <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
@@ -142,7 +142,7 @@
 
             <section id="contacts-board">
                 <div id="contacts-container">
-                    <button class="btn-dark">
+                    <button class="btn-dark" onclick="toggleCreateContactDialog()">
                         <span>Add new contact</span>
                         <img src="../assets/img/icon-person-add.svg">
                     </button>
