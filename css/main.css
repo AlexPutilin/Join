@@ -22,6 +22,11 @@ h2 {
     font-weight: 500;
 }
 
+h3 {
+    font-size: 32px;
+    font-weight: 300;
+}
+
 main {
     height: 100vh;
     display: flex;

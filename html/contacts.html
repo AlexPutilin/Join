@@ -21,6 +21,66 @@
     </head>
 
     <body onload="initContactPage()">
+
+        <div id="overlay" class="overlay">
+            <div class="add-contact-dialog">
+                <div>
+                    <img class="logo-small" src="../assets/img/logo-white.svg" alt="Logo">
+                    <h1>Add Contact</h1>
+                    <h3>Tasks are better with a team!</h3>
+                    <div class="underline-accent"></div>
+                </div>
+                <div>
+                    <button class="btn-small">
+                        <div class="icon-wrapper">
+                            <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                        </div>
+                    </button>
+                    <div class="contact-form-container">
+                        <img class="empty-contact-icon" src="../assets/img/icon-person-big.svg" alt="contact-picture">
+                        <form autocomplete="off">
+                            <div class="input-wrapper">
+                                <div class="input-area">
+                                    <input type="text" name="name" placeholder="Name" required oninput="resetInputError()">
+                                    <img src="../assets/img/icon-person.svg" alt="">
+                                </div>
+                                <span class="err-msg hidden">Invalid input.</span>
+                            </div>
+                            <div class="input-wrapper">
+                                <div class="input-area">
+                                    <input type="text" name="email" placeholder="Email" oninput="resetInputError()">
+                                    <img src="../assets/img/icon-mail.svg" alt="">
+                                </div>
+                                <span class="err-msg hidden">Invalid input.</span>
+                            </div>
+                            <div class="input-wrapper">
+                                <div class="input-area">
+                                    <input type="text" name="phone" placeholder="Phone" oninput="resetInputError()">
+                                    <img src="../assets/img/icon-phone.svg" alt="">
+                                </div>
+                                <span class="err-msg hidden">Invalid input.</span>
+                            </div>
+                            <div class="form-btn-container">
+                                <button class="btn-light" type="button">
+                                    <span>Cancel</span>
+                                    <div class="icon-wrapper">
+                                        <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
+                                        <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
+                                    </div>
+                                </button>
+                                <button class="btn-dark" type="button">
+                                    <span>Create contact</span>
+                                    <img src="../assets/img/icon-check-white.svg">
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <aside>
             <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
             <nav>
@@ -132,5 +192,6 @@
             </section>
 
         </main>
+
     </body>
 </html>
