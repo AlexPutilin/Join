@@ -17,7 +17,7 @@
         <script src="../js/api.js"></script>
         <script src="../js/components.js"></script>
         <script src="../js/templates.js"></script>
-        <script src="../js/contacts.js"></script>
+        <script src="../js/contacts.js" defer></script>
     </head>
 
     <body onload="initContactPage()">
@@ -94,11 +94,11 @@
                         <div class="seperator-blue"></div>
                         <span>Better with a Team</span>
                     </div>
-                    <div class="contact-display">
+                    <div id="contact-display" class="contact-display d-none">
                         <div class="contact-display-name-wrapper">
-                            <div id="contact-display-icon" class="contact-icon">AM</div>
+                            <div id="contact-display-icon" class="contact-icon"></div>
                             <div>
-                                <h2 id="contact-display-name">Anton Meyer</h2>
+                                <h2 id="contact-display-name"></h2>
                                 <div class="contact-btn-container">
                                     <button class="btn-small">
                                         <div class="icon-wrapper">
@@ -120,11 +120,11 @@
                         <span>Contact Information</span>
                         <div class="contact-information-wrapper">
                             <span><b>Email</b></span>
-                            <span id="contact-display-mail" class="contact-mail">mymail@mail.com</span>
+                            <span id="contact-display-mail" class="contact-mail"></span>
                         </div>
                         <div class="contact-information-wrapper">
                             <span><b>Phone</b></span>
-                            <span id="contact-display-phone">+49 1111 1111 11</span>
+                            <span id="contact-display-phone"></span>
                         </div>
                     </div>
                 </div>

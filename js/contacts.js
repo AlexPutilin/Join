@@ -1,5 +1,14 @@
-const randomColors = ['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#FFC701','#0038FF','#C3FF2B','#FFE62B','#FF4646','#FFBB2B',]
+const randomColors = ['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#FFC701','#0038FF','#C3FF2B','#FFE62B','#FF4646','#FFBB2B',];
+
 let contacts = [];
+
+const contactDisplay = {
+    display: document.getElementById('contact-display'),
+    icon: document.getElementById('contact-display-icon'),
+    name: document.getElementById('contact-display-name'),
+    mail: document.getElementById('contact-display-mail'),
+    phone: document.getElementById('contact-display-phone'),
+};
 
 
 async function initContactPage() {
@@ -72,9 +81,11 @@ function addContactActiveState(contact) {
 }
 
 
-
-
-// document.getElementById('contact-display-icon');
-// document.getElementById('contact-display-name');
-// document.getElementById('contact-display-mail');
-// document.getElementById('contact-display-phone');
+function showContactInformation(contact) {
+    const contactData = JSON.parse(contact.dataset.contactData);
+    contactDisplay.icon.innerText = getContactInitials(contactData.name);
+    contactDisplay.name.innerText = contactData.name;
+    contactDisplay.mail.innerText = contactData.email;
+    contactDisplay.phone.innerText = contactData.phone;
+    contactDisplay.display.classList.remove('d-none');
+}
