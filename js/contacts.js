@@ -1,7 +1,5 @@
 const randomColors = ['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#FFC701','#0038FF','#C3FF2B','#FFE62B','#FF4646','#FFBB2B',];
 
-let contacts = [];
-
 const contactDisplay = {
     display: document.getElementById('contact-display'),
     icon: document.getElementById('contact-display-icon'),
@@ -9,6 +7,9 @@ const contactDisplay = {
     mail: document.getElementById('contact-display-mail'),
     phone: document.getElementById('contact-display-phone'),
 };
+
+let contacts = [];
+let activeContactIndex = null;
 
 
 async function initContactPage() {
@@ -21,13 +22,19 @@ async function initContactPage() {
 async function loadContacts() {
     const contactData = await getData("/contacts");
     const contactIDs = Object.keys(contactData);
-    contactIDs.forEach(id => contacts.push(contactData[id]));
+    contacts = [];
+    contactIDs.forEach(id => {
+        const contact = contactData[id];
+        contact.id = id;
+        contacts.push(contact);
+    });
 }
 
 
 function createContactSections() {
     const sectionContainer = document.getElementById('contacts-container');
     const alphaticList = getAlphabeticList();
+    sectionContainer.innerHTML = "";
     for (let i = 0; i < alphaticList.length; i++) {
         sectionContainer.innerHTML += getContactSectionTemplate(alphaticList[i]);
     };
@@ -37,9 +44,9 @@ function createContactSections() {
 function renderContactList() {
     const contactSection = document.querySelectorAll('.contact-section');
     contactSection.forEach(section => {
-        contacts.forEach(contact => {
+        contacts.forEach((contact, index) => {
             if (section.dataset.sectionLetter === contact.name.charAt(0)) {
-                section.innerHTML += getContactTemplate(contact);
+                section.innerHTML += getContactTemplate(contact, index);
             }
         });
     });
@@ -72,21 +79,21 @@ function getRandomBackgroundColor() {
 }
 
 
-function addContactActiveState(contact) {
+function addContactActiveState(contactElement) {
     const allContacts = document.querySelectorAll('.contact');
     allContacts.forEach(contact => {
         contact.classList.remove('contact-active');
     });
-    contact.classList.add('contact-active');
+    contactElement.classList.add('contact-active');
+    activeContactIndex = contactElement.dataset.contactIndex;
 }
 
 
-function showContactInformation(contact) {
-    const contactData = JSON.parse(contact.dataset.contactData);
-    contactDisplay.icon.innerText = getContactInitials(contactData.name);
-    contactDisplay.name.innerText = contactData.name;
-    contactDisplay.mail.innerText = contactData.email;
-    contactDisplay.phone.innerText = contactData.phone;
+function showContactInformation(contactIndex) {
+    contactDisplay.icon.innerText = getContactInitials(contacts[contactIndex].name);
+    contactDisplay.name.innerText = contacts[contactIndex].name;
+    contactDisplay.mail.innerText = contacts[contactIndex].email;
+    contactDisplay.phone.innerText = contacts[contactIndex].phone;
     contactDisplay.display.classList.remove('d-none');
 }
 
@@ -94,4 +101,34 @@ function showContactInformation(contact) {
 function toggleCreateContactDialog() {
     const overlay = document.getElementById('overlay');
     overlay.classList.toggle('d-none');
+}
+
+
+async function deleteContact() {
+    await deleteData(getContactPath());
+    activeContactIndex = null;
+    await initContactPage();
+}
+
+
+function getContactPath() {
+    return `/contacts/${contacts[activeContactIndex].id}`
+}
+
+
+
+
+
+
+// API.JS
+async function deleteData(path = "") {
+    try {
+        let response = await fetch(FIREBASE_URL + path + ".json", {
+            method: "DELETE",
+        });
+        console.log(FIREBASE_URL + path + ".json");
+        return await response.json();
+    } catch (error) {
+        console.error("Error while deleting data from Firebase:", error);
+    }    
 }
