@@ -15,7 +15,15 @@ body {
     align-items: center;
     justify-content: space-between;
     padding-left: 24px;
-    max-width: 95%;
+
+}
+
+.board-head-wrapper {
+display: flex;
+justify-content: space-between;
+    min-width: 1440px;
+    max-width: 1920px;
+    
 }
 
 .board-content {
@@ -101,9 +109,10 @@ body {
     padding: 16px;
     margin: 4px;
     background-color: #ffffff;
-    
+
 }
-.card{
+
+.card {
     box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.08);
 }
 
@@ -247,14 +256,14 @@ body {
         padding: 24px;
     }
 
-    .board-head,
+    /* .board-head,
     .board-content {
         justify-content: flex-start;
-    }
+    } */
 
-    .board-head {
+    /* .board-head {
         gap: 700px;
-    }
+    } */
 
     .single-stages {
 
@@ -280,9 +289,9 @@ body {
 } */
 
 @media (max-width: 1800px) {
-    .board-head {
+    /* .board-head {
         padding-left: 12px;
-    }
+    } */
 
     .safe-scrollbar {
         padding: 12px;
@@ -294,18 +303,21 @@ body {
         font-size: 22px;
         padding: 4px 8px 4px 4px;
     }
+
     .card {
         /* height: 250px; */
         width: 230px;
     }
 }
+
 @media (max-width: 1530px) {
- 
+
     .card {
         /* height: 250px; */
         width: 210px;
     }
 }
+
 @media (max-width: 1460px) {
     .single-stages {
         font-size: 20px;
@@ -336,9 +348,9 @@ body {
 }
 
 @media (max-width: 1400px) {
-   .safe-scrollbar{
-    width: 250px;
-   }
+    .safe-scrollbar {
+        width: 250px;
+    }
 }
 
 @media (max-width: 1300px) {
@@ -399,7 +411,8 @@ body {
         flex-direction: column;
         align-items: flex-start;
     }
-    .search-area-wrapper{
+
+    .search-area-wrapper {
         padding: 12px 0px;
     }
 }
@@ -428,10 +441,7 @@ aside {
     position: fixed;
 }
 */
-@media (min-width: 768px)and (max-width: 1023px) {
-
-
-}
+@media (min-width: 768px)and (max-width: 1023px) {}
 
 @media (max-width: 992px) {
     .single-stages {
