@@ -169,6 +169,8 @@ function initDragEvents() {
     enableDragReordering(dragAndDropContainers);
     enableTaskDropByStatus(dragAndDropContainers);
 }
+let touchClone = null;
+let touchCurrentTarget = null;
 
 
 function enableTaskDragging(draggables) {
@@ -182,9 +184,58 @@ function enableTaskDragging(draggables) {
         draggable.addEventListener('dragend', () => {
             draggable.classList.remove('dragging');
             document.body.classList.remove('drag-active');
+
         });
+
+        draggable.addEventListener('touchstart', (e) => {
+            currentDraggedElement = draggable.id;
+            draggable.classList.add('dragging');
+            document.body.classList.add('drag-active');
+
+            // Touch-Klon erstellen
+            touchClone = draggable.cloneNode(true);
+            touchClone.style.position = 'absolute';
+            touchClone.style.pointerEvents = 'none';
+            touchClone.style.opacity = '0.7';
+            touchClone.style.zIndex = '1000';
+            document.body.appendChild(touchClone);
+
+            updateTouchPosition(e.touches[0]);
+        });
+
+        draggable.addEventListener('touchmove', (e) => {
+            updateTouchPosition(e.touches[0]);
+
+            const touch = e.touches[0];
+            const target = document.elementFromPoint(touch.clientX, touch.clientY);
+            const dropZone = target?.closest('.drag-drop-container');
+            if (dropZone) {
+                touchCurrentTarget = dropZone;
+                dropZone.classList.add('highlight-dropzone'); // CSS-Hilfe
+            }
+        });
+
+        draggable.addEventListener('touchend', async () => {
+            if (touchClone) touchClone.remove();
+            document.body.classList.remove('drag-active');
+            draggable.classList.remove('dragging');
+
+            if (touchCurrentTarget) {
+                await moveTo(touchCurrentTarget.id);
+                touchCurrentTarget.classList.remove('highlight-dropzone');
+                touchCurrentTarget = null;
+            }
+        });
+
     });
+
 }
+function updateTouchPosition(touch) {
+    if (!touchClone) return;
+    touchClone.style.left = `${touch.clientX + 10}px`;
+    touchClone.style.top = `${touch.clientY + 10}px`;
+}
+
 
 function enableDragReordering(dragAndDropContainers) {
     const placeholder = document.createElement('div');
@@ -215,33 +266,23 @@ function enableTaskDropByStatus(dragAndDropContainers) {
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('drop', event => {
             event.preventDefault();
-
-            console.log("Current DOM order after drop:");
-            const cardElements = Array.from(dragAndDropContainer.querySelectorAll('.card'));
-            cardElements.forEach((el, i) => console.log(`${i}: ${el.id}`));
-
-
+            // console.log("Current DOM order after drop:");
+            // const cardElements = Array.from(dragAndDropContainer.querySelectorAll('.card'));
+            // cardElements.forEach((el, i) => console.log(`${i}: ${el.id}`));
             const draggedCard = document.getElementById(currentDraggedElement);
             const placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
             if (placeholder) {
-                console.log("Inserting draggedCard before placeholder");
+                // console.log("Inserting draggedCard before placeholder");
                 dragAndDropContainer.insertBefore(draggedCard, placeholder);
                 placeholder.remove();
             } else {
-                console.log("Appending draggedCard at the end");
+                // console.log("Appending draggedCard at the end");
                 dragAndDropContainer.appendChild(draggedCard);
             }
-
-
-
             updateOrderInContainer(dragAndDropContainer, dragAndDropContainer.id);
-            console.log("Status (container ID):", dragAndDropContainer.id);
-
+            // console.log("Status (container ID):", dragAndDropContainer.id);
         });
-
     });
-
-
 }
 
 
@@ -268,7 +309,7 @@ function getDragAfterElement(container, y) {
 
 async function updateOrderInContainer(container, status) {
 
-    const cardElements = Array.from(dragAndDropContainer.querySelectorAll('.card'));
+    const cardElements = Array.from(container.querySelectorAll('.card'));
     // const updatePromises = [];
 
     for (let index = 0; index < cardElements.length; index++) {
@@ -292,12 +333,12 @@ async function updateOrderInContainer(container, status) {
             allTasks[taskIndex] = task;
             // updatePromises.push();
             updateTaskInFirebase(task.id, task)
-            console.log(`Will update task: ${task.id}, Order: ${newOrder}, Status: ${newStatus}`);
+            // console.log(`Will update task: ${task.id}, Order: ${newOrder}, Status: ${newStatus}`);
         }
         console.log(`Task ${task.id}: oldOrder=${oldOrder}, newOrder=${newOrder}, oldStatus=${oldStatus}, newStatus=${newStatus}`);
-        console.log(`Before: ${task.status} → After: ${newStatus}`);
+
     }
-    await Promise.all(updatePromises);
+    // await Promise.all(updatePromises);
 }
 
 
@@ -439,7 +480,12 @@ async function deleteAndUpdateTasks(taskID) {
     console.log('delete the task with id:', taskID);
     await deleteData(`/board/tasks/${taskID}`);
     closeOverview();
+
     await tasksToArray();
+    statuses.forEach(status => {
+        const container = document.getElementById(status);
+        updateOrderInContainer(container, status);
+    });
 }
 
 
