@@ -66,45 +66,50 @@
     </aside>
     <main>
         <section class="hug">
-            <div class="logo-kanban-text-wrapper">
-            <img class="logo-blue" src="../assets/img/logo.svg" alt="Join Logo">
-            <span class="kanban-text">
-                Kanban Project Management Tool</span>
-            </div>    
-            <div class="help-and-profile">
+            <div class="hug-wrapper">
+                <div class="logo-kanban-text-wrapper">
+                    <img class="logo-blue" src="../assets/img/logo.svg" alt="Join Logo">
+                    <span class="kanban-text">
+                        Kanban Project Management Tool</span>
+                </div>
+                <div class="help-and-profile">
 
-                <button onclick="openPage('help.html')" class="btn-small">
-                    <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
-                    <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
-                </button>
+                    <button onclick="openPage('help.html')" class="btn-small">
+                        <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
+                        <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
+                    </button>
 
-                <button class="btn-profile">
-                    <span>ds</span>
-                </button>
+                    <button class="btn-profile">
+                        <span>ds</span>
+                    </button>
+                </div>
             </div>
         </section>
         <section class="board">
             <div class="board-navigation">
-                <div class="board-head">
-                    <h1>Board</h1>
 
-                    <div class="search-area-wrapper">
-                        <div class="input-area">
-                            <input type="text" id="search-input" required="" placeholder="Find Task"
-                                oninput="filterAndShowTasks(this.value)">
-                            <button type="button" class="btn-small" id="visibility-btn">
-                                <div class="beam"></div>
-                                <div class="icon-wrapper">
-                                    <img class="icon-default" src="../assets/img/icon-search-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-search-hover.svg">
-                                    <img class="icon-active" src="../assets/img/icon-search-click.svg">
-                                </div>
+                <div class="board-head">
+                    <div class="board-head-wrapper">
+                        <h1>Board</h1>
+
+                        <div class="search-area-wrapper">
+                            <div class="input-area">
+                                <input type="text" id="search-input" required="" placeholder="Find Task"
+                                    oninput="filterAndShowTasks(this.value)">
+                                <button type="button" class="btn-small" id="visibility-btn">
+                                    <div class="beam"></div>
+                                    <div class="icon-wrapper">
+                                        <img class="icon-default" src="../assets/img/icon-search-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-search-hover.svg">
+                                        <img class="icon-active" src="../assets/img/icon-search-click.svg">
+                                    </div>
+                                </button>
+                            </div>
+                            <button class="btn-dark">
+                                <span>Add Task</span>
+                                <img src="../assets/img/icon-add-white.svg" alt="">
                             </button>
                         </div>
-                        <button class="btn-dark">
-                            <span>Add Task</span>
-                            <img src="../assets/img/icon-add-white.svg" alt="">
-                        </button>
                     </div>
                 </div>
                 <div id="board-content" class="board-content">
