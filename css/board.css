@@ -29,9 +29,11 @@ justify-content: space-between;
 .board-content {
     display: flex;
     justify-content: space-between;
-    gap: 36px;
+    /* gap: 36px;
     overflow: hidden;
-    height: 100%;
+    height: 100%; */
+    max-width: 1600px;
+    min-width: 1440px;
 }
 
 .workflow-stages {
