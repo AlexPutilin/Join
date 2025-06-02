@@ -52,7 +52,7 @@ body {
 
 .drag-drop-container {
     width: 98%;
-    height: 98%;
+    height: 95%;
     overflow-x: hidden;
     /* scrollbar-color: #2a3d59 #e3e4e5; */
     padding: 8px 0px;
