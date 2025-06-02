@@ -10,16 +10,25 @@ nav {
     flex-direction: column;
     color: #cdcdcd;
 }
-.logo-blue{
+
+.logo-kanban-text-wrapper {
+
+    display: flex;
+    align-items: center;
+
+}
+
+.logo-blue {
     height: 48px;
     padding-left: 24px;
     visibility: hidden;
 }
+
 .logo-white {
     padding-top: 64px;
     padding-left: 65.5px;
     padding-bottom: 146px;
-    
+
 }
 
 .legal {
@@ -43,7 +52,7 @@ nav {
 }
 
 .kanban-text {
-   
+    padding-left: 16px;
     font-size: 24px;
 }
 
@@ -58,6 +67,6 @@ nav {
     padding-right: 40px;
 }
 
-.btn-contacts{
+.btn-contacts {
     padding-right: 16px;
 }
