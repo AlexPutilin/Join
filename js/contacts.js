@@ -122,7 +122,7 @@ function getContactPath() {
 
 // API.JS
 async function deleteData(path = "") {
-    try {
+    try { 
         let response = await fetch(FIREBASE_URL + path + ".json", {
             method: "DELETE",
         });
