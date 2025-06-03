@@ -25,7 +25,7 @@ async function tasksToArray() {
         let task = taskResponse[key];
         allTasks.push({
             id: key,
-            order: task.order,
+            order: task.order ?? 0,
             //   order: task.order || 0,
             ...task
         });
@@ -175,6 +175,7 @@ let touchCurrentTarget = null;
 
 function enableTaskDragging(draggables) {
     draggables.forEach(draggable => {
+         const placeholder = document.createElement('div');
         draggable.addEventListener('dragstart', () => {
             currentDraggedElement = draggable.id;
             draggable.classList.add('dragging');
@@ -192,7 +193,7 @@ function enableTaskDragging(draggables) {
             draggable.classList.add('dragging');
             document.body.classList.add('drag-active');
 
-            // Touch-Klon erstellen
+            
             touchClone = draggable.cloneNode(true);
             touchClone.style.position = 'absolute';
             touchClone.style.pointerEvents = 'none';
@@ -204,27 +205,51 @@ function enableTaskDragging(draggables) {
         });
 
         draggable.addEventListener('touchmove', (e) => {
+            e.preventDefault();
             updateTouchPosition(e.touches[0]);
 
             const touch = e.touches[0];
             const target = document.elementFromPoint(touch.clientX, touch.clientY);
+
             const dropZone = target?.closest('.drag-drop-container');
+            const nearestTask = target?.closest('.task');
+
             if (dropZone) {
                 touchCurrentTarget = dropZone;
-                dropZone.classList.add('highlight-dropzone'); // CSS-Hilfe
+
+               
+                const allTasks = Array.from(dropZone.querySelectorAll('.task')).filter(element => element !== draggable && element !== placeholder);
+
+                let inserted = false;
+                for (const task of allTasks) {
+                    const taskRect = task.getBoundingClientRect();
+                    const middleY = taskRect.top + taskRect.height / 2;
+
+                    if (touch.clientY < middleY) {
+                        task.parentNode.insertBefore(placeholder, task);
+                        inserted = true;
+                        break;
+                    }
+                }
+
+                if (!inserted) {
+                    dropZone.appendChild(placeholder);
+                }
             }
         });
-
         draggable.addEventListener('touchend', async () => {
             if (touchClone) touchClone.remove();
             document.body.classList.remove('drag-active');
             draggable.classList.remove('dragging');
 
-            if (touchCurrentTarget) {
-                await moveTo(touchCurrentTarget.id);
-                touchCurrentTarget.classList.remove('highlight-dropzone');
-                touchCurrentTarget = null;
+            if (placeholder && placeholder.parentNode) {
+                placeholder.parentNode.insertBefore(draggable, placeholder);
+                placeholder.remove();
+
+                await updateOrderInContainer(draggable.parentNode, draggable.parentNode.id);
             }
+
+            touchCurrentTarget = null;
         });
 
     });
@@ -368,8 +393,9 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
 function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress) {
     return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
-                <h4
-                 class="task-title">${task.title}</h4>
+                <h4 class="task-title">${task.title}</h4>
+                <span>Order: ${task.order}</span> <br>
+
                 <span class="task-description-short">${description_short}</span>
                 ${subtasksProgress}
                 <div class="profiles-priority-container">
