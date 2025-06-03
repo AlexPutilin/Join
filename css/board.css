@@ -1,9 +1,11 @@
 body {
     overflow: hidden;
+    background-color: #f6f7f8;
 }
 
+
 .board {
-    background-color: #f6f7f8;
+
     /* min-height: 845px; */
     height: 100vh;
     padding: 56px;
@@ -19,11 +21,11 @@ body {
 }
 
 .board-head-wrapper {
-display: flex;
-justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
     min-width: 1440px;
     max-width: 1920px;
-    
+
 }
 
 .board-content {
