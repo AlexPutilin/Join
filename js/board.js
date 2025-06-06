@@ -169,7 +169,7 @@ function initDragEvents() {
     enableDragReordering(dragAndDropContainers);
     enableTaskDropByStatus(dragAndDropContainers);
 
-    enableTaskDraggingByTouch(draggables);
+    // enableTaskDraggingByTouch(draggables);
 
 }
 
@@ -196,99 +196,84 @@ function enableTaskDragging(draggables) {
 
         });
 
-
-
-        draggable.addEventListener('touchmove', (event) => {
-            event.preventDefault();
-            updateTouchPosition(event.touches[0]);
-
-            const touch = event.touches[0];
-            const target = document.elementFromPoint(touch.clientX, touch.clientY);
-
-            const dropZone = target?.closest('.drag-drop-container');
-
-            if (dropZone) {
-                touchCurrentTarget = dropZone;
-
-                const allTasks = Array.from(dropZone.querySelectorAll('.task')).filter(element => element !== draggable && element !== placeholder);
-
-                let closestElement = null;
-                let closestOffset = Number.POSITIVE_INFINITY;
-
-                for (const task of allTasks) {
-                    const taskRect = task.getBoundingClientRect();
-                    const offset = touch.clientY - taskRect.top;
-
-                    if (offset < closestOffset && offset > 0) {
-                        closestOffset = offset;
-                        closestElement = task;
-                    }
-                }
-                // alten Platzhalter entfernen
-                if (placeholder.parentNode !== dropZone) {
-                    placeholder.remove();
-                    dropZone.appendChild(placeholder);
-                }
-                // Platzhalter an der richtigen Position einfügen
-                if (closestElement) {
-                    dropZone.insertBefore(placeholder, closestElement);
-                } else {
-                    dropZone.appendChild(placeholder);
-                }
-            }
-        });
-
-
-
     });
 
 }
 
 
+// function enableTaskDraggingByTouch(draggables) {
+//     draggables.forEach(draggable => {
+//         draggable.addEventListener('touchstart', (e) => {
+//             currentDraggedElement = draggable.id;
+//             draggable.classList.add('dragging');
+//             document.body.classList.add('drag-active');
+//             touchClone = draggable.cloneNode(true);
+//             touchClone.style.position = 'absolute';
+//             touchClone.style.pointerEvents = 'none';
+//             touchClone.style.opacity = '0.7';
+//             touchClone.style.zIndex = '1000';
+//             document.body.appendChild(touchClone);
+//             updateTouchPosition(e.touches[0]);
+//         });
+//         draggable.addEventListener('touchend', async () => {
+//             if (touchClone) touchClone.remove();
+//             document.body.classList.remove('drag-active');
+//             draggable.classList.remove('dragging');
+
+//             if (placeholder && placeholder.parentNode) {
+//                 placeholder.parentNode.insertBefore(draggable, placeholder);
+//                 placeholder.remove();
+
+//                 await updateOrderInContainer(draggable.parentNode, draggable.parentNode.id);
+//             }
+
+//             touchCurrentTarget = null;
+//         });
+//                 draggable.addEventListener('touchmove', (e) => {
+//             // e.preventDefault();
+//             updateTouchPosition(e.touches[0]);
+
+//             const touch = e.touches[0];
+//             const target = document.elementFromPoint(touch.clientX, touch.clientY);
+
+//             const dropZone = target?.closest('.drag-drop-container');
+//             const nearestTask = target?.closest('.task');
+
+//             if (dropZone) {
+//                 touchCurrentTarget = dropZone;
 
 
+//                 const allTasks = Array.from(dropZone.querySelectorAll('.task')).filter(element => element !== draggable && element !== placeholder);
 
-function enableTaskDraggingByTouch(draggables) {
-    draggables.forEach(draggable => {
-        draggable.addEventListener('touchstart', (e) => {
-            currentDraggedElement = draggable.id;
-            draggable.classList.add('dragging');
-            document.body.classList.add('drag-active');
-            touchClone = draggable.cloneNode(true);
-            touchClone.style.position = 'absolute';
-            touchClone.style.pointerEvents = 'none';
-            touchClone.style.opacity = '0.7';
-            touchClone.style.zIndex = '1000';
-            document.body.appendChild(touchClone);
-            updateTouchPosition(e.touches[0]);
-        });
+//                 let inserted = false;
+//                 for (const task of allTasks) {
+//                     const taskRect = task.getBoundingClientRect();
+//                     const middleY = taskRect.top + taskRect.height / 2;
 
-        draggable.addEventListener('touchend', async () => {
-            if (touchClone) touchClone.remove();
-            document.body.classList.remove('drag-active');
-            draggable.classList.remove('dragging');
+//                     if (touch.clientY < middleY) {
+//                         task.parentNode.insertBefore(placeholder, task);
+//                         inserted = true;
+//                         break;
+//                     }
+//                 }
 
-            if (placeholder && placeholder.parentNode) {
-                placeholder.parentNode.insertBefore(draggable, placeholder);
-                placeholder.remove();
+//                 if (!inserted) {
+//                     dropZone.appendChild(placeholder);
+//                 }
+//             } 
+//         }, { passive: true });
+//     });
 
-                await updateOrderInContainer(draggable.parentNode, draggable.parentNode.id);
-            }
-
-            touchCurrentTarget = null;
-        });
-    });
-
-}
+// }
 
 
-function updateTouchPosition(touch) {
-    if (!touchClone) {
-        return;
-    }
-    touchClone.style.left = `${touch.clientX + 1}px`;
-    touchClone.style.top = `${touch.clientY + 1}px`;
-}
+// function updateTouchPosition(touch) {
+//     if (!touchClone) {
+//         return;
+//     }
+//     touchClone.style.left = `${touch.clientX + 1}px`;
+//     touchClone.style.top = `${touch.clientY + 1}px`;
+// }
 
 
 function enableDragReordering(dragAndDropContainers) {
@@ -343,19 +328,17 @@ function enableTaskDropByStatus(dragAndDropContainers) {
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.card:not(.dragging):not(.drop-placeholder)')];
 
-    let closest = { offset: Number.POSITIVE_INFINITY, element: null };
+    let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
 
     for (const child of draggableElements) {
         const box = child.getBoundingClientRect();
-        const offset = y - box.top;
-
-        if (offset < closest.offset && offset > 0) {
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
             closest = { offset, element: child };
         }
     }
     return closest.element;
 }
-
 
 
 
