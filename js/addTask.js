@@ -60,12 +60,14 @@ function renderCategoryOptions() {
   categories.forEach(category => addCategoryOption(categoryContainer, category));
 }
 
+
 function getAndClearCategoryContainer() {
   const container = document.getElementById('category-options-container');
   if (!container) return null;
   container.innerHTML = '';
   return container;
 }
+
 
 function addCategoryOption(container, name) {
   const option = document.createElement('div');
@@ -117,8 +119,8 @@ function renderContacts(contactsData) {
 
   Object.entries(contactsData).forEach(([contactId, contactInfo]) => {
     contactsById[contactId] = contactInfo; 
-    const html = createContactHTML(contactId, contactInfo);
-    dropdown.insertAdjacentHTML('beforeend', html);
+    const contactHtml = createContactHTML(contactId, contactInfo);
+    dropdown.insertAdjacentHTML('beforeend', contactHtml);
   });
 }
 
@@ -209,6 +211,7 @@ function renderSubtaskInput() {
   subtaskWrapper.innerHTML = getSubtaskInputTemplate();
 }
 
+
 function getSubtasksFromDOM() {
   const subtaskElements = getAllSubtaskElements();
   const subtasks = {};
@@ -231,9 +234,9 @@ function getAllSubtaskElements() {
 function extractSubtaskTitle(container) {
   const textSpan = container.querySelector('.subtask-name');
   if (!textSpan) return null;
-  const rawText = textSpan.textContent.trim();
-  return rawText.startsWith('•') ? rawText.slice(1).trim() : rawText;
+  return textSpan.textContent.trim();
 }
+
 
 function createSubtaskObject(title) {
   return { title: title, done: false };
@@ -244,8 +247,6 @@ async function saveTaskToFirebase(taskData) {
   try {
     const taskId = await generateUID('/board/tasks');
     const taskPath = `/board/tasks/task${taskId}`;
-
-    console.log(`Saving new task at: ${taskPath}`);
 
     await putData(taskPath, taskData);
 
@@ -296,24 +297,57 @@ function handleTaskSaveError(error) {
 
 
 function clearAddTaskForm() {
+  resetTextDateAndTextareaInputs();
+  resetPriorityRadios();
+  resetDropdownCheckboxes();
+  resetDropdownTextInputs();
+  hideDropdownMenus();
+  clearChipsAndSubtasks();
+  hideErrorMessages();
+  initializeAddTaskPage();
+}
+
+function resetTextDateAndTextareaInputs() {
   document.querySelectorAll('input[type="text"], input[type="date"], textarea')
-  .forEach(input => input.value = "");
+    .forEach(input => (input.value = ""));
+}
+
+function resetPriorityRadios() {
   document.querySelectorAll('input[name="priority"]')
-  .forEach(radio => radio.checked = false);
+    .forEach(radio => (radio.checked = false));
+}
+
+function resetDropdownCheckboxes() {
   document.querySelectorAll('.drop-down-menu input[type="checkbox"]')
-  .forEach(cb => cb.checked = false);
+    .forEach(cb => (cb.checked = false));
+}
+
+function resetDropdownTextInputs() {
   document.querySelectorAll('.drop-down-input input[type="text"]')
-  .forEach(input => {input.value = ""; input.removeAttribute("data-placeholder-active");
+    .forEach(input => {
+      input.value = "";
+      input.removeAttribute("data-placeholder-active");
     });
+}
+
+function hideDropdownMenus() {
   document.querySelectorAll('.drop-down-menu')
-  .forEach(menu => {menu.classList.add('d-none');menu.dataset.open = 'false';});
-  document.getElementById('assigned-chips-container').replaceChildren();
+    .forEach(menu => {
+      menu.classList.add('d-none');
+      menu.dataset.open = 'false';
+    });
+}
+
+function clearChipsAndSubtasks() {
+  document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
+}
+
+function hideErrorMessages() {
   document.querySelectorAll('.err-msg')
     .forEach(msg => msg.classList.add('hidden'));
+}
 
-    initializeAddTaskPage();
-} 
 
 
 
