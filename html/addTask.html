@@ -86,6 +86,7 @@
           <form id="add-task-form">
             <div class="add-task-container">
               <div class="add-task-left">
+                
                 <div class="input-wrapper">
                   <div class="required-description">
                     <span>Title</span><span class="redstar">*</span>
@@ -115,46 +116,15 @@
               </div>
         
               <div class="add-task-right">
-                <div class="input-wrapper">
-                  <span>Priority</span>
-                  <div class="priority-buttons-wrapper">
-                    <label class="priority-option urgent">
-                      <input name="priority" type="radio" value="urgent" hidden>
-                      <span>Urgent</span>
-                      <img src="../assets/img/icon-prio-urgent.svg" alt="">
-                      <div class="bg-checked"></div>
-                    </label>
-                    <label class="priority-option medium">
-                      <input name="priority" type="radio" value="medium" hidden>
-                      <span>Medium</span>
-                      <img src="../assets/img/icon-prio-medium.svg" alt="">
-                      <div class="bg-checked"></div>
-                    </label>
-                    <label class="priority-option low">
-                      <input name="priority" type="radio" value="low" hidden>
-                      <span>Low</span>
-                      <img src="../assets/img/icon-prio-low.svg" alt="">
-                      <div class="bg-checked"></div>
-                    </label>
-                  </div>
-                </div>
-        
+
+                <div id="priority-wrapper-template"></div>
 
                 <div id="assigned-to-wrapper-template"></div>
         
-
                 <div id="category-wrapper-template"></div>
+
+                <div id="subtask-wrapper-template" class="subtasks-container"></div>
         
-                <div class="input-wrapper">
-                  <p>Subtasks</p>
-                  <div class="input-area subtasks">
-                    <input
-                      name="subtask_input"
-                      type="text"
-                      placeholder="Add new subtask"
-                    >
-                    <button type="button" class="subtask-btn">+</button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -175,7 +145,7 @@
                     <img class="icon-active"  src="../assets/img/icon-cancel-click.svg">
                   </div>
                 </button>
-                <button type="submit" class="btn-dark" id="create-task-btn" onclick="addTask()">
+                <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask()">
                   <span>Create Task</span>
                   <img src="../assets/img/icon-add-white.svg">
                 </button>

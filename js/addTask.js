@@ -1,9 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
+const contactColors = {};
+const contactsById = {};
+
+
+document.addEventListener("DOMContentLoaded", initializeAddTaskPage);
+
+
+function initializeAddTaskPage() {
   renderCategoryField();
   renderAssignedToField();
+  renderPriorityButtons();
+  renderSubtaskInput();
+}
+
+
+function renderPriorityButtons() {
+  const priorityWrapper = document.getElementById('priority-wrapper-template');
+  if (!priorityWrapper) return;
+  priorityWrapper.innerHTML = getPriorityTemplate();
   setDefaultPriority();
   enablePrioritySelection();
-});
+}
 
 
 function setDefaultPriority() {
@@ -18,8 +34,7 @@ function setDefaultPriority() {
 function enablePrioritySelection() {
   document.querySelectorAll('.priority-option').forEach(label => {
     label.addEventListener('click', () => {
-      document.querySelectorAll('.priority-option')
-              .forEach(l => l.classList.remove('active'));
+      document.querySelectorAll('.priority-option').forEach(l => l.classList.remove('active'));
       label.classList.add('active');
       const input = label.querySelector('input[name="priority"]');
       if (input) input.checked = true;
@@ -27,40 +42,6 @@ function enablePrioritySelection() {
   });
 }
 
-
-function getCategoryTemplate() {
-  return `
-    <div class="input-wrapper">
-      <div class="required-description">
-        <span>Category</span><span class="redstar">*</span>
-      </div>
-      <div class="input-area drop-down-input">
-        <input
-         id="task-category"
-         name="category"
-         type="text"
-         placeholder="Select task category"
-         data-placeholder="Select task category"
-         data-placeholder-active="Search category"
-         readonly required
-         oninput="resetInputError(event)">
-        <span class="err-msg hidden">This field is required.</span>
-        <button type="button" class="btn-small" onclick="toggleDropDown(this)">
-          <div class="icon-wrapper">
-            <img class="icon-default" src="../assets/img/icon-down-default.svg">
-            <img class="icon-hover"   src="../assets/img/icon-down-hover.svg">
-          </div>
-          <div class="icon-wrapper d-none">
-            <img class="icon-default" src="../assets/img/icon-up-default.svg">
-            <img class="icon-hover"   src="../assets/img/icon-up-hover.svg">
-          </div>
-        </button>
-      </div>
-      <div id="category-options-container" class="drop-down-menu d-none" data-open="false"></div>
-      <span class="err-msg hidden" id="category-error">Please select a category.</span>
-    </div>
-  `;
-}
 
 
 function renderCategoryField() {
@@ -72,18 +53,26 @@ function renderCategoryField() {
 
 
 function renderCategoryOptions() {
-  const categories = ['Technical Task', 'User Story'];
-  const categoryContainer = document.getElementById('category-options-container');
+  const categoryContainer = getAndClearCategoryContainer();
   if (!categoryContainer) return;
-  categoryContainer.innerHTML = '';
 
-  categories.forEach(categoryName => {
-    const optionDiv = document.createElement('div');
-    optionDiv.classList.add('dropdown-single-option');
-    optionDiv.textContent = categoryName;
-    optionDiv.onclick = () => selectCategoryOption(optionDiv);
-    categoryContainer.appendChild(optionDiv);
-  });
+  const categories = ['Technical Task', 'User Story'];
+  categories.forEach(category => addCategoryOption(categoryContainer, category));
+}
+
+function getAndClearCategoryContainer() {
+  const container = document.getElementById('category-options-container');
+  if (!container) return null;
+  container.innerHTML = '';
+  return container;
+}
+
+function addCategoryOption(container, name) {
+  const option = document.createElement('div');
+  option.classList.add('dropdown-single-option');
+  option.textContent = name;
+  option.onclick = () => selectCategoryOption(option);
+  container.appendChild(option);
 }
 
 
@@ -99,36 +88,9 @@ function selectCategoryOption(optionElement) {
 }
 
 
-
-function getAssignedToTemplate() {
-  return `
-    <div class="input-wrapper">
-      <div class="required-description">
-        <span>Assigned to</span>
-      </div>
-      <div class="input-area drop-down-input">
-        <input
-          type="text"
-          name="assigned_to"
-          placeholder="Select contacts to assign"
-          data-placeholder="Select contacts to assign"
-          data-placeholder-active=""
-          readonly>
-        <button type="button" class="btn-small" onclick="toggleDropDown(this)">
-          <div class="icon-wrapper">
-            <img class="icon-default" src="../assets/img/icon-down-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
-          </div>
-          <div class="icon-wrapper d-none">
-            <img class="icon-default" src="../assets/img/icon-up-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
-          </div>
-        </button>
-      </div>
-      <div class="drop-down-menu d-none" data-open="false" id="contacts-dropdown"></div>
-    </div>
-    <div id="assigned-chips-container" class="assigned-chips"></div>
-  `;
+function getColorForContact(contactId) {
+  const hash = Array.from(contactId).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return randomColors[hash % randomColors.length];
 }
 
 
@@ -147,16 +109,29 @@ async function renderAssignedToField() {
   updateAssignedToChips();
 }
 
+function renderContacts(contactsData) {
+  const dropdown = document.getElementById('contacts-dropdown');
+  if (!dropdown) return;
+
+  dropdown.innerHTML = '';
+
+  Object.entries(contactsData).forEach(([contactId, contactInfo]) => {
+    contactsById[contactId] = contactInfo; 
+    const html = createContactHTML(contactId, contactInfo);
+    dropdown.insertAdjacentHTML('beforeend', html);
+  });
+}
 
 
-function renderContacts(contacts) {
-  const contactContainer = document.getElementById('contacts-dropdown');
-  if (!contactContainer) return;
-  contactContainer.innerHTML = '';
-  Object.entries(contacts).forEach(([contactId, contact]) => {
-    const initials = getInitials(contact.name);
-    const contactHTML = getContactSelectionTemplate({initials, name: contact.name, id: contactId});
-    contactContainer.insertAdjacentHTML('beforeend', contactHTML);
+function createContactHTML(contactId, contactInfo) {
+  const initials = getInitials(contactInfo.name);
+  const color = getColorForContact(contactId);
+
+  return getContactSelectionTemplate({
+    initials,
+    name: contactInfo.name,
+    id: contactId,
+    color
   });
 }
 
@@ -173,63 +148,171 @@ function getInitials(name) {
 
 
 function setupContactSelection() {
-  document.querySelectorAll('.select-contact .checkbox input').forEach(input => {
+  document.querySelectorAll('#contacts-dropdown .select-contact .checkbox input[type="checkbox"]')
+    .forEach(input => {
       input.addEventListener('change', updateAssignedToChips);
     });
 }
 
+
 function updateAssignedToChips() {
-  const assignedChipsContainer = document.getElementById('assigned-chips-container');
-  assignedChipsContainer.innerHTML = '';
-  document.querySelectorAll('.select-contact .checkbox input:checked')
-    .forEach(input => {const initials = input.closest('.select-contact').querySelector('.icon-contact').textContent;
-      
-      const chipDiv = document.createElement('div');
-      chipDiv.classList.add('assigned-chip');
-      chipDiv.textContent = initials;
-      
-      assignedChipsContainer.appendChild(chipDiv);
-    });
+  const selectedIds = getCheckedContactIds();
+  renderAssignedContactChips(selectedIds);
+  storeAssignedContactIds(selectedIds);
 }
 
+
+function getCheckedContactIds() {
+  const checkboxes = document.querySelectorAll(
+    '#contacts-dropdown .select-contact .checkbox input[type="checkbox"]:checked'
+  );
+  return Array.from(checkboxes).map(input => input.dataset.contactId);
+}
+
+
+
+function renderAssignedContactChips(contactIds) {
+  const chipContainer = document.getElementById('assigned-chips-container');
+  chipContainer.innerHTML = '';
+
+  contactIds.forEach(contactId => {
+    const contact = contactsById[contactId];
+    if (!contact) return;
+
+    const initials = getInitials(contact.name);
+    const color = getColorForContact(contactId);
+    const chip = createContactChip(initials, color);
+    chipContainer.appendChild(chip);
+  });
+}
+
+function storeAssignedContactIds(contactIds) {
+  const input = document.getElementById('assigned-input');
+  if (!input) return;
+  input.value = '';
+  input.dataset.value = contactIds.join(',');
+}
+
+function createContactChip(initials, backgroundColor) {
+  const chip = document.createElement('div');
+  chip.classList.add('assigned-chip');
+  chip.textContent = initials;
+  chip.style.backgroundColor = backgroundColor;
+  chip.style.color = 'white';
+  return chip;
+}
+
+
+function renderSubtaskInput() {
+  const subtaskWrapper = document.getElementById('subtask-wrapper-template');
+  if (!subtaskWrapper) return;
+  subtaskWrapper.innerHTML = getSubtaskInputTemplate();
+}
+
+function getSubtasksFromDOM() {
+  const subtaskElements = getAllSubtaskElements();
+  const subtasks = {};
+
+  subtaskElements.forEach((element, index) => {
+    const title = extractSubtaskTitle(element);
+    if (title) {
+      subtasks[`subtask${index + 1}`] = createSubtaskObject(title);
+    }
+  });
+
+  return subtasks;
+}
+
+function getAllSubtaskElements() {
+  const listContainer = document.querySelector('#subtask-input .list-subtasks');
+  return listContainer.querySelectorAll('.subtask-item-container');
+}
+
+function extractSubtaskTitle(container) {
+  const textSpan = container.querySelector('.subtask-name');
+  if (!textSpan) return null;
+  const rawText = textSpan.textContent.trim();
+  return rawText.startsWith('•') ? rawText.slice(1).trim() : rawText;
+}
+
+function createSubtaskObject(title) {
+  return { title: title, done: false };
+}
 
 
 async function saveTaskToFirebase(taskData) {
-  const taskID = await generateUID('/board/tasks');
-  await putData(`/board/tasks/task${taskID}`, taskData);
+  try {
+    const taskId = await generateUID('/board/tasks');
+    const taskPath = `/board/tasks/task${taskId}`;
+
+    console.log(`Saving new task at: ${taskPath}`);
+
+    await putData(taskPath, taskData);
+
+    console.log('Task saved successfully.');
+  } catch (error) {
+    console.error('Failed to save task:', error);
+    throw error;
+  }
 }
 
+
+function prepareTaskData() {
+  const taskData = getInputData('#add-task-form');
+  const assignedInputElement = document.getElementById('assigned-input');
+  taskData.assigned_to = assignedInputElement?.dataset?.value || "";
+
+  const subtasks = getSubtasksFromDOM();
+  if (Object.keys(subtasks).length > 0) {
+    taskData.subtasks = subtasks;
+  }
+
+  return taskData;
+}
+
+
 async function addTask() {
-  if (!checkFormValidation('#add-task-form')) return;
-  const data = getInputData('#add-task-form');
-  data.subtasks = getSubtasks();
-  await saveTaskToFirebase(data);
-  clearAddTaskForm();
-  alert("Task successfully created!");
+  if (!checkFormValidation('#add-task-form')) {
+    console.warn("addTask: Form validation failed.");
+    return;
+  }
+
+  const taskData = prepareTaskData();
+
+  try {
+    await saveTaskToFirebase(taskData);
+    console.info("addTask: Task successfully saved.");
+    clearAddTaskForm();
+    alert("Task successfully created!");
+  } catch (error) {
+    handleTaskSaveError(error);
+  }
+}
+
+function handleTaskSaveError(error) {
+  console.error("addTask: Failed to save task to Firebase:", error);
+  alert("Failed to create task: " + error.message);
 }
 
 
 function clearAddTaskForm() {
   document.querySelectorAll('input[type="text"], input[type="date"], textarea')
-    .forEach(input => input.value = "");
+  .forEach(input => input.value = "");
   document.querySelectorAll('input[name="priority"]')
-    .forEach(radio => radio.checked = false);
+  .forEach(radio => radio.checked = false);
   document.querySelectorAll('.drop-down-menu input[type="checkbox"]')
-    .forEach(cb => cb.checked = false);
+  .forEach(cb => cb.checked = false);
   document.querySelectorAll('.drop-down-input input[type="text"]')
-    .forEach(input => {
-      input.value = "";
-      input.removeAttribute("data-placeholder-active");
+  .forEach(input => {input.value = ""; input.removeAttribute("data-placeholder-active");
     });
   document.querySelectorAll('.drop-down-menu')
-    .forEach(menu => {
-      menu.classList.add('d-none');
-      menu.dataset.open = 'false';
-    });
+  .forEach(menu => {menu.classList.add('d-none');menu.dataset.open = 'false';});
   document.getElementById('assigned-chips-container').replaceChildren();
-  document.querySelector(".subtasks-container")?.replaceChildren();
+  document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
   document.querySelectorAll('.err-msg')
     .forEach(msg => msg.classList.add('hidden'));
+
+    initializeAddTaskPage();
 } 
 
 

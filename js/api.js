@@ -1,56 +1,65 @@
 const FIREBASE_URL = "https://join-b179e-default-rtdb.europe-west1.firebasedatabase.app";
 
-
 /**
- * Fetches data from the Firebase Realtime Database at the specified path.
- * 
- * @param {string} [path=""] - The path in the database to fetch data from.
- * @returns {Promise<any>} - A promise that resolves to the fetched JSON data.
+ * Gibt alle Einträge unter dem angegebenen Pfad zurück (als Objekt).
  */
-async function getData(path = "") {
-    try {
-        let response = await fetch(FIREBASE_URL + path + ".json");
-        let responseAsJson = await response.json();
-        return responseAsJson;
-    } catch (error) {
-        console.error("Error fetching data from path:", path, error);
-        return {};
-    }
+async function getAllEntries(path = "") {
+  try {
+    const response = await fetch(`${FIREBASE_URL}${path}.json`);
+    const json = await response.json();
+    return json || {};
+  } catch (error) {
+    console.error("Fehler beim Abrufen der Daten:", error);
+    return {};
+  }
 }
 
 /**
- * Generates a new unique ID based on the number of existing entries at the given path.
- * The ID is computed as the current count of entries plus one.
- * @async
- * @function generateUID
- * @param {string} path - The path in the database where entries are stored (e.g. '/users').
- * @returns {Promise<number>} - A promise that resolves to the next unique numeric ID.
+ * Generiere eine ID auf Basis des höchsten vorhandenen "taskX"-Keys.
  */
-async function generateUID(path) {
-    const allEntries = await getAllEntries(path);
-    const currentCount = allEntries ? Object.keys(allEntries).length : 0;
-    return currentCount + 1;
+async function generateUID(dataPath) {
+    const existingEntries = await getAllEntries(dataPath);
+    const entryKeys = existingEntries ? Object.keys(existingEntries) : [];
+  
+    const extractedTaskIds = entryKeys
+      .map(entryKey => {
+        const match = entryKey.match(/^task(\d+)$/);
+        return match ? parseInt(match[1], 10) : NaN;
+      })
+      .filter(taskId => !isNaN(taskId));
+  
+    const highestExistingId = extractedTaskIds.length
+      ? Math.max(...extractedTaskIds)
+      : 0;
+  
+    return highestExistingId + 1;
   }
   
-  
-  async function getAllEntries(path = "") {
-    try {
-        const response = await fetch(`${FIREBASE_URL}${path}.json`);
-        const json = await response.json();
-        return json || {};
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Daten:", error);
-        return {};
-    }
+
+/**
+ * PUT <path>.json mit dem JSON-String von data.
+ */
+async function putData(path, data) {
+  try {
+    await fetch(`${FIREBASE_URL}${path}.json`, {
+      method: "PUT",
+      body: JSON.stringify(data)
+    });
+  } catch (error) {
+    console.error("Fehler beim Speichern in Firebase:", error);
   }
-  
-  async function putData(path, data) {
-    try {
-        await fetch(`${FIREBASE_URL}${path}.json`, {
-            method: "PUT",
-            body: JSON.stringify(data)
-        });
-    } catch (error) {
-        console.error("Fehler beim Speichern in Firebase:", error);
-    }
+}
+
+/**
+ * Liefert JSON unter <path>.json zurück.
+ */
+async function getData(path = "") {
+  try {
+    let response = await fetch(FIREBASE_URL + path + ".json");
+    let responseAsJson = await response.json();
+    return responseAsJson;
+  } catch (error) {
+    console.error("Error fetching data from path:", path, error);
+    return {};
   }
+}

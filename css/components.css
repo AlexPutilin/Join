@@ -1,3 +1,14 @@
+/* MAIN CLASSES */
+.hidden {
+    visibility: hidden;
+}
+
+.d-none {
+    display: none !important;
+}
+/* MAIN CLASSES */
+
+
 button, .checkbox {
     cursor: pointer;
     transition: all 75ms;
@@ -27,8 +38,7 @@ a:hover {
 .btn-dark {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
+    gap: 4px;
     padding: 10px 16px;
     border: 0;
     border-radius: 10px;
@@ -357,10 +367,6 @@ textarea {
 .technical-task {
     background-color: #1FD7C1;
 }
-
-
-
-
 
 /* DELETE */
 
