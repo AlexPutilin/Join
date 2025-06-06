@@ -168,9 +168,12 @@ function initDragEvents() {
     enableTaskDragging(draggables);
     enableDragReordering(dragAndDropContainers);
     enableTaskDropByStatus(dragAndDropContainers);
+
     enableTaskDraggingByTouch(draggables);
+
 }
 
+let currentSourceContainer = null;
 
 let touchClone = null;
 let touchCurrentTarget = null;
@@ -181,10 +184,12 @@ function enableTaskDragging(draggables) {
         const placeholder = document.createElement('div');
         draggable.addEventListener('dragstart', () => {
             currentDraggedElement = draggable.id;
+            currentSourceContainer = draggable.parentNode;
             draggable.classList.add('dragging');
             document.body.classList.add('drag-active');
             console.log("Dragging Task ID:", currentDraggedElement);
         });
+
         draggable.addEventListener('dragend', () => {
             draggable.classList.remove('dragging');
             document.body.classList.remove('drag-active');
@@ -193,44 +198,54 @@ function enableTaskDragging(draggables) {
 
 
 
-        draggable.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            updateTouchPosition(e.touches[0]);
+        draggable.addEventListener('touchmove', (event) => {
+            event.preventDefault();
+            updateTouchPosition(event.touches[0]);
 
-            const touch = e.touches[0];
+            const touch = event.touches[0];
             const target = document.elementFromPoint(touch.clientX, touch.clientY);
 
             const dropZone = target?.closest('.drag-drop-container');
-            const nearestTask = target?.closest('.task');
 
             if (dropZone) {
                 touchCurrentTarget = dropZone;
 
-
                 const allTasks = Array.from(dropZone.querySelectorAll('.task')).filter(element => element !== draggable && element !== placeholder);
 
-                let inserted = false;
+                let closestElement = null;
+                let closestOffset = Number.POSITIVE_INFINITY;
+
                 for (const task of allTasks) {
                     const taskRect = task.getBoundingClientRect();
-                    const middleY = taskRect.top + taskRect.height / 2;
+                    const offset = touch.clientY - taskRect.top;
 
-                    if (touch.clientY < middleY) {
-                        task.parentNode.insertBefore(placeholder, task);
-                        inserted = true;
-                        break;
+                    if (offset < closestOffset && offset > 0) {
+                        closestOffset = offset;
+                        closestElement = task;
                     }
                 }
-
-                if (!inserted) {
+                // alten Platzhalter entfernen
+                if (placeholder.parentNode !== dropZone) {
+                    placeholder.remove();
+                    dropZone.appendChild(placeholder);
+                }
+                // Platzhalter an der richtigen Position einfügen
+                if (closestElement) {
+                    dropZone.insertBefore(placeholder, closestElement);
+                } else {
                     dropZone.appendChild(placeholder);
                 }
             }
         });
 
 
+
     });
 
 }
+
+
+
 
 
 function enableTaskDraggingByTouch(draggables) {
@@ -247,6 +262,7 @@ function enableTaskDraggingByTouch(draggables) {
             document.body.appendChild(touchClone);
             updateTouchPosition(e.touches[0]);
         });
+
         draggable.addEventListener('touchend', async () => {
             if (touchClone) touchClone.remove();
             document.body.classList.remove('drag-active');
@@ -307,16 +323,19 @@ function enableTaskDropByStatus(dragAndDropContainers) {
             const draggedCard = document.getElementById(currentDraggedElement);
             const placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
             if (placeholder) {
-                // console.log("Inserting draggedCard before placeholder");
                 dragAndDropContainer.insertBefore(draggedCard, placeholder);
                 placeholder.remove();
             } else {
-                // console.log("Appending draggedCard at the end");
                 dragAndDropContainer.appendChild(draggedCard);
             }
+            // aktualisiert den verlassenen container
+            if (currentSourceContainer && currentSourceContainer !== dragAndDropContainer) {
+                updateOrderInContainer(currentSourceContainer, currentSourceContainer.id);
+            }
+            // aktualisiert den ziel container
             updateOrderInContainer(dragAndDropContainer, dragAndDropContainer.id);
-            // console.log("Status (container ID):", dragAndDropContainer.id);
         });
+
     });
 }
 
@@ -324,12 +343,13 @@ function enableTaskDropByStatus(dragAndDropContainers) {
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.card:not(.dragging):not(.drop-placeholder)')];
 
-    let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
+    let closest = { offset: Number.POSITIVE_INFINITY, element: null };
 
     for (const child of draggableElements) {
         const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
+        const offset = y - box.top;
+
+        if (offset < closest.offset && offset > 0) {
             closest = { offset, element: child };
         }
     }
@@ -340,23 +360,24 @@ function getDragAfterElement(container, y) {
 
 
 
+
 async function updateOrderInContainer(container, status) {
     const cardElements = Array.from(container.querySelectorAll('.card'));
     for (let index = 0; index < cardElements.length; index++) {
         const cardId = cardElements[index].id;
         const taskIndex = allTasks.findIndex(task => task.id === cardId);
-        
+
         let task = allTasks[taskIndex];
-       
-            task.order = index;
-            task.status = status;
-            allTasks[taskIndex] = task;
-            await updateTaskInFirebase(task.id, task)
-     
+
+        task.order = index;
+        task.status = status;
+        allTasks[taskIndex] = task;
+        await updateTaskInFirebase(task.id, task)
+
         // console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
-         renderAllTasks();
+        renderAllTasks();
     }
-   
+
 }
 
 
