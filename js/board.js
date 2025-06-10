@@ -336,8 +336,8 @@ async function updateOrderInContainer(container, status) {
         allTasks[taskIndex] = task;
         await updateTaskInFirebase(task.id, task)
         // console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
-        renderAllTasks();
     }
+    renderAllTasks();
 }
 
 
