@@ -1,5 +1,5 @@
 let allTasks = [];
-let currentTasks = [];
+// let currentTasks = [];
 let currentDraggedElement;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 let currentSourceContainer;
@@ -35,7 +35,7 @@ async function tasksToArray() {
             ...task
         });
     }
-    currentTasks = allTasks;
+    // currentTasks = allTasks;
     renderAllTasks();
 }
 
