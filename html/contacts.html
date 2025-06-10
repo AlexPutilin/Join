@@ -22,67 +22,7 @@
 
     <body onload="initContactPage()">
 
-        <div id="overlay" class="overlay d-none" onclick="toggleCreateContactDialog()">
-            <div class="add-contact-dialog" onclick="event.stopPropagation()">
-                <div>
-                    <img class="logo-small" src="../assets/img/logo-white.svg" alt="Logo">
-                    <h1>Add Contact</h1>
-                    <h3>Tasks are better with a team!</h3>
-                    <div class="underline-accent"></div>
-                </div>
-                <div>
-                    <button class="btn-small" onclick="toggleCreateContactDialog()">
-                        <div class="icon-wrapper">
-                            <img class="icon-default" src="../assets/img/icon-close-default.svg">
-                            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
-                        </div>
-                    </button>
-                    <div class="contact-form-container">
-                        <img class="empty-contact-icon" src="../assets/img/icon-person-big.svg" alt="contact-picture">
-                        <form autocomplete="off" id="create-contact-form">
-                            <div class="input-wrapper">
-                                <label for="">Name<span class="required-mark">*</span> </label>
-                                <div class="input-area">
-                                    <input type="text" name="name" placeholder="Enter a name" required oninput="resetInputError()">
-                                    <img src="../assets/img/icon-person.svg" alt="">
-                                </div>
-                                <span class="err-msg hidden">Invalid input.</span>
-                            </div>
-                            <div class="input-wrapper">
-                                <label for="">Email</label>
-                                <div class="input-area">
-                                    <input type="email" name="email" placeholder="Enter a email" oninput="resetInputError()">
-                                    <img src="../assets/img/icon-mail.svg" alt="">
-                                </div>
-                                <span class="err-msg hidden">Invalid input.</span>
-                            </div>
-                            <div class="input-wrapper">
-                                <label for="">Phone</label>
-                                <div class="input-area">
-                                    <input type="tel" name="phone" placeholder="Enter a phonenumber" oninput="resetInputError()">
-                                    <img src="../assets/img/icon-phone.svg" alt="">
-                                </div>
-                                <span class="err-msg hidden">Invalid input.</span>
-                            </div>
-                            <div class="form-btn-container">
-                                <button class="btn-light" type="button" onclick="toggleCreateContactDialog()">
-                                    <span>Cancel</span>
-                                    <div class="icon-wrapper">
-                                        <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
-                                        <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
-                                        <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
-                                    </div>
-                                </button>
-                                <button class="btn-dark" type="button" onclick="createNewContact()">
-                                    <span>Create contact</span>
-                                    <img src="../assets/img/icon-check-white.svg">
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="overlay" class="overlay d-none" onclick="toggleDialogOverlay()"></div>
 
         <aside>
             <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
@@ -146,7 +86,7 @@
             <section id="contacts-board">
                 
                 <div class="contacts-container">
-                    <button class="btn-dark" onclick="toggleCreateContactDialog()">
+                    <button class="btn-dark" onclick="toggleDialogOverlay('createContact')">
                         <span>Add new contact</span>
                         <img src="../assets/img/icon-person-add.svg">
                     </button>
@@ -165,7 +105,7 @@
                             <div>
                                 <h2 id="contact-display-name"></h2>
                                 <div class="contact-btn-container">
-                                    <button class="btn-small">
+                                    <button class="btn-small" onclick="toggleDialogOverlay('editContact')">
                                         <div class="icon-wrapper">
                                             <img class="icon-default" src="../assets/img/icon-edit-default.svg">
                                             <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">

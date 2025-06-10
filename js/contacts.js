@@ -98,8 +98,18 @@ function showContactInformation(contactIndex) {
 }
 
 
-function toggleCreateContactDialog() {
+function toggleDialogOverlay(dialog = '') {
     const overlay = document.getElementById('overlay');
+    switch (dialog) {
+        case 'createContact':
+            overlay.innerHTML = getCreateContactDialogTemplate();
+            break;
+        case 'editContact':
+            overlay.innerHTML = getEditContactDialogTemplate();
+            break;
+        default:
+            break;
+    }
     overlay.classList.toggle('d-none');
 }
 
@@ -121,18 +131,18 @@ async function createNewContact() {
     if (checkFormValidation(form)) {
         const data = getInputData(form);
         await postData('/contacts', data);
-        toggleCreateContactDialog();
+        toggleDialogOverlay();
         activeContactIndex = null;
         await initContactPage();
     } 
 }
 
 async function editContact() {
-    const form = '#create-contact-form';
+    const form = '#edit-contact-form';
     if (checkFormValidation(form)) {
         const data = getInputData(form);
         await updateData(`/contacts/${contacts[activeContactIndex].id}`, data);
-        toggleCreateContactDialog();
+        toggleDialogOverlay();
         activeContactIndex = null;
         await initContactPage();
     }

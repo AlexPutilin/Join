@@ -113,11 +113,11 @@
     font-size: 20px;
 }
 
-.add-contact-dialog {
+.contact-dialog {
     display: flex;
 }
 
-.add-contact-dialog > div:nth-child(1) {
+.contact-dialog > div:nth-child(1) {
     padding: 48px;
     align-content: center;
     border-radius: 24px 0 0 24px;
@@ -125,7 +125,7 @@
     background-color: #2A3647;
 }
 
-.add-contact-dialog > div:nth-child(2) {
+.contact-dialog > div:nth-child(2) {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
