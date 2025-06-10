@@ -214,19 +214,15 @@ function enableTaskDragging(draggables) {
 //             if (placeholder && placeholder.parentNode) {
 //                 placeholder.parentNode.insertBefore(draggable, placeholder);
 //                 placeholder.remove();
-
 //                 await updateOrderInContainer(draggable.parentNode, draggable.parentNode.id);
 //             }
-
 //             touchCurrentTarget = null;
 //         });
 //                 draggable.addEventListener('touchmove', (e) => {
 //             // e.preventDefault();
 //             updateTouchPosition(e.touches[0]);
-
 //             const touch = e.touches[0];
 //             const target = document.elementFromPoint(touch.clientX, touch.clientY);
-
 //             const dropZone = target?.closest('.drag-drop-container');
 //             const nearestTask = target?.closest('.task');
 
@@ -240,21 +236,18 @@ function enableTaskDragging(draggables) {
 //                 for (const task of allTasks) {
 //                     const taskRect = task.getBoundingClientRect();
 //                     const middleY = taskRect.top + taskRect.height / 2;
-
 //                     if (touch.clientY < middleY) {
 //                         task.parentNode.insertBefore(placeholder, task);
 //                         inserted = true;
 //                         break;
 //                     }
 //                 }
-
 //                 if (!inserted) {
 //                     dropZone.appendChild(placeholder);
 //                 }
 //             } 
 //         }, { passive: true });
 //     });
-
 // }
 
 
@@ -358,30 +351,7 @@ function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showP
 }
 
 
-function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength) {
-    return showProgress ? `
-        <div class="task-progress-container">
-            <div class="task-progressbar">
-                <div class="task-progrssbar-content" style="width: ${calcuProgress}%;"></div>
-            </div>
-            <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
-        </div>` : '';
-}
 
-
-function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress) {
-    return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
-                <span class="label ${bgCategory}">${task.category}</span>
-                <h4 class="task-title">${task.title}</h4>
-                <span>Order: ${task.order}</span> <br>
-                <span class="task-description-short">${description_short}</span>
-                ${subtasksProgress}
-                <div class="profiles-priority-container">
-                    <div style="border: 2px solid black; border-radius: 100%; width: 32px; height: 32px;"></div>
-                    <div>${getPriority(task)}</div>
-                </div>
-            </div>`;
-}
 
 /**
  * @function getPriority - Returns a priority icon based on the given priority level.
@@ -415,69 +385,6 @@ function showOverview(id) {
 
 
 /**
- * @function getOverviewTemplate - Returns the HTML template for the task detail view.
- * @param {Object} task - The individual task object.
- * @returns {string} - HTML-Template representing the task detail view.
- */
-function getOverviewTemplate(task) {
-    const bgCategory = getBgCategory(task.category);
-    return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
-                    <div class="card-overview-header">
-                        <span class="label ${bgCategory}">${task.category}</span><br>
-                        <button onclick="closeOverview()" class="btn-small">
-                            <img class="icon-default" src="../assets/img/icon-close-default.svg">
-                            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
-                        </button>
-                    </div>
-
-                    <h2 class="task-title">${task.title}</h2><br>
-                    <span class="task-description">${task.description_full}</span><br><br>
-
-                    <div class="">
-                        <span style="padding-right: 16px;" class="font-color-grey">Due Date:</span>
-                        <span> ${task.due_date}</span>
-                    </div>
-                    <br>
-                    <div class="priority-wrapper ">
-                        <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
-                        <span style="text-transform: capitalize;"> ${task.priority} </span>
-                        ${getPriority(task)}
-                    </div>
-
-
-
-                    <br>
-                    <div>
-                        <span class="font-color-grey">Assigned To:</span>
-                        <p>
-                        
-                        </p>
-                    </div>
-                            ${getSubtasksContent(task)}
-                    <div class="delete-and-edit-wrapper">
-                        <button onclick="deleteAndUpdateTasks('${task.id}')" class="btn-small">
-                            <div class="icon-wrapper">
-                                <img class="icon-default" src="../assets/img/icon-delete-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
-                                <span>Delete</span>
-                            </div>
-                        </button>
-
-                        <div class="beam"></div>
-
-                        <button class="btn-small">
-                            <div class="icon-wrapper">
-                                <img class="icon-default" src="../assets/img/icon-edit-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
-                                <span>Edit</span>
-                            </div>   
-                        </button>
-                    </div>
-                </div>`;
-}
-
-
-/**
  * @function deleteAndUpdateTasks - Deletes a task by ID, closes overview and refreshes tasks.
  * @param {string} taskID - The ID of the task to delete.
  */
@@ -501,10 +408,7 @@ async function deleteAndUpdateTasks(taskID) {
 function getSubtasksContent(task) {
     let template = getSubtasksTemplate(task);
     if (template) {
-        return `<div>
-                    <span class="font-color-grey">Subtasks:</span>
-                    ${template}
-                </div>`;
+        return `<div><span class="font-color-grey">Subtasks:</span>${template}</div>`;
     } else {
         return "";
     }
