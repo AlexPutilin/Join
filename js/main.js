@@ -24,3 +24,11 @@ function eventBubblingProtection(event) {
     event.stopPropagation();
 }
 
+
+/**
+ * @function closeOverlay - Closes the task detail view.
+ */
+function closeOverlay() {
+    let overlayRef = document.getElementById('overlay');
+    overlayRef.classList.add('d-none');
+}

@@ -439,15 +439,6 @@ function getSubtasksTemplate(task) {
 
 
 /**
- * @function closeOverlay - Closes the task detail view.
- */
-function closeOverlay() {
-    let overlayRef = document.getElementById('overlay');
-    overlayRef.classList.add('d-none');
-}
-
-
-/**
  * @function getShortenedDescription - Shorten the Description for the small Task-Cards
  * @param {Object} task - individual Tasks
  */
@@ -475,5 +466,3 @@ function filterAndShowTasks(filterTask) {
         renderAllTasks(allTasks);
     }
 }
-
-
