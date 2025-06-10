@@ -186,7 +186,7 @@ function getOverviewTemplate(task) {
     return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
                     <div class="card-overview-header">
                         <span class="label ${bgCategory}">${task.category}</span><br>
-                        <button onclick="closeOverview()" class="btn-small">
+                        <button onclick="closeOverlay()" class="btn-small">
                             <img class="icon-default" src="../assets/img/icon-close-default.svg">
                             <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
                         </button>
