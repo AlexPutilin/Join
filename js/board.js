@@ -391,7 +391,7 @@ function showOverview(id) {
 async function deleteAndUpdateTasks(taskID) {
     console.log('delete the task with id:', taskID);
     await deleteData(`/board/tasks/${taskID}`);
-    closeOverview();
+    closeOverlay();
     await tasksToArray();
     statuses.forEach(status => {
         const container = document.getElementById(status);
@@ -439,9 +439,9 @@ function getSubtasksTemplate(task) {
 
 
 /**
- * @function closeOverview - Closes the task detail view.
+ * @function closeOverlay - Closes the task detail view.
  */
-function closeOverview() {
+function closeOverlay() {
     let overlayRef = document.getElementById('overlay');
     overlayRef.classList.add('d-none');
 }
