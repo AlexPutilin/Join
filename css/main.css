@@ -16,9 +16,12 @@
 h1 {
     font-size: 72px;
 }
+body{
+    height: 100vh;
+}
 
 main {
-    height: 100vh;
+    
     display: flex;
     flex-direction: column;
     padding-left: 232px;
