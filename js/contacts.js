@@ -117,7 +117,7 @@ function getContactPath() {
 
 
 async function createNewContact() {
-    const form = '#contact-form';
+    const form = '#create-contact-form';
     if (checkFormValidation(form)) {
         const data = getInputData(form);
         await postData('/contacts', data);
@@ -127,6 +127,16 @@ async function createNewContact() {
     } 
 }
 
+async function editContact() {
+    const form = '#create-contact-form';
+    if (checkFormValidation(form)) {
+        const data = getInputData(form);
+        await updateData(`/contacts/${contacts[activeContactIndex].id}`, data);
+        toggleCreateContactDialog();
+        activeContactIndex = null;
+        await initContactPage();
+    }
+}
 
 
 
@@ -134,10 +144,9 @@ async function createNewContact() {
 // API.JS
 async function deleteData(path = "") {
     try { 
-        let response = await fetch(FIREBASE_URL + path + ".json", {
+        await fetch(FIREBASE_URL + path + ".json", {
             method: "DELETE",
         });
-        //return await response.json();
     } catch (error) {
         console.error("Error while deleting data from Firebase:", error);
     }    
@@ -145,13 +154,24 @@ async function deleteData(path = "") {
 
 async function postData(path = "", data = {}) {
     try {
-        let response = await fetch(FIREBASE_URL + path + ".json", {
+        await fetch(FIREBASE_URL + path + ".json", {
             method: "POST",
             header: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
         });
-        //return await response.json();
     } catch (error) {
-        console.error("Error while pushing data from Firebase:", error);
+        console.error("Error while pushing data in Firebase:", error);
+    }
+}
+
+async function updateData(path = "", data = {}) {
+    try {
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "PUT",
+            header: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        });
+    } catch (error) {
+        console.error("Error while update data in Firebase:", error);
     }
 }
