@@ -574,8 +574,7 @@ function filterAndShowTasks(filterTask) {
 
 
 /**
- * Stops the propagation of the event to parent elements.
- *
+ * @function eventBubblingProtection - Stops the propagation of the event to parent elements.
  * @param {Event} event - The event object to stop from bubbling.
  */
 function eventBubblingProtection(event) {
