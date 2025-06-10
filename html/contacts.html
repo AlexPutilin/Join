@@ -39,24 +39,27 @@
                     </button>
                     <div class="contact-form-container">
                         <img class="empty-contact-icon" src="../assets/img/icon-person-big.svg" alt="contact-picture">
-                        <form autocomplete="off">
+                        <form autocomplete="off" id="contact-form">
                             <div class="input-wrapper">
+                                <label for="">Name<span class="required-mark">*</span> </label>
                                 <div class="input-area">
-                                    <input type="text" name="name" placeholder="Name" required oninput="resetInputError()">
+                                    <input type="text" name="name" placeholder="Enter a name" required oninput="resetInputError()">
                                     <img src="../assets/img/icon-person.svg" alt="">
                                 </div>
                                 <span class="err-msg hidden">Invalid input.</span>
                             </div>
                             <div class="input-wrapper">
+                                <label for="">Email</label>
                                 <div class="input-area">
-                                    <input type="text" name="email" placeholder="Email" oninput="resetInputError()">
+                                    <input type="email" name="email" placeholder="Enter a email" oninput="resetInputError()">
                                     <img src="../assets/img/icon-mail.svg" alt="">
                                 </div>
                                 <span class="err-msg hidden">Invalid input.</span>
                             </div>
                             <div class="input-wrapper">
+                                <label for="">Phone</label>
                                 <div class="input-area">
-                                    <input type="text" name="phone" placeholder="Phone" oninput="resetInputError()">
+                                    <input type="tel" name="phone" placeholder="Enter a phonenumber" oninput="resetInputError()">
                                     <img src="../assets/img/icon-phone.svg" alt="">
                                 </div>
                                 <span class="err-msg hidden">Invalid input.</span>
@@ -70,7 +73,7 @@
                                         <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
                                     </div>
                                 </button>
-                                <button class="btn-dark" type="button">
+                                <button class="btn-dark" type="button" onclick="createNewContact()">
                                     <span>Create contact</span>
                                     <img src="../assets/img/icon-check-white.svg">
                                 </button>
@@ -141,13 +144,15 @@
             </section>
 
             <section id="contacts-board">
-                <div id="contacts-container">
+                
+                <div class="contacts-container">
                     <button class="btn-dark" onclick="toggleCreateContactDialog()">
                         <span>Add new contact</span>
                         <img src="../assets/img/icon-person-add.svg">
                     </button>
+                    <div id="contact-list"></div>
                 </div>
-
+                
                 <div id="contact-display-container">
                     <div class="contact-display-header">
                         <h1>Contacts</h1>

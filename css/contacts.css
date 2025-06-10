@@ -1,10 +1,9 @@
 #contacts-board {
     height: calc(100% - 96px);
     display: flex;
-
 }
 
-#contacts-container {
+.contacts-container {
     width: 456px;
     height: 100%;
     padding: 24px 48px;
@@ -15,6 +14,12 @@
     background-color: #fff;
     box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.068);
     overflow: auto;
+}
+
+#contact-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #contact-display-container {

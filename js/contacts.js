@@ -32,7 +32,7 @@ async function loadContacts() {
 
 
 function createContactSections() {
-    const sectionContainer = document.getElementById('contacts-container');
+    const sectionContainer = document.getElementById('contact-list');
     const alphaticList = getAlphabeticList();
     sectionContainer.innerHTML = "";
     for (let i = 0; i < alphaticList.length; i++) {
@@ -116,6 +116,17 @@ function getContactPath() {
 }
 
 
+async function createNewContact() {
+    const form = '#contact-form';
+    if (checkFormValidation(form)) {
+        const data = getInputData(form);
+        await postData('/contacts', data);
+        toggleCreateContactDialog();
+        activeContactIndex = null;
+        await initContactPage();
+    } 
+}
+
 
 
 
@@ -126,9 +137,21 @@ async function deleteData(path = "") {
         let response = await fetch(FIREBASE_URL + path + ".json", {
             method: "DELETE",
         });
-        console.log(FIREBASE_URL + path + ".json");
-        return await response.json();
+        //return await response.json();
     } catch (error) {
         console.error("Error while deleting data from Firebase:", error);
     }    
+}
+
+async function postData(path = "", data = {}) {
+    try {
+        let response = await fetch(FIREBASE_URL + path + ".json", {
+            method: "POST",
+            header: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        });
+        //return await response.json();
+    } catch (error) {
+        console.error("Error while pushing data from Firebase:", error);
+    }
 }

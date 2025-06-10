@@ -195,6 +195,10 @@ a:hover {
 
 
 /* INPUTS / TEXTAREAS / CHECKBOX */
+label {
+    font-size: 20px;
+}
+
 .input-wrapper {
     width: 100%;
     position: relative;
