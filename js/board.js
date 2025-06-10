@@ -1,10 +1,13 @@
 let allTasks = [];
 // let currentTasks = [];
 let currentDraggedElement;
-const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 let currentSourceContainer;
 let touchClone;
 let touchCurrentTarget;
+const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
+const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
+
+
 
 async function initBoard() {
     // await getData('/board');
@@ -14,7 +17,7 @@ async function initBoard() {
 
 function renderAllTasks(taskList = allTasks) {
     statuses.forEach(status => renderTasksByStatus(status, taskList));
-    initDragEvents();
+    enableTaskDragging();
 }
 
 
@@ -164,16 +167,9 @@ async function moveTo(status) {
     allTasks[taskIndex] = task;
 }
 
-function initDragEvents() {
+
+function enableTaskDragging() {
     const draggables = document.querySelectorAll('.card');
-    const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
-    enableTaskDragging(draggables);
-    enableDragReordering(dragAndDropContainers);
-    enableTaskDropByStatus(dragAndDropContainers);
-}
-
-
-function enableTaskDragging(draggables) {
     draggables.forEach(draggable => {
         const placeholder = document.createElement('div');
         draggable.addEventListener('dragstart', () => {
@@ -189,6 +185,7 @@ function enableTaskDragging(draggables) {
         });
 
     });
+    enableDragReordering();
 }
 
 
@@ -260,8 +257,9 @@ function enableTaskDragging(draggables) {
 // }
 
 
-function enableDragReordering(dragAndDropContainers) {
-    const placeholder = document.createElement('div');
+function enableDragReordering() {
+   
+    let placeholder = document.createElement('div');
     placeholder.classList.add('drop-placeholder');
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('dragover', event => {
@@ -281,21 +279,26 @@ function enableDragReordering(dragAndDropContainers) {
             }
         });
     });
+    enableTaskDropByStatus();
 }
 
 
-function enableTaskDropByStatus(dragAndDropContainers) {
+function enableTaskDropByStatus() {
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('drop', event => {
             event.preventDefault();
             const draggedCard = document.getElementById(currentDraggedElement);
-            const placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
-            if (placeholder) {
-                dragAndDropContainer.insertBefore(draggedCard, placeholder);
-                placeholder.remove();
-            } else {
-                dragAndDropContainer.appendChild(draggedCard);
+            let placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
+
+            if (draggedCard) {
+                if (placeholder) {
+                    dragAndDropContainer.insertBefore(draggedCard, placeholder);
+                    placeholder.remove();
+                } else {
+                    dragAndDropContainer.appendChild(draggedCard);
+                }
             }
+
             // aktualisiert den verlassenen container
             if (currentSourceContainer && currentSourceContainer !== dragAndDropContainer) {
                 updateOrderInContainer(currentSourceContainer, currentSourceContainer.id);
