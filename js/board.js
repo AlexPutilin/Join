@@ -2,16 +2,21 @@ let allTasks = [];
 let currentTasks = [];
 let currentDraggedElement;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
+let currentSourceContainer;
+let touchClone;
+let touchCurrentTarget;
 
 async function initBoard() {
     // await getData('/board');
     await tasksToArray();
 }
 
+
 function renderAllTasks(taskList = allTasks) {
     statuses.forEach(status => renderTasksByStatus(status, taskList));
     initDragEvents();
 }
+
 
 /**
  * @function tasksToArray - Convert all loaded tasks into an Array and push in Array allTasks
@@ -68,8 +73,8 @@ function renderTasksByStatus(status, taskList) {
         }
         statusContainer.innerHTML += getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress);
     }
-
 }
+
 
 /**
  * @function updateNoTasksDisplay - Shows a “no tasks” message in the status column when it's empty
@@ -100,7 +105,6 @@ function calcuProgressbar(task) {
     const subtasksValue = Object.values(task.subtasks);
     const totalSubtaks = subtasksValue.length;
     const doneTasks = subtasksValue.filter(s => s.done).length;
-
     if (totalSubtaks === 0) {
         console.log("no subtasks available");
         return 0;
@@ -125,7 +129,6 @@ function getBgCategory(category) {
         return "default-category";
     }
 }
-
 
 
 /**
@@ -159,7 +162,6 @@ async function moveTo(status) {
     task.status = status;
     await updateTaskInFirebase(task.id, task);
     allTasks[taskIndex] = task;
-    // renderAllTasks();
 }
 
 function initDragEvents() {
@@ -168,15 +170,7 @@ function initDragEvents() {
     enableTaskDragging(draggables);
     enableDragReordering(dragAndDropContainers);
     enableTaskDropByStatus(dragAndDropContainers);
-
-    // enableTaskDraggingByTouch(draggables);
-
 }
-
-let currentSourceContainer = null;
-
-let touchClone = null;
-let touchCurrentTarget = null;
 
 
 function enableTaskDragging(draggables) {
@@ -189,15 +183,12 @@ function enableTaskDragging(draggables) {
             document.body.classList.add('drag-active');
             console.log("Dragging Task ID:", currentDraggedElement);
         });
-
         draggable.addEventListener('dragend', () => {
             draggable.classList.remove('dragging');
             document.body.classList.remove('drag-active');
-
         });
 
     });
-
 }
 
 
@@ -300,7 +291,6 @@ function enableDragReordering(dragAndDropContainers) {
 }
 
 
-
 function enableTaskDropByStatus(dragAndDropContainers) {
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('drop', event => {
@@ -327,9 +317,7 @@ function enableTaskDropByStatus(dragAndDropContainers) {
 
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.card:not(.dragging):not(.drop-placeholder)')];
-
     let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
-
     for (const child of draggableElements) {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
@@ -341,26 +329,19 @@ function getDragAfterElement(container, y) {
 }
 
 
-
-
-
 async function updateOrderInContainer(container, status) {
     const cardElements = Array.from(container.querySelectorAll('.card'));
     for (let index = 0; index < cardElements.length; index++) {
         const cardId = cardElements[index].id;
         const taskIndex = allTasks.findIndex(task => task.id === cardId);
-
         let task = allTasks[taskIndex];
-
         task.order = index;
         task.status = status;
         allTasks[taskIndex] = task;
         await updateTaskInFirebase(task.id, task)
-
         // console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
         renderAllTasks();
     }
-
 }
 
 
@@ -371,11 +352,11 @@ async function updateOrderInContainer(container, status) {
 function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress) {
     // console.log(task);
     const bgCategory = getBgCategory(task.category);
-    let description_short = getShortenedDescription(task);
-    let subtasksProgress = getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength);
-
+    const description_short = getShortenedDescription(task);
+    const subtasksProgress = getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength);
     return getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress);
 }
+
 
 function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength) {
     return showProgress ? `
@@ -387,12 +368,12 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
         </div>` : '';
 }
 
+
 function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress) {
     return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h4 class="task-title">${task.title}</h4>
                 <span>Order: ${task.order}</span> <br>
-
                 <span class="task-description-short">${description_short}</span>
                 ${subtasksProgress}
                 <div class="profiles-priority-container">
@@ -407,7 +388,6 @@ function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgre
  * @param {Object} task - individual Tasks
  * @returns - individual Priority depending on the Task
  */
-
 function getPriority(task) {
     if (task.priority === "urgent") {
         return `<img src="../assets/img/icon-prio-urgent.svg" alt="icon-urgent">`;
@@ -420,6 +400,7 @@ function getPriority(task) {
     }
 }
 
+
 /**
  * @function showOverview -
  * @param {string} id - 
@@ -431,6 +412,7 @@ function showOverview(id) {
     overlayRef.classList.remove('d-none');
     overlayRef.innerHTML = getOverviewTemplate(task);
 }
+
 
 /**
  * @function getOverviewTemplate - Returns the HTML template for the task detail view.
@@ -503,7 +485,6 @@ async function deleteAndUpdateTasks(taskID) {
     console.log('delete the task with id:', taskID);
     await deleteData(`/board/tasks/${taskID}`);
     closeOverview();
-
     await tasksToArray();
     statuses.forEach(status => {
         const container = document.getElementById(status);
@@ -529,6 +510,7 @@ function getSubtasksContent(task) {
     }
 }
 
+
 /**
  * @function getSubtasksTemplate -  Returns HTML-Template for subtasks and checkboxes or empty string.
  * @param {Object} task - individually Task 
@@ -551,6 +533,7 @@ function getSubtasksTemplate(task) {
     }
 }
 
+
 /**
  * @function closeOverview - Closes the task detail view.
  */
@@ -558,6 +541,7 @@ function closeOverview() {
     let overlayRef = document.getElementById('overlay');
     overlayRef.classList.add('d-none');
 }
+
 
 /**
  * @function getShortenedDescription - Shorten the Description for the small Task-Cards
@@ -571,6 +555,7 @@ function getShortenedDescription(task) {
         return task.description_full;
     }
 }
+
 
 /**
  * @function filterAndShowTasks - Filters tasks by title and displays matching results. If the search input is empty, all tasks are displayed.
@@ -586,6 +571,7 @@ function filterAndShowTasks(filterTask) {
         renderAllTasks(allTasks);
     }
 }
+
 
 /**
  * Stops the propagation of the event to parent elements.
