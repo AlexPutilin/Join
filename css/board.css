@@ -21,7 +21,7 @@ body {
 .board-head-wrapper {
     display: flex;
     justify-content: space-between;
-    min-width: 1440px;
+    min-width: 95%;
     max-width: 1920px;
 
 }
@@ -364,6 +364,9 @@ body {
 }
 
 @media (max-width: 1279px) {
+
+    /* .board-head-wrapper {} */
+
     .board-content {
         flex-direction: column;
 
