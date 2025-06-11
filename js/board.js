@@ -354,8 +354,6 @@ function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showP
 }
 
 
-
-
 /**
  * @function getPriority - Returns a priority icon based on the given priority level.
  * @param {Object} task - individual Tasks
