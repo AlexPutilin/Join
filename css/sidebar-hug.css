@@ -83,7 +83,7 @@ nav {
 /* navbar-mobile */
 footer {
     width: 100vw;
-    height: 66px;
+    /* height: 66px; */
     background-color: #2a3647;
     position: fixed;
     bottom: 0;
@@ -101,7 +101,7 @@ footer {
     /* display: flex; */
     /* justify-content: center; */
     /* align-items: center; */
-    gap: 4px;
+    /* gap: 4px; */
     border: 0;
     border-radius: 8px;
     /* font-size: 20px; */
