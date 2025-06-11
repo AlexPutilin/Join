@@ -245,12 +245,14 @@ function createSubtaskObject(title) {
 
 async function saveTaskToFirebase(taskData) {
   try {
-    const taskId = await generateUID('/board/tasks');
-    const taskPath = `/board/tasks/task${taskId}`;
+    const response = await fetch(`${FIREBASE_URL}/board/tasks.json`, {
+      method: "POST",
+      body: JSON.stringify(taskData)
+    });
+    const result = await response.json();
+    console.log('Task created with id:', result.name);
 
-    await putData(taskPath, taskData);
-
-    console.log('Task saved successfully.');
+    return result.name;
   } catch (error) {
     console.error('Failed to save task:', error);
     throw error;
@@ -258,10 +260,13 @@ async function saveTaskToFirebase(taskData) {
 }
 
 
+
 function prepareTaskData() {
   const taskData = getInputData('#add-task-form');
   const assignedInputElement = document.getElementById('assigned-input');
   taskData.assigned_to = assignedInputElement?.dataset?.value || "";
+
+  taskData.status = "to do";
 
   const subtasks = getSubtasksFromDOM();
   if (Object.keys(subtasks).length > 0) {
@@ -270,6 +275,7 @@ function prepareTaskData() {
 
   return taskData;
 }
+
 
 
 async function addTask() {
@@ -284,11 +290,24 @@ async function addTask() {
     await saveTaskToFirebase(taskData);
     console.info("addTask: Task successfully saved.");
     clearAddTaskForm();
-    alert("Task successfully created!");
+    showAddTaskNotification();
   } catch (error) {
     handleTaskSaveError(error);
   }
+  
 }
+
+function showAddTaskNotification() {
+  const notificationWrapper = document.createElement('div');
+  notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
+  const notificationElement = notificationWrapper.firstElementChild;
+  if (!notificationElement) return;
+  document.body.appendChild(notificationElement);
+  notificationElement.addEventListener('animationend', () => {
+    notificationElement.remove();
+  });
+}
+
 
 function handleTaskSaveError(error) {
   console.error("addTask: Failed to save task to Firebase:", error);

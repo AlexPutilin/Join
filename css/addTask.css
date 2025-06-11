@@ -170,3 +170,34 @@
   justify-content: center;
   font-weight: bold;
 }
+
+
+
+.add-task-notification {
+  position: fixed;
+  top: 110%;               
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 0.5rem;
+  z-index: 10000;
+  animation: slideInStayOut 3s ease forwards;
+}
+
+
+.add-task-notification img {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@keyframes slideInStayOut {
+  0%   { top: 110%; opacity: 0; }   
+  10%  { top: 50%;  opacity: 1; }   
+  80%  { top: 50%;  opacity: 1; }    
+  100% { top: 110%; opacity: 0; }    
+}
+
+
+
+
+
+

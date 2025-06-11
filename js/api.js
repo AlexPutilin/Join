@@ -15,28 +15,6 @@ async function getAllEntries(path = "") {
 }
 
 /**
- * Generiere eine ID auf Basis des höchsten vorhandenen "taskX"-Keys.
- */
-async function generateUID(dataPath) {
-    const existingEntries = await getAllEntries(dataPath);
-    const entryKeys = existingEntries ? Object.keys(existingEntries) : [];
-  
-    const extractedTaskIds = entryKeys
-      .map(entryKey => {
-        const match = entryKey.match(/^task(\d+)$/);
-        return match ? parseInt(match[1], 10) : NaN;
-      })
-      .filter(taskId => !isNaN(taskId));
-  
-    const highestExistingId = extractedTaskIds.length
-      ? Math.max(...extractedTaskIds)
-      : 0;
-  
-    return highestExistingId + 1;
-  }
-  
-
-/**
  * PUT <path>.json mit dem JSON-String von data.
  */
 async function putData(path, data) {

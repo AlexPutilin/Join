@@ -273,3 +273,14 @@ function getPriorityTemplate() {
       <div id="assigned-chips-container" class="assigned-chips"></div>
     `;
   }
+
+
+  function getAddTaskNotificationTemplate() {
+    return `
+      <div class="add-task-notification btn-dark">
+        <span>Task added to board</span>
+        <img src="../assets/img/icon-board.svg" alt="Board icon">
+      </div>
+    `;
+  }
+  
