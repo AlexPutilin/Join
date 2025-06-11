@@ -266,7 +266,7 @@ function prepareTaskData() {
   const assignedInputElement = document.getElementById('assigned-input');
   taskData.assigned_to = assignedInputElement?.dataset?.value || "";
 
-  taskData.status = "to do";
+  taskData.status = "to-do";
 
   const subtasks = getSubtasksFromDOM();
   if (Object.keys(subtasks).length > 0) {

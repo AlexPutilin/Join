@@ -274,6 +274,7 @@ function getPriorityTemplate() {
     `;
   }
 
+  
 
   function getAddTaskNotificationTemplate() {
     return `

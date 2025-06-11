@@ -159,18 +159,17 @@
   gap: 8px;
   margin-top: 8px;
 }
+
 .assigned-chip {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #6E52FF; /* oder dynamisch je nach Kontakt */
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
 }
-
 
 
 .add-task-notification {
