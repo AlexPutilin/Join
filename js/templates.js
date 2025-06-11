@@ -176,7 +176,7 @@ function getContactSectionTemplate(letter) {
 function getContactTemplate(contact, index) {
     return `
         <div class="contact" data-contact-index='${index}' onclick="addContactActiveState(this), showContactInformation(${index})">
-            <div class="contact-icon" style="background-color: ${getRandomBackgroundColor()};">${getContactInitials(contact.name)}</div>
+            <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
             <div class="contact-infos">
                 <span class="contact-name">${contact.name}</span>
                 <span class="contact-mail">${contact.email}</span>

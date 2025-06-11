@@ -27,6 +27,7 @@ async function loadContacts() {
     contactIDs.forEach(id => {
         const contact = contactData[id];
         contact.id = id;
+        contact.color = getContactBackgroundColor();
         contacts.push(contact);
     });
 }
@@ -74,7 +75,7 @@ function getContactInitials(name) {
 }
 
 
-function getRandomBackgroundColor() {
+function getContactBackgroundColor() {
     contactColorIndex++
     contactColorIndex = (contactColorIndex + contactColors.length) % contactColors.length;
     return contactColors[contactColorIndex];
@@ -93,6 +94,7 @@ function addContactActiveState(contactElement) {
 
 function showContactInformation(contactIndex) {
     contactDisplay.icon.innerText = getContactInitials(contacts[contactIndex].name);
+    contactDisplay.icon.style.backgroundColor = contacts[contactIndex].color;
     contactDisplay.name.innerText = contacts[contactIndex].name;
     contactDisplay.mail.innerText = contacts[contactIndex].email;
     contactDisplay.phone.innerText = contacts[contactIndex].phone;
