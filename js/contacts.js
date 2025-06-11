@@ -1,4 +1,4 @@
-const randomColors = ['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#FFC701','#0038FF','#C3FF2B','#FFE62B','#FF4646','#FFBB2B',];
+const contactColors = ['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#0038FF','#FF4646','#FFBB2B',];
 
 const contactDisplay = {
     display: document.getElementById('contact-display'),
@@ -10,6 +10,7 @@ const contactDisplay = {
 
 let contacts = [];
 let activeContactIndex = null;
+let contactColorIndex = 0;
 
 
 async function initContactPage() {
@@ -74,8 +75,9 @@ function getContactInitials(name) {
 
 
 function getRandomBackgroundColor() {
-    const randomIndex = Math.floor(Math.random() * randomColors.length);
-    return randomColors[randomIndex];
+    contactColorIndex++
+    contactColorIndex = (contactColorIndex + contactColors.length) % contactColors.length;
+    return contactColors[contactColorIndex];
 }
 
 
