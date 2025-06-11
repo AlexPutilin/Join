@@ -13,15 +13,17 @@
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
 
-    <script src="../js/board.js"></script>
-    <!-- <script type="module" src="../js/api.js"></script> -->
-    <script src="../js/main.js"></script>
+
+    <script src="../js/board.js" defer></script>
+    <script src="../js/api.js" defer></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/main.js" defer></script>
 </head>
 
-<body onload="loadAllTasks()">
-    <div id="overlay" class="overlay d-none"></div>
+<body onload="initBoard()">
+    <div onclick="closeOverview()" id="overlay" class="overlay d-none"></div>
     <aside>
-        <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
+        <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
             <button onclick="openPage('summary.html')" class="btn-menu">
                 <div class="icon-wrapper">
@@ -64,92 +66,98 @@
     </aside>
     <main>
         <section class="hug">
-            <p class="kanban-text">
-                Kanban Project Management Tool</p>
-            <div class="help-and-profile">
+            <div class="hug-wrapper">
+                <div class="logo-kanban-text-wrapper">
+                    <img class="logo-blue" src="../assets/img/logo.svg" alt="Join Logo">
+                    <span class="kanban-text">
+                        Kanban Project Management Tool</span>
+                </div>
+                <div class="help-and-profile">
 
-                <button onclick="openPage('help.html')" class="btn-small">
-                    <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
-                    <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
-                </button>
+                    <button onclick="openPage('help.html')" class="btn-small">
+                        <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
+                        <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
+                    </button>
 
-                <button class="btn-profile">
-                    <span>ds</span>
-                </button>
+                    <button class="btn-profile">
+                        <span>ds</span>
+                    </button>
+                </div>
             </div>
         </section>
         <section class="board">
             <div class="board-navigation">
+
                 <div class="board-head">
-                    <h1>Board</h1>
+                    <div class="board-head-wrapper">
+                        <h1>Board</h1>
 
-                    <div class="search-area-wrapper">
-
-                        <div class="input-area">
-                            <input type="text" id="search-input" required="" placeholder="Find Task" oninput="">
-                            <button type="button" class="btn-small" id="visibility-btn" onclick="">
-                                <div class="beam"></div>
-                                <img class="icon-default" src="../assets/img/icon-search-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-search-hover.svg">
-                                <img class="icon-active" src="../assets/img/icon-search-click.svg">
+                        <div class="search-area-wrapper">
+                            <div class="input-area">
+                                <input type="text" id="search-input" required="" placeholder="Find Task"
+                                    oninput="filterAndShowTasks(this.value)">
+                                <button type="button" class="btn-small" id="visibility-btn">
+                                    <div class="beam"></div>
+                                    <div class="icon-wrapper">
+                                        <img class="icon-default" src="../assets/img/icon-search-default.svg">
+                                        <img class="icon-hover" src="../assets/img/icon-search-hover.svg">
+                                        <img class="icon-active" src="../assets/img/icon-search-click.svg">
+                                    </div>
+                                </button>
+                            </div>
+                            <button class="btn-dark">
+                                <span>Add Task</span>
+                                <img src="../assets/img/icon-add-white.svg" alt="">
                             </button>
                         </div>
-
-                        <button class="btn-dark">
-                            <span>Add Task</span>
-                            <img src="../assets/img/icon-add-white.svg" alt="">
-                        </button>
-
-                    </div>
-
-                </div>
-                <div class="workflow-stages">
-                    <div class="single-stages">
-                        <p>To Do</p>
-                        <button class="btn-small">
-                            <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                            <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                            <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
-                        </button>
-                    </div>
-                    <div class="single-stages">
-                        <p>In Progress</p>
-                        <button class="btn-small">
-                            <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                            <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                            <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
-                        </button>
-                    </div>
-                    <div class="single-stages">
-                        <p>Await Feedback</p>
-                        <button class="btn-small">
-                            <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                            <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                            <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
-                        </button>
-                    </div>
-                    <div class="single-stages">
-                        <p>Done</p>
                     </div>
                 </div>
-
-
-
                 <div id="board-content" class="board-content">
-                    <div ondrop="moveTo('to-do')" ondragover="allowDrop(event)" id="to-do" class="drag-drop-container">
+                    <div class="safe-scrollbar">
+                        <div class="single-stages">
+                            <span>To Do</span>
+                            <button class="btn-small">
+                                <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
+                                <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
+                                <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                            </button>
+                        </div>
+                        <div id="to-do" class="drag-drop-container"></div>
                     </div>
-                    <div ondrop="moveTo('in-progress')" ondragover="allowDrop(event)" id="in-progress"
-                        class="drag-drop-container">
+                    <div class="safe-scrollbar">
+                        <div class="single-stages">
+                            <span>In Progress</span>
+                            <button class="btn-small">
+                                <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
+                                <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
+                                <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                            </button>
+                        </div>
+                        <div id="in-progress" class="drag-drop-container"></div>
                     </div>
-                    <div ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)" id="await-feedback"
-                        class="drag-drop-container">
+                    <div class="safe-scrollbar">
+                        <div class="single-stages">
+                            <span>Await Feedback</span>
+                            <button class="btn-small">
+                                <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
+                                <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
+                                <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                            </button>
+                        </div>
+                        <div id="await-feedback" class="drag-drop-container"></div>
                     </div>
-                    <div ondrop="moveTo('done')" ondragover="allowDrop(event)" id="done" class="drag-drop-container">
+                    <div class="safe-scrollbar">
+                        <div class="single-stages">
+                            <span>Done</span>
+                        </div>
+                        <div id="done" class="drag-drop-container"></div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
+
 
 </body>
 
