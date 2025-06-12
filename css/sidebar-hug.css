@@ -119,6 +119,11 @@ nav {
 } */
 
 @media (max-width: 1280px) {
+    .logo-blue {
+
+    visibility: visible;
+    padding-left: 40px;
+}
     .navbar-mobile-wrapper {
         display: flex;
 

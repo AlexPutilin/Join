@@ -5,9 +5,9 @@ body {
 
 
 .board {
-    height: fit-content;
+    min-height: max-content;
     padding: 56px;
-
+    flex: 1;
 }
 
 .board-head {
@@ -34,7 +34,7 @@ body {
     overflow: hidden;
     height: 100%; */
     max-width: 1600px;
-    min-width: 1440px;
+    /* min-width: 1440px; */
 }
 
 .workflow-stages {
@@ -240,7 +240,7 @@ body {
 .search-area-wrapper {
     display: flex;
     align-items: center;
-    gap: 36px;
+
 }
 
 .delete-and-edit-wrapper {
@@ -249,6 +249,12 @@ body {
     justify-content: flex-end;
     /* color: #2A3647; */
     gap: 16px;
+}
+
+/* add task mobile */
+
+.add-task-mobile {
+    visibility: hidden;
 }
 
 @media (min-width: 1941px) and (max-width: 7680px) {
@@ -298,6 +304,7 @@ body {
 
     .safe-scrollbar {
         padding: 12px;
+        width: 300px;
     }
 }
 
@@ -329,6 +336,16 @@ body {
     .board {
         padding: 40px;
     }
+
+    .safe-scrollbar {
+
+        width: 260px;
+    }
+
+    .board-content {
+
+        min-width: 1000px;
+    }
 }
 
 
@@ -347,6 +364,7 @@ body {
 
     [class^="card"] {
         padding: 16px 8px;
+        width: 180px;
     }
 }
 
@@ -364,9 +382,13 @@ body {
     }
 }
 
-@media (max-width: 1279px) {
+@media (max-width: 1280px) {
 
     /* .board-head-wrapper {} */
+    .board-head {
+
+        padding-left: 16px;
+    }
 
     .board-content {
         flex-direction: column;
@@ -398,14 +420,20 @@ body {
 
     .drag-drop-container {
         display: flex;
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
     }
 
     .safe-scrollbar {
-        width: 100vw;
+        width: 90%;
         height: 300px;
 
     }
+
+    [class^="card"] {
+
+        width: 200px;
+    }
+
 }
 
 @media (max-width: 1200px) {
@@ -421,6 +449,20 @@ body {
     .search-area-wrapper {
         padding: 12px 0px;
     }
+}
+
+@media (max-width: 1023px) {
+    .add-task-mobile {
+        visibility: visible;
+    }
+
+    .search-area-wrapper {
+        gap: 16px;
+    }
+
+    /* .btn-dark {
+        visibility: hidden;
+    } */
 }
 
 /* 768–1023 px 
