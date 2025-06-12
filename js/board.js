@@ -65,7 +65,7 @@ function renderTasksByStatus(status, taskList) {
         return updateNoTasksDisplay(status, statusContainer);
     }
     renderFilteredTaskStatus(filteredStatus, statusContainer);
-    await updateOrderInContainer(container, status);
+   
 }
 
 
@@ -339,10 +339,10 @@ async function updateOrderInContainer(container, status) {
         task.order = index;
         task.status = status;
         allTasks[taskIndex] = task;
-        await updateTaskInFirebase(task.id, task)
+        await updateTaskInFirebase(task.id, task);
         // console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
+        renderAllTasks();
     }
-    renderAllTasks();
 }
 
 
