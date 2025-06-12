@@ -56,7 +56,7 @@ function renderTasksByStatus(status, taskList) {
         return updateNoTasksDisplay(status, statusContainer);
     }
     renderFilteredTaskStatus(filteredStatus, statusContainer);
-   
+
 }
 
 
@@ -254,7 +254,7 @@ function enableTaskDragging() {
 
 
 function enableDragReordering() {
-   
+
     let placeholder = document.createElement('div');
     placeholder.classList.add('drop-placeholder');
     dragAndDropContainers.forEach(dragAndDropContainer => {
@@ -443,5 +443,17 @@ function filterAndShowTasks(filterTask) {
         renderAllTasks(filteredTasks);
     } else {
         renderAllTasks(allTasks);
+    }
+}
+
+
+function hideBigAddTaskBtn() {
+    const btn = document.getElementById('add-task-btn');
+
+
+    if (window.innerWidth <= 1023) {
+        btn.style.display = 'none';
+    } else {
+        btn.style.display = "flex";
     }
 }
