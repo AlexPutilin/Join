@@ -57,7 +57,7 @@ function updateSubtasks(task) {
  * @param {string} status - Status of the Tasks
  * @param {string} status - corresponds to the ID
  */
-async function renderTasksByStatus(status, taskList) {
+function renderTasksByStatus(status, taskList) {
     let statusContainer = document.getElementById(status);
     statusContainer.innerHTML = "";
     let filteredStatus = taskList.filter(task => task.status === status).sort((a, b) => (a.order || 0) - (b.order || 0));
