@@ -118,6 +118,10 @@
     display: flex;
 }
 
+#contact-display-name {
+    text-transform: capitalize;
+}
+
 .contact-dialog > div:nth-child(1) {
     padding: 48px;
     align-content: center;
@@ -154,6 +158,7 @@
     background-color: #d1d1d1;
     font-size: 48px;
     color: #fff;
+    text-transform: uppercase;
 }
 
 .form-btn-container {
@@ -199,7 +204,12 @@
     font-size: 20px;
 }
 
+.contact-name {
+    text-transform: capitalize;
+}
+
 .contact-mail {
+    min-height: 20px;
     font-size: 16px;
     color: #29ABE2;
 }

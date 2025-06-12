@@ -142,6 +142,7 @@ a:hover {
     height: 42px;
     align-content: center;
     text-align: center;
+    text-transform: uppercase;
     border-radius: 50%;
     border: 2px solid #fff;
     color: #fff;

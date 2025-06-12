@@ -48,7 +48,7 @@ function renderContactList() {
     const contactSection = document.querySelectorAll('.contact-section');
     contactSection.forEach(section => {
         contacts.forEach((contact, index) => {
-            if (section.dataset.sectionLetter === contact.name.charAt(0)) {
+            if (section.dataset.sectionLetter === contact.name.charAt(0).toUpperCase()) {
                 section.innerHTML += getContactTemplate(contact, index);
             }
         });
@@ -59,7 +59,7 @@ function renderContactList() {
 function getAlphabeticList() {
     let list = [];
     contacts.forEach(contact => {
-        const letter = contact.name.charAt(0);
+        const letter = contact.name.charAt(0).toUpperCase();
         if (!list.includes(letter)) {
             list.push(letter);
         } else return;
@@ -71,7 +71,11 @@ function getAlphabeticList() {
 
 function getContactInitials(name) {
     let initials = name.split(" ");
-    initials = initials[0].charAt(0) + initials[1].charAt(0);
+    if (initials.length > 1) {
+        initials = initials[0].charAt(0) + initials[1].charAt(0);
+    } else {
+        initials = initials[0].charAt(0);
+    }
     return initials;
 }
 
