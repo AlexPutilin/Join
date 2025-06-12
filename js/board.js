@@ -57,13 +57,19 @@ function updateSubtasks(task) {
  * @param {string} status - Status of the Tasks
  * @param {string} status - corresponds to the ID
  */
-function renderTasksByStatus(status, taskList) {
+async function renderTasksByStatus(status, taskList) {
     let statusContainer = document.getElementById(status);
     statusContainer.innerHTML = "";
     let filteredStatus = taskList.filter(task => task.status === status).sort((a, b) => (a.order || 0) - (b.order || 0));
     if (filteredStatus.length === 0) {
         return updateNoTasksDisplay(status, statusContainer);
     }
+    renderFilteredTaskStatus(filteredStatus, statusContainer);
+    await updateOrderInContainer(container, status);
+}
+
+
+function renderFilteredTaskStatus(filteredStatus, statusContainer) {
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
         let subtasksLength = 0;
@@ -77,7 +83,6 @@ function renderTasksByStatus(status, taskList) {
         statusContainer.innerHTML += getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress);
     }
 }
-
 
 /**
  * @function updateNoTasksDisplay - Shows a “no tasks” message in the status column when it's empty
@@ -109,7 +114,7 @@ function calcuProgressbar(task) {
     const totalSubtaks = subtasksValue.length;
     const doneTasks = subtasksValue.filter(s => s.done).length;
     if (totalSubtaks === 0) {
-        console.log("no subtasks available");
+        console.log("no subtasks available", task.id);
         return 0;
     }
     const progress = (doneTasks / totalSubtaks) * 100;
