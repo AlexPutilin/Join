@@ -203,7 +203,9 @@ function getCreateContactDialogTemplate() {
                     </div>
                 </button>
                 <div class="contact-form-container">
-                    <img class="empty-contact-icon" src="../assets/img/icon-person-big.svg" alt="contact-picture">
+                    <div class="empty-contact-icon">
+                        <img src="../assets/img/icon-person-big.svg" alt="contact-picture">
+                    </div>
                     <form autocomplete="off" id="create-contact-form">
                         <div class="input-wrapper">
                             <label for="">Name<span class="required-mark">*</span> </label>
@@ -251,7 +253,7 @@ function getCreateContactDialogTemplate() {
 } 
 
 
-function getEditContactDialogTemplate() {
+function getEditContactDialogTemplate(contact) {
     return `
         <div class="contact-dialog" onclick="event.stopPropagation()">
             <div>
@@ -267,12 +269,12 @@ function getEditContactDialogTemplate() {
                     </div>
                 </button>
                 <div class="contact-form-container">
-                    <img class="empty-contact-icon" src="../assets/img/icon-person-big.svg" alt="contact-picture">
+                    <div class="empty-contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
                     <form autocomplete="off" id="edit-contact-form">
                         <div class="input-wrapper">
                             <label for="">Name<span class="required-mark">*</span> </label>
                             <div class="input-area">
-                                <input type="text" name="name" placeholder="Enter a name" required oninput="resetInputError()">
+                                <input type="text" name="name" placeholder="Enter a name" value="${contact.name}" required oninput="resetInputError()">
                                 <img src="../assets/img/icon-person.svg" alt="">
                             </div>
                             <span class="err-msg hidden">Invalid input.</span>
@@ -280,7 +282,7 @@ function getEditContactDialogTemplate() {
                         <div class="input-wrapper">
                             <label for="">Email</label>
                             <div class="input-area">
-                                <input type="email" name="email" placeholder="Enter a email" oninput="resetInputError()">
+                                <input type="email" name="email" placeholder="Enter a email" value="${contact.email}" oninput="resetInputError()">
                                 <img src="../assets/img/icon-mail.svg" alt="">
                             </div>
                             <span class="err-msg hidden">Invalid input.</span>
@@ -288,13 +290,13 @@ function getEditContactDialogTemplate() {
                         <div class="input-wrapper">
                             <label for="">Phone</label>
                             <div class="input-area">
-                                <input type="tel" name="phone" placeholder="Enter a phonenumber" oninput="resetInputError()">
+                                <input type="tel" name="phone" placeholder="Enter a phonenumber" value="${contact.phone}" oninput="resetInputError()">
                                 <img src="../assets/img/icon-phone.svg" alt="">
                             </div>
                             <span class="err-msg hidden">Invalid input.</span>
                         </div>
                         <div class="form-btn-container">
-                            <button class="btn-light" type="button" onclick="">
+                            <button class="btn-light" type="button" onclick="deleteContact(), toggleDialogOverlay()">
                                 <span>Delete</span>
                                 <div class="icon-wrapper">
                                     <img class="icon-default" src="../assets/img/icon-delete-default.svg">
@@ -302,7 +304,7 @@ function getEditContactDialogTemplate() {
                                     <img class="icon-active" src="../assets/img/icon-delete-default.svg">
                                 </div>
                             </button>
-                            <button class="btn-dark" type="button" onclick="">
+                            <button class="btn-dark" type="button" onclick="editContact()">
                                 <span>Save</span>
                                 <img src="../assets/img/icon-check-white.svg">
                             </button>

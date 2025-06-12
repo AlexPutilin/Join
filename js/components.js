@@ -232,7 +232,6 @@ function getInputData(form) {
                 storeTextInput(input, data);
         }
     });
-    console.log(data);
     return data; 
 }
 

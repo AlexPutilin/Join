@@ -24,6 +24,7 @@ async function loadContacts() {
     const contactData = await getData("/contacts");
     const contactIDs = Object.keys(contactData);
     contacts = [];
+    contactColorIndex = 0;
     contactIDs.forEach(id => {
         const contact = contactData[id];
         contact.id = id;
@@ -109,7 +110,7 @@ function toggleDialogOverlay(dialog = '') {
             overlay.innerHTML = getCreateContactDialogTemplate();
             break;
         case 'editContact':
-            overlay.innerHTML = getEditContactDialogTemplate();
+            overlay.innerHTML = getEditContactDialogTemplate(contacts[activeContactIndex]);
             break;
         default:
             break;
@@ -121,6 +122,7 @@ function toggleDialogOverlay(dialog = '') {
 async function deleteContact() {
     await deleteData(getContactPath());
     activeContactIndex = null;
+    contactDisplay.display.classList.add('d-none');
     await initContactPage();
 }
 
@@ -135,9 +137,9 @@ async function createNewContact() {
     if (checkFormValidation(form)) {
         const data = getInputData(form);
         await postData('/contacts', data);
+        await initContactPage();
         toggleDialogOverlay();
         activeContactIndex = null;
-        await initContactPage();
     } 
 }
 
@@ -146,9 +148,9 @@ async function editContact() {
     if (checkFormValidation(form)) {
         const data = getInputData(form);
         await updateData(`/contacts/${contacts[activeContactIndex].id}`, data);
-        toggleDialogOverlay();
-        activeContactIndex = null;
         await initContactPage();
+        showContactInformation(activeContactIndex);
+        toggleDialogOverlay();
     }
 }
 
