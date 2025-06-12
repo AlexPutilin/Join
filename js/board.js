@@ -159,18 +159,18 @@ async function updateTaskInFirebase(taskId, updatedTask) {
 }
 
 
-async function moveTo(status) {
-    console.log("Dropping task into:", status);
-    let taskIndex = allTasks.findIndex(t => t.id === currentDraggedElement);
-    if (taskIndex === -1) {
-        console.error("Task not found:", currentDraggedElement);
-        return;
-    }
-    let task = allTasks[taskIndex];
-    task.status = status;
-    await updateTaskInFirebase(task.id, task);
-    allTasks[taskIndex] = task;
-}
+// async function moveTo(status) {
+//     console.log("Dropping task into:", status);
+//     let taskIndex = allTasks.findIndex(t => t.id === currentDraggedElement);
+//     if (taskIndex === -1) {
+//         console.error("Task not found:", currentDraggedElement);
+//         return;
+//     }
+//     let task = allTasks[taskIndex];
+//     task.status = status;
+//     await updateTaskInFirebase(task.id, task);
+//     allTasks[taskIndex] = task;
+// }
 
 
 function enableTaskDragging() {
