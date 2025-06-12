@@ -1,18 +1,11 @@
 let allTasks = [];
-// let currentTasks = [];
+
 let currentDraggedElement;
 let currentSourceContainer;
 let touchClone;
 let touchCurrentTarget;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
-
-
-
-async function initBoard() {
-    // await getData('/board');
-    await tasksToArray();
-}
 
 
 function renderAllTasks(taskList = allTasks) {
@@ -34,11 +27,9 @@ async function tasksToArray() {
         allTasks.push({
             id: key,
             order: task.order ?? 0,
-            //   order: task.order || 0,
             ...task
         });
     }
-    // currentTasks = allTasks;
     renderAllTasks();
 }
 
