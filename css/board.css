@@ -507,9 +507,7 @@ aside {
 }
 
 @media (max-width: 768px) {
-    .kanban-text{
-        display: none;
-    }
+
 }
 
 @media (max-width: 576px) {}
