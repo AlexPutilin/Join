@@ -42,13 +42,21 @@ function enablePrioritySelection() {
   });
 }
 
-
+// Rendern des Category Fields & Options + Click Outside Close
 
 function renderCategoryField() {
-  const catgeoryFieldWrapper = document.getElementById('category-wrapper-template');
-  if (!catgeoryFieldWrapper) return;
-  catgeoryFieldWrapper.innerHTML = getCategoryTemplate();
+  const wrapper = document.getElementById('category-wrapper-template');
+  if (!wrapper) return;
+  wrapper.innerHTML = getCategoryTemplate();
   renderCategoryOptions();
+  setupCloseOnOutsideClick(
+    '#category-wrapper-template .input-wrapper',
+    () => {
+      const toggleButton = document
+        .querySelector('#category-wrapper-template .input-wrapper button');
+      toggleDropDown(toggleButton);
+    }
+  );
 }
 
 
@@ -61,6 +69,8 @@ function renderCategoryOptions() {
 }
 
 
+// Holt das Container-Element für die Kategorie-Optionen - leert seinen Inhalt und gibt es zurück.
+
 function getAndClearCategoryContainer() {
   const container = document.getElementById('category-options-container');
   if (!container) return null;
@@ -68,6 +78,7 @@ function getAndClearCategoryContainer() {
   return container;
 }
 
+// Category Auswahlmöglichkeiten
 
 function addCategoryOption(container, name) {
   const option = document.createElement('div');
@@ -77,7 +88,7 @@ function addCategoryOption(container, name) {
   container.appendChild(option);
 }
 
-
+// Wird aufgerufen, wenn eine Kategorie-Option angeklickt wird: Schreibt den ausgewählten Namen in das Eingabefeld, schließt das Dropdown per toggleDropDown, blendet die etwaige Fehlermeldung aus.
 
 function selectCategoryOption(optionElement) {
   const selectedValue = optionElement.innerText;
@@ -90,127 +101,235 @@ function selectCategoryOption(optionElement) {
 }
 
 
+// Farb Festlegung Contacts
+
 function getColorForContact(contactId) {
-  const hash = Array.from(contactId).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const hash = Array.from(contactId)
+    .reduce((sum, char) => sum + char.charCodeAt(0), 0);
   return randomColors[hash % randomColors.length];
 }
 
+// Rendern Assigned to: Feld
+
 
 async function renderAssignedToField() {
-  const assignedToWrapper = document.getElementById('assigned-to-wrapper-template');
-  if (!assignedToWrapper) {
+  const wrapper = document.getElementById('assigned-to-wrapper-template');
+  if (!wrapper) {
     console.warn('Assigned-to container not found');
     return;
-  } assignedToWrapper.innerHTML = getAssignedToTemplate();
+  }
+
+  wrapper.innerHTML = getAssignedToTemplate();
   const contacts = await getData('/contacts');
   if (contacts) {
     renderContacts(contacts);
   }
 
+  setupAssignedToSearch();
   setupContactSelection();
   updateAssignedToChips();
+
+
+  setupCloseOnOutsideClick(
+    '#assigned-to-wrapper-template .input-wrapper',
+    () => {
+      const toggleButton = document
+        .querySelector('#assigned-to-wrapper-template .input-wrapper button');
+      toggleDropDown(toggleButton);
+    }
+  );
 }
+
+// Liste der Contacts - Assigned To 
+
 
 function renderContacts(contactsData) {
   const dropdown = document.getElementById('contacts-dropdown');
   if (!dropdown) return;
 
   dropdown.innerHTML = '';
-
-  Object.entries(contactsData).forEach(([contactId, contactInfo]) => {
-    contactsById[contactId] = contactInfo; 
-    const contactHtml = createContactHTML(contactId, contactInfo);
-    dropdown.insertAdjacentHTML('beforeend', contactHtml);
+  Object.entries(contactsData).forEach(([id, info]) => {
+    contactsById[id] = info;
+    const html = getContactSelectionTemplate({
+      initials: getInitials(info.name),
+      name:      info.name,
+      id,
+      color:     getColorForContact(id)
+    });
+    dropdown.insertAdjacentHTML('beforeend', html);
   });
 }
-
-
-function createContactHTML(contactId, contactInfo) {
-  const initials = getInitials(contactInfo.name);
-  const color = getColorForContact(contactId);
-
-  return getContactSelectionTemplate({
-    initials,
-    name: contactInfo.name,
-    id: contactId,
-    color
-  });
-}
-
 
 
 function getInitials(name) {
-  if (!name) return "";
-  return name
+  return (name || '')
     .split(' ')
     .map(part => part.charAt(0).toUpperCase())
     .join('')
     .slice(0, 2);
 }
 
+// Such Logik - Assigned To 
 
-function setupContactSelection() {
-  document.querySelectorAll('#contacts-dropdown .select-contact .checkbox input[type="checkbox"]')
-    .forEach(input => {
-      input.addEventListener('change', updateAssignedToChips);
-    });
+
+function setupAssignedToSearch() {
+  const searchInput      = document.getElementById('assigned-input');
+  if (!searchInput) return;
+
+  searchInput.addEventListener('focus', () =>
+    performDropdownAction(searchInput, openDropDownMenu)
+  );
+
+  searchInput.addEventListener('input', () =>
+    handleSearchInput(searchInput)
+  );
+
+  document.addEventListener('click', event => {
+    if (!event.target.closest('.input-wrapper')) {
+      performDropdownAction(searchInput, closeDropDownMenu);
+    }
+  });
 }
 
 
+function handleSearchInput(input) {
+  const term      = normalize(input.value);
+  const { menu }  = getDropdownElements(input);
+  const items     = Array.from(menu.querySelectorAll('.select-contact'));
+  const hasMatch  = filterItems(items, term);
+
+  if (term.length > 0) {
+    performDropdownAction(input, openDropDownMenu);
+  }
+  if (!hasMatch && term.length > 0) {
+    performDropdownAction(input, closeDropDownMenu);
+  }
+}
+
+
+function normalize(raw) {
+  return raw.toLowerCase().trim();
+}
+
+
+function filterItems(items, term) {
+  let anyVisible = false;
+  items.forEach(item => {
+    const matches = item.innerText.toLowerCase().includes(term);
+    item.style.display = matches ? 'flex' : 'none';
+    if (matches) anyVisible = true;
+  });
+  return anyVisible;
+}
+
+// Selected Contact Logik - Assigned To 
+
+
+function setupContactSelection() {
+  const entries = Array.from(
+    document.querySelectorAll('#contacts-dropdown .select-contact')
+  );
+  entries.forEach(entry => bindEventsToEntry(entry));
+}
+
+
+function bindEventsToEntry(entry) {
+  const checkbox = entry.querySelector('input[type="checkbox"]');
+
+  checkbox.addEventListener('change', () => {
+    toggleSelectedStyle(entry, checkbox.checked);
+    updateAssignedToChips();
+  });
+
+  entry.addEventListener('click', event => {
+    const target = event.target;
+    if (target === checkbox || target.closest('label.checkbox')) return;
+    checkbox.checked = !checkbox.checked;
+    checkbox.dispatchEvent(new Event('change'));
+  });
+}
+
+
+function toggleSelectedStyle(entry, isSelected) {
+  entry.classList.toggle('selected', isSelected);
+}
+
+// DropDown Aktionen - Assigned To 
+
+
+function getDropdownElements(input) {
+  const wrapper = input.closest('.input-wrapper');
+  return {
+    menu:  wrapper.querySelector('.drop-down-menu'),
+    icons: wrapper.querySelectorAll('.icon-wrapper')
+  };
+}
+
+
+function performDropdownAction(input, action) {
+  const { menu, icons } = getDropdownElements(input);
+  action(input, menu, icons);
+}
+
+// Initial Chips und Storage - Assigned To 
+
+
 function updateAssignedToChips() {
-  const selectedIds = getCheckedContactIds();
-  renderAssignedContactChips(selectedIds);
-  storeAssignedContactIds(selectedIds);
+  const ids = getCheckedContactIds();
+  renderAssignedContactChips(ids);
+  storeAssignedContactIds(ids);
 }
 
 
 function getCheckedContactIds() {
-  const checkboxes = document.querySelectorAll(
-    '#contacts-dropdown .select-contact .checkbox input[type="checkbox"]:checked'
-  );
-  return Array.from(checkboxes).map(input => input.dataset.contactId);
+  return Array.from(
+    document.querySelectorAll(
+      '#contacts-dropdown .select-contact .checkbox input[type="checkbox"]:checked'
+    )
+  ).map(cb => cb.dataset.contactId);
 }
-
 
 
 function renderAssignedContactChips(contactIds) {
-  const chipContainer = document.getElementById('assigned-chips-container');
-  chipContainer.innerHTML = '';
-
-  contactIds.forEach(contactId => {
-    const contact = contactsById[contactId];
-    if (!contact) return;
-
-    const initials = getInitials(contact.name);
-    const color = getColorForContact(contactId);
-    const chip = createContactChip(initials, color);
-    chipContainer.appendChild(chip);
+  const container = document.getElementById('assigned-chips-container');
+  container.innerHTML = '';
+  contactIds.forEach(id => {
+    const info = contactsById[id];
+    if (!info) return;
+    const chip = createContactChip(
+      getInitials(info.name),
+      getColorForContact(id)
+    );
+    container.appendChild(chip);
   });
 }
+
 
 function storeAssignedContactIds(contactIds) {
   const input = document.getElementById('assigned-input');
   if (!input) return;
-  input.value = '';
+  input.value         = '';
   input.dataset.value = contactIds.join(',');
 }
 
-function createContactChip(initials, backgroundColor) {
+
+function createContactChip(initials, bgColor) {
   const chip = document.createElement('div');
   chip.classList.add('assigned-chip');
   chip.textContent = initials;
-  chip.style.backgroundColor = backgroundColor;
-  chip.style.color = 'white';
+  chip.style.backgroundColor = bgColor;
+  chip.style.color = '#fff';
   return chip;
 }
 
 function mapContactIdsToNames(contactIds) {
   return contactIds
-    .map(id => contactsById[id]?.name) 
-    .filter(name => Boolean(name))      
-    .join(', ');                    
+    .map(id => contactsById[id]?.name)
+    .filter(Boolean)
+    .join(', ');
 }
 
+// Subtasks 
 
 function renderSubtaskInput() {
   const subtaskWrapper = document.getElementById('subtask-wrapper-template');
@@ -307,6 +426,7 @@ async function addTask() {
   
 }
 
+// Hilfsfunktionen
 
 function showAddTaskNotification() {
   const notificationWrapper = document.createElement('div');
@@ -324,6 +444,21 @@ function showAddTaskNotification() {
 function handleTaskSaveError(error) {
   console.error("addTask: Failed to save task to Firebase:", error);
   alert("Failed to create task: " + error.message);
+}
+
+
+function setupCloseOnOutsideClick(wrapperSelector, closeFn) {
+  document.addEventListener('click', event => {
+    const wrapper = document.querySelector(wrapperSelector);
+    if (!wrapper) return;
+
+    const dropdown = wrapper.querySelector('.drop-down-menu');
+    const isOpen   = dropdown?.dataset.open === 'true';
+
+    if (isOpen && !event.target.closest(wrapperSelector)) {
+      closeFn();
+    }
+  });
 }
 
 

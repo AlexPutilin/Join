@@ -99,11 +99,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 12px;
+    padding: 10px 12px;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
     cursor: pointer;
-    border-radius: 6px;
-    transition: background-color 0.2s;
+    margin-bottom: 1px;
   }
+  
   
   .select-contact:hover {
     background-color: #f0f0f0;
@@ -140,20 +143,56 @@
     padding-right: 4px;      
   }
   
-.checkbox .icon-checkbox-default {
-  display: block;
-}
-.checkbox .icon-checkbox-checked {
-  display: none;
+  .checkbox {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .checkbox .icon-checkbox-default,
+  .checkbox .icon-checkbox-checked {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  
+  .checkbox .icon-checkbox-default {
+    opacity: 1;
+  }
+  
+  .checkbox .icon-checkbox-checked {
+    opacity: 0;
+  }
+  
+  .checkbox input:checked + .icon-checkbox-default {
+    opacity: 0;
+  }
+  
+  .checkbox input:checked + .icon-checkbox-default + .icon-checkbox-checked {
+    opacity: 1;
+  }
+
+  .checkbox:hover .icon-default,
+  .checkbox:hover .icon-hover {
+  opacity: 1 !important;
 }
 
-.checkbox input:checked + .icon-checkbox-default {
-  display: none;
-}
-.checkbox input:checked + .icon-checkbox-default + .icon-checkbox-checked {
-  display: block;
+.checkbox .icon-hover {
+  display: none !important;
 }
 
+  
 .assigned-chips {
   display: flex;
   gap: 8px;
@@ -171,36 +210,29 @@
   font-weight: bold;
 }
 
- 
-.successfully-added-notification {
-  position: fixed;
-  top: 50%; 
-  left: 50%;
-  transform: translate(-50%, 100%);
-  background-color: #1f2a44;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  gap: 0.5rem;
-  z-index: 10000;
 
-
-  animation: slideInStayOut 3s ease forwards;
+.icon-name-contact {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly; 
+  align-items: center;
+  gap: 8px; 
 }
 
-
-.successfully-added-notification img {
-  width: 1.25rem;
-  height: 1.25rem;
+.select-contact.selected {
+  background-color: #2A3647;
+  color: #fff;
+  border-radius: 10px;
 }
 
-@keyframes slideInStayOut {
-  0%   { transform: translate(-50%, 100vh); opacity: 0; }
-  10%  { transform: translate(-50%, -50%); opacity: 1; } 
-  80%  { transform: translate(-50%, -50%); opacity: 1; }
-  100% { transform: translate(-50%, 100vh); opacity: 0; }
+.select-contact.selected .contact-name {
+  color: #fff;
 }
 
+.select-contact.selected .icon-contact {
+  border-color: #fff;
+}
 
-
-
-
+.select-contact.selected .icon-wrapper img {
+  filter: brightness(0) invert(1);
+}

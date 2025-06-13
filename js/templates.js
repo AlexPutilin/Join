@@ -101,8 +101,10 @@ function getContactSelectionTemplate({ initials, name, id, color }) {
     return `
         <div class="select-contact">
             <div>
+            <div class="icon-name-contact">
             <div class="icon-contact" style="background-color: ${color}; color: white;">${initials}</div>
                 <span>${name}</span>
+            </div>
             </div>
             <label class="checkbox">
                 <input type="checkbox" hidden data-contact-id="${id}">
@@ -256,7 +258,7 @@ function getPriorityTemplate() {
           <span>Assigned to</span>
         </div>
         <div class="input-area drop-down-input">
-          <input type="text" name="assigned_to" id="assigned-input" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active=""readonly>
+          <input type="text" name="assigned_to" id="assigned-input" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active="">
           <button type="button" class="btn-small" onclick="toggleDropDown(this)">
             <div class="icon-wrapper">
               <img class="icon-default" src="../assets/img/icon-down-default.svg">
