@@ -94,6 +94,11 @@
     width: 350px;
     height: 600px;
     padding: 24px;
+    
+}
+
+.overflow-y-hide{
+    overflow-y: hidden;
 }
 
 .drag-active .placeholder-box-no-task {
