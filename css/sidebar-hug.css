@@ -14,11 +14,8 @@ nav {
 }
 
 .logo-kanban-text-wrapper {
-
     display: flex;
     align-items: center;
-
-
 }
 
 .logo-blue {
@@ -31,7 +28,6 @@ nav {
     padding-top: 64px;
     padding-left: 65.5px;
     padding-bottom: 146px;
-
 }
 
 .legal-informations-wrapper {
@@ -45,7 +41,6 @@ nav {
 }
 
 .hug {
-
     min-height: 96px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.068);
     display: flex;
@@ -87,11 +82,8 @@ nav {
     width: 100vw;
     /* height: 66px; */
     background-color: #2a3647;
-    position: relative; 
-    
+    position: relative;
     bottom: unset;
-
-
 }
 
 .navbar-mobile-wrapper {
@@ -114,22 +106,14 @@ nav {
     background-color: transparent;
 }
 
-/* @media (min-width: 1941px) and (max-width: 7680px) {
-    .hug-wrapper {
-        max-width: 1940px;
-    }
-} */
-
 @media (max-width: 1280px) {
     .logo-blue {
+        visibility: visible;
+        padding-left: 40px;
+    }
 
-    visibility: visible;
-    padding-left: 40px;
-}
     .navbar-mobile-wrapper {
         display: flex;
-
-
     }
 
     aside {
@@ -142,13 +126,13 @@ nav {
 }
 
 @media (max-width: 768px) {
-    .kanban-text{
+    .kanban-text {
         display: none;
     }
 }
 
 @media (max-width: 480px) {
     .btn-menu-mobile {
- 
-    padding: 12px;}
+        padding: 12px;
+    }
 }
