@@ -204,6 +204,13 @@ function createContactChip(initials, backgroundColor) {
   return chip;
 }
 
+function mapContactIdsToNames(contactIds) {
+  return contactIds
+    .map(id => contactsById[id]?.name) 
+    .filter(name => Boolean(name))      
+    .join(', ');                    
+}
+
 
 function renderSubtaskInput() {
   const subtaskWrapper = document.getElementById('subtask-wrapper-template');
@@ -264,8 +271,11 @@ async function saveTaskToFirebase(taskData) {
 function prepareTaskData() {
   const taskData = getInputData('#add-task-form');
   const assignedInputElement = document.getElementById('assigned-input');
-  taskData.assigned_to = assignedInputElement?.dataset?.value || "";
+  const assignedIds = (assignedInputElement?.dataset?.value || "")
+    .split(",")
+    .filter(id => id); 
 
+  taskData.assigned_to = mapContactIdsToNames(assignedIds);
   taskData.status = "to-do";
 
   const subtasks = getSubtasksFromDOM();
