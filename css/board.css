@@ -462,9 +462,7 @@ body {
         visibility: visible;
     }
 
-    .search-area-wrapper {
-        /* gap: 16px; */
-    }
+
 
     .btn-dark {
         display: none;
