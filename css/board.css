@@ -510,9 +510,17 @@ aside {
 
 }
 
-@media (max-width: 576px) {}
+@media (max-width: 576px) {
+    .board{
+        padding: 12px;
+    }
+}
 
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+        .board-head {
+        padding-left: 0;
+    }
+}
 
 @media (max-width: 350px) {}
 
