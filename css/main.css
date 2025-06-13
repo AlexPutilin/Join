@@ -53,6 +53,7 @@ main {
 /* Padding for Content in Help and Legal Notice Pages */
 .content-padding {
   padding: 80px;
+  max-width: 1600px;
 }
 
 @media (max-width: 1460px) {
