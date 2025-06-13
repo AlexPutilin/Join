@@ -17,12 +17,12 @@ h1 {
     font-size: 72px;
 }
 
-body{
+body {
     height: 100vh;
 }
 
 main {
-    
+
     display: flex;
     flex-direction: column;
     padding-left: 232px;
@@ -39,4 +39,10 @@ main {
 
 .bg-none {
     background: none;
+}
+
+.join-link {
+    color: #29abe2;
+    text-decoration: none;
+    cursor: pointer;
 }
