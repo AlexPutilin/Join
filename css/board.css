@@ -230,6 +230,12 @@ body {
     visibility: hidden;
 }
 
+.headling-add-btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .beam {
     height: 30px;
     width: 1px;
@@ -240,7 +246,7 @@ body {
 .search-area-wrapper {
     display: flex;
     align-items: center;
-
+    gap: 16px;
 }
 
 .delete-and-edit-wrapper {
@@ -457,12 +463,17 @@ body {
     }
 
     .search-area-wrapper {
-        gap: 16px;
+        /* gap: 16px; */
     }
 
-    /* .btn-dark {
-        visibility: hidden;
-    } */
+    .btn-dark {
+        display: none;
+    }
+
+    .board-head-wrapper {
+
+        flex-direction: column;
+    }
 }
 
 /* 768–1023 px 
@@ -497,7 +508,11 @@ aside {
     }
 }
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+    .kanban-text{
+        display: none;
+    }
+}
 
 @media (max-width: 576px) {}
 
