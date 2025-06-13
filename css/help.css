@@ -1,25 +1,30 @@
-.help-content{
-    padding: 80px;
+.headling-back-arrow-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.link-style{
-    color:#29abe2;
-    text-decoration: none;
+ol {
+
+  margin-left: 30px;
+
 }
 
-.headling-back-wrapper{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+li::marker {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-  ol {
-  
-    margin-left: 30px;
-    
+.enjoy-text {
+  font-size: 36px;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media (max-width: 400px) {
+  .enjoy-text {
+    justify-content: center;
   }
-
-  li::marker{
-    font-size: 18px;
-    font-weight: bold;
-  }
+}

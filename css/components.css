@@ -177,8 +177,8 @@ a:hover {
 }
 
 .menu-active {
-    color: #fff;
-    background-color: #091931;
+    color: #fff !important;
+    background-color: #091931 !important;
 }
 
 .btn-menu.menu-active .icon-default {

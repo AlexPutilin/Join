@@ -8,61 +8,64 @@
     <link rel="shortcut icon" href="../assets/img/logo.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/board.css">
     <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/board.css">
+
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
 
 
-    <script src="../js/board.js" defer></script>
+    <script src="../js/templates.js" defer></script>
     <script src="../js/api.js" defer></script>
-    <script src="../js/components.js"></script>
+    <script src="../js/components.js" defer></script>
     <script src="../js/main.js" defer></script>
+    <script src="../js/board.js" defer></script>
 </head>
 
-<body onload="initBoard()">
-    <div onclick="closeOverview()" id="overlay" class="overlay d-none"></div>
+<body onload="tasksToArray()">
+    <div onclick="closeOverlay()" id="overlay" class="overlay d-none"></div>
     <aside>
         <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
-            <button onclick="openPage('summary.html')" class="btn-menu">
-                <div class="icon-wrapper">
-                    <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
-                    <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="summary active icon">
-                </div>
-                <span>Summary</span>
-            </button>
+            <div class="navigate-btn-wrapper">
+                <button onclick="openPage('summary.html')" class="btn-menu">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                        <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="summary active icon">
+                    </div>
+                    <span>Summary</span>
+                </button>
 
-            <button onclick="openPage('addTask.html')" class="btn-menu ">
-                <div class="icon-wrapper">
-                    <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
-                    <img class="icon-active" src="../assets/img/icon-task-active.svg" alt="add task active icon">
-                </div>
-                <span>Add Task</span>
-            </button>
+                <button onclick="openPage('addTask.html')" class="btn-menu ">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                        <img class="icon-active" src="../assets/img/icon-task-active.svg" alt="add task active icon">
+                    </div>
+                    <span>Add Task</span>
+                </button>
 
-            <button onclick="openPage('board.html')" class="btn-menu menu-active btn-board">
-                <div class="icon-wrapper">
-                    <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
-                    <img class="icon-active" src="../assets/img/icon-board-active.svg" alt="board active icon">
-                </div>
-                <span>Board</span>
-            </button>
+                <button onclick="openPage('board.html')" class="btn-menu menu-active btn-board">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                        <img class="icon-active" src="../assets/img/icon-board-active.svg" alt="board active icon">
+                    </div>
+                    <span>Board</span>
+                </button>
 
-            <button onclick="openPage('contacts.html')" class="btn-menu btn-contacts">
-                <div class="icon-wrapper">
-                    <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
-                    <img class="icon-active" src="../assets/img/icon-contacts-active.svg" alt="contacts active icon">
-                </div>
-                <span>Contacts</span>
-            </button>
-
+                <button onclick="openPage('contacts.html')" class="btn-menu btn-contacts">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                        <img class="icon-active" src="../assets/img/icon-contacts-active.svg"
+                            alt="contacts active icon">
+                    </div>
+                    <span>Contacts</span>
+                </button>
+            </div>
+            <div class="legal-informations-wrapper">
+                <a class="" href="privacy-policy.html">Privacy Policy</a>
+                <a class="" href="legal-notice.html">Legal Notice</a>
+            </div>
         </nav>
-
-        <div class="legal">
-            <a class="" href="privacy-policy.html">Privacy Policy</a>
-            <a class="" href="legal-notice.html">Legal Notice</a>
-        </div>
     </aside>
     <main>
         <section class="hug">
@@ -90,7 +93,14 @@
 
                 <div class="board-head">
                     <div class="board-head-wrapper">
-                        <h1>Board</h1>
+                        <div class="headling-add-btn-wrapper">
+                            <h1>Board</h1>
+                            <button class="btn-small add-task-mobile">
+                                <img class="icon-default" src="../assets/img/icon-add-variant3-default.svg" alt="">
+                                <img class="icon-hover" src="../assets/img/icon-add-variant3-hover.svg" alt="">
+                                <img class="icon-active" src="../assets/img/icon-add-variant3-click.svg" alt="">
+                            </button>
+                        </div>
 
                         <div class="search-area-wrapper">
                             <div class="input-area">
@@ -105,10 +115,12 @@
                                     </div>
                                 </button>
                             </div>
-                            <button class="btn-dark">
+
+                            <button onload="hideBigAddTaskBtn()" id="add-task-btn" class="btn-dark">
                                 <span>Add Task</span>
                                 <img src="../assets/img/icon-add-white.svg" alt="">
                             </button>
+
                         </div>
                     </div>
                 </div>
@@ -153,6 +165,42 @@
                         <div id="done" class="drag-drop-container"></div>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section class="navbar-mobile">
+            <div class="navbar-mobile-wrapper">
+                <button onclick="openPage('summary.html')" class="btn-menu-mobile">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                        <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="summary active icon">
+                    </div>
+                    <span>Summary</span>
+                </button>
+
+                <button onclick="openPage('addTask.html')" class="btn-menu-mobile ">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                        <img class="icon-active" src="../assets/img/icon-task-active.svg" alt="add task active icon">
+                    </div>
+                    <span>Add Tasks</span>
+                </button>
+
+                <button onclick="openPage('board.html')" class="btn-menu-mobile menu-active">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                        <img class="icon-active" src="../assets/img/icon-board-active.svg" alt="board active icon">
+                    </div>
+                    <span>Board</span>
+                </button>
+
+                <button onclick="openPage('contacts.html')" class="btn-menu-mobile">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                        <img class="icon-active" src="../assets/img/icon-contacts-active.svg"
+                            alt="contacts active icon">
+                    </div>
+                    <span>Contacts</span>
+                </button>
             </div>
         </section>
     </main>
