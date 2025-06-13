@@ -46,3 +46,44 @@ main {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Padding for Content in Help and Legal Notice Pages */
+.content-padding {
+  padding: 80px;
+}
+
+@media (max-width: 1460px) {
+  .content-padding {
+    padding: 64px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .content-padding {
+    padding: 52px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .content-padding {
+    padding: 48px;
+  }
+}
+
+@media (max-width: 576px) {
+  .content-padding {
+    padding: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-padding {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 380px) {
+  .content-padding {
+    padding: 12px;
+  }
+}
