@@ -297,6 +297,7 @@ async function addTask() {
   
 }
 
+
 function showAddTaskNotification() {
   const notificationWrapper = document.createElement('div');
   notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
@@ -307,6 +308,7 @@ function showAddTaskNotification() {
     notificationElement.remove();
   });
 }
+
 
 
 function handleTaskSaveError(error) {

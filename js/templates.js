@@ -274,11 +274,11 @@ function getPriorityTemplate() {
     `;
   }
 
-  
+
 
   function getAddTaskNotificationTemplate() {
     return `
-      <div class="add-task-notification btn-dark">
+      <div class="successfully-added-notification btn-dark">
         <span>Task added to board</span>
         <img src="../assets/img/icon-board.svg" alt="Board icon">
       </div>
