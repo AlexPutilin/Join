@@ -276,28 +276,3 @@ function storeRadioInput(input, data) {
 function storeTextInput(input, data) {
     data[input.name] = input.value;
 }
-
-
-
-
-
-
-
-// BEISPIELE / NACHHER LÖSCHEN
-function onLogin() {
-    const form = '#login-form'
-    if (checkFormValidation(form)) {
-        const loginData = getInputData(form);
-        fetchData(loginData);
-        openPage('./html/summary');
-    }
-}
-
-
-function createNewContact() {
-    if (checkFormValidation('#contact-form')) {
-        const data = getFormInput();
-        pushData('contacts', data);
-        closeContactsForm();
-    }
-}

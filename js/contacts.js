@@ -147,6 +147,7 @@ async function createNewContact() {
     } 
 }
 
+
 async function editContact() {
     const form = '#edit-contact-form';
     if (checkFormValidation(form)) {
@@ -176,7 +177,7 @@ async function postData(path = "", data = {}) {
     try {
         await fetch(FIREBASE_URL + path + ".json", {
             method: "POST",
-            header: {"Content-Type": "application/json"},
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
         });
     } catch (error) {
@@ -188,8 +189,8 @@ async function updateData(path = "", data = {}) {
     try {
         await fetch(FIREBASE_URL + path + ".json", {
             method: "PUT",
-            header: {"Content-Type": "application/json"},
-            body: JSON.stringify(data)
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data),
         });
     } catch (error) {
         console.error("Error while update data in Firebase:", error);
