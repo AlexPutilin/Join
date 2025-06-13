@@ -14,3 +14,11 @@ li::marker {
   font-size: 18px;
   font-weight: bold;
 }
+
+.enjoy-text {
+  font-size: 36px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
