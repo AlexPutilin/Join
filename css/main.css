@@ -20,6 +20,8 @@ h1 {
 body {
     height: 100vh;
     width: 100vw;
+    overflow: auto;
+    background-color: #f6f7f8;
 }
 
 main {
