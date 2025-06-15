@@ -18,6 +18,40 @@ async function getData(path = "") {
     }
 }
 
+async function deleteData(path = "") {
+  try { 
+      await fetch(FIREBASE_URL + path + ".json", {
+          method: "DELETE",
+      });
+  } catch (error) {
+      console.error("Error while deleting data from Firebase:", error);
+  }
+}
+
+async function postData(path = "", data = {}) {
+  try {
+      await fetch(FIREBASE_URL + path + ".json", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(data)
+      });
+  } catch (error) {
+      console.error("Error while pushing data in Firebase:", error);
+  }
+}
+
+async function updateData(path = "", data = {}) {
+  try {
+      await fetch(FIREBASE_URL + path + ".json", {
+          method: "PUT",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(data),
+      });
+  } catch (error) {
+      console.error("Error while update data in Firebase:", error);
+  }
+}
+
 /**
  * Loads all users from the Firebase database.
  *
@@ -57,7 +91,3 @@ async function loadAllContacts() {
         return {};
     }
 }
-
-window.loadAllTasks = loadAllTasks;
-window.loadAllUsers = loadAllUsers;
-window.loadAllContacts = loadAllContacts;
