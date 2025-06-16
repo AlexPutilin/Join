@@ -164,3 +164,126 @@ function getSubtaskTemplate(name) {
         </div>
     `
 }
+
+function getSubtaskInputTemplate() {
+    return `
+      <div class="input-wrapper" id="subtask-input">
+        <div class="input-area">
+          <input type="text" placeholder="Add new subtask" data-placeholder="Add new subtask" data-placeholder-active="" oninput="toggleInputBtns(this)" onfocus="closeAllSubtaskEdits()">
+          <button type="button" class="btn-small" onclick="setInputFocus(this)">
+            <div class="icon-wrapper">
+              <img class="icon-default" src="../assets/img/icon-add-default.svg">
+              <img class="icon-hover" src="../assets/img/icon-add-hover.svg">
+            </div>
+          </button>
+          <div class="btn-collection-container d-none">
+            <button type="button" class="btn-small" onclick="resetSubtaskInput()">
+              <div class="icon-wrapper">
+                <img class="icon-default" src="../assets/img/icon-cancel-task-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-cancel-task-hover.svg">
+              </div>
+            </button>
+            <div class="btn-seperator"></div>
+            <button type="button" class="btn-small" onclick="addSubtask()">
+              <div class="icon-wrapper">
+                <img class="icon-default" src="../assets/img/icon-check-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-check-hover.svg">
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="list-subtasks"></div>
+      </div>
+    `;
+  }
+
+function getPriorityTemplate() {
+    return `
+      <div class="input-wrapper">
+        <span>Priority</span>
+        <div class="priority-buttons-wrapper">
+          <label class="priority-option urgent">
+            <input name="priority" type="radio" value="urgent" hidden>
+            <span>Urgent</span>
+            <img src="../assets/img/icon-prio-urgent.svg" alt="">
+            <div class="bg-checked"></div>
+          </label>
+          <label class="priority-option medium">
+            <input name="priority" type="radio" value="medium" hidden checked>
+            <span>Medium</span>
+            <img src="../assets/img/icon-prio-medium.svg" alt="">
+            <div class="bg-checked"></div>
+          </label>
+          <label class="priority-option low">
+            <input name="priority" type="radio" value="low" hidden>
+            <span>Low</span>
+            <img src="../assets/img/icon-prio-low.svg" alt="">
+            <div class="bg-checked"></div>
+          </label>
+        </div>
+      </div>
+    `;
+  }
+  
+  function getCategoryTemplate() {
+    return `
+      <div class="input-wrapper">
+        <div class="required-description">
+          <span>Category</span><span class="redstar">*</span>
+        </div>
+        <div class="input-area drop-down-input">
+          <input id="task-category" name="category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" readonly required oninput="resetInputError(event)">
+          <span class="err-msg hidden">This field is required.</span>
+          <button type="button" class="btn-small" onclick="toggleDropDown(this)">
+            <div class="icon-wrapper">
+              <img class="icon-default" src="../assets/img/icon-down-default.svg">
+              <img class="icon-hover"   src="../assets/img/icon-down-hover.svg">
+            </div>
+            <div class="icon-wrapper d-none">
+              <img class="icon-default" src="../assets/img/icon-up-default.svg">
+              <img class="icon-hover"   src="../assets/img/icon-up-hover.svg">
+            </div>
+          </button>
+        </div>
+        <div id="category-options-container" class="drop-down-menu d-none" data-open="false"></div>
+        <span class="err-msg hidden" id="category-error">Please select a category.</span>
+      </div>
+    `;
+  }
+
+  function getAssignedToTemplate() {
+    return `
+      <div class="input-wrapper">
+        <div class="required-description">
+          <span>Assigned to</span>
+        </div>
+        <div class="input-area drop-down-input">
+          <input type="text" name="assigned_to" id="assigned-input" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active="">
+          <button type="button" class="btn-small" onclick="toggleDropDown(this)">
+            <div class="icon-wrapper">
+              <img class="icon-default" src="../assets/img/icon-down-default.svg">
+              <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
+            </div>
+            <div class="icon-wrapper d-none">
+              <img class="icon-default" src="../assets/img/icon-up-default.svg">
+              <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
+            </div>
+          </button>
+        </div>
+        <div class="drop-down-menu d-none" data-open="false" id="contacts-dropdown"></div>
+      </div>
+      <div id="assigned-chips-container" class="assigned-chips"></div>
+    `;
+  }
+
+
+
+  function getAddTaskNotificationTemplate() {
+    return `
+      <div class="successfully-added-notification btn-dark">
+        <span>Task added to board</span>
+        <img src="../assets/img/icon-board.svg" alt="Board icon">
+      </div>
+    `;
+  }
+  
