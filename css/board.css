@@ -94,10 +94,10 @@
     width: 350px;
     height: 600px;
     padding: 24px;
-    
+
 }
 
-.overflow-y-hide{
+.overflow-y-hide {
     overflow-y: hidden;
 }
 
@@ -436,9 +436,14 @@
 
     [class^="card"] {
 
-        width: 200px;
+        width: 230px;
     }
 
+    .drop-placeholder {
+        width: 230px;
+        height: 280px;
+
+    }
 }
 
 @media (max-width: 1200px) {
@@ -505,18 +510,16 @@ aside {
     }
 }
 
-@media (max-width: 768px) {
-
-}
+@media (max-width: 768px) {}
 
 @media (max-width: 576px) {
-    .board{
+    .board {
         padding: 12px;
     }
 }
 
 @media (max-width: 480px) {
-        .board-head {
+    .board-head {
         padding-left: 0;
     }
 }
