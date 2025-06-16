@@ -17,6 +17,16 @@ h1 {
     font-size: 72px;
 }
 
+h2 {
+    font-size: 48px;
+    font-weight: 500;
+}
+
+h3 {
+    font-size: 32px;
+    font-weight: 300;
+}
+
 main {
     height: 100vh;
     display: flex;
