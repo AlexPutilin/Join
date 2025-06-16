@@ -425,7 +425,7 @@
 
     .drag-drop-container {
         display: flex;
-        /* overflow-y: scroll; */
+        overflow-x: scroll;
     }
 
     .safe-scrollbar {
