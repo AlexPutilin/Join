@@ -329,7 +329,7 @@
 
     .card {
         /* height: 250px; */
-        width: 210px;
+        width: 220px;
     }
 }
 
@@ -369,7 +369,7 @@
 
     [class^="card"] {
         padding: 16px 8px;
-        width: 180px;
+        width: 210px;
     }
 }
 
