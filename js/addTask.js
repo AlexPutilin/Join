@@ -1,4 +1,3 @@
-const contactColors = {};
 const contactsById = {};
 
 
@@ -101,25 +100,15 @@ function selectCategoryOption(optionElement) {
 }
 
 
-// Farb Festlegung Contacts
-
-function getColorForContact(contactId) {
-  const hash = Array.from(contactId)
-    .reduce((sum, char) => sum + char.charCodeAt(0), 0);
-  return randomColors[hash % randomColors.length];
-}
-
 // Rendern Assigned to: Feld
-
 
 async function renderAssignedToField() {
   const wrapper = document.getElementById('assigned-to-wrapper-template');
-  if (!wrapper) {
-    console.warn('Assigned-to container not found');
-    return;
-  }
-
+  if (!wrapper) return;
   wrapper.innerHTML = getAssignedToTemplate();
+
+  contactColorIndex = 0;
+
   const contacts = await getData('/contacts');
   if (contacts) {
     renderContacts(contacts);
@@ -128,7 +117,6 @@ async function renderAssignedToField() {
   setupAssignedToSearch();
   setupContactSelection();
   updateAssignedToChips();
-
 
   setupCloseOnOutsideClick(
     '#assigned-to-wrapper-template .input-wrapper',
@@ -140,25 +128,31 @@ async function renderAssignedToField() {
   );
 }
 
+
+
+
 // Liste der Contacts - Assigned To 
 
 
 function renderContacts(contactsData) {
   const dropdown = document.getElementById('contacts-dropdown');
   if (!dropdown) return;
-
   dropdown.innerHTML = '';
+
   Object.entries(contactsData).forEach(([id, info]) => {
     contactsById[id] = info;
+    contactsById[id].color = getContactBackgroundColor();
+
     const html = getContactSelectionTemplate({
       initials: getInitials(info.name),
       name:      info.name,
       id,
-      color:     getColorForContact(id)
+      color:     info.color  
     });
     dropdown.insertAdjacentHTML('beforeend', html);
   });
 }
+
 
 
 function getInitials(name) {
@@ -289,17 +283,15 @@ function getCheckedContactIds() {
   ).map(cb => cb.dataset.contactId);
 }
 
-
 function renderAssignedContactChips(contactIds) {
   const container = document.getElementById('assigned-chips-container');
   container.innerHTML = '';
+
   contactIds.forEach(id => {
     const info = contactsById[id];
     if (!info) return;
-    const chip = createContactChip(
-      getInitials(info.name),
-      getColorForContact(id)
-    );
+    // info.color kommt von getContactBackgroundColor()
+    const chip = createContactChip(getInitials(info.name), info.color);
     container.appendChild(chip);
   });
 }

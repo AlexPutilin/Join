@@ -87,6 +87,7 @@
     width: 100%;
     max-width: 800px;
     padding: 0 24px;  
+    
   }
 
   .clear-save-btn-pos {
@@ -137,11 +138,20 @@
   
   
   .drop-down-menu {
-    max-height: 240px;      
-    overflow-y: auto;        
-    overflow-x: hidden;      
+    position: absolute;
+    top: calc(100% + 6px);   
+    left: 0;
+    width: 100%;
+    max-height: 200px;      
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 100;            
+    background-color: #fff;  
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     padding-right: 4px;      
   }
+  
   
   .checkbox {
     position: relative;
