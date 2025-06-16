@@ -1,3 +1,9 @@
+/* in components.css oder addTask.css ganz oben */
+input {
+  min-width: 0;    /* ersetzt das feste 400px */
+}
+
+
 .add-task-form {
   display: flex;
   flex-direction: column;
@@ -246,3 +252,4 @@
 .select-contact.selected .icon-wrapper img {
   filter: brightness(0) invert(1);
 }
+
