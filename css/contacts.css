@@ -1,0 +1,239 @@
+#contacts-board {
+    height: calc(100% - 96px);
+    display: flex;
+}
+
+.contacts-container {
+    width: 456px;
+    height: 100%;
+    padding: 24px 48px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 24px;
+    background-color: #fff;
+    box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.068);
+    overflow: auto;
+}
+
+#contact-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#contact-display-container {
+    width: 100%;
+    height: 100%;
+    padding: 124px 80px;
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow-x: hidden;
+}
+
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+}
+
+.contact-section > span {
+    height: 48px;
+    border-bottom: 2px solid #ddd;
+    font-size: 20px;
+    text-indent: 42px;
+}
+
+.contact-display-header {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.contact-display-header > span {
+    font-size: 28px;
+}
+
+.seperator-blue {
+    width: 4px;
+    height: 80%;
+    background-color: #29ABE2;
+}
+
+.underline-accent {
+    width: 25%;
+    height: 4px;
+    margin-top: 16px;
+    background-color: #29ABE2;
+}
+
+.contact-display {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    animation: slide-in 0.2s ease-in-out forwards;
+}
+
+.contact-display-name-wrapper {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.contact-display-name-wrapper > .contact-icon {
+    width: auto;
+    height: 100%;
+    aspect-ratio: 1/1;
+    font-size: 48px
+}
+
+.contact-display-name-wrapper > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-display > span {
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
+.contact-information-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 20px;
+}
+
+.contact-btn-container {
+    display: flex;
+    gap: 24px;
+}
+
+#contact-display-mail {
+    font-size: 20px;
+}
+
+.contact-dialog {
+    display: flex;
+}
+
+#contact-display-name {
+    text-transform: capitalize;
+}
+
+.contact-dialog > div:nth-child(1) {
+    padding: 48px;
+    align-content: center;
+    border-radius: 24px 0 0 24px;
+    color: #fff;
+    background-color: #2A3647;
+}
+
+.contact-dialog > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 48px 48px 48px 0;
+    border-radius: 0 24px 24px 0;
+    background-color: #fff;
+}
+
+.contact-form-container {
+    display: flex;
+    align-items: center;
+    margin: 40px 0 72px 0;
+}
+
+.empty-contact-icon {
+    width: 120px;
+    height: 120px;
+    margin: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+    background-color: #d1d1d1;
+    font-size: 48px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.form-btn-container {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+/* COMPONENTS */
+.contact {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.contact:hover {
+    background-color: #F9F9F9;
+}
+
+.contact-active {
+    color: #fff;
+    background-color: #2A3647;
+}
+
+.contact-active:hover {
+    color: #fff;
+    background-color: #2A3647;
+}
+
+.contact > .contact-icon {
+    width: auto;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+
+.contact-infos {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 20px;
+}
+
+.contact-name {
+    text-transform: capitalize;
+}
+
+.contact-mail {
+    min-height: 20px;
+    font-size: 16px;
+    color: #29ABE2;
+}
+
+
+
+/* MAIN */
+.overlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    z-index: 100;
+}
+
+.logo-small {
+    width: auto;
+    height: 64px;
+}

@@ -18,6 +18,17 @@ h1 {
     font-size: 72px;
 }
 
+
+h2 {
+    font-size: 48px;
+    font-weight: 500;
+}
+
+h3 {
+    font-size: 32px;
+    font-weight: 300;
+}
+
 body {
     height: 100%;
     width: 100vw;
@@ -26,7 +37,7 @@ body {
 }
 
 main {
-
+    height: 100vh;
     display: flex;
     flex-direction: column;
     padding-left: 232px;
@@ -44,6 +55,11 @@ main {
 .bg-none {
     background: none;
 }
+
+.flex-column-layout {
+    display: flex;
+    flex-direction: column;
+
 /* Link Style for Join-Links on Help and Legal Notice Pages */
 .join-link {
     color: #29abe2;

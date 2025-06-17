@@ -47,13 +47,13 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* z-index: 9; */
+    flex-shrink: 0;
+    z-index: 99;
     background-color: #fff;
 }
 
 .hug-wrapper {
     min-width: 98%;
-    /* max-width: 1920px; */
     display: flex;
     justify-content: space-between;
 }
@@ -81,7 +81,6 @@ nav {
 /* navbar-mobile */
 .navbar-mobile {
     width: 100vw;
-    /* height: 66px; */
     background-color: #2a3647;
     position: relative;
     bottom: unset;
@@ -94,15 +93,9 @@ nav {
 }
 
 .btn-menu-mobile {
-    /* width: 100%; */
     padding: 16px;
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* gap: 4px; */
     border: 0;
     border-radius: 8px;
-    /* font-size: 20px; */
     color: #A8A8A8;
     background-color: transparent;
 }
