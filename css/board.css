@@ -94,6 +94,11 @@
     width: 350px;
     height: 600px;
     padding: 24px;
+
+}
+
+.overflow-y-hide {
+    overflow-y: hidden;
 }
 
 .drag-active .placeholder-box-no-task {
@@ -324,7 +329,7 @@
 
     .card {
         /* height: 250px; */
-        width: 210px;
+        width: 220px;
     }
 }
 
@@ -339,7 +344,7 @@
 
     .safe-scrollbar {
 
-        width: 260px;
+        width: 270px;
     }
 
     .board-content {
@@ -364,13 +369,13 @@
 
     [class^="card"] {
         padding: 16px 8px;
-        width: 180px;
+        width: 210px;
     }
 }
 
 @media (max-width: 1400px) {
     .safe-scrollbar {
-        width: 250px;
+        width: 260px;
     }
 }
 
@@ -420,20 +425,25 @@
 
     .drag-drop-container {
         display: flex;
-        /* overflow-y: scroll; */
+        overflow-x: scroll;
     }
 
     .safe-scrollbar {
-        width: 90%;
-        height: 300px;
+        width: 1100px;
+        height: 350px;
 
     }
 
     [class^="card"] {
 
-        width: 200px;
+        width: 230px;
     }
 
+    .drop-placeholder {
+        width: 230px;
+        height: 280px;
+
+    }
 }
 
 @media (max-width: 1200px) {
@@ -500,18 +510,16 @@ aside {
     }
 }
 
-@media (max-width: 768px) {
-
-}
+@media (max-width: 768px) {}
 
 @media (max-width: 576px) {
-    .board{
+    .board {
         padding: 12px;
     }
 }
 
 @media (max-width: 480px) {
-        .board-head {
+    .board-head {
         padding-left: 0;
     }
 }
