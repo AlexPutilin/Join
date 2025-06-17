@@ -5,6 +5,19 @@
     100% {transform: translateX(100vw);}
 }
 
+@keyframes slide-in {
+    from {transform: translateX(100vw);}
+    to {transform: translateX(0%);}
+}
+
+.slide-in-out {
+    animation: slide-in-out 2s ease-in-out forwards; 
+}
+
+.slide-in {
+    animation: slide-in 0.2s ease-in-out forwards; 
+}
+
 #user-feedback {
     /* position: absolute; */
     /* bottom: 124px; */
@@ -18,10 +31,6 @@
     color: #fff;
     background-color: #2A3647;
     /* transform: translateX(100vw); */
-}
-
-.slide-in-out {
-    animation: slide-in-out 2s ease-in-out forwards; 
 }
 
 button, .checkbox {
