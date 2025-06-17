@@ -367,7 +367,6 @@ textarea {
 
 .subtask-item:hover {
     border: 1px solid #D1D1D1;
-    /* background-color: #D1D1D1; */
 }
 
 .subtask-item-editmenu {
