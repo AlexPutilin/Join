@@ -123,16 +123,17 @@ function toggleDialogOverlay(dialog = '') {
 }
 
 
+function getContactPath() {
+    return `/contacts/${contacts[activeContactIndex].id}`
+}
+
+
 async function deleteContact() {
     await deleteData(getContactPath());
     activeContactIndex = null;
     contactDisplay.display.classList.add('d-none');
     await initContactPage();
-}
-
-
-function getContactPath() {
-    return `/contacts/${contacts[activeContactIndex].id}`
+    showUserFeedback("Contact succesfully deleted");
 }
 
 
@@ -144,6 +145,7 @@ async function createNewContact() {
         await initContactPage();
         toggleDialogOverlay();
         activeContactIndex = null;
+        showUserFeedback("New contact created");
     } 
 }
 
@@ -156,7 +158,20 @@ async function editContact() {
         await initContactPage();
         showContactInformation(activeContactIndex);
         toggleDialogOverlay();
+        showUserFeedback("Contact succesfully edited");
     }
+}
+
+
+function showUserFeedback(text) {
+    const userfeedback = document.getElementById('user-feedback');
+    userfeedback.innerText = text;
+    userfeedback.classList.remove('d-none');
+    userfeedback.classList.add('slide-in-out');
+    setTimeout(() => {
+        userfeedback.classList.add('d-none');
+        userfeedback.classList.remove('slide-in-out');
+    }, 2000);
 }
 
 

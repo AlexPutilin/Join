@@ -94,44 +94,48 @@
                 </div>
                 
                 <div id="contact-display-container">
-                    <div class="contact-display-header">
-                        <h1>Contacts</h1>
-                        <div class="seperator-blue"></div>
-                        <span>Better with a Team</span>
-                    </div>
-                    <div id="contact-display" class="contact-display d-none" data-contact-data="">
-                        <div class="contact-display-name-wrapper">
-                            <div id="contact-display-icon" class="contact-icon"></div>
-                            <div>
-                                <h2 id="contact-display-name"></h2>
-                                <div class="contact-btn-container">
-                                    <button class="btn-small" onclick="toggleDialogOverlay('editContact')">
-                                        <div class="icon-wrapper">
-                                            <img class="icon-default" src="../assets/img/icon-edit-default.svg">
-                                            <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
-                                        </div>
-                                        <span>Edit</span>
-                                    </button>
-                                    <button class="btn-small" onclick="deleteContact()">
-                                        <div class="icon-wrapper">
-                                            <img class="icon-default" src="../assets/img/icon-delete-default.svg">
-                                            <img class="icon-hover" src="../assets/img/icon-delet-hover-variant-2.svg">
-                                        </div>
-                                        <span>Delete</span>
-                                    </button>
+                    <div class="flex-column-layout">
+                        <div class="contact-display-header">
+                            <h1>Contacts</h1>
+                            <div class="seperator-blue"></div>
+                            <span>Better with a Team</span>
+                        </div>
+                        <div id="contact-display" class="contact-display d-none" data-contact-data="">
+                            <div class="contact-display-name-wrapper">
+                                <div id="contact-display-icon" class="contact-icon"></div>
+                                <div>
+                                    <h2 id="contact-display-name"></h2>
+                                    <div class="contact-btn-container">
+                                        <button class="btn-small" onclick="toggleDialogOverlay('editContact')">
+                                            <div class="icon-wrapper">
+                                                <img class="icon-default" src="../assets/img/icon-edit-default.svg">
+                                                <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
+                                            </div>
+                                            <span>Edit</span>
+                                        </button>
+                                        <button class="btn-small" onclick="deleteContact()">
+                                            <div class="icon-wrapper">
+                                                <img class="icon-default" src="../assets/img/icon-delete-default.svg">
+                                                <img class="icon-hover" src="../assets/img/icon-delet-hover-variant-2.svg">
+                                            </div>
+                                            <span>Delete</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <span>Contact Information</span>
-                        <div class="contact-information-wrapper">
-                            <span><b>Email</b></span>
-                            <span id="contact-display-mail" class="contact-mail"></span>
-                        </div>
-                        <div class="contact-information-wrapper">
-                            <span><b>Phone</b></span>
-                            <span id="contact-display-phone"></span>
+                            <span>Contact Information</span>
+                            <div class="contact-information-wrapper">
+                                <span><b>Email</b></span>
+                                <span id="contact-display-mail" class="contact-mail"></span>
+                            </div>
+                            <div class="contact-information-wrapper">
+                                <span><b>Phone</b></span>
+                                <span id="contact-display-phone"></span>
+                            </div>
                         </div>
                     </div>
+                    
+                    <div id="user-feedback" class="d-none"></div>
                 </div>
 
             </section>
