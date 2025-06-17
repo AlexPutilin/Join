@@ -150,20 +150,6 @@ async function updateTaskInFirebase(taskId, updatedTask) {
 }
 
 
-// async function moveTo(status) {
-//     console.log("Dropping task into:", status);
-//     let taskIndex = allTasks.findIndex(t => t.id === currentDraggedElement);
-//     if (taskIndex === -1) {
-//         console.error("Task not found:", currentDraggedElement);
-//         return;
-//     }
-//     let task = allTasks[taskIndex];
-//     task.status = status;
-//     await updateTaskInFirebase(task.id, task);
-//     allTasks[taskIndex] = task;
-// }
-
-
 function enableTaskDragging() {
     const draggables = document.querySelectorAll('.card');
     draggables.forEach(draggable => {
@@ -294,7 +280,6 @@ function enableTaskDropByStatus() {
                     dragAndDropContainer.appendChild(draggedCard);
                 }
             }
-
             // aktualisiert den verlassenen container
             if (currentSourceContainer && currentSourceContainer !== dragAndDropContainer) {
                 updateOrderInContainer(currentSourceContainer, currentSourceContainer.id);
@@ -449,8 +434,6 @@ function filterAndShowTasks(filterTask) {
 
 function hideBigAddTaskBtn() {
     const btn = document.getElementById('add-task-btn');
-
-
     if (window.innerWidth <= 1023) {
         btn.style.display = 'none';
     } else {
