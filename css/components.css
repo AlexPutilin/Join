@@ -19,9 +19,6 @@
 }
 
 #user-feedback {
-    /* position: absolute; */
-    /* bottom: 124px; */
-    /* left: 80px; */
     padding: 24px;
     border: 0;
     border-radius: 16px;
@@ -30,7 +27,6 @@
     text-align: center;
     color: #fff;
     background-color: #2A3647;
-    /* transform: translateX(100vw); */
 }
 
 button, .checkbox {
@@ -218,8 +214,8 @@ a:hover {
 }
 
 .menu-active {
-    color: #fff;
-    background-color: #091931;
+    color: #fff !important;
+    background-color: #091931 !important;
 }
 
 .btn-menu.menu-active .icon-default {

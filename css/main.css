@@ -3,6 +3,7 @@
     font-family: 'Inter';
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
 }
 
 .d-none {
@@ -17,6 +18,7 @@ h1 {
     font-size: 72px;
 }
 
+
 h2 {
     font-size: 48px;
     font-weight: 500;
@@ -25,6 +27,13 @@ h2 {
 h3 {
     font-size: 32px;
     font-weight: 300;
+}
+
+body {
+    height: 100%;
+    width: 100vw;
+    overflow: auto;
+    background-color: #f6f7f8;
 }
 
 main {
@@ -50,4 +59,52 @@ main {
 .flex-column-layout {
     display: flex;
     flex-direction: column;
+
+/* Link Style for Join-Links on Help and Legal Notice Pages */
+.join-link {
+    color: #29abe2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Padding for Content in Help and Legal Notice Pages */
+.content {
+  padding: 80px;
+  max-width: 1600px;
+}
+
+@media (max-width: 1460px) {
+  .content {
+    padding: 64px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .content {
+    padding: 52px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .content {
+    padding: 48px;
+  }
+}
+
+@media (max-width: 576px) {
+  .content {
+    padding: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 380px) {
+  .content {
+    padding: 12px;
+  }
 }

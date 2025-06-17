@@ -16,3 +16,19 @@ function openPage(url) {
 }
 
 
+/**
+ * @function eventBubblingProtection - Stops the propagation of the event to parent elements.
+ * @param {Event} event - The event object to stop from bubbling.
+ */
+function eventBubblingProtection(event) {
+    event.stopPropagation();
+}
+
+
+/**
+ * @function closeOverlay - Closes the task detail view.
+ */
+function closeOverlay() {
+    let overlayRef = document.getElementById('overlay');
+    overlayRef.classList.add('d-none');
+}
