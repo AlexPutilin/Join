@@ -26,6 +26,7 @@ a {
         max-width: 1920px;
         margin: 0 auto;
     }
+
     body {
         background-color: #f0f0f0;
     }
@@ -290,4 +291,18 @@ form>div {
         top: 36px;
         left: 20px;
     }
+}
+
+.user-feedback-overlay {
+    height: 100vh;
+    z-index: 9999;
+    position: absolute;
+    background-color: rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-feedback-overlay button {
+    width: 80%;
 }
