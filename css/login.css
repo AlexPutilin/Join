@@ -297,12 +297,20 @@ form>div {
     height: 100vh;
     z-index: 9999;
     position: absolute;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* .user-feedback-overlay.show {
+    transform: translateY(0);
+} */
+
 .user-feedback-overlay button {
     width: 80%;
+
+    /* Startposition: unterhalb des Bildschirms */
+    transform: translateY(100vh);
+    transition: transform 0.8s ease-out;
 }
