@@ -189,7 +189,7 @@ async function addNewUser() {
     let inputData = getSignupInput();
     let newUserID = await generateUID('/users');
 
-    putData(`/users/user${newUserID}`, inputData);
+    postData(`/users`, inputData);
 }
 
 
@@ -211,4 +211,42 @@ function getSignupInput() {
     });
 
     return updatedInputData[0];
+}
+
+
+
+
+// API.JS
+async function deleteData(path = "") {
+    try { 
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "DELETE",
+        });
+    } catch (error) {
+        console.error("Error while deleting data from Firebase:", error);
+    }
+}
+
+async function postData(path = "", data = {}) {
+    try {
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        });
+    } catch (error) {
+        console.error("Error while pushing data in Firebase:", error);
+    }
+}
+
+async function updateData(path = "", data = {}) {
+    try {
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data),
+        });
+    } catch (error) {
+        console.error("Error while update data in Firebase:", error);
+    }
 }
