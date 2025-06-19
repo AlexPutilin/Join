@@ -339,31 +339,6 @@ function getOverviewTemplate(task) {
                 </div>`;
 }
 
-
-/**
- * @function getPriority - Returns a priority icon based on the given priority level.
- * @param {Object} task - individual Tasks
- * @returns - individual Priority depending on the Task
- */
-function getPriority(task) {
-    if (task.priority === "urgent") {
-        return `<img src="../assets/img/icon-prio-urgent.svg" alt="icon-urgent">`;
-    } else if (task.priority === "medium") {
-        return `<img src="../assets/img/icon-prio-medium.svg" alt="icon-medium">`;
-    } else if (task.priority === "low") {
-        return `<img src="../assets/img/icon-prio-low.svg" alt="icon-low">`;
-    } else {
-        return "";
-    }
-}
-        <div class="drop-down-menu d-none" data-open="false" id="contacts-dropdown"></div>
-      </div>
-      <div id="assigned-chips-container" class="assigned-chips"></div>
-    `;
-  }
-
-
-
   function getAddTaskNotificationTemplate() {
     return `
       <div class="successfully-added-notification btn-dark">
@@ -372,4 +347,3 @@ function getPriority(task) {
       </div>
     `;
   }
-  

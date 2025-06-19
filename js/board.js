@@ -457,3 +457,4 @@ function hideBigAddTaskBtn() {
         btn.style.display = "flex";
     }
 }
+
