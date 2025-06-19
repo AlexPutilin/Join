@@ -393,8 +393,12 @@ function getAllSubtaskElements() {
 function extractSubtaskTitle(container) {
   const textSpan = container.querySelector('.subtask-name');
   if (!textSpan) return null;
-  return textSpan.textContent.trim();
+  const raw = textSpan.textContent.trim();
+  return raw.startsWith('•')
+    ? raw.slice(1).trim()
+    : raw;
 }
+
 
 
 function createSubtaskObject(title) {
