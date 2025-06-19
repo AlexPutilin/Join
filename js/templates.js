@@ -232,8 +232,7 @@ function getPriorityTemplate() {
           <span>Category</span><span class="redstar">*</span>
         </div>
         <div class="input-area drop-down-input">
-          <input id="task-category" name="category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" readonly required oninput="resetInputError(event)">
-          <span class="err-msg hidden">This field is required.</span>
+          <input id="task-category" name="category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" required oninput="resetInputError(event)">
           <button type="button" class="btn-small" onclick="toggleDropDown(this)">
             <div class="icon-wrapper">
               <img class="icon-default" src="../assets/img/icon-down-default.svg">
@@ -246,8 +245,7 @@ function getPriorityTemplate() {
           </button>
         </div>
         <div id="category-options-container" class="drop-down-menu d-none" data-open="false"></div>
-        <span class="err-msg hidden" id="category-error">Please select a category.</span>
-      </div>
+        <span class="err-msg hidden">This field is required.</span>
     `;
   }
 

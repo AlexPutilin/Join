@@ -12,6 +12,7 @@ function initializeAddTaskPage() {
 }
 
 
+
 function renderPriorityButtons() {
   const priorityWrapper = document.getElementById('priority-wrapper-template');
   if (!priorityWrapper) return;
@@ -40,6 +41,7 @@ function enablePrioritySelection() {
     });
   });
 }
+
 
 // Rendern des Category Fields & Options + Click Outside Close
 
@@ -97,6 +99,28 @@ function selectCategoryOption(optionElement) {
   const toggleBtn = categoryInput.closest('.input-wrapper').querySelector('button');
   toggleDropDown(toggleBtn);
   document.getElementById('category-error')?.classList.add('hidden');
+}
+
+
+function validateCategoryField() {
+  const input    = document.getElementById('task-category');
+  const wrapper  = input?.closest('.input-wrapper');
+  const area     = wrapper?.querySelector('.input-area');
+  const errorMsg = wrapper?.querySelector('.err-msg');
+  
+  // Falls uns falsche Struktur gebaut hast, nicht abwürgen:
+  if (!input || !area || !errorMsg) return true;
+
+  if (!input.value.trim()) {
+    area.classList.add('invalid-input');
+    errorMsg.classList.remove('hidden');
+    return false;
+  } else {
+    // beim nächsten Durchgang wieder ausblenden
+    area.classList.remove('invalid-input');
+    errorMsg.classList.add('hidden');
+    return true;
+  }
 }
 
 
@@ -227,12 +251,30 @@ function setupContactSelection() {
 }
 
 
+function closeAssignedDropdown() {
+  const input = document.getElementById('assigned-input');
+  const { menu, icons } = getDropdownElements(input);
+  closeDropDownMenu(input, menu, icons);
+}
+
+
+function handleCheckboxChange(entry) {
+  const checkbox = entry.querySelector('input[type="checkbox"]');
+  const input     = document.getElementById('assigned-input');
+
+  toggleSelectedStyle(entry, checkbox.checked);
+  updateAssignedToChips();
+
+  if (input.value.trim() !== "") {
+    closeAssignedDropdown();
+  }
+}
+
 function bindEventsToEntry(entry) {
   const checkbox = entry.querySelector('input[type="checkbox"]');
 
   checkbox.addEventListener('change', () => {
-    toggleSelectedStyle(entry, checkbox.checked);
-    updateAssignedToChips();
+    handleCheckboxChange(entry);
   });
 
   entry.addEventListener('click', event => {
@@ -290,7 +332,6 @@ function renderAssignedContactChips(contactIds) {
   contactIds.forEach(id => {
     const info = contactsById[id];
     if (!info) return;
-    // info.color kommt von getContactBackgroundColor()
     const chip = createContactChip(getInitials(info.name), info.color);
     container.appendChild(chip);
   });
@@ -400,13 +441,15 @@ function prepareTaskData() {
 
 
 async function addTask() {
-  if (!checkFormValidation('#add-task-form')) {
-    console.warn("addTask: Form validation failed.");
+  const isFormValid     = checkFormValidation('#add-task-form');
+  const isCategoryValid = validateCategoryField();
+
+  if (!isFormValid || !isCategoryValid) {
+    console.warn("addTask: Validation failed. formValid=", isFormValid, "categoryValid=", isCategoryValid);
     return;
   }
 
   const taskData = prepareTaskData();
-
   try {
     await saveTaskToFirebase(taskData);
     console.info("addTask: Task successfully saved.");
@@ -415,8 +458,8 @@ async function addTask() {
   } catch (error) {
     handleTaskSaveError(error);
   }
-  
 }
+
 
 // Hilfsfunktionen
 

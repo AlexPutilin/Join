@@ -253,3 +253,15 @@ input {
   filter: brightness(0) invert(1);
 }
 
+.input-area.invalid-input {
+  border-color: #FF3D00;
+}
+
+.err-msg {
+  font-size: 14px;
+  color: #FF3D00;
+}
+
+.err-msg.hidden {
+  visibility: hidden;
+}
