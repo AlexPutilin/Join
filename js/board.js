@@ -1,20 +1,16 @@
 let allTasks = [];
-let currentTasks = [];
+
 let currentDraggedElement;
-const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 let currentSourceContainer;
 let touchClone;
 let touchCurrentTarget;
-
-async function initBoard() {
-    // await getData('/board');
-    await tasksToArray();
-}
+const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
+const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
 
 
 function renderAllTasks(taskList = allTasks) {
     statuses.forEach(status => renderTasksByStatus(status, taskList));
-    initDragEvents();
+    enableTaskDragging();
 }
 
 
@@ -31,11 +27,9 @@ async function tasksToArray() {
         allTasks.push({
             id: key,
             order: task.order ?? 0,
-            //   order: task.order || 0,
             ...task
         });
     }
-    currentTasks = allTasks;
     renderAllTasks();
 }
 
@@ -61,6 +55,12 @@ function renderTasksByStatus(status, taskList) {
     if (filteredStatus.length === 0) {
         return updateNoTasksDisplay(status, statusContainer);
     }
+    renderFilteredTaskStatus(filteredStatus, statusContainer);
+
+}
+
+
+function renderFilteredTaskStatus(filteredStatus, statusContainer) {
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
         let subtasksLength = 0;
@@ -74,7 +74,6 @@ function renderTasksByStatus(status, taskList) {
         statusContainer.innerHTML += getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress);
     }
 }
-
 
 /**
  * @function updateNoTasksDisplay - Shows a “no tasks” message in the status column when it's empty
@@ -106,7 +105,7 @@ function calcuProgressbar(task) {
     const totalSubtaks = subtasksValue.length;
     const doneTasks = subtasksValue.filter(s => s.done).length;
     if (totalSubtaks === 0) {
-        console.log("no subtasks available");
+        console.log("no subtasks available", task.id);
         return 0;
     }
     const progress = (doneTasks / totalSubtaks) * 100;
@@ -151,29 +150,22 @@ async function updateTaskInFirebase(taskId, updatedTask) {
 }
 
 
-async function moveTo(status) {
-    console.log("Dropping task into:", status);
-    let taskIndex = allTasks.findIndex(t => t.id === currentDraggedElement);
-    if (taskIndex === -1) {
-        console.error("Task not found:", currentDraggedElement);
-        return;
-    }
-    let task = allTasks[taskIndex];
-    task.status = status;
-    await updateTaskInFirebase(task.id, task);
-    allTasks[taskIndex] = task;
-}
+// async function moveTo(status) {
+//     console.log("Dropping task into:", status);
+//     let taskIndex = allTasks.findIndex(t => t.id === currentDraggedElement);
+//     if (taskIndex === -1) {
+//         console.error("Task not found:", currentDraggedElement);
+//         return;
+//     }
+//     let task = allTasks[taskIndex];
+//     task.status = status;
+//     await updateTaskInFirebase(task.id, task);
+//     allTasks[taskIndex] = task;
+// }
 
-function initDragEvents() {
+
+function enableTaskDragging() {
     const draggables = document.querySelectorAll('.card');
-    const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
-    enableTaskDragging(draggables);
-    enableDragReordering(dragAndDropContainers);
-    enableTaskDropByStatus(dragAndDropContainers);
-}
-
-
-function enableTaskDragging(draggables) {
     draggables.forEach(draggable => {
         const placeholder = document.createElement('div');
         draggable.addEventListener('dragstart', () => {
@@ -189,6 +181,7 @@ function enableTaskDragging(draggables) {
         });
 
     });
+    enableDragReordering();
 }
 
 
@@ -214,19 +207,15 @@ function enableTaskDragging(draggables) {
 //             if (placeholder && placeholder.parentNode) {
 //                 placeholder.parentNode.insertBefore(draggable, placeholder);
 //                 placeholder.remove();
-
 //                 await updateOrderInContainer(draggable.parentNode, draggable.parentNode.id);
 //             }
-
 //             touchCurrentTarget = null;
 //         });
 //                 draggable.addEventListener('touchmove', (e) => {
 //             // e.preventDefault();
 //             updateTouchPosition(e.touches[0]);
-
 //             const touch = e.touches[0];
 //             const target = document.elementFromPoint(touch.clientX, touch.clientY);
-
 //             const dropZone = target?.closest('.drag-drop-container');
 //             const nearestTask = target?.closest('.task');
 
@@ -240,21 +229,18 @@ function enableTaskDragging(draggables) {
 //                 for (const task of allTasks) {
 //                     const taskRect = task.getBoundingClientRect();
 //                     const middleY = taskRect.top + taskRect.height / 2;
-
 //                     if (touch.clientY < middleY) {
 //                         task.parentNode.insertBefore(placeholder, task);
 //                         inserted = true;
 //                         break;
 //                     }
 //                 }
-
 //                 if (!inserted) {
 //                     dropZone.appendChild(placeholder);
 //                 }
 //             } 
 //         }, { passive: true });
 //     });
-
 // }
 
 
@@ -267,8 +253,9 @@ function enableTaskDragging(draggables) {
 // }
 
 
-function enableDragReordering(dragAndDropContainers) {
-    const placeholder = document.createElement('div');
+function enableDragReordering() {
+
+    let placeholder = document.createElement('div');
     placeholder.classList.add('drop-placeholder');
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('dragover', event => {
@@ -288,21 +275,26 @@ function enableDragReordering(dragAndDropContainers) {
             }
         });
     });
+    enableTaskDropByStatus();
 }
 
 
-function enableTaskDropByStatus(dragAndDropContainers) {
+function enableTaskDropByStatus() {
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('drop', event => {
             event.preventDefault();
             const draggedCard = document.getElementById(currentDraggedElement);
-            const placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
-            if (placeholder) {
-                dragAndDropContainer.insertBefore(draggedCard, placeholder);
-                placeholder.remove();
-            } else {
-                dragAndDropContainer.appendChild(draggedCard);
+            let placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
+
+            if (draggedCard) {
+                if (placeholder) {
+                    dragAndDropContainer.insertBefore(draggedCard, placeholder);
+                    placeholder.remove();
+                } else {
+                    dragAndDropContainer.appendChild(draggedCard);
+                }
             }
+
             // aktualisiert den verlassenen container
             if (currentSourceContainer && currentSourceContainer !== dragAndDropContainer) {
                 updateOrderInContainer(currentSourceContainer, currentSourceContainer.id);
@@ -338,7 +330,7 @@ async function updateOrderInContainer(container, status) {
         task.order = index;
         task.status = status;
         allTasks[taskIndex] = task;
-        await updateTaskInFirebase(task.id, task)
+        await updateTaskInFirebase(task.id, task);
         // console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
         renderAllTasks();
     }
@@ -358,49 +350,6 @@ function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showP
 }
 
 
-function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength) {
-    return showProgress ? `
-        <div class="task-progress-container">
-            <div class="task-progressbar">
-                <div class="task-progrssbar-content" style="width: ${calcuProgress}%;"></div>
-            </div>
-            <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
-        </div>` : '';
-}
-
-
-function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress) {
-    return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
-                <span class="label ${bgCategory}">${task.category}</span>
-                <h4 class="task-title">${task.title}</h4>
-                <span>Order: ${task.order}</span> <br>
-                <span class="task-description-short">${description_short}</span>
-                ${subtasksProgress}
-                <div class="profiles-priority-container">
-                    <div style="border: 2px solid black; border-radius: 100%; width: 32px; height: 32px;"></div>
-                    <div>${getPriority(task)}</div>
-                </div>
-            </div>`;
-}
-
-/**
- * @function getPriority - Returns a priority icon based on the given priority level.
- * @param {Object} task - individual Tasks
- * @returns - individual Priority depending on the Task
- */
-function getPriority(task) {
-    if (task.priority === "urgent") {
-        return `<img src="../assets/img/icon-prio-urgent.svg" alt="icon-urgent">`;
-    } else if (task.priority === "medium") {
-        return `<img src="../assets/img/icon-prio-medium.svg" alt="icon-medium">`;
-    } else if (task.priority === "low") {
-        return `<img src="../assets/img/icon-prio-low.svg" alt="icon-low">`;
-    } else {
-        return "";
-    }
-}
-
-
 /**
  * @function showOverview -
  * @param {string} id - 
@@ -415,76 +364,13 @@ function showOverview(id) {
 
 
 /**
- * @function getOverviewTemplate - Returns the HTML template for the task detail view.
- * @param {Object} task - The individual task object.
- * @returns {string} - HTML-Template representing the task detail view.
- */
-function getOverviewTemplate(task) {
-    const bgCategory = getBgCategory(task.category);
-    return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
-                    <div class="card-overview-header">
-                        <span class="label ${bgCategory}">${task.category}</span><br>
-                        <button onclick="closeOverview()" class="btn-small">
-                            <img class="icon-default" src="../assets/img/icon-close-default.svg">
-                            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
-                        </button>
-                    </div>
-
-                    <h2 class="task-title">${task.title}</h2><br>
-                    <span class="task-description">${task.description_full}</span><br><br>
-
-                    <div class="">
-                        <span style="padding-right: 16px;" class="font-color-grey">Due Date:</span>
-                        <span> ${task.due_date}</span>
-                    </div>
-                    <br>
-                    <div class="priority-wrapper ">
-                        <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
-                        <span style="text-transform: capitalize;"> ${task.priority} </span>
-                        ${getPriority(task)}
-                    </div>
-
-
-
-                    <br>
-                    <div>
-                        <span class="font-color-grey">Assigned To:</span>
-                        <p>
-                        
-                        </p>
-                    </div>
-                            ${getSubtasksContent(task)}
-                    <div class="delete-and-edit-wrapper">
-                        <button onclick="deleteAndUpdateTasks('${task.id}')" class="btn-small">
-                            <div class="icon-wrapper">
-                                <img class="icon-default" src="../assets/img/icon-delete-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
-                                <span>Delete</span>
-                            </div>
-                        </button>
-
-                        <div class="beam"></div>
-
-                        <button class="btn-small">
-                            <div class="icon-wrapper">
-                                <img class="icon-default" src="../assets/img/icon-edit-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
-                                <span>Edit</span>
-                            </div>   
-                        </button>
-                    </div>
-                </div>`;
-}
-
-
-/**
  * @function deleteAndUpdateTasks - Deletes a task by ID, closes overview and refreshes tasks.
  * @param {string} taskID - The ID of the task to delete.
  */
 async function deleteAndUpdateTasks(taskID) {
     console.log('delete the task with id:', taskID);
     await deleteData(`/board/tasks/${taskID}`);
-    closeOverview();
+    closeOverlay();
     await tasksToArray();
     statuses.forEach(status => {
         const container = document.getElementById(status);
@@ -501,10 +387,7 @@ async function deleteAndUpdateTasks(taskID) {
 function getSubtasksContent(task) {
     let template = getSubtasksTemplate(task);
     if (template) {
-        return `<div>
-                    <span class="font-color-grey">Subtasks:</span>
-                    ${template}
-                </div>`;
+        return `<div><span class="font-color-grey">Subtasks:</span>${template}</div>`;
     } else {
         return "";
     }
@@ -531,15 +414,6 @@ function getSubtasksTemplate(task) {
     } else {
         return "";
     }
-}
-
-
-/**
- * @function closeOverview - Closes the task detail view.
- */
-function closeOverview() {
-    let overlayRef = document.getElementById('overlay');
-    overlayRef.classList.add('d-none');
 }
 
 
@@ -573,3 +447,13 @@ function filterAndShowTasks(filterTask) {
 }
 
 
+function hideBigAddTaskBtn() {
+    const btn = document.getElementById('add-task-btn');
+
+
+    if (window.innerWidth <= 1023) {
+        btn.style.display = 'none';
+    } else {
+        btn.style.display = "flex";
+    }
+}
