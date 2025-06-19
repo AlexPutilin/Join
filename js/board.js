@@ -150,6 +150,8 @@ async function updateTaskInFirebase(taskId, updatedTask) {
 }
 
 
+
+
 function enableTaskDragging() {
     const draggables = document.querySelectorAll('.card');
     draggables.forEach(draggable => {
@@ -167,84 +169,90 @@ function enableTaskDragging() {
         });
 
     });
+    
     enableDragReordering();
+    enableTaskDraggingByTouch(draggables);
+}
+
+let placeholder = document.createElement('div');
+placeholder.classList.add('drop-placeholder');
+
+function enableTaskDraggingByTouch(draggables) {
+    draggables.forEach(draggable => {
+        draggable.addEventListener('touchstart', (e) => {
+            currentDraggedElement = draggable.id;
+            draggable.classList.add('dragging');
+            document.body.classList.add('drag-active');
+            touchClone = draggable.cloneNode(true);
+           
+            touchClone.classList.add('touch-clone');
+            document.body.appendChild(touchClone);
+
+            
+            updateTouchPosition(e.touches[0]);
+        });
+        draggable.addEventListener('touchend', async () => {
+            if (touchClone) touchClone.remove();
+            document.body.classList.remove('drag-active');
+            draggable.classList.remove('dragging');
+
+            if (placeholder && placeholder.parentNode) {
+                placeholder.parentNode.insertBefore(draggable, placeholder);
+                placeholder.remove();
+                await updateOrderInContainer(draggable.parentNode, draggable.parentNode.id);
+            }
+            touchCurrentTarget = null;
+        });
+        newFunction(draggable);
+    });
 }
 
 
-// function enableTaskDraggingByTouch(draggables) {
-//     draggables.forEach(draggable => {
-//         draggable.addEventListener('touchstart', (e) => {
-//             currentDraggedElement = draggable.id;
-//             draggable.classList.add('dragging');
-//             document.body.classList.add('drag-active');
-//             touchClone = draggable.cloneNode(true);
-//             touchClone.style.position = 'absolute';
-//             touchClone.style.pointerEvents = 'none';
-//             touchClone.style.opacity = '0.7';
-//             touchClone.style.zIndex = '1000';
-//             document.body.appendChild(touchClone);
-//             updateTouchPosition(e.touches[0]);
-//         });
-//         draggable.addEventListener('touchend', async () => {
-//             if (touchClone) touchClone.remove();
-//             document.body.classList.remove('drag-active');
-//             draggable.classList.remove('dragging');
+function newFunction(draggable) {
+    draggable.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        updateTouchPosition(e.touches[0]);
+        const touch = e.touches[0];
+        const target = document.elementFromPoint(touch.clientX, touch.clientY);
+        const dropZone = target?.closest('.drag-drop-container');
+        // const nearestTask = target?.closest('.task');
 
-//             if (placeholder && placeholder.parentNode) {
-//                 placeholder.parentNode.insertBefore(draggable, placeholder);
-//                 placeholder.remove();
-//                 await updateOrderInContainer(draggable.parentNode, draggable.parentNode.id);
-//             }
-//             touchCurrentTarget = null;
-//         });
-//                 draggable.addEventListener('touchmove', (e) => {
-//             // e.preventDefault();
-//             updateTouchPosition(e.touches[0]);
-//             const touch = e.touches[0];
-//             const target = document.elementFromPoint(touch.clientX, touch.clientY);
-//             const dropZone = target?.closest('.drag-drop-container');
-//             const nearestTask = target?.closest('.task');
+        if (dropZone) {
+            touchCurrentTarget = dropZone;
+            const allTasks = Array.from(dropZone.querySelectorAll('.task')).filter(element => element !== draggable && element !== placeholder);
+            let inserted = false;
+            for (const task of allTasks) {
+                const taskBox = task.getBoundingClientRect();
+                const middleY = taskBox.top + taskBox.height / 2;
+                if (touch.clientY < middleY) {
+                    task.parentNode.insertBefore(placeholder, task);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) {
+                dropZone.appendChild(placeholder);
+            }
+        }
+    }, { passive: true });
+}
 
-//             if (dropZone) {
-//                 touchCurrentTarget = dropZone;
-
-
-//                 const allTasks = Array.from(dropZone.querySelectorAll('.task')).filter(element => element !== draggable && element !== placeholder);
-
-//                 let inserted = false;
-//                 for (const task of allTasks) {
-//                     const taskRect = task.getBoundingClientRect();
-//                     const middleY = taskRect.top + taskRect.height / 2;
-//                     if (touch.clientY < middleY) {
-//                         task.parentNode.insertBefore(placeholder, task);
-//                         inserted = true;
-//                         break;
-//                     }
-//                 }
-//                 if (!inserted) {
-//                     dropZone.appendChild(placeholder);
-//                 }
-//             } 
-//         }, { passive: true });
-//     });
-// }
-
-
-// function updateTouchPosition(touch) {
-//     if (!touchClone) {
-//         return;
-//     }
-//     touchClone.style.left = `${touch.clientX + 1}px`;
-//     touchClone.style.top = `${touch.clientY + 1}px`;
-// }
+function updateTouchPosition(touch) {
+    if (!touchClone) {
+        return;
+    }
+    touchClone.style.left = `${touch.clientX + 10}px`;
+    touchClone.style.top = `${touch.clientY + 10}px`;
+}
 
 
 function enableDragReordering() {
 
-    let placeholder = document.createElement('div');
-    placeholder.classList.add('drop-placeholder');
+    // let placeholder = document.createElement('div');
+    // placeholder.classList.add('drop-placeholder');
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('dragover', event => {
+            console.log("dragover on", dragAndDropContainer.id);
             event.preventDefault();
             const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
             const draggable = document.querySelector('.dragging');
@@ -280,6 +288,7 @@ function enableTaskDropByStatus() {
                     dragAndDropContainer.appendChild(draggedCard);
                 }
             }
+
             // aktualisiert den verlassenen container
             if (currentSourceContainer && currentSourceContainer !== dragAndDropContainer) {
                 updateOrderInContainer(currentSourceContainer, currentSourceContainer.id);
@@ -292,12 +301,14 @@ function enableTaskDropByStatus() {
 }
 
 
+
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.card:not(.dragging):not(.drop-placeholder)')];
     let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
     for (const child of draggableElements) {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
+        // console.log(`offset for ${child.id}:`, offset);
         if (offset < 0 && offset > closest.offset) {
             closest = { offset, element: child };
         }
@@ -316,9 +327,9 @@ async function updateOrderInContainer(container, status) {
         task.status = status;
         allTasks[taskIndex] = task;
         await updateTaskInFirebase(task.id, task);
-        // console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
-        renderAllTasks();
+        console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
     }
+    renderAllTasks();
 }
 
 

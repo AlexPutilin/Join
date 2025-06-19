@@ -71,6 +71,15 @@
     border-radius: 8px;
 }
 
+.touch-clone {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.7;
+    z-index: 1000;
+    transform: translate(10px, 10px);
+}
+
+
 .drag-drop-container::-webkit-scrollbar {
     width: 10px;
 }
