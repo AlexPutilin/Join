@@ -214,6 +214,9 @@ function getSignupInput() {
 
 
 function showOverlayOnSignup() {
+    let overlayContainer = document.getElementById('overlayContainerSignedUp');
+    overlayContainer.classList.remove('d-none');
+    overlayContainer.classList.add('show');
     //-> Klasse hinzufügen "show" -> für Element "user-feedback-overlay"
     //-> setTimeout 1-2 Sekunden -> wieder ausblenden
     //-> back to login
@@ -222,7 +225,7 @@ function showOverlayOnSignup() {
 
 // API.JS
 async function deleteData(path = "") {
-    try { 
+    try {
         await fetch(FIREBASE_URL + path + ".json", {
             method: "DELETE",
         });
@@ -235,7 +238,7 @@ async function postData(path = "", data = {}) {
     try {
         await fetch(FIREBASE_URL + path + ".json", {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         });
     } catch (error) {
@@ -247,7 +250,7 @@ async function updateData(path = "", data = {}) {
     try {
         await fetch(FIREBASE_URL + path + ".json", {
             method: "PUT",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         });
     } catch (error) {
