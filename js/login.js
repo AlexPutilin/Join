@@ -133,12 +133,11 @@ function toggleCtaContainer() {
  * Signup functin -> in progress...
  */
 async function handleSignup() {
-    console.log("btn_signup enabled");
-
     if (checkFormValidation('#signup_form')) {
         if (await isUniqueEmail()) {
             if (checkPasswordValidation()) {
                 await addNewUser();
+                showOverlayOnSignup();
             } else {
                 alert('Passwörter stimmen nicht überein!')
             }
@@ -214,6 +213,11 @@ function getSignupInput() {
 }
 
 
+function showOverlayOnSignup() {
+    //-> Klasse hinzufügen "show" -> für Element "user-feedback-overlay"
+    //-> setTimeout 1-2 Sekunden -> wieder ausblenden
+    //-> back to login
+}
 
 
 // API.JS
