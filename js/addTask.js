@@ -116,7 +116,6 @@ function validateCategoryField() {
   const area     = wrapper?.querySelector('.input-area');
   const errorMsg = wrapper?.querySelector('.err-msg');
   
-  // Falls uns falsche Struktur gebaut hast, nicht abwürgen:
   if (!input || !area || !errorMsg) return true;
 
   if (!input.value.trim()) {
@@ -124,7 +123,6 @@ function validateCategoryField() {
     errorMsg.classList.remove('hidden');
     return false;
   } else {
-    // beim nächsten Durchgang wieder ausblenden
     area.classList.remove('invalid-input');
     errorMsg.classList.add('hidden');
     return true;
@@ -157,7 +155,7 @@ async function renderAssignedToField() {
         .querySelector('#assigned-to-wrapper-template .input-wrapper button');
       toggleDropDown(toggleButton);
     }
-  );
+  );  
 }
 
 
@@ -210,11 +208,6 @@ function setupAssignedToSearch() {
     handleSearchInput(searchInput)
   );
 
-  document.addEventListener('click', event => {
-    if (!event.target.closest('.input-wrapper')) {
-      performDropdownAction(searchInput, closeDropDownMenu);
-    }
-  });
 }
 
 

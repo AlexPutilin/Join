@@ -259,3 +259,11 @@
 .err-msg.hidden {
   visibility: hidden;
 }
+
+
+.input-area > input,
+.drop-down-input > input {
+  flex: 1 1 auto;  
+  width: auto;      
+  min-width: 0;      
+}

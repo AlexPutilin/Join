@@ -303,7 +303,7 @@ function getPriorityTemplate() {
           <span>Category</span><span class="redstar">*</span>
         </div>
         <div class="input-area drop-down-input">
-          <input id="task-category" name="category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" readonly required oninput="resetInputError(event)">
+          <input id="task-category" name="category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" required oninput="resetInputError(event)">
           <button type="button" class="btn-small" onclick="toggleDropDown(this)">
             <div class="icon-wrapper">
               <img class="icon-default" src="../assets/img/icon-down-default.svg">
@@ -316,8 +316,8 @@ function getPriorityTemplate() {
           </button>
         </div>
         <div id="category-options-container" class="drop-down-menu d-none" data-open="false"></div>
-        </div>
         <span class="err-msg hidden">This field is required.</span>
+        </div>
     `;
   }
 
@@ -328,7 +328,7 @@ function getPriorityTemplate() {
           <span>Assigned to</span>
         </div>
         <div class="input-area drop-down-input">
-          <input type="text" name="assigned_to" id="assigned-input" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign"/>
+          <input type="text" name="assigned_to" id="assigned-input" placeholder="Select contacts to assign" data.placeholder="Select contacts to assign" data-placeholder-active="Search Contact"/>
           <button type="button" class="btn-small" onclick="toggleDropDown(this)">
             <div class="icon-wrapper">
               <img class="icon-default" src="../assets/img/icon-down-default.svg" />
@@ -341,8 +341,8 @@ function getPriorityTemplate() {
           </button>
         </div>
         <div id="contacts-dropdown" class="drop-down-menu d-none" data-open="false"></div>
+        <div class="assigned-chips" id="assigned-chips-container"></div>
       </div>
-      <div class="assigned-chips" id="assigned-chips-container"></div>
     `;
   }
 
