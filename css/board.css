@@ -41,15 +41,24 @@
 }
 
 .single-stages {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
 
     width: 95%;
-
     font-size: 24px;
     color: #42526e;
     font-weight: 700;
-    padding: 8px 16px 8px 8px;
+    
+padding: 8px;
+
+
+    display: flex;
+    position: sticky;
+    flex-grow: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 
@@ -58,10 +67,23 @@
 
 .drag-drop-container {
     width: 98%;
-    height: 95%;
-    overflow-x: hidden;
+    height: 600px;
+    max-height: 100%;
+
     /* scrollbar-color: #2a3d59 #e3e4e5; */
     padding: 8px 0px;
+
+
+
+    display: flex;
+    z-index: 1;
+    flex: 1 1 auto;
+    flex-direction: column;
+    /* margin: 0px 4px;
+    padding: 4px; */
+    overflow-x: hidden;
+    overflow-y: auto;
+    row-gap: 8px;
 }
 
 .drop-placeholder {
@@ -116,7 +138,9 @@
 }
 
 .card {
-    width: 95%;
+    width: 90%;
+    min-width: 250px;
+    min-height: fit-content;
     border-radius: 16px;
     padding: 16px;
     margin: 4px;
@@ -415,8 +439,8 @@
         background: #2a3d59;
     }
 
- 
- 
+
+
 
     /* [class^="card"] {
 
