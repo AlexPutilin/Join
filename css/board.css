@@ -1,8 +1,13 @@
 .board {
     min-height: max-content;
-    padding: 2%;
+    padding: 1%;
     flex: 1;
     font-size: 14px;
+
+
+
+    /* test zweck */
+     border: 2px dashed red; 
 }
 
 .board-head {
