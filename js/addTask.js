@@ -1,27 +1,16 @@
 const contactsById = {};
 
 
-document.addEventListener("DOMContentLoaded", initializeAddTaskPage);
-
-/**
- * Loads all contacts from the Firebase database.
- *
- * @async
- * @function loadAllContacts
- * @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
- *                            If an error occurs, an empty object will be returned.
- */
-async function loadAllContacts() {
-  try {
-      const response = await fetch(`${FIREBASE_URL}/contacts.json`);
-      const contacts = await response.json();
-      console.log("Contacts loaded:", contacts);
-      return contacts;
-  } catch (error) {
-      console.error("Error while loading contacts:", error);
-      return {};
+document.addEventListener("DOMContentLoaded", () => {
+  const addTaskFormRoot = document.getElementById('add-task-root');
+  if (!addTaskFormRoot) {
+    console.error("#add-task-root not found!");
+    return;
   }
-}
+  addTaskFormRoot.innerHTML = getAddTaskFormTemplate();
+  initializeAddTaskPage();
+});
+
 
 function initializeAddTaskPage() {
   renderCategoryField();

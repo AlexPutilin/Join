@@ -51,7 +51,8 @@ function getSignupFormTemplate() {
                     <button class="btn-dark cta-text-mobile-sm">Sign up</button>
                 </div>
             </form>
-        </section>`;
+        </section>
+        `;
 }
 
 
@@ -83,6 +84,89 @@ function getLoginFormTemplate() {
                 </form>
             </section>`;
 }
+
+
+
+function getAddTaskFormTemplate() {
+    return `
+      <section class="add-task-form">
+        <div><h1>Add Task</h1></div>
+        <form id="add-task-form">
+          <div class="add-task-container">
+            <div class="add-task-left">
+              <div id="title-wrapper-template">
+              ${getAddTaskTitleTemplate()}
+              </div>
+  
+              <div id="description-wrapper-template">
+              ${getAddTaskDescriptionTemplate()}
+              </div>
+              <div id="due-date-wrapper-template">
+              ${getAddTaskDueDateTemplate()}
+              </div>
+            </div>
+  
+            <div class="add-task-right">
+              <div id="priority-wrapper-template">
+                ${getPriorityTemplate()}
+              </div>
+              <div id="assigned-to-wrapper-template">
+                ${getAssignedToTemplate()}
+              </div>
+              <div id="category-wrapper-template">
+                ${getCategoryTemplate()}
+              </div>
+              <div id="subtask-wrapper-template" class="subtasks-container">
+                ${getSubtaskInputTemplate()}
+              </div>
+            </div>
+          </div>
+        </form>
+        ${getaddTaskButtonsTemplate()}
+      </section>
+    `;
+  }
+  
+function getAddTaskTitleTemplate(){
+    return`
+    <div class="input-wrapper">
+    <div class="required-description">
+      <span>Title</span><span class="redstar">*</span>
+    </div>
+    <div class="input-area">
+      <input id="task-title" name="title" type="text" placeholder="Enter a title" required oninput="resetInputError()"/>
+    </div>
+    <span class="err-msg hidden">This field is required.</span>
+  </div>
+  `
+} 
+
+function getAddTaskDescriptionTemplate(){
+    return`
+    <div class="input-wrapper">
+    <span>Description</span>
+    <div class="textarea">
+      <textarea name="description_full" placeholder="Enter a description"></textarea>
+    </div>
+  </div>
+  `
+}
+
+function getAddTaskDueDateTemplate(){
+    return `              
+    <div class="input-wrapper">
+    <div class="required-description">
+      <span>Due date</span><span class="redstar">*</span>
+    </div>
+    <div class="input-area">
+      <input id="due-date" name="due_date" type="date" required/>
+    </div>
+    <span class="err-msg hidden">This field is required.</span>
+  </div>
+  `
+
+}
+  
 
 
 function getContactSelectionTemplate({ initials, name, id, color }) {
@@ -261,6 +345,34 @@ function getPriorityTemplate() {
       <div class="assigned-chips" id="assigned-chips-container"></div>
     `;
   }
+
+ 
+function getaddTaskButtonsTemplate() {
+    return `
+      <div class="clear-save-btn-wrapper">
+        <div class="clear-save-btn">
+          <div class="required-description">
+            <p class="redstar">*</p><p>This field is required</p>
+          </div>
+          <div class="clear-save-btn-pos">
+            <button type="button" class="btn-light" onclick="clearAddTaskForm()">
+              <span>Clear</span>
+              <div class="icon-wrapper">
+                <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
+                <img class="icon-hover"   src="../assets/img/icon-cancel-hover.svg">
+                <img class="icon-active"  src="../assets/img/icon-cancel-click.svg">
+              </div>
+            </button>
+            <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask()">
+              <span>Create Task</span>
+              <img src="../assets/img/icon-add-white.svg">
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
   
 
 
