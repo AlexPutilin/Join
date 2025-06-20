@@ -2,6 +2,7 @@
     min-height: max-content;
     padding: 3%;
     flex: 1;
+    font-size: 14px;
 }
 
 .board-head {
