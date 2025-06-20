@@ -142,6 +142,7 @@
 
 .task-progress-container {
     display: flex;
+    align-items: center;
     gap: 16px;
     padding: 16px 0px;
 }
