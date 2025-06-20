@@ -82,42 +82,6 @@
                 </div>
             </div>
         </section>
-        <section class="navbar-mobile">
-            <div class="navbar-mobile-wrapper">
-                <button onclick="openPage('summary.html')" class="btn-menu-mobile">
-                    <div class="">
-                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
-                        <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="summary active icon">
-                    </div>
-                    <span>Summary</span>
-                </button>
-
-                <button onclick="openPage('addTask.html')" class="btn-menu-mobile menu-active">
-                    <div class="">
-                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
-                        <img class="icon-active" src="../assets/img/icon-task-active.svg" alt="add task active icon">
-                    </div>
-                    <span>Add Tasks</span>
-                </button>
-
-                <button onclick="openPage('board.html')" class="btn-menu-mobile">
-                    <div class="">
-                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
-                        <img class="icon-active" src="../assets/img/icon-board-active.svg" alt="board active icon">
-                    </div>
-                    <span>Board</span>
-                </button>
-
-                <button onclick="openPage('contacts.html')" class="btn-menu-mobile">
-                    <div class="">
-                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
-                        <img class="icon-active" src="../assets/img/icon-contacts-active.svg"
-                            alt="contacts active icon">
-                    </div>
-                    <span>Contacts</span>
-                </button>
-            </div>
-        </section>
 
         <section class="add-task-form">
           <div><h1>Add Task</h1></div>
@@ -151,6 +115,7 @@
                   <div class="input-area">
                     <input id="due-date" name="due_date" type="date" required>
                   </div>
+                  <span class="err-msg hidden">This field is required.</span>
                 </div>
               </div>
         
@@ -193,7 +158,42 @@
           </div>
         </section>
     </main>
+    <section class="navbar-mobile">
+      <div class="navbar-mobile-wrapper">
+          <button onclick="openPage('summary.html')" class="btn-menu-mobile">
+              <div class="">
+                  <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                  <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="summary active icon">
+              </div>
+              <span>Summary</span>
+          </button>
 
+          <button onclick="openPage('addTask.html')" class="btn-menu-mobile menu-active">
+              <div class="">
+                  <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                  <img class="icon-active" src="../assets/img/icon-task-active.svg" alt="add task active icon">
+              </div>
+              <span>Add Tasks</span>
+          </button>
+
+          <button onclick="openPage('board.html')" class="btn-menu-mobile">
+              <div class="">
+                  <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                  <img class="icon-active" src="../assets/img/icon-board-active.svg" alt="board active icon">
+              </div>
+              <span>Board</span>
+          </button>
+
+          <button onclick="openPage('contacts.html')" class="btn-menu-mobile">
+              <div class="">
+                  <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                  <img class="icon-active" src="../assets/img/icon-contacts-active.svg"
+                      alt="contacts active icon">
+              </div>
+              <span>Contacts</span>
+          </button>
+      </div>
+  </section>
 </body>
 
 </html>

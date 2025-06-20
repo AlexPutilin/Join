@@ -79,7 +79,7 @@ nav {
 
 /* navbar-mobile */
 .navbar-mobile {
-    width: 100vw;
+    width: 100%;
     background-color: #2a3647;
     position: relative;
     bottom: unset;
@@ -99,7 +99,7 @@ nav {
     background-color: transparent;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 768px) {
     .logo-blue {
         visibility: visible;
         padding-left: 40px;

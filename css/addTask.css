@@ -1,9 +1,3 @@
-/* in components.css oder addTask.css ganz oben */
-input {
-  min-width: 0;    /* ersetzt das feste 400px */
-}
-
-
 .add-task-form {
   display: flex;
   flex-direction: column;
