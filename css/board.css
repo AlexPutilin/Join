@@ -1,6 +1,6 @@
 .board {
     min-height: max-content;
-    padding: 3%;
+    padding: 2%;
     flex: 1;
     font-size: 14px;
 }
@@ -142,8 +142,8 @@ padding: 8px;
     min-width: 250px;
     min-height: fit-content;
     border-radius: 16px;
-    padding: 16px;
-    margin: 4px;
+    padding: 5%;
+    margin: 1%;
     background-color: #ffffff;
     box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.08);
 }
