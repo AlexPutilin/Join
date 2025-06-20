@@ -1,8 +1,13 @@
 aside {
     width: 232px;
     background-color: #2A3647;
-    height: 100vh;
+    height: 100%;
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 64px 0px;
+    gap: 24px;
+    align-items: center;
 }
 
 nav {
@@ -10,8 +15,14 @@ nav {
     flex-direction: column;
     justify-content: space-between;
     color: #cdcdcd;
-    height: 55%;
-    max-height: 800px;
+    flex: 1;
+    width: 100%;
+}
+
+.navigate-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .logo-kanban-text-wrapper {
@@ -26,9 +37,9 @@ nav {
 }
 
 .logo-white {
-    padding-top: 64px;
-    padding-left: 65.5px;
-    padding-bottom: 146px;
+    width: 50%;
+    height: auto;
+    aspect-ratio: 1/1;
 }
 
 .legal-informations-wrapper {
@@ -115,7 +126,8 @@ nav {
     .kanban-text {
         display: none;
     }
-        .logo-blue {
+
+    .logo-blue {
         visibility: visible;
         padding-left: 40px;
     }
@@ -133,6 +145,4 @@ nav {
     }
 }
 
-@media (max-width: 480px) {
-
-}
+@media (max-width: 480px) {}
