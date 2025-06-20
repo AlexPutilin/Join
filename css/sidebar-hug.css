@@ -95,7 +95,7 @@ nav {
 
 .btn-menu-mobile {
     /* width: 100%; */
-    padding: 16px;
+    padding: 2%;
     /* display: flex; */
     /* justify-content: center; */
     /* align-items: center; */
@@ -107,8 +107,15 @@ nav {
     background-color: transparent;
 }
 
-@media (max-width: 1280px) {
-    .logo-blue {
+/* @media (max-width: 1280px) {
+
+} */
+
+@media (max-width: 768px) {
+    .kanban-text {
+        display: none;
+    }
+        .logo-blue {
         visibility: visible;
         padding-left: 40px;
     }
@@ -126,14 +133,6 @@ nav {
     }
 }
 
-@media (max-width: 768px) {
-    .kanban-text {
-        display: none;
-    }
-}
-
 @media (max-width: 480px) {
-    .btn-menu-mobile {
-        padding: 12px;
-    }
+
 }
