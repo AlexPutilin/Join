@@ -1,6 +1,6 @@
 .board {
     min-height: max-content;
-    padding: 56px;
+    padding: 3%;
     flex: 1;
 }
 
@@ -347,10 +347,6 @@
         font-size: 20px;
     }
 
-    .board {
-        padding: 40px;
-    }
-
     .safe-scrollbar {
 
         width: 270px;
@@ -364,9 +360,7 @@
 
 
 @media (max-width: 1400px) {
-    .board {
-        padding: 28px;
-    }
+  
 
     .single-stages {
         padding: 2px 4px 2px 2px;
@@ -390,10 +384,7 @@
 
 @media (max-width: 1300px) {
 
-    .board {
 
-        padding: 24px;
-    }
 }
 
 @media (max-width: 1280px) {
@@ -522,9 +513,7 @@ aside {
 @media (max-width: 768px) {}
 
 @media (max-width: 576px) {
-    .board {
-        padding: 12px;
-    }
+
 }
 
 @media (max-width: 480px) {
