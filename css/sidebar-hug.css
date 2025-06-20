@@ -6,7 +6,7 @@ aside {
     display: flex;
     flex-direction: column;
     padding: 64px 0px;
-    gap: 24px;
+    gap: 64px;
     align-items: center;
 }
 
