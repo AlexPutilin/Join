@@ -219,15 +219,14 @@ function filterItems(contactEntries, searchTerm) {
     const contactId       = checkboxElement.dataset.contactId;
     const rawName             = contactsById[contactId]?.name || '';
     const normalizedFullName  = rawName.toLowerCase().trim();
-    const extractedFirstName  = normalizedFullName.split(' ')[0];
-    const isPrefixMatch       = extractedFirstName.startsWith(searchTerm);
-    contactEntry.style.display = isPrefixMatch ? 'flex' : 'none';
-    if (isPrefixMatch) anyContactVisible = true;
+    const filterdFirstName  = normalizedFullName.split(' ')[0];
+    const nameMatch       = filterdFirstName.startsWith(searchTerm);
+    contactEntry.style.display = nameMatch ? 'flex' : 'none';
+    if (nameMatch) anyContactVisible = true;
   });
 
   return anyContactVisible;
 }
-
 
 
 // Selected Contact Logik - Assigned To 
