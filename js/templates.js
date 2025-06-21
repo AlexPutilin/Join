@@ -328,7 +328,7 @@ function getPriorityTemplate() {
           <span>Assigned to</span>
         </div>
         <div class="input-area drop-down-input">
-          <input type="text" name="assigned_to" id="assigned-input" placeholder="Select contacts to assign" data.placeholder="Select contacts to assign" data-placeholder-active="Search Contact"/>
+          <input type="text" name="assigned_to" id="assigned-input" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active="Search Contact"/>
           <button type="button" class="btn-small" onclick="toggleDropDown(this)">
             <div class="icon-wrapper">
               <img class="icon-default" src="../assets/img/icon-down-default.svg" />

@@ -156,6 +156,7 @@ async function renderAssignedToField() {
       toggleDropDown(toggleButton);
     }
   );  
+
 }
 
 
@@ -195,54 +196,41 @@ function getInitials(name) {
 
 // Such Logik - Assigned To 
 
-
 function setupAssignedToSearch() {
-  const searchInput      = document.getElementById('assigned-input');
+  const searchInput = document.getElementById('assigned-input');
   if (!searchInput) return;
 
-  searchInput.addEventListener('focus', () =>
-    performDropdownAction(searchInput, openDropDownMenu)
-  );
+  searchInput.addEventListener('input', () => {
+    const term     = searchInput.value.toLowerCase().trim();
+    const { menu } = getDropdownElements(searchInput);
+    const items    = Array.from(menu.querySelectorAll('.select-contact'));
 
-  searchInput.addEventListener('input', () =>
-    handleSearchInput(searchInput)
-  );
-
-}
-
-
-function handleSearchInput(input) {
-  const term      = normalize(input.value);
-  const { menu }  = getDropdownElements(input);
-  const items     = Array.from(menu.querySelectorAll('.select-contact'));
-  const hasMatch  = filterItems(items, term);
-
-  if (term.length > 0) {
-    performDropdownAction(input, openDropDownMenu);
-  }
-  if (!hasMatch && term.length > 0) {
-    performDropdownAction(input, closeDropDownMenu);
-  }
-}
-
-
-function normalize(raw) {
-  return raw.toLowerCase().trim();
-}
-
-
-function filterItems(items, term) {
-  let anyVisible = false;
-  items.forEach(item => {
-    const matches = item.innerText.toLowerCase().includes(term);
-    item.style.display = matches ? 'flex' : 'none';
-    if (matches) anyVisible = true;
+    filterItems(items, term);
   });
-  return anyVisible;
 }
+
+
+
+function filterItems(contactEntries, searchTerm) {
+  let anyContactVisible = false;
+
+  contactEntries.forEach(contactEntry => {
+    const checkboxElement = contactEntry.querySelector('input[type="checkbox"]');
+    const contactId       = checkboxElement.dataset.contactId;
+    const rawName             = contactsById[contactId]?.name || '';
+    const normalizedFullName  = rawName.toLowerCase().trim();
+    const extractedFirstName  = normalizedFullName.split(' ')[0];
+    const isPrefixMatch       = extractedFirstName.startsWith(searchTerm);
+    contactEntry.style.display = isPrefixMatch ? 'flex' : 'none';
+    if (isPrefixMatch) anyContactVisible = true;
+  });
+
+  return anyContactVisible;
+}
+
+
 
 // Selected Contact Logik - Assigned To 
-
 
 function setupContactSelection() {
   const entries = Array.from(
@@ -552,6 +540,8 @@ function clearChipsAndSubtasks() {
 function hideErrorMessages() {
   document.querySelectorAll('.err-msg')
     .forEach(msg => msg.classList.add('hidden'));
+  document.querySelectorAll('.input-area.invalid-input')
+    .forEach(area => area.classList.remove('invalid-input'));
 }
 
 
