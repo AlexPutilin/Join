@@ -116,7 +116,7 @@ function getAddTaskFormTemplate() {
               <div id="category-wrapper-template">
                 ${getCategoryTemplate()}
               </div>
-              <div id="subtask-wrapper-template" class="subtasks-container">
+              <div id="subtask-wrapper-template">
                 ${getSubtaskInputTemplate()}
               </div>
             </div>
@@ -239,6 +239,7 @@ function getSubtaskTemplate(name) {
 function getSubtaskInputTemplate() {
     return `
       <div class="input-wrapper" id="subtask-input">
+      <span>Subtasks</span>
         <div class="input-area">
           <input type="text" placeholder="Add new subtask" data-placeholder="Add new subtask" data-placeholder-active="" oninput="toggleInputBtns(this)" onfocus="closeAllSubtaskEdits()">
           <button type="button" class="btn-small" onclick="setInputFocus(this)">
@@ -341,8 +342,8 @@ function getPriorityTemplate() {
           </button>
         </div>
         <div id="contacts-dropdown" class="drop-down-menu d-none" data-open="false"></div>
-        <div class="assigned-chips" id="assigned-chips-container"></div>
       </div>
+      <div class="assigned-chips" id="assigned-chips-container"></div>
     `;
   }
 

@@ -4,8 +4,7 @@
   justify-content: center;
   align-items: flex-start;
   background-color: #f6f7f8;
-  min-height: 920px;
-  padding: 48px 96px;
+  padding: 48px 64px;
 }
 
 .headline{
@@ -48,6 +47,7 @@
     gap: 10px;
 }
 
+
 .subtask-btn{
     background-color: transparent;
     border: none;
@@ -80,14 +80,12 @@
   }
   
   .clear-save-btn {
-    margin-top: 64px;
+    margin-top: 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     max-width: 800px;
-    padding: 0 24px;  
-    
   }
 
   .clear-save-btn-pos {
@@ -257,7 +255,7 @@
 }
 
 .err-msg.hidden {
-  visibility: hidden;
+  display: none;
 }
 
 

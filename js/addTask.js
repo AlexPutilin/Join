@@ -540,6 +540,7 @@ function clearChipsAndSubtasks() {
 function hideErrorMessages() {
   document.querySelectorAll('.err-msg')
     .forEach(msg => msg.classList.add('hidden'));
+
   document.querySelectorAll('.input-area.invalid-input')
     .forEach(area => area.classList.remove('invalid-input'));
 }

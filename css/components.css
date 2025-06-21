@@ -286,6 +286,7 @@ textarea:focus {
 
 textarea {
     width: 100%;
+    min-height: 100px;
     resize: none;
     padding: 12px;
     outline: none;
@@ -373,12 +374,16 @@ textarea {
     height: 40px;
     padding: 0 12px;
     display: flex;
+    align-items: center;
     border-radius: 0;
     border-bottom: 1px solid #29ABE2;
     background-color: #fff;
 }
 
 .subtask-item-editmenu > input[type="text"] {
+    flex: 1 1 auto;  
+    width: auto;      
+    min-width: 0; 
     height: 100%;
     font-size: 16px;
     text-indent: 0;
