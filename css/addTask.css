@@ -267,9 +267,88 @@
   cursor: pointer;    
 }
 
+:root {
+  --disabled-btn-bg: #afafaf;
+}
 
-/* graues Aussehen, wenn disabled */
 #add-task-root button#create-task-btn:disabled {
+  background-color: var(--disabled-btn-bg);
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+#add-task-root button#create-task-btn:disabled:hover {
+  background-color: var(--disabled-btn-bg);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+
+@media (max-width: 1200px) {
+  .add-task-form {
+    padding: 36px;
+  }
+
+  .add-task-container {
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .add-task-right {
+    padding-left: 50px; 
+  }
+
+.clear-save-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  }
+
+.clear-save-btn {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  justify-content: space-between;
+  }
+ 
+}
+
+@media (max-width: 1000px) {
+  .add-task-container {
+    gap: 8px;
+  }
+
+  .add-task-right {
+    padding-left: 32px;
+  }
+
+}
+
+@media (max-width: 968px){
+  input{
+    font-size: 16px;
+  }
+
+  .btn-dark{
+    font-size: 16px;
+  }
+
+  .btn-light{
+    font-size: 16px;
+  }
+
+  textarea{
+    font-size: 16px;
+  }
+
+    .priority-option {
+      font-size: 16px;
+    }
+
+    .kanban-text {
+      padding-left: 16px;
+      font-size: 20px;
+  }
+}
+

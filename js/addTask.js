@@ -5,27 +5,29 @@
 const contactsById = {};
 
 /**
- * Initializes the Add Task page components when the DOM is fully loaded.
+ * Initializes the Add Task form when the DOM is fully loaded.
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  const addTaskFormRoot = document.getElementById('add-task-root');
+  if (!addTaskFormRoot) {
+    console.error("#add-task-root not found!");
+    return;
+  }
+  addTaskFormRoot.innerHTML = getAddTaskFormTemplate();
+  initializeAddTaskPage();
+});
+
+/**
+ * Initializes the Add Task page components.
  */
 function initializeAddTaskPage() {
-  document.addEventListener("DOMContentLoaded", () => {
-    const addTaskFormRoot = document.getElementById('add-task-root');
-    if (!addTaskFormRoot) {
-      console.error("#add-task-root not found!");
-      return;
-    }
-    addTaskFormRoot.innerHTML = getAddTaskFormTemplate();
-
-    renderCategoryField();
-    renderAssignedToField();
-    renderPriorityButtons();
-    renderSubtaskInput();
-    updateCreateButtonState();
-    setupCreateButtonListeners();
-  });
+  renderCategoryField();
+  renderAssignedToField();
+  renderPriorityButtons();
+  renderSubtaskInput();
+  setupCreateButtonListeners();
 }
 
-initializeAddTaskPage();
 
 /**
  * Sets up listeners on the task title and due date inputs to update create button state.
@@ -531,6 +533,21 @@ function getSubtasksFromDOM() {
 }
 
 /**
+ * Validates the Add Task form before submission.
+ * Checks if required fields are filled.
+ *
+ * @returns {boolean} True if the form is valid, false otherwise.
+ */
+function validateFormBeforeSubmit() {
+  const isTitleValid = !!document.getElementById('task-title')?.value.trim();
+  const isDateValid = !!document.getElementById('due-date')?.value.trim();
+  const isCategoryValid = validateCategoryField(); // schon vorhanden
+
+  return isTitleValid && isDateValid && isCategoryValid;
+}
+
+
+/**
  * Retrieves all DOM elements representing individual subtasks.
  *
  * @returns {NodeListOf<HTMLElement>} A list of subtask container elements.
@@ -591,14 +608,30 @@ function prepareTaskData() {
 
 /**
  * Handles the full task creation process:
- * validates the form, prepares data, and submits it.
+ * disables the button, validates the form, prepares data, and submits it.
  *
  * @async
  */
 async function addTask() {
-  if (!validateFormBeforeSubmit()) return;
+  const createButton = document.getElementById('create-task-btn');
+  if (createButton) {
+    createButton.disabled = true;
+    createButton.blur(); // Entfernt Hover-Farbe sofort
+  }
+
+  if (!validateFormBeforeSubmit()) {
+    if (createButton) createButton.disabled = false;
+    return;
+  }
+
   const taskData = prepareTaskData();
-  await submitTaskData(taskData);
+
+  try {
+    await submitTaskData(taskData);
+  } catch (error) {
+    // Fehlerfall: Button wieder aktivieren
+    if (createButton) createButton.disabled = false;
+  }
 }
 
 /**
@@ -611,10 +644,11 @@ async function submitTaskData(taskData) {
   try {
     await saveTaskToFirebase(taskData);
     console.info("addTask: Task successfully saved.");
-    clearAddTaskForm();
+    clearAddTaskForm();           // → aktiviert den Button erneut via initializeAddTaskPage()
     showAddTaskNotification();
   } catch (error) {
     handleTaskSaveError(error);
+    throw error; // wichtig: damit addTask() den Fehler fängt und Button reaktivieren kann
   }
 }
 
@@ -719,6 +753,7 @@ function clearAddTaskForm() {
   clearChipsAndSubtasks();
   hideErrorMessages();
   initializeAddTaskPage();
+  updateCreateButtonState();
 }
 
 /**
@@ -784,6 +819,7 @@ function clearChipsAndSubtasks() {
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
+
 
 /**
  * Hides all visible error messages and removes error highlighting from inputs.

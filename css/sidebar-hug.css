@@ -45,6 +45,7 @@ nav {
     padding: 0 24px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-shrink: 0;
     z-index: 99;
     background-color: #fff;
@@ -96,7 +97,30 @@ nav {
     background-color: transparent;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+    main{
+        padding-left: 164px;
+    }
+
+    aside{
+        width: 164px;
+    }
+    
+    .hug{
+        padding: 0 24px 0 0;
+    }
+
+    .logo-white {
+        padding-left: 32px;
+    }
+
+    .btn-menu{
+        font-size: 16px;
+    }
+
+}
+
+@media (max-width: 768px) {
     .logo-blue {
         visibility: visible;
     }
