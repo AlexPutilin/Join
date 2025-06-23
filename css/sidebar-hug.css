@@ -120,6 +120,29 @@ nav {
 
 }
 
+@media (max-width: 867px) {
+    main{
+        padding-left: 148px;
+    }
+
+    aside{
+        width: 148px;
+    }
+    
+    .hug{
+        padding: 0 24px 0 0;
+    }
+
+    .logo-white {
+        padding-left: 16px;
+    }
+
+    .btn-menu{
+        font-size: 16px;
+    }
+
+}
+
 @media (max-width: 768px) {
     .logo-blue {
         visibility: visible;
