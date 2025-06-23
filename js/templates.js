@@ -93,11 +93,11 @@ function getAddTaskFormTemplate() {
         <div><h1>Add Task</h1></div>
         <form id="add-task-form">
           <div class="add-task-container">
+
             <div class="add-task-left">
               <div id="title-wrapper-template">
               ${getAddTaskTitleTemplate()}
               </div>
-  
               <div id="description-wrapper-template">
               ${getAddTaskDescriptionTemplate()}
               </div>
