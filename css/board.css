@@ -128,7 +128,8 @@
 }
 
 .safe-scrollbar {
-    width: 100%;
+    width: 300px;
+    /* max-width: 350px; */
     height: 100%;
     padding: 1%;
 
@@ -143,7 +144,7 @@
 }
 
 .card {
-    width: 90%;
+    width: 70%;
     min-width: 250px;
     min-height: fit-content;
     border-radius: 16px;
