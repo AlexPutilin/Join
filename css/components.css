@@ -218,12 +218,12 @@ a:hover {
     background-color: #091931 !important;
 }
 
-.btn-menu.menu-active .icon-default {
+/* .btn-menu.menu-active .icon-default {
     opacity: 0;
 }
 .btn-menu.menu-active .icon-active {
     opacity: 1;
-}
+} */
 
 
 /* INPUTS / TEXTAREAS / CHECKBOX */
