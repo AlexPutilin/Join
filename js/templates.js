@@ -170,7 +170,7 @@ function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgre
                 ${subtasksProgress}
                 <div class="profiles-priority-container">
                     <div style="border: 2px solid black; border-radius: 100%; width: 32px; height: 32px;"></div>
-                    <div>${getPriority(task)}</div>
+                    ${getPriority(task)}
                 </div>
             </div>`;
 }
