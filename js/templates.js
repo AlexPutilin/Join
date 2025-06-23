@@ -156,7 +156,7 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
             <div class="task-progressbar">
                 <div class="task-progrssbar-content" style="width: ${calcuProgress}%;"></div>
             </div>
-            <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
+            <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} Subtasks</span>
         </div>` : '';
 }
 
