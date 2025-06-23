@@ -162,7 +162,7 @@
 }
 
 .task-title {
-    padding: 24px 0px 16px 0px;
+    padding: 7% 0%;
 }
 
 .task-description-short {
@@ -173,7 +173,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 16px 0px;
+    padding: 7% 0%;
 }
 
 .task-progressbar {
