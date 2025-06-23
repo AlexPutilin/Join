@@ -304,7 +304,7 @@ function getPriorityTemplate() {
           <span>Category</span><span class="redstar">*</span>
         </div>
         <div class="input-area drop-down-input">
-          <input id="task-category" name="category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Search category" required oninput="resetInputError(event)">
+          <input id="task-category" name="category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Select task category" readonly required oninput="resetInputError(event)">
           <button type="button" class="btn-small" onclick="toggleDropDown(this)">
             <div class="icon-wrapper">
               <img class="icon-default" src="../assets/img/icon-down-default.svg">
@@ -364,7 +364,7 @@ function getaddTaskButtonsTemplate() {
                 <img class="icon-active"  src="../assets/img/icon-cancel-click.svg">
               </div>
             </button>
-            <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask()">
+            <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask()" disabled>
               <span>Create Task</span>
               <img src="../assets/img/icon-add-white.svg">
             </button>

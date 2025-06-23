@@ -17,8 +17,22 @@ function initializeAddTaskPage() {
   renderAssignedToField();
   renderPriorityButtons();
   renderSubtaskInput();
+  updateCreateButtonState();
+  setupCreateButtonListeners();
 }
 
+
+function setupCreateButtonListeners() {
+  const titleInput   = document.getElementById('task-title');
+  const dueDateInput = document.getElementById('due-date');
+
+  if (titleInput) {
+    titleInput.addEventListener('input', updateCreateButtonState);
+  }
+  if (dueDateInput) {
+    dueDateInput.addEventListener('input', updateCreateButtonState);
+  }
+}
 
 
 function renderPriorityButtons() {
@@ -103,10 +117,17 @@ function selectCategoryOption(optionElement) {
   const selectedValue = optionElement.innerText;
   const categoryInput = document.getElementById('task-category');
   if (!categoryInput) return;
+
   categoryInput.value = selectedValue;
-  const toggleBtn = categoryInput.closest('.input-wrapper').querySelector('button');
+  const toggleBtn = categoryInput
+    .closest('.input-wrapper')
+    .querySelector('button');
   toggleDropDown(toggleBtn);
-  document.getElementById('category-error')?.classList.add('hidden');
+
+  document.querySelector('#category-wrapper-template .err-msg')
+    ?.classList.add('hidden');
+
+  updateCreateButtonState();
 }
 
 
@@ -133,30 +154,45 @@ function validateCategoryField() {
 // Rendern Assigned to: Feld
 
 async function renderAssignedToField() {
+  if (!injectAssignedToTemplate()) return;
+  await loadAssignedToContacts();
+  initAssignedToInteractions();
+  bindAssignedToOutsideClick();
+}
+
+
+function injectAssignedToTemplate() {
   const wrapper = document.getElementById('assigned-to-wrapper-template');
-  if (!wrapper) return;
+  if (!wrapper) return false;
   wrapper.innerHTML = getAssignedToTemplate();
+  return true;
+}
 
+
+async function loadAssignedToContacts() {
   contactColorIndex = 0;
-
   const contacts = await getData('/contacts');
   if (contacts) {
     renderContacts(contacts);
   }
+}
 
+function initAssignedToInteractions() {
   setupAssignedToSearch();
   setupContactSelection();
   updateAssignedToChips();
+}
 
+
+function bindAssignedToOutsideClick() {
   setupCloseOnOutsideClick(
     '#assigned-to-wrapper-template .input-wrapper',
     () => {
-      const toggleButton = document
+      const btn = document
         .querySelector('#assigned-to-wrapper-template .input-wrapper button');
-      toggleDropDown(toggleButton);
+      toggleDropDown(btn);
     }
-  );  
-
+  );
 }
 
 
@@ -486,6 +522,23 @@ function setupCloseOnOutsideClick(wrapperSelector, closeFn) {
       closeFn();
     }
   });
+}
+
+function updateCreateButtonState() {
+  const titleValue    = document.getElementById('task-title')?.value.trim();
+  const dueDateValue  = document.getElementById('due-date')?.value.trim();
+  const categoryValue = document.getElementById('task-category')?.value.trim();
+  const createButton  = document.getElementById('create-task-btn');
+
+  const formIsValid = Boolean(titleValue && dueDateValue && categoryValue);
+
+  if (!formIsValid) {
+    createButton.disabled = true;
+    createButton.setAttribute('title', 'Please fill out the required fields');
+  } else {
+    createButton.disabled = false;
+    createButton.removeAttribute('title');
+  }
 }
 
 
