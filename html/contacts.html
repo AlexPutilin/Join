@@ -20,7 +20,7 @@
         <script src="../js/contacts.js" defer></script>
     </head>
 
-    <body onload="initContactPage()">
+    <body onload="initContactPage()" onresize="closeMobileContactInformation()">
 
         <div id="overlay" class="overlay d-none" onclick="toggleDialogOverlay()"></div>
 
@@ -96,6 +96,8 @@
                     </button>
                     <div id="contact-list"></div>
                 </div>
+
+                <div id="contact-display-container-mobile" class="d-none"></div>
                 
                 <div id="contact-display-container">
                     <div class="flex-column-layout">

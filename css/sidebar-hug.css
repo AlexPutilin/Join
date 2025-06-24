@@ -96,7 +96,7 @@ nav {
     background-color: transparent;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 992px) {
     .logo-blue {
         visibility: visible;
     }
@@ -112,6 +112,7 @@ nav {
     main {
         padding-left: 0;
     }
+    
 }
 
 @media (max-width: 768px) {

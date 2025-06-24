@@ -162,7 +162,7 @@ function getContactSectionTemplate(letter) {
 
 function getContactTemplate(contact, index) {
     return `
-        <div class="contact" data-contact-index='${index}' onclick="addContactActiveState(this), showContactInformation(${index})">
+        <div class="contact" data-contact-index='${index}' onclick="addContactActiveState(this), showContactInformation(${index}), toggleMobileContactInformation()">
             <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
             <div class="contact-infos">
                 <span class="contact-name">${contact.name}</span>
@@ -300,6 +300,41 @@ function getEditContactDialogTemplate(contact) {
                 </div>
             </div>
         </div>
+    `
+}
+
+
+function getMobileContactInformationTemplate(contact) {
+    return `
+        <div class="flex-column-layout">
+            <div class="contact-display-closebtn-container">
+                <button class="btn-small" onclick="toggleMobileContactInformation()">
+                    <img class="icon-default" src="../assets/img/icon-back-default.svg" alt="back">
+                    <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
+                </button>
+            </div>
+            <div class="contact-display-header-mobile">
+                <h1>Contacts</h1>
+                <span>Better with a Team</span>
+                <div class="seperator-blue-horizontal"></div>
+            </div>
+            <div class="contact-display-mobile">
+                <div class="contact-display-name-wrapper">
+                    <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
+                    <h2>${contact.name}</h2>
+                </div>
+                <span>Contact Information</span>
+                <div class="contact-information-wrapper">
+                    <span><b>Email</b></span>
+                    <span class="contact-mail">${contact.email}</span>
+                </div>
+                <div class="contact-information-wrapper">
+                    <span><b>Phone</b></span>
+                    <span>${contact.phone}</span>
+                </div>
+            </div>
+        </div>
+        <div id="user-feedback" class="d-none"></div>
     `
 }
 
