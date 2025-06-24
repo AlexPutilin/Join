@@ -120,7 +120,7 @@
     width: 90%;
     min-height: fit-content;
     border-radius: 16px;
-    padding: 5%;
+    padding: 7%;
     margin: 1%;
     background-color: #ffffff;
     box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.08);
@@ -135,7 +135,7 @@
 }
 
 .task-title {
-    padding: 5% 0%;
+    padding: 7% 0%;
 }
 
 .task-description-short {
@@ -146,7 +146,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5% 0%;
+    padding: 7% 0%;
 }
 
 .task-progressbar {
