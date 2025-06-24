@@ -80,8 +80,9 @@ nav {
 .navbar-mobile {
     width: 100%;
     background-color: #2a3647;
-    /* position: relative; */
-    bottom: unset;
+    position: fixed;
+    bottom: 0;
+    z-index: 998;
 }
 
 .navbar-mobile-wrapper {
@@ -144,6 +145,10 @@ nav {
 }
 
 @media (max-width: 768px) {
+    .kanban-text {
+        display: none;
+    }
+
     .logo-blue {
         visibility: visible;
     }
@@ -158,12 +163,6 @@ nav {
 
     main {
         padding-left: 0;
-    }
-}
-
-@media (max-width: 768px) {
-    .kanban-text {
-        display: none;
     }
 }
 

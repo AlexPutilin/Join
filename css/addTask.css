@@ -285,6 +285,7 @@
 
 
 
+
 @media (max-width: 1200px) {
   .add-task-form {
     padding: 36px;
@@ -351,3 +352,162 @@
       font-size: 20px;
   }
 }
+
+@media (max-width: 867px) {
+  .add-task-form{
+    align-items: center;
+  }
+
+  .add-task-container {
+    width: 100%;
+    flex-direction: column;
+    gap: none;
+  }
+
+  .add-task-left,
+  .add-task-right {
+    padding: 0;
+    border: none;
+  }
+
+  .clear-save-btn {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .clear-save-btn-pos {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .priority-buttons-wrapper {
+    gap: 48px;
+}
+
+}
+
+@media (max-width: 768px) {
+  .add-task-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .clear-save-btn-wrapper {
+    position: fixed;
+    bottom: 82px;
+    background: #f6f7f8;
+    z-index: 999;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .add-task-form {
+    align-items: center;
+    padding-bottom: 200px;
+  }  
+
+}
+
+@media (max-width: 507px) {
+
+  .add-task-container {
+    width: 100%;
+    min-width: 450px;
+    padding: 0;
+    gap: 16px;
+  }
+
+  .priority-option{
+    justify-content: center;
+  }
+
+  .priority-buttons-wrapper {
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-task-form input,
+  .add-task-form textarea,
+  .add-task-form select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 478px){
+  .add-task-container {
+    min-width: 350px;
+  }
+
+}
+
+
+@media (max-width: 425px) {
+
+  .add-task-container {
+    min-width: 350px;
+  }
+
+  .clear-save-btn {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 375px) {
+
+  .add-task-form input,
+  .add-task-form textarea,
+  .add-task-form select {
+    font-size: 14px;
+  }
+
+  .add-task-container {
+    width: 100%;
+    min-width: 300px;
+  }
+
+  .btn-light,
+  .btn-dark {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .priority-buttons-wrapper button {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .add-task-form input,
+  .add-task-form textarea,
+  .add-task-form select {
+    font-size: 13px;
+  }
+
+  .btn-light,
+  .btn-dark {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .priority-buttons-wrapper {
+    gap: 8px;
+  }
+
+  .priority-buttons-wrapper button {
+    padding: 8px 10px;
+  }
+}
+
