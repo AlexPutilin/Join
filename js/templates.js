@@ -165,7 +165,7 @@ function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgre
     return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h4 class="task-title">${task.title}</h4>
-                <span>Order: ${task.order}</span> <br>
+                <span>Order: ${task.order}</span>
                 <span class="task-description-short">${description_short}</span>
                 ${subtasksProgress}
                 <div class="profiles-priority-container">
