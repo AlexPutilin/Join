@@ -38,7 +38,7 @@
 }
 
 .single-stages {
-    width: 90%;
+    width: 96%;
     font-size: 24px;
     color: #42526e;
     font-weight: 700;
@@ -52,18 +52,29 @@
     justify-content: space-between;
 }
 
+.stages-wrapper {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 .drag-drop-container {
     width: 100%;
     height: 600px;
     max-height: 100%;
-    padding: 8px 0px;
+    padding: 4px 0px;
     display: flex;
-    z-index: 1;
-    flex: 1 1 auto;
+    /* z-index: 1;
+    flex: 1 1 auto; */
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
     row-gap: 8px;
+
+    display: flex;
+    align-items: center;
 }
 
 .drop-placeholder {
@@ -117,7 +128,7 @@
 }
 
 .card {
-    width: 90%;
+    width: 290px;
     min-height: fit-content;
     border-radius: 16px;
     padding: 7%;
@@ -286,23 +297,34 @@
 @media (min-width: 1941px) and (max-width: 2251px) {}
 
 @media (max-width: 1800px) {
-    .safe-scrollbar {
+    /* .safe-scrollbar {
         padding: 12px;
         width: 300px;
-    }
+    } */
+
 }
 
 @media (max-width: 1650px) {
     .single-stages {
+        width: 260px;
         font-size: 22px;
+    }
+
+    .card {
+        width: 250px;
     }
 }
 
 @media (max-width: 1530px) {}
 
-@media (max-width: 1440px) {
+@media (max-width: 1441px) {
     .single-stages {
+        width: 215px;
         font-size: 20px;
+    }
+
+    .card {
+        width: 200px;
     }
 
     .board-content {
@@ -310,26 +332,40 @@
     }
 }
 
+@media (max-width: 1440px) {
+    .drag-drop-container {
+        width: 95%;
+    }
 
-@media (max-width: 1400px) {
     .no-tasks-text {
         font-size: 16px;
     }
 }
 
+@media (max-width: 1400px) {}
+
 @media (max-width: 1300px) {}
 
 @media (max-width: 1280px) {
-    .board-navigation {
+    /* .board-navigation {
         overflow-x: auto;
     }
 
     .board-content {
         min-width: 1200px;
-    }
+    } */
 
     .board-head {
         padding-left: 16px;
+    }
+
+    .single-stages {
+        width: 190px;
+        font-size: 18px;
+    }
+
+    .card {
+        width: 160px;
     }
 
     .board-navigation::-webkit-scrollbar {
@@ -357,8 +393,6 @@
     .task-progressbar-quotient {
         font-size: 10px;
     }
-
-
 }
 
 @media (max-width: 1200px) {}
@@ -385,6 +419,26 @@
 
     .board-head-wrapper {
         flex-direction: column;
+    }
+}
+
+@media (max-width:1152px) {
+    .safe-scrollbar {
+        padding: 0;
+    }
+
+    .board {
+        padding: 0;
+    }
+}
+
+@media (max-width: 1023px) {
+    .card {
+        width: 180px;
+    }
+
+    .board {
+        max-width: 100vw;
     }
 }
 
