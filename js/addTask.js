@@ -608,30 +608,14 @@ function prepareTaskData() {
 
 /**
  * Handles the full task creation process:
- * disables the button, validates the form, prepares data, and submits it.
+ * validates the form, prepares data, and submits it.
  *
  * @async
  */
 async function addTask() {
-  const createButton = document.getElementById('create-task-btn');
-  if (createButton) {
-    createButton.disabled = true;
-    createButton.blur(); // Entfernt Hover-Farbe sofort
-  }
-
-  if (!validateFormBeforeSubmit()) {
-    if (createButton) createButton.disabled = false;
-    return;
-  }
-
+  if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData();
-
-  try {
-    await submitTaskData(taskData);
-  } catch (error) {
-    // Fehlerfall: Button wieder aktivieren
-    if (createButton) createButton.disabled = false;
-  }
+  await submitTaskData(taskData);
 }
 
 /**
@@ -644,11 +628,10 @@ async function submitTaskData(taskData) {
   try {
     await saveTaskToFirebase(taskData);
     console.info("addTask: Task successfully saved.");
-    clearAddTaskForm();           // → aktiviert den Button erneut via initializeAddTaskPage()
+    clearAddTaskForm();
     showAddTaskNotification();
   } catch (error) {
     handleTaskSaveError(error);
-    throw error; // wichtig: damit addTask() den Fehler fängt und Button reaktivieren kann
   }
 }
 
@@ -835,9 +818,4 @@ function hideErrorMessages() {
     });
 }
 
-
-
-
-
-  
   

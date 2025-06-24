@@ -90,7 +90,7 @@ function getLoginFormTemplate() {
 function getAddTaskFormTemplate() {
     return `
       <section class="add-task-form">
-        <div><h1>Add Task</h1></div>
+        <div class="mobile-h1"><h1>Add Task</h1></div>
         <form id="add-task-form">
           <div class="add-task-container">
 
@@ -265,6 +265,9 @@ function getSubtaskInputTemplate() {
           </div>
         </div>
         <div class="list-subtasks"></div>
+        <div class="required-description form-error-mobile-visible">
+        <p class="redstar">*</p><p>This field is required</p>
+      </div>
       </div>
     `;
   }
@@ -352,7 +355,7 @@ function getaddTaskButtonsTemplate() {
     return `
       <div class="clear-save-btn-wrapper">
         <div class="clear-save-btn">
-          <div class="required-description">
+          <div class="required-description form-error-desktop-visible">
             <p class="redstar">*</p><p>This field is required</p>
           </div>
           <div class="clear-save-btn-pos">

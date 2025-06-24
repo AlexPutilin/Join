@@ -6,7 +6,7 @@
 }
 
 body{
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .d-none {
@@ -44,6 +44,7 @@ main {
     flex-direction: column;
     padding-left: 232px;
     background-color: #F6F7F8;
+    overflow-y: auto;
 }
 
 .overlay {
