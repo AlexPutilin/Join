@@ -418,7 +418,7 @@ function getSubtasksTemplate(task) {
  * @param {Object} task - individual Tasks
  */
 function getShortenedDescription(task) {
-    let maxLength = 45;
+    let maxLength = 30;
     if (task.description_full.length > maxLength) {
         return task.description_full.substring(0, maxLength) + "...";
     } else {
