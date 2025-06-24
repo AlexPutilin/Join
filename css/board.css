@@ -303,13 +303,13 @@
 
 @media (max-width: 1530px) {}
 
-@media (max-width: 1460px) {
+@media (max-width: 1440px) {
     .single-stages {
         font-size: 20px;
     }
 
     .board-content {
-        min-width: 1000px;
+        font-size: 14px;
     }
 }
 
@@ -327,7 +327,6 @@
 @media (max-width: 1300px) {}
 
 @media (max-width: 1280px) {
-
     .board-navigation {
         overflow-x: auto;
     }
@@ -361,6 +360,12 @@
     .drag-drop-container {
         height: 500px;
     }
+
+    .task-progressbar-quotient {
+        font-size: 10px;
+    }
+
+
 }
 
 @media (max-width: 1200px) {}
