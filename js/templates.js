@@ -90,7 +90,9 @@ function getLoginFormTemplate() {
 function getAddTaskFormTemplate() {
     return `
       <section class="add-task-form">
-        <div class="mobile-h1"><h1>Add Task</h1></div>
+      <div class="mobile-h1">
+        <div><h1>Add Task</h1></div>
+        </div>
         <form id="add-task-form">
           <div class="add-task-container">
 

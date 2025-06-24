@@ -462,3 +462,31 @@ input[type="checkbox"] {
     100% { transform: translate(-50%, 100vh); opacity: 0; }
   }
 
+  @media (max-width: 768px) {
+    .successfully-added-notification {
+      font-size: 18px;
+      padding: 16px 28px;
+      min-width: 240px;
+      border-radius: 10px;
+    }
+  
+    .successfully-added-notification img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    .successfully-added-notification {
+      font-size: 20px;
+      padding: 20px 36px;
+    }
+  
+    .successfully-added-notification img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+
