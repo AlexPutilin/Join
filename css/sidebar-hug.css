@@ -118,9 +118,25 @@ nav {
     background-color: transparent;
 }
 
-@media (max-width: 1023px) {
-  
+@media (max-width: 1650px) {
+    .single-stages {
+        font-size: 22px;
+    }
+}
 
+/* @media (max-width: 1441px) {
+    .kanban-text {
+        font-size: 21px;
+    }
+} */
+
+@media (max-width: 1280px) {
+    .kanban-text {
+        font-size: 21px;
+    }
+}
+
+@media (max-width: 1023px) {
     .logo-blue {
         visibility: visible;
         padding-left: 40px;
@@ -139,8 +155,9 @@ nav {
     }
 }
 
+@media (max-width: 768px) {}
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     .kanban-text {
         display: none;
     }
