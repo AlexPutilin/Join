@@ -42,7 +42,7 @@ nav {
 .hug {
     min-height: 96px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.068);
-    padding: 0 24px;
+    padding: 0 40px;
     display: flex;
     align-items: center;
     flex-shrink: 0;
@@ -121,8 +121,17 @@ nav {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 476px) {
     .btn-menu-mobile {
         padding: 12px;
+    }
+
+    .hug {
+        min-height: 74px;
+        padding: 0 16px;
+    }
+
+    .logo-blue {
+        height: 32px;
     }
 }

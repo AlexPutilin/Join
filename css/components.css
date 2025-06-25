@@ -150,7 +150,6 @@ a:hover {
     opacity: 1;
 }
 
-
 .btn-profile {
     height: 56px;
     width: 56px;
@@ -397,4 +396,16 @@ textarea {
 }
 .technical-task {
     background-color: #1FD7C1;
+}
+
+
+
+@media (max-width: 476px) {
+    .btn-profile {
+        height: 40px;
+        width: 40px;
+        border: 2px solid #2A3647;
+        font-size: 16px;
+        font-weight: bold;
+    }
 }

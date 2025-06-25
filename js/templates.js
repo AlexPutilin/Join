@@ -306,7 +306,7 @@ function getEditContactDialogTemplate(contact) {
 
 function getMobileContactInformationTemplate(contact) {
     return `
-        <div class="flex-column-layout">
+        <div class="flex-column-layout pos-rel">
             <div class="contact-display-closebtn-container">
                 <button class="btn-small" onclick="toggleMobileContactInformation()">
                     <img class="icon-default" src="../assets/img/icon-back-default.svg" alt="back">
@@ -319,7 +319,7 @@ function getMobileContactInformationTemplate(contact) {
                 <div class="seperator-blue-horizontal"></div>
             </div>
             <div class="contact-display-mobile">
-                <div class="contact-display-name-wrapper">
+                <div class="contact-display-name-wrapper-mobile">
                     <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
                     <h2>${contact.name}</h2>
                 </div>

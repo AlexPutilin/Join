@@ -48,8 +48,10 @@
 }
 
 .contact-display-closebtn-container {
-    display: flex;
-    justify-content: flex-end;
+    position: absolute;
+    right: 0;
+    /* display: flex; */
+    /* justify-content: flex-end; */
 }
 
 .contact-section {
@@ -116,6 +118,10 @@
     gap: 24px;
 }
 
+.contact-display-mobile > span {
+    font-size: 24px;
+}
+
 .contact-display-name-wrapper {
     height: 120px;
     display: flex;
@@ -124,7 +130,16 @@
     margin: 40px 0;
 }
 
-.contact-display-name-wrapper > .contact-icon {
+.contact-display-name-wrapper-mobile {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.contact-display-name-wrapper > .contact-icon,
+.contact-display-name-wrapper-mobile > .contact-icon {
     width: auto;
     height: 100%;
     aspect-ratio: 1/1;
@@ -315,18 +330,69 @@
 }
 
 @media (max-width: 768px) {
-    
+    #contact-display-container-mobile {
+        padding: 40px;
+    }
+
+    #contact-display-container-mobile h1 {
+        font-size: 56px;
+    }
+
+    #contact-display-container-mobile h2 {
+        font-weight: bold;
+        font-size: 40px;
+    }
+
+    .contact-display-name-wrapper-mobile {
+        height: 92px;
+        gap: 16px;
+    }
+
+    .contact-display-name-wrapper-mobile > .contact-icon {
+        font-size: 32px
+    }
 }
 
 @media (max-width: 476px) {
+    #contact-display-container-mobile {
+        padding: 16px;
+    }
+
+    .contact-display-header-mobile {
+        gap: 8px
+    }
+
+    .contact-display-header-mobile > span {
+        font-size: 20px;
+    }
+
     .contacts-container {
         padding: 16px;
     }
+
     .contact {
         padding: 8px 8px;
         gap: 8px;
     }
+
     .contact-section > span {
         text-indent: 24px;
+    }
+
+    #contact-display-container-mobile h1 {
+        font-size: 48px;
+    }
+
+    #contact-display-container-mobile h2 {
+        font-weight: bold;
+        font-size: 32px;
+    }
+
+    .contact-display-name-wrapper-mobile {
+        height: 76px;
+    }
+
+    .contact-display-name-wrapper-mobile > .contact-icon {
+        font-size: 28px
     }
 }
