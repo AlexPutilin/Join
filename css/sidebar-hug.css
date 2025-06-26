@@ -48,7 +48,6 @@ nav {
     align-items: center;
     gap: 8px;
     bottom: 36px;
-    /* position: fixed; */
     left: 63.5px;
 }
 
@@ -58,13 +57,11 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* z-index: 9; */
     background-color: #fff;
 }
 
 .hug-wrapper {
     min-width: 98%;
-    /* max-width: 1920px; */
     display: flex;
     justify-content: space-between;
 }
@@ -92,9 +89,8 @@ nav {
 /* navbar-mobile */
 .navbar-mobile {
     width: 100vw;
-    /* height: 66px; */
     background-color: #2a3647;
-    position: relative;
+
     bottom: unset;
 }
 
@@ -105,20 +101,11 @@ nav {
 }
 
 .btn-menu-mobile {
-    /* width: 100%; */
-    padding: 2%;
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* gap: 4px; */
     border: 0;
     border-radius: 8px;
-    /* font-size: 20px; */
     color: #A8A8A8;
     background-color: transparent;
 }
-
-
 
 
 
@@ -128,31 +115,3 @@ nav {
     }
 }
 
-@media (max-width: 1023px) {
-    .logo-blue {
-        visibility: visible;
-        padding-left: 40px;
-    }
-
-    .navbar-mobile-wrapper {
-        display: flex;
-    }
-
-    aside {
-        display: none;
-    }
-
-    main {
-        padding-left: 0;
-    }
-}
-
-@media (max-width: 768px) {}
-
-@media (max-width: 576px) {
-    .kanban-text {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {}
