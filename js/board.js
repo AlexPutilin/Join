@@ -402,7 +402,7 @@ function getSubtasksTemplate(task) {
         for (const subtask of subtasksArray) {
             const checked = subtask.done ? 'checked' : "";
             subtasksTemplate += `<div class="subtask-item">
-                    <input type="checkbox" disabled ${checked}>
+                   
                     <label>${subtask.title}</label>
                 </div>`;
         }
