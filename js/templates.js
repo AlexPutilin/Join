@@ -310,7 +310,7 @@ function getSubtaskInputTemplate() {
     <div class="input-wrapper" id="subtask-input">
       <span>Subtasks</span>
       <div class="input-area">
-        <input type="text" placeholder="Add new subtask" data-placeholder="Add new subtask" data-placeholder-active="" oninput="toggleInputBtns(this)" onfocus="closeAllSubtaskEdits()">
+        <input id="subtask-input-field" type="text" placeholder="Add new subtask" data-placeholder="Add new subtask" data-placeholder-active="" oninput="toggleInputBtns(this)" onfocus="closeAllSubtaskEdits()">
         <button type="button" class="btn-small" onclick="setInputFocus(this)">
           <div class="icon-wrapper">
             <img class="icon-default" src="../assets/img/icon-add-default.svg">
