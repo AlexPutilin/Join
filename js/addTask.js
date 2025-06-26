@@ -23,6 +23,7 @@ function initializeAddTaskPage() {
   renderPriorityButtons();
   renderSubtaskInput();
   setupCreateButtonListeners();
+  FullAreaCategoryDropdownClick()
 }
 
 
@@ -297,6 +298,13 @@ function setupAssignedToSearch() {
 
   searchInput.addEventListener('input', () => {
     const term = searchInput.value.toLowerCase().trim();
+
+    const wrapper = searchInput.closest('.input-wrapper');
+    const dropdown = wrapper.querySelector('.drop-down-menu');
+    if (dropdown && dropdown.dataset.open !== 'true') {
+      toggleDropDown(wrapper.querySelector('button'));
+    }
+
     const { menu } = getDropdownElements(searchInput);
     const items = Array.from(menu.querySelectorAll('.select-contact'));
     filterItems(items, term);
@@ -698,6 +706,51 @@ function setupCloseOnOutsideClick(wrapperSelector, closeFn) {
     }
   });
 }
+
+
+/**
+ * Adds a click event listener to the category input area to toggle
+ * the dropdown menu visibility.
+ *
+ * The dropdown opens when clicking anywhere inside the `.input-area` 
+ * except directly on the toggle button. This improves usability, especially on mobile devices.
+ *
+ * The function ensures:
+ * - Dropdown toggle is triggered by area clicks
+ * - Robust selection of the button inside the input wrapper
+ */
+function FullAreaCategoryDropdownClick() {
+  const categoryArea = document.querySelector('#category-wrapper-template .input-area');
+  if (!categoryArea) return;
+
+  categoryArea.addEventListener('click', (e) => {
+    // Prevent toggle if button was clicked directly
+    if (!e.target.closest('button')) {
+      const button = categoryArea.querySelector('button');
+      if (button) toggleDropDown(button);
+    }
+  });
+}
+
+
+
+
+
+/**
+ * Resets the "Assigned To" search input and restores all contact visibility.
+ */
+function resetAssignedSearchAndContacts() {
+  const input = document.querySelector('#assigned-to-wrapper-template .input-area input[type="text"]');
+  if (input) input.value = '';
+
+  const allContacts = document.querySelectorAll('#contacts-dropdown .select-contact');
+  allContacts.forEach(contact => {
+    contact.style.display = 'flex';
+  });
+}
+
+
+
 
 /**
  * Updates the state of the "Create Task" button based on required form field values.
