@@ -1,54 +1,86 @@
 * {
-    box-sizing: border-box;
-    font-family: 'Inter';
-    padding: 0;
-    margin: 0;
-    /* overflow-x: hidden; */
+  box-sizing: border-box;
+  font-family: 'Inter';
+  padding: 0;
+  margin: 0;
 }
 
 .d-none {
-    display: none !important;
+  display: none !important;
 }
 
 .hidden {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 h1 {
-    font-size: 72px;
+  font-size: 72px;
 }
 
-body {
-    height: 100vh;
-    width: 100vw;
-    overflow: auto;
-    background-color: #f6f7f8;
+h2 {
+  font-size: 48px;
+  font-weight: 500;
 }
+
+h3 {
+  font-size: 32px;
+  font-weight: 300;
+}
+
+/* body {
+  height: 100%;
+  width: 100vw;
+  overflow: auto;
+  background-color: #f6f7f8;
+} */
 
 main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-left: 232px;
+  background-color: #F6F7F8;
+}
 
-    display: flex;
-    flex-direction: column;
-    padding-left: 232px;
-    background-color: #F6F7F8;
+.overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  z-index: 100;
+}
+
+.logo-small {
+  width: auto;
+  height: 64px;
 }
 
 .pos-rel {
-    position: relative;
+  position: relative;
 }
 
 .pos-abs {
-    position: absolute;
+  position: absolute;
 }
 
 .bg-none {
-    background: none;
+  background: none;
 }
+
+.flex-column-layout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Link Style for Join-Links on Help and Legal Notice Pages */
 .join-link {
-    color: #29abe2;
-    text-decoration: none;
-    cursor: pointer;
+  color: #29abe2;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* Padding for Content in Help and Legal Notice Pages */
