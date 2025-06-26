@@ -250,3 +250,21 @@ function showUserFeedback(text) {
         userfeedback.classList.remove('slide-in-out');
     }, 2000);
 }
+
+
+
+function toggleMobileContactInformation() {
+    const mobileContactInformationContainer = document.getElementById('contact-display-container-mobile');
+    if (screen.width <= 1200) {
+        mobileContactInformationContainer.innerHTML = getMobileContactInformationTemplate(contacts[activeContactIndex]);
+        mobileContactInformationContainer.classList.toggle('d-none');
+    }
+}
+
+
+function closeMobileContactInformation() {
+    const mobileContactInformationContainer = document.getElementById('contact-display-container-mobile');
+    if (screen.width > 1200) {
+        mobileContactInformationContainer.classList.add('d-none');
+    }
+}

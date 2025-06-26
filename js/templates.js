@@ -298,45 +298,20 @@ function getSubtaskInputTemplate() {
             </div>
           </button>
         </div>
-      </div>
-      <div class="list-subtasks"></div>
-      <div class="required-description form-error-mobile-visible">
-        <p class="redstar">*</p><p>This field is required</p>
-      </div>
-    </div>
-  `;
+    `
 }
 
-/**
- * Returns the HTML template for priority selection radio buttons.
- * @returns {string} HTML structure for selecting task priority.
- */
-function getPriorityTemplate() {
-  return `
-    <div class="input-wrapper">
-      <span>Priority</span>
-      <div class="priority-buttons-wrapper">
-        <label class="priority-option urgent">
-          <input name="priority" type="radio" value="urgent" hidden>
-          <span>Urgent</span>
-          <img src="../assets/img/icon-prio-urgent.svg" alt="">
-          <div class="bg-checked"></div>
-        </label>
-        <label class="priority-option medium">
-          <input name="priority" type="radio" value="medium" hidden checked>
-          <span>Medium</span>
-          <img src="../assets/img/icon-prio-medium.svg" alt="">
-          <div class="bg-checked"></div>
-        </label>
-        <label class="priority-option low">
-          <input name="priority" type="radio" value="low" hidden>
-          <span>Low</span>
-          <img src="../assets/img/icon-prio-low.svg" alt="">
-          <div class="bg-checked"></div>
-        </label>
-      </div>
-    </div>
-  `;
+
+function getContactTemplate(contact, index) {
+    return `
+        <div class="contact" data-contact-index='${index}' onclick="addContactActiveState(this), showContactInformation(${index}), toggleMobileContactInformation()">
+            <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
+            <div class="contact-infos">
+                <span class="contact-name">${contact.name}</span>
+                <span class="contact-mail">${contact.email}</span>
+            </div>
+        </div>
+    `
 }
   
 /**
@@ -427,7 +402,6 @@ function getaddTaskButtonsTemplate() {
     </div>
   `;
 }
-  
 
 
 function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength) {

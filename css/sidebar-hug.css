@@ -42,7 +42,7 @@ nav {
 .hug {
     min-height: 96px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.068);
-    padding: 0 24px;
+    padding: 0 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -98,57 +98,7 @@ nav {
     background-color: transparent;
 }
 
-@media (max-width: 1200px) {
-    main{
-        padding-left: 164px;
-    }
-
-    aside{
-        width: 164px;
-    }
-    
-    .hug{
-        padding: 0 24px 0 0;
-    }
-
-    .logo-white {
-        padding-left: 32px;
-    }
-
-    .btn-menu{
-        font-size: 16px;
-    }
-
-}
-
-@media (max-width: 867px) {
-    main{
-        padding-left: 148px;
-    }
-
-    aside{
-        width: 148px;
-    }
-    
-    .hug{
-        padding: 0 24px 0 0;
-    }
-
-    .logo-white {
-        padding-left: 16px;
-    }
-
-    .btn-menu{
-        font-size: 16px;
-    }
-
-}
-
-@media (max-width: 768px) {
-    .kanban-text {
-        display: none;
-    }
-
+@media (max-width: 992px) {
     .logo-blue {
         visibility: visible;
     }
@@ -164,10 +114,20 @@ nav {
     main {
         padding-left: 0;
     }
+    
 }
 
-@media (max-width: 480px) {
+@media (max-width: 476px) {
     .btn-menu-mobile {
         padding: 12px;
+    }
+
+    .hug {
+        min-height: 74px;
+        padding: 0 16px;
+    }
+
+    .logo-blue {
+        height: 32px;
     }
 }
