@@ -353,7 +353,7 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
 function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress) {
     return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
-                <h4 class="task-title padding">${task.title}</h4>
+                <h4 class="task-title">${task.title}</h4>
                 <span>Order: ${task.order}</span>
                 <span class="task-description-short">${description_short}</span>
                 ${subtasksProgress}
@@ -374,33 +374,31 @@ function getOverviewTemplate(task) {
     const bgCategory = getBgCategory(task.category);
     return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
                     <div class="card-overview-header">
-                        <span class="label ${bgCategory}">${task.category}</span>
+                        <span class="label ${bgCategory}">${task.category}</span><br>
                         <button onclick="closeOverlay()" class="btn-small">
                             <img class="icon-default" src="../assets/img/icon-close-default.svg">
                             <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
                         </button>
                     </div>
-                    <h2 class="task-title">${task.title}</h2>
-                    <span class="task-description">${task.description_full}</span>
+                    <h2 class="task-title">${task.title}</h2><br>
+                    <span class="task-description">${task.description_full}</span><br><br>
 
                     <div class="">
                         <span style="padding-right: 16px;" class="font-color-grey">Due Date:</span>
                         <span> ${task.due_date}</span>
                     </div>
-                    
+                    <br>
                     <div class="priority-wrapper ">
                         <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
                         <span style="text-transform: capitalize;"> ${task.priority} </span>
                         ${getPriority(task)}
                     </div>
-                    
+                    <br>
                     <div>
                         <span class="font-color-grey">Assigned To:</span>
                         <p></p>
                     </div>
-                    
                             ${getSubtasksContent(task)}
-                    
                     <div class="delete-and-edit-wrapper">
                         <button onclick="deleteAndUpdateTasks('${task.id}')" class="btn-small">
                             <div class="icon-wrapper">
