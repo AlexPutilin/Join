@@ -105,12 +105,18 @@ main {
   .content {
     padding: 48px;
   }
+
 }
 
 @media (max-width: 576px) {
   .content {
     padding: 36px;
   }
+
+  h1{
+    font-size: 48px;
+  }
+  
 }
 
 @media (max-width: 480px) {

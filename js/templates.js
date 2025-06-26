@@ -94,44 +94,46 @@ function getLoginFormTemplate() {
 function getAddTaskFormTemplate() {
   return `
     <section class="add-task-form">
-      <div class="mobile-h1">
-        <div><h1>Add Task</h1></div>
-      </div>
       <form id="add-task-form">
         <div class="add-task-container">
-
-          <div class="add-task-left">
-            <div id="title-wrapper-template">
-              ${getAddTaskTitleTemplate()}
-            </div>
-            <div id="description-wrapper-template">
-              ${getAddTaskDescriptionTemplate()}
-            </div>
-            <div id="due-date-wrapper-template">
-              ${getAddTaskDueDateTemplate()}
-            </div>
+          <div class="mobile-h1">
+            <div><h1>Add Task</h1></div>
           </div>
+          <div class="add-task-container-wrapper">
+            <div class="add-task-left">
+              <div id="title-wrapper-template">
+                ${getAddTaskTitleTemplate()}
+              </div>
+              <div id="description-wrapper-template">
+                ${getAddTaskDescriptionTemplate()}
+              </div>
+              <div id="due-date-wrapper-template">
+                ${getAddTaskDueDateTemplate()}
+              </div>
+            </div>
 
-          <div class="add-task-right">
-            <div id="priority-wrapper-template">
-              ${getPriorityTemplate()}
-            </div>
-            <div id="assigned-to-wrapper-template">
-              ${getAssignedToTemplate()}
-            </div>
-            <div id="category-wrapper-template">
-              ${getCategoryTemplate()}
-            </div>
-            <div id="subtask-wrapper-template">
-              ${getSubtaskInputTemplate()}
+            <div class="add-task-right">
+              <div id="priority-wrapper-template">
+                ${getPriorityTemplate()}
+              </div>
+              <div id="assigned-to-wrapper-template">
+                ${getAssignedToTemplate()}
+              </div>
+              <div id="category-wrapper-template">
+                ${getCategoryTemplate()}
+              </div>
+              <div id="subtask-wrapper-template">
+                ${getSubtaskInputTemplate()}
+              </div>
             </div>
           </div>
         </div>
+        ${getaddTaskButtonsTemplate()}
       </form>
-      ${getaddTaskButtonsTemplate()}
     </section>
   `;
 }
+
   
 /**
  * Returns the HTML template for the task title input field.
