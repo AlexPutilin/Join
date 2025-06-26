@@ -184,6 +184,38 @@ function getAddTaskDueDateTemplate() {
 `;
 }
   
+/**
+ * Returns the HTML template for priority selection radio buttons.
+ * @returns {string} HTML structure for selecting task priority.
+ */
+function getPriorityTemplate() {
+  return `
+    <div class="input-wrapper">
+      <span>Priority</span>
+      <div class="priority-buttons-wrapper">
+        <label class="priority-option urgent">
+          <input name="priority" type="radio" value="urgent" hidden>
+          <span>Urgent</span>
+          <img src="../assets/img/icon-prio-urgent.svg" alt="">
+          <div class="bg-checked"></div>
+        </label>
+        <label class="priority-option medium">
+          <input name="priority" type="radio" value="medium" hidden checked>
+          <span>Medium</span>
+          <img src="../assets/img/icon-prio-medium.svg" alt="">
+          <div class="bg-checked"></div>
+        </label>
+        <label class="priority-option low">
+          <input name="priority" type="radio" value="low" hidden>
+          <span>Low</span>
+          <img src="../assets/img/icon-prio-low.svg" alt="">
+          <div class="bg-checked"></div>
+        </label>
+      </div>
+    </div>
+  `;
+}
+
 
 
 /**
