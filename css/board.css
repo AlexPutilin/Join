@@ -145,7 +145,7 @@
     opacity: 0.5;
 }
 
-.task-title {
+.padding {
     padding: 7% 0%;
 }
 
@@ -215,11 +215,19 @@
     background-color: white;
     border: 1px solid #f1f1f1;
     border-radius: 16px;
-    top: 20%;
-    left: 40%;
-    width: 25%;
-    height: 60%;
+    top: 11%;
+    left: 35%;
+    width: 600px;
+    height: 800px;
     padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-overview>span {
+    font-size: 24px;
 }
 
 .card-overview-header {
@@ -441,7 +449,7 @@
 
     .board {
         max-width: 100vw;
-        max-height: calc(100vh - 187px);
+        
     }
 
     .stages-wrapper {

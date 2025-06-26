@@ -78,7 +78,7 @@ main {
 
 /* Link Style for Join-Links on Help and Legal Notice Pages */
 .join-link {
-  color: #29abe2;
+  color: rgb(41, 171, 226);
   text-decoration: none;
   cursor: pointer;
 }
@@ -87,47 +87,41 @@ main {
 .content {
   padding: 80px;
   max-width: 1600px;
+  background-color: #F6F7F8;
 }
 
-@media (max-width: 1460px) {
+@media (max-width: 1500px) {
   .content {
     padding: 64px;
   }
 }
 
-@media (max-width: 1400px) {
-  .content {
-    padding: 52px;
+@media (max-width: 1280px) {
+  h1 {
+    font-size: 64px;
   }
 }
 
-@media (max-width: 1280px) {
-  h1{
-    font-size: 64px;
-  }
+@media (max-width: 1200px) {
   .content {
-    padding: 48px;
+    padding: 40px;
   }
 }
+
 @media (max-width: 1023px) {
-    h1{
+  h1 {
     font-size: 56px;
   }
 }
-@media (max-width: 576px) {
+
+@media (max-width: 992px) {
   .content {
-    padding: 36px;
+    overflow-y: scroll;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 476px) {
   .content {
-    padding: 24px;
-  }
-}
-
-@media (max-width: 380px) {
-  .content {
-    padding: 12px;
+    padding: 16px;
   }
 }
