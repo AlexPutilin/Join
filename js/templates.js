@@ -177,13 +177,19 @@ function getCreateContactDialogTemplate() {
     return `
         <div class="contact-dialog" onclick="event.stopPropagation()">
             <div>
+                <button id="contact-dialog-close-btn-mobile" class="btn-small" onclick="toggleDialogOverlay()">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-close-white-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-close-white-hover.svg">
+                    </div>
+                </button>
                 <img class="logo-small" src="../assets/img/logo-white.svg" alt="Logo">
                 <h1>Add Contact</h1>
                 <h3>Tasks are better with a team!</h3>
                 <div class="underline-accent"></div>
             </div>
             <div>
-                <button class="btn-small" onclick="toggleDialogOverlay()">
+                <button id="contact-dialog-close-btn" class="btn-small" onclick="toggleDialogOverlay()">
                     <div class="icon-wrapper">
                         <img class="icon-default" src="../assets/img/icon-close-default.svg">
                         <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
@@ -219,7 +225,7 @@ function getCreateContactDialogTemplate() {
                             <span class="err-msg hidden">Invalid input.</span>
                         </div>
                         <div class="form-btn-container">
-                            <button class="btn-light" type="button" onclick="toggleDialogOverlay()">
+                            <button id="create-contact-cancel-btn" class="btn-light" type="button" onclick="toggleDialogOverlay()">
                                 <span>Cancel</span>
                                 <div class="icon-wrapper">
                                     <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
@@ -237,7 +243,7 @@ function getCreateContactDialogTemplate() {
             </div>
         </div>
     `
-} 
+}
 
 
 function getEditContactDialogTemplate(contact) {
@@ -249,7 +255,13 @@ function getEditContactDialogTemplate(contact) {
                 <div class="underline-accent"></div>
             </div>
             <div>
-                <button class="btn-small" onclick="toggleDialogOverlay()">
+                <button id="contact-dialog-close-btn" class="btn-small" onclick="toggleDialogOverlay()">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                    </div>
+                </button>
+                <button id="contact-dialog-close-btn-mobile" class="btn-small" onclick="toggleDialogOverlay()">
                     <div class="icon-wrapper">
                         <img class="icon-default" src="../assets/img/icon-close-default.svg">
                         <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
