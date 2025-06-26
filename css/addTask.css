@@ -442,7 +442,6 @@
     z-index: 999;
     padding: 16px;
     box-sizing: border-box;
-    pointer-events: none;
   }
 }
 

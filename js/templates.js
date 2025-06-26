@@ -330,7 +330,43 @@ function getSubtaskInputTemplate() {
             </div>
           </button>
         </div>
-    `
+      </div>
+      <div class="list-subtasks"></div>
+      <div class="required-description form-error-mobile-visible">
+        <p class="redstar">*</p><p>This field is required</p>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Returns the HTML template for the "Clear" and "Create Task" buttons.
+ * @returns {string} HTML structure for form action buttons.
+ */
+function getaddTaskButtonsTemplate() {
+  return `
+    <div class="clear-save-btn-wrapper">
+      <div class="clear-save-btn">
+        <div class="required-description form-error-desktop-visible">
+          <p class="redstar">*</p><p>This field is required</p>
+        </div>
+        <div class="clear-save-btn-pos">
+          <button type="button" class="btn-light" onclick="clearAddTaskForm()">
+            <span>Clear</span>
+            <div class="icon-wrapper">
+              <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
+              <img class="icon-hover"   src="../assets/img/icon-cancel-hover.svg">
+              <img class="icon-active"  src="../assets/img/icon-cancel-click.svg">
+            </div>
+          </button>
+          <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask()" disabled>
+            <span>Create Task</span>
+            <img src="../assets/img/icon-add-white.svg">
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 
@@ -404,36 +440,6 @@ function getAssignedToTemplate() {
   `;
 }
 
- 
-/**
- * Returns the HTML template for the "Clear" and "Create Task" buttons.
- * @returns {string} HTML structure for form action buttons.
- */
-function getaddTaskButtonsTemplate() {
-  return `
-    <div class="clear-save-btn-wrapper">
-      <div class="clear-save-btn">
-        <div class="required-description form-error-desktop-visible">
-          <p class="redstar">*</p><p>This field is required</p>
-        </div>
-        <div class="clear-save-btn-pos">
-          <button type="button" class="btn-light" onclick="clearAddTaskForm()">
-            <span>Clear</span>
-            <div class="icon-wrapper">
-              <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
-              <img class="icon-hover"   src="../assets/img/icon-cancel-hover.svg">
-              <img class="icon-active"  src="../assets/img/icon-cancel-click.svg">
-            </div>
-          </button>
-          <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask()" disabled>
-            <span>Create Task</span>
-            <img src="../assets/img/icon-add-white.svg">
-          </button>
-        </div>
-      </div>
-    </div>
-  `;
-}
 
 
 function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength) {

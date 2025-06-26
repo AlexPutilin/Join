@@ -8,12 +8,9 @@ const contactsById = {};
  * Initializes the Add Task form when the DOM is fully loaded.
  */
 document.addEventListener("DOMContentLoaded", () => {
-  const addTaskFormRoot = document.getElementById('add-task-root');
-  if (!addTaskFormRoot) {
-    console.error("#add-task-root not found!");
-    return;
-  }
-  addTaskFormRoot.innerHTML = getAddTaskFormTemplate();
+  const container = document.getElementById('add-task-root');
+  if (!container) return; // <- Verhindert Fehler auf anderen Seiten
+  container.innerHTML = getAddTaskFormTemplate();
   initializeAddTaskPage();
 });
 
