@@ -38,7 +38,7 @@ main {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-left: 232px;
+    padding-left: 200px;
     background-color: #F6F7F8;
 }
 
@@ -116,7 +116,7 @@ main {
   h1{
     font-size: 48px;
   }
-  
+
 }
 
 @media (max-width: 480px) {

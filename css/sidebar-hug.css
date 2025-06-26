@@ -1,5 +1,5 @@
 aside {
-    width: 232px;
+    width: 200px;
     background-color: #2A3647;
     height: 100vh;
     position: fixed;
@@ -42,8 +42,8 @@ nav {
 .hug {
     position: fixed;
     top: 0;
-    left:232px;
-    width: calc(100% - 232px);
+    left:200px;
+    width: calc(100% - 200px);
     min-height: 96px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.068);
     padding: 0 40px;

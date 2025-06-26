@@ -332,7 +332,7 @@
   }
 
   .add-task-form{
-    padding: 130px 54px 0px 0px;
+    padding: 130px 54px 0px 16px;
   }
 
   .add-task-left{
@@ -472,6 +472,7 @@
   .add-task-form {
     align-items: center;
     padding-bottom: 50px;
+    padding-top: 80px;
   }  
 
 }
