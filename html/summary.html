@@ -18,10 +18,9 @@
     <script src="../js/components.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/templates.js"></script>
-    <script src="../js/board.js"></script>
 </head>
 
-<body onload="init()">
+<body>
     <aside>
         <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
@@ -88,13 +87,15 @@
         </section>
 
         <section class="summary-content">
-            <header class="summary-header">
+            <div class="summary-header">
               <h1>Join 360</h1>
-              <div class="divider"></div>
+              <div class="seperator-blue"></div>
               <h3>Key Metrics at a Glance</h3>
-            </header>
+            </div>
           
-            <div class="metrics-grid">
+            <div class="summary-main-section">
+            <div class="summary-metrics-wrapper">
+            <div class="summary-row summary-row--top">
               <div class="metric-card">
                 <div class="metric-icon">
                   <span class="icon-wrapper">
@@ -118,23 +119,28 @@
                   <div class="metric-label">Done</div>
                 </div>
               </div>
+            </div>
           
-              <div class="metric-card urgent-deadline">
-                <div class="metric-icon">
-                  <span class="icon-wrapper">
-                    <img src="../assets/img/icon-prio-urgent-summary.png" class="icon-default" alt="Urgent Icon">
-                  </span>
-                </div>
-                <div class="metric-body">
-                  <div class="metric-value">1</div>
-                  <div class="metric-label">Urgent</div>
-                </div>
-                <div class="deadline-info">
-                  <div class="metric-date">October 16, 2022</div>
-                  <div class="metric-label">Upcoming Deadline</div>
+            <div class="summary-row summary-row--middle">
+                <div class="metric-card urgent-deadline">
+                  <div class="metric-icon">
+                    <span class="icon-wrapper">
+                      <img src="../assets/img/icon-prio-urgent-summary.png" class="icon-default" alt="Urgent Icon">
+                    </span>
+                  </div>
+                  <div class="metric-body">
+                    <div class="metric-value">1</div>
+                    <div class="metric-label">Urgent</div>
+                  </div>
+                  <div class="deadline-info">
+                    <div class="metric-date">October 16, 2022</div>
+                    <div class="metric-label">Upcoming Deadline</div>
+                  </div>
                 </div>
               </div>
+              
           
+            <div class="summary-row summary-row--bottom">
               <div class="metric-card center">
                 <div class="metric-body">
                   <div class="metric-value">5</div>
@@ -154,12 +160,18 @@
                 </div>
               </div>
             </div>
-          
-            <div class="greeting">
-              <p>Good morning,</p>
-              <h3 class="user-name">Sofia Müller</h3>
+        </div>
+        <div class="greeting-section">
+            <div class="greeting-wrapper">
+                <div class="greeting">
+                  <h2>Good morning,<h2>
+                  <h3 class="h1-summary-user-name">Sofia Müller</h3>
+                </div>
             </div>
+        </div>
+        </div>
           </section>
+          
           
 
         <section class="navbar-mobile">

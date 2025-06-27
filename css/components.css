@@ -460,6 +460,7 @@ input[type="checkbox"] {
     100% { transform: translate(-50%, 100vh); opacity: 0; }
   }
 
+
   @media (max-width: 768px) {
     .successfully-added-notification {
       font-size: 18px;

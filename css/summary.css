@@ -1,27 +1,50 @@
+/* Container */
 .summary-content {
     padding: 130px 48px 64px 64px;
     background-color: #F6F7F8;
     position: relative;
   }
   
+  /* Header */
   .summary-header {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 32px;
     margin-bottom: 24px;
   }
-  .summary-header .divider {
-    width: 1px;
-    height: 32px;
+  .summary-header .seperator-blue {
+    width: 4px;
+    height: 48px;
     background-color: #29ABE2;
   }
   
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* ROW-Container */
+  .summary-row {
+    display: flex;
     gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  /* Row 2: Urgent-Card nimmt Platz, Greeting rechts */
+  .summary-row--middle {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
   }
 
+  .greeting-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  /* Row 3: drei zentrierte Cards */
+  .summary-row--bottom {
+    justify-content: start;
+  }
+  
+  /* Card-Grundlayout */
   .metric-card {
     background: #fff;
     border-radius: 16px;
@@ -31,26 +54,21 @@
     gap: 16px;
   }
   
-
-  .metric-card.urgent-deadline {
-    grid-column: span 2;
-    justify-content: space-between;
-  }
   
-
+  /* Zentrierte Cards (Row 3) */
   .metric-card.center {
     flex-direction: column;
     text-align: center;
   }
   
-
+  /* Icon-Container */
   .metric-icon .icon-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-
+  /* Text-Bereich in jeder Card */
   .metric-body .metric-value {
     font-size: 48px;
     font-weight: bold;
@@ -60,6 +78,7 @@
     color: #555;
   }
   
+  /* Deadline rechts in Urgent-Card */
   .deadline-info {
     border-left: 1px solid #D1D1D1;
     padding-left: 24px;
@@ -74,20 +93,58 @@
     color: #555;
   }
   
-  .greeting {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    text-align: right;
-  }
-  .greeting p {
-    font-size: 20px;
+  /* Greeting */
+  .summary-greeting {
+    margin: 0;
+    font-size: 48px;
     color: #333;
   }
-  .greeting h3 {
-    font-size: 32px;
-    font-weight: 300;
-  }
-  .greeting .user-name {
+
+  .h1-summary-user-name {
+    margin: 0;
+    font-size: 72px;
+    font-weight: bold;
     color: #29ABE2;
   }
+  
+  /* Wrapper um Metrics und Greeting nebeneinander zu platzieren */
+.summary-main-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;                  /* Abstand zwischen Metrics-Block und Greeting */
+  }
+  
+  /* Linker Bereich: alle Metrics */
+  .summary-metrics-wrapper {                
+    display: flex;
+    flex-direction: column;
+    gap: 16px;                  /* Abstand zwischen den Zeilen */
+  }
+  
+  /* Rechter Bereich: Greeting */
+  .greeting-wrapper {                   /* nimmt 1/3 des Platzes */
+    display: flex;
+    justify-content: flex-end;  /* Greeting ganz rechts ausrichten */
+    align-items: flex-start;    /* an der Oberkante ausrichten */
+    margin-right: 120px;
+  }
+
+  .greeting-section{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Für Mobil: Metrics über Greeting stapeln */
+  @media (max-width: 768px) {
+    .summary-main-section {
+      flex-direction: column;
+      gap: 24px;
+    }
+    .greeting-wrapper {
+      justify-content: flex-start;
+    }
+  }
+  
