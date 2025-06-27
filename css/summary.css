@@ -17,7 +17,7 @@
     height: 48px;
     background-color: #29ABE2;
   }
-  
+
   .summary-row {
     display: flex;
     gap: 16px;
@@ -135,4 +135,37 @@
     align-items: center;
   }
   
+  @media (max-width: 992px) {
+    .summary-main-section {
+      flex-direction: column;
+      gap: 24px;
+    }
+    .greeting-section-mobile {
+      display: none;
+    }
+
+    .summary-metrics-wrapper {
+       gap: 32px;
+    }
+
+    .summary-header {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .seperator-blue {
+        display: none;
+    }
+
+    .seperator-blue-mobile{
+        height: 4px;
+        width: 140px;
+        background-color: #29ABE2;
+    }
+
+
+  }
   
