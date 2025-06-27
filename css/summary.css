@@ -21,7 +21,10 @@
   .summary-row {
     display: flex;
     gap: 16px;
-    margin-bottom: 16px;
+  }
+
+  .metric-card-top{
+    width: 274px;
   }
 
   .summary-row-urgent{
@@ -34,7 +37,7 @@
     justify-content: flex-end;
   }
   
-  .summary-row--bottom {
+  .summary-row-bottom {
     justify-content: start;
   }
   
@@ -91,6 +94,7 @@
     font-weight: bold;
     padding-bottom: 8px;
   }
+
  .metric-label {
     font-size: 16px;
     color: #555;
@@ -111,14 +115,12 @@
     gap: 32px;              
   }
   
-
   .summary-metrics-wrapper {                
     display: flex;
     flex-direction: column;
     gap: 16px;                 
   }
   
-
   .greeting-wrapper {                  
     display: flex;
     justify-content: flex-end;  
