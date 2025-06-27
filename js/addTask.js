@@ -5,6 +5,46 @@
 const contactsById = {};
 
 /**
+ * Loads all users from the Firebase database.
+ *
+ * @async
+ * @function loadAllUsers
+ * @returns {Promise<Object>} A promise that resolves to an object containing all users.
+ *                            If an error occurs, an empty object will be returned.
+ */
+async function loadAllUsers() {
+  try {
+      const response = await fetch(`${FIREBASE_URL}/users.json`);
+      const users = await response.json();
+      console.log("Users loaded:", users);
+      return users;
+  } catch (error) {
+      console.error("Error while loading users:", error);
+      return {};
+  }
+}
+
+/**
+* Loads all contacts from the Firebase database.
+*
+* @async
+* @function loadAllContacts
+* @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
+*                            If an error occurs, an empty object will be returned.
+*/
+async function loadAllContacts() {
+  try {
+      const response = await fetch(`${FIREBASE_URL}/contacts.json`);
+      const contacts = await response.json();
+      console.log("Contacts loaded:", contacts);
+      return contacts;
+  } catch (error) {
+      console.error("Error while loading contacts:", error);
+      return {};
+  }
+}
+
+/**
  * Initializes the Add Task form when the DOM is fully loaded.
  */
 document.addEventListener("DOMContentLoaded", () => {

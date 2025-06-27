@@ -373,181 +373,194 @@ function getaddTaskButtonsTemplate() {
 
 
 function getContactTemplate(contact, index) {
-    return `
-        <div class="contact" data-contact-index='${index}' onclick="addContactActiveState(this), showContactInformation(${index}), toggleMobileContactInformation()">
-            <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
-            <div class="contact-infos">
-                <span class="contact-name">${contact.name}</span>
-                <span class="contact-mail">${contact.email}</span>
-            </div>
-        </div>
-    `
+  return `
+      <div class="contact" data-contact-index='${index}' onclick="addContactActiveState(this), showContactInformation(${index}), toggleMobileContactInformation()">
+          <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
+          <div class="contact-infos">
+              <span class="contact-name">${contact.name}</span>
+              <span class="contact-mail">${contact.email}</span>
+          </div>
+      </div>
+  `
 }
 
 
 function getCreateContactDialogTemplate() {
-    return `
-        <div class="contact-dialog" onclick="event.stopPropagation()">
-            <div>
-                <img class="logo-small" src="../assets/img/logo-white.svg" alt="Logo">
-                <h1>Add Contact</h1>
-                <h3>Tasks are better with a team!</h3>
-                <div class="underline-accent"></div>
-            </div>
-            <div>
-                <button class="btn-small" onclick="toggleDialogOverlay()">
-                    <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-close-default.svg">
-                        <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
-                    </div>
-                </button>
-                <div class="contact-form-container">
-                    <div class="empty-contact-icon">
-                        <img src="../assets/img/icon-person-big.svg" alt="contact-picture">
-                    </div>
-                    <form autocomplete="off" id="create-contact-form">
-                        <div class="input-wrapper">
-                            <label for="">Name<span class="required-mark">*</span> </label>
-                            <div class="input-area">
-                                <input type="text" name="name" placeholder="Enter a name" required oninput="resetInputError()">
-                                <img src="../assets/img/icon-person.svg" alt="">
-                            </div>
-                            <span class="err-msg hidden">Invalid input.</span>
-                        </div>
-                        <div class="input-wrapper">
-                            <label for="">Email</label>
-                            <div class="input-area">
-                                <input type="email" name="email" placeholder="Enter a email" oninput="resetInputError()">
-                                <img src="../assets/img/icon-mail.svg" alt="">
-                            </div>
-                            <span class="err-msg hidden">Invalid input.</span>
-                        </div>
-                        <div class="input-wrapper">
-                            <label for="">Phone</label>
-                            <div class="input-area">
-                                <input type="tel" name="phone" placeholder="Enter a phonenumber" oninput="resetInputError()">
-                                <img src="../assets/img/icon-phone.svg" alt="">
-                            </div>
-                            <span class="err-msg hidden">Invalid input.</span>
-                        </div>
-                        <div class="form-btn-container">
-                            <button class="btn-light" type="button" onclick="toggleDialogOverlay()">
-                                <span>Cancel</span>
-                                <div class="icon-wrapper">
-                                    <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
-                                    <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
-                                </div>
-                            </button>
-                            <button class="btn-dark" type="button" onclick="createNewContact()">
-                                <span>Create contact</span>
-                                <img src="../assets/img/icon-check-white.svg">
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    `
-} 
+  return `
+      <div class="contact-dialog" onclick="event.stopPropagation()">
+          <div>
+              <button id="contact-dialog-close-btn-mobile" class="btn-small" onclick="toggleDialogOverlay()">
+                  <div class="icon-wrapper">
+                      <img class="icon-default" src="../assets/img/icon-close-white-default.svg">
+                      <img class="icon-hover" src="../assets/img/icon-close-white-hover.svg">
+                  </div>
+              </button>
+              <img class="logo-small" src="../assets/img/logo-white.svg" alt="Logo">
+              <h1>Add Contact</h1>
+              <h3>Tasks are better with a team!</h3>
+              <div class="underline-accent"></div>
+          </div>
+          <div>
+              <button id="contact-dialog-close-btn" class="btn-small" onclick="toggleDialogOverlay()">
+                  <div class="icon-wrapper">
+                      <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                      <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                  </div>
+              </button>
+              <div class="contact-form-container">
+                  <div class="empty-contact-icon">
+                      <img src="../assets/img/icon-person-big.svg" alt="contact-picture">
+                  </div>
+                  <form autocomplete="off" id="create-contact-form">
+                      <div class="input-wrapper">
+                          <label for="">Name<span class="required-mark">*</span> </label>
+                          <div class="input-area">
+                              <input type="text" name="name" placeholder="Enter a name" required oninput="resetInputError()">
+                              <img src="../assets/img/icon-person.svg" alt="">
+                          </div>
+                          <span class="err-msg hidden">Invalid input.</span>
+                      </div>
+                      <div class="input-wrapper">
+                          <label for="">Email</label>
+                          <div class="input-area">
+                              <input type="email" name="email" placeholder="Enter a email" oninput="resetInputError()">
+                              <img src="../assets/img/icon-mail.svg" alt="">
+                          </div>
+                          <span class="err-msg hidden">Invalid input.</span>
+                      </div>
+                      <div class="input-wrapper">
+                          <label for="">Phone</label>
+                          <div class="input-area">
+                              <input type="tel" name="phone" placeholder="Enter a phonenumber" oninput="resetInputError()">
+                              <img src="../assets/img/icon-phone.svg" alt="">
+                          </div>
+                          <span class="err-msg hidden">Invalid input.</span>
+                      </div>
+                      <div class="form-btn-container">
+                          <button id="create-contact-cancel-btn" class="btn-light" type="button" onclick="toggleDialogOverlay()">
+                              <span>Cancel</span>
+                              <div class="icon-wrapper">
+                                  <img class="icon-default" src="../assets/img/icon-cancel-default.svg">
+                                  <img class="icon-hover" src="../assets/img/icon-cancel-hover.svg">
+                                  <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
+                              </div>
+                          </button>
+                          <button class="btn-dark" type="button" onclick="createNewContact()">
+                              <span>Create contact</span>
+                              <img src="../assets/img/icon-check-white.svg">
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  `
+}
+
 
 
 function getEditContactDialogTemplate(contact) {
-    return `
-        <div class="contact-dialog" onclick="event.stopPropagation()">
-            <div>
-                <img class="logo-small" src="../assets/img/logo-white.svg" alt="Logo">
-                <h1>Edit Contact</h1>
-                <div class="underline-accent"></div>
-            </div>
-            <div>
-                <button class="btn-small" onclick="toggleDialogOverlay()">
-                    <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-close-default.svg">
-                        <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
-                    </div>
-                </button>
-                <div class="contact-form-container">
-                    <div class="empty-contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
-                    <form autocomplete="off" id="edit-contact-form">
-                        <div class="input-wrapper">
-                            <label for="">Name<span class="required-mark">*</span> </label>
-                            <div class="input-area">
-                                <input type="text" name="name" placeholder="Enter a name" value="${contact.name}" required oninput="resetInputError()">
-                                <img src="../assets/img/icon-person.svg" alt="">
-                            </div>
-                            <span class="err-msg hidden">Invalid input.</span>
-                        </div>
-                        <div class="input-wrapper">
-                            <label for="">Email</label>
-                            <div class="input-area">
-                                <input type="email" name="email" placeholder="Enter a email" value="${contact.email}" oninput="resetInputError()">
-                                <img src="../assets/img/icon-mail.svg" alt="">
-                            </div>
-                            <span class="err-msg hidden">Invalid input.</span>
-                        </div>
-                        <div class="input-wrapper">
-                            <label for="">Phone</label>
-                            <div class="input-area">
-                                <input type="tel" name="phone" placeholder="Enter a phonenumber" value="${contact.phone}" oninput="resetInputError()">
-                                <img src="../assets/img/icon-phone.svg" alt="">
-                            </div>
-                            <span class="err-msg hidden">Invalid input.</span>
-                        </div>
-                        <div class="form-btn-container">
-                            <button class="btn-light" type="button" onclick="deleteContact(), toggleDialogOverlay()">
-                                <span>Delete</span>
-                                <div class="icon-wrapper">
-                                    <img class="icon-default" src="../assets/img/icon-delete-default.svg">
-                                    <img class="icon-hover" src="../assets/img/icon-delete-hover.svg">
-                                    <img class="icon-active" src="../assets/img/icon-delete-default.svg">
-                                </div>
-                            </button>
-                            <button class="btn-dark" type="button" onclick="editContact()">
-                                <span>Save</span>
-                                <img src="../assets/img/icon-check-white.svg">
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    `
+  return `
+      <div class="contact-dialog" onclick="event.stopPropagation()">
+          <div>
+              <img class="logo-small" src="../assets/img/logo-white.svg" alt="Logo">
+              <h1>Edit Contact</h1>
+              <div class="underline-accent"></div>
+          </div>
+          <div>
+              <button id="contact-dialog-close-btn" class="btn-small" onclick="toggleDialogOverlay()">
+                  <div class="icon-wrapper">
+                      <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                      <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                  </div>
+              </button>
+              <button id="contact-dialog-close-btn-mobile" class="btn-small" onclick="toggleDialogOverlay()">
+                  <div class="icon-wrapper">
+                      <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                      <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                  </div>
+              </button>
+              <div class="contact-form-container">
+                  <div class="empty-contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
+                  <form autocomplete="off" id="edit-contact-form">
+                      <div class="input-wrapper">
+                          <label for="">Name<span class="required-mark">*</span> </label>
+                          <div class="input-area">
+                              <input type="text" name="name" placeholder="Enter a name" value="${contact.name}" required oninput="resetInputError()">
+                              <img src="../assets/img/icon-person.svg" alt="">
+                          </div>
+                          <span class="err-msg hidden">Invalid input.</span>
+                      </div>
+                      <div class="input-wrapper">
+                          <label for="">Email</label>
+                          <div class="input-area">
+                              <input type="email" name="email" placeholder="Enter a email" value="${contact.email}" oninput="resetInputError()">
+                              <img src="../assets/img/icon-mail.svg" alt="">
+                          </div>
+                          <span class="err-msg hidden">Invalid input.</span>
+                      </div>
+                      <div class="input-wrapper">
+                          <label for="">Phone</label>
+                          <div class="input-area">
+                              <input type="tel" name="phone" placeholder="Enter a phonenumber" value="${contact.phone}" oninput="resetInputError()">
+                              <img src="../assets/img/icon-phone.svg" alt="">
+                          </div>
+                          <span class="err-msg hidden">Invalid input.</span>
+                      </div>
+                      <div class="form-btn-container">
+                          <button class="btn-light" type="button" onclick="deleteContact(), toggleDialogOverlay()">
+                              <span>Delete</span>
+                              <div class="icon-wrapper">
+                                  <img class="icon-default" src="../assets/img/icon-delete-default.svg">
+                                  <img class="icon-hover" src="../assets/img/icon-delete-hover.svg">
+                                  <img class="icon-active" src="../assets/img/icon-delete-default.svg">
+                              </div>
+                          </button>
+                          <button class="btn-dark" type="button" onclick="editContact()">
+                              <span>Save</span>
+                              <img src="../assets/img/icon-check-white.svg">
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  `
 }
 
 
 function getMobileContactInformationTemplate(contact) {
-    return `
-        <div class="flex-column-layout pos-rel">
-            <div class="contact-display-closebtn-container">
-                <button class="btn-small" onclick="toggleMobileContactInformation()">
-                    <img class="icon-default" src="../assets/img/icon-back-default.svg" alt="back">
-                    <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
-                </button>
-            </div>
-            <div class="contact-display-header-mobile">
-                <h1>Contacts</h1>
-                <span>Better with a Team</span>
-                <div class="seperator-blue-horizontal"></div>
-            </div>
-            <div class="contact-display-mobile">
-                <div class="contact-display-name-wrapper-mobile">
-                    <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
-                    <h2>${contact.name}</h2>
-                </div>
-                <span>Contact Information</span>
-                <div class="contact-information-wrapper">
-                    <span><b>Email</b></span>
-                    <span class="contact-mail">${contact.email}</span>
-                </div>
-                <div class="contact-information-wrapper">
-                    <span><b>Phone</b></span>
-                    <span>${contact.phone}</span>
-                </div>
-            </div>
-        </div>
-        <div id="user-feedback" class="d-none"></div>
-    `
+  return `
+      <div class="flex-column-layout pos-rel">
+          <div class="contact-display-closebtn-container">
+              <button class="btn-small" onclick="toggleMobileContactInformation()">
+                  <img class="icon-default" src="../assets/img/icon-back-default.svg" alt="back">
+                  <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
+              </button>
+          </div>
+          <div class="contact-display-header-mobile">
+              <h1>Contacts</h1>
+              <span>Better with a Team</span>
+              <div class="seperator-blue-horizontal"></div>
+          </div>
+          <div class="contact-display-mobile">
+              <div class="contact-display-name-wrapper-mobile">
+                  <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
+                  <h2>${contact.name}</h2>
+              </div>
+              <span>Contact Information</span>
+              <div class="contact-information-wrapper">
+                  <span><b>Email</b></span>
+                  <span class="contact-mail">${contact.email}</span>
+              </div>
+              <div class="contact-information-wrapper">
+                  <span><b>Phone</b></span>
+                  <span>${contact.phone}</span>
+              </div>
+          </div>
+      </div>
+      <div id="user-feedback" class="d-none"></div>
+  `
 }
 
   
@@ -642,52 +655,52 @@ function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgre
  * @returns {string} - HTML-Template representing the task detail view.
  */
 function getOverviewTemplate(task) {
-    const bgCategory = getBgCategory(task.category);
-    return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
-                    <div class="card-overview-header">
-                        <span class="label ${bgCategory}">${task.category}</span><br>
-                        <button onclick="closeOverlay()" class="btn-small">
-                            <img class="icon-default" src="../assets/img/icon-close-default.svg">
-                            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
-                        </button>
-                    </div>
-                    <h2 class="task-title">${task.title}</h2><br>
-                    <span class="task-description">${task.description_full}</span><br><br>
+  const bgCategory = getBgCategory(task.category);
+  return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
+                  <div class="card-overview-header">
+                      <span class="label ${bgCategory}">${task.category}</span><br>
+                      <button onclick="closeOverlay()" class="btn-small">
+                          <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                          <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                      </button>
+                  </div>
+                  <h2 class="task-title">${task.title}</h2><br>
+                  <span class="task-description">${task.description_full}</span><br><br>
 
-                    <div class="">
-                        <span style="padding-right: 16px;" class="font-color-grey">Due Date:</span>
-                        <span> ${task.due_date}</span>
-                    </div>
-                    <br>
-                    <div class="priority-wrapper ">
-                        <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
-                        <span style="text-transform: capitalize;"> ${task.priority} </span>
-                        ${getPriority(task)}
-                    </div>
-                    <br>
-                    <div>
-                        <span class="font-color-grey">Assigned To:</span>
-                        <p></p>
-                    </div>
-                            ${getSubtasksContent(task)}
-                    <div class="delete-and-edit-wrapper">
-                        <button onclick="deleteAndUpdateTasks('${task.id}')" class="btn-small">
-                            <div class="icon-wrapper">
-                                <img class="icon-default" src="../assets/img/icon-delete-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
-                                <span>Delete</span>
-                            </div>
-                        </button>
-                        <div class="beam"></div>
-                        <button class="btn-small">
-                            <div class="icon-wrapper">
-                                <img class="icon-default" src="../assets/img/icon-edit-default.svg">
-                                <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
-                                <span>Edit</span>
-                            </div>   
-                        </button>
-                    </div>
-                </div>`;
+                  <div class="">
+                      <span style="padding-right: 16px;" class="font-color-grey">Due Date:</span>
+                      <span> ${task.due_date}</span>
+                  </div>
+                  <br>
+                  <div class="priority-wrapper ">
+                      <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
+                      <span style="text-transform: capitalize;"> ${task.priority} </span>
+                      ${getPriority(task)}
+                  </div>
+                  <br>
+                  <div>
+                      <span class="font-color-grey">Assigned To:</span>
+                      <p></p>
+                  </div>
+                          ${getSubtasksContent(task)}
+                  <div class="delete-and-edit-wrapper">
+                      <button onclick="deleteAndUpdateTasks('${task.id}')" class="btn-small">
+                          <div class="icon-wrapper">
+                              <img class="icon-default" src="../assets/img/icon-delete-default.svg">
+                              <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
+                              <span>Delete</span>
+                          </div>
+                      </button>
+                      <div class="beam"></div>
+                      <button class="btn-small">
+                          <div class="icon-wrapper">
+                              <img class="icon-default" src="../assets/img/icon-edit-default.svg">
+                              <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
+                              <span>Edit</span>
+                          </div>   
+                      </button>
+                  </div>
+              </div>`;
 }
 
   function getAddTaskNotificationTemplate() {

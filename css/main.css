@@ -35,11 +35,11 @@ h3 {
 } */
 
 main {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding-left: 200px;
-    background-color: #F6F7F8;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-left: 232px;
+  background-color: #F6F7F8;
 }
 
 .overlay {
@@ -105,18 +105,12 @@ main {
   .content {
     padding: 48px;
   }
-
 }
 
 @media (max-width: 576px) {
   .content {
     padding: 36px;
   }
-
-  h1{
-    font-size: 48px;
-  }
-
 }
 
 @media (max-width: 480px) {
