@@ -117,6 +117,10 @@ main {
     font-size: 48px;
   }
 
+  h3{
+    font-size: 24px
+  }
+
 }
 
 @media (max-width: 480px) {
