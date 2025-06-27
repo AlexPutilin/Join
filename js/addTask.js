@@ -221,8 +221,3 @@ function clearChipsAndSubtasks() {
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
-
-
-
-
-  

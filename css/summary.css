@@ -1,0 +1,93 @@
+.summary-content {
+    padding: 130px 48px 64px 64px;
+    background-color: #F6F7F8;
+    position: relative;
+  }
+  
+  .summary-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .summary-header .divider {
+    width: 1px;
+    height: 32px;
+    background-color: #29ABE2;
+  }
+  
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .metric-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+
+  .metric-card.urgent-deadline {
+    grid-column: span 2;
+    justify-content: space-between;
+  }
+  
+
+  .metric-card.center {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+
+  .metric-icon .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+  .metric-body .metric-value {
+    font-size: 48px;
+    font-weight: bold;
+  }
+  .metric-body .metric-label {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .deadline-info {
+    border-left: 1px solid #D1D1D1;
+    padding-left: 24px;
+    text-align: right;
+  }
+  .deadline-info .metric-date {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .deadline-info .metric-label {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .greeting {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    text-align: right;
+  }
+  .greeting p {
+    font-size: 20px;
+    color: #333;
+  }
+  .greeting h3 {
+    font-size: 32px;
+    font-weight: 300;
+  }
+  .greeting .user-name {
+    color: #29ABE2;
+  }
