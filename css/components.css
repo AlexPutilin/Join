@@ -232,13 +232,6 @@ a:hover {
     background-color: #091931 !important;
 }
 
-/* .btn-menu.menu-active .icon-default {
-    opacity: 0;
-}
-.btn-menu.menu-active .icon-active {
-    opacity: 1;
-} */
-
 
 /* INPUTS / TEXTAREAS / CHECKBOX */
 label {
@@ -354,8 +347,57 @@ textarea {
     background-color: #FF3D00;
 }
 
+/* CONTACT */
+.contact {
+    width: 100%;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    border-radius: 16px;
+    cursor: pointer;
+}
 
+.contact:hover {
+    background-color: #F9F9F9;
+}
 
+.contact-active {
+    color: #fff;
+    background-color: #2A3647;
+}
+
+.contact-active:hover {
+    color: #fff;
+    background-color: #2A3647;
+}
+
+.contact > .contact-icon {
+    width: auto;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+
+.contact-infos {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 20px;
+}
+
+.contact-name {
+    text-transform: capitalize;
+}
+
+.contact-mail {
+    width: 220px;
+    min-height: 20px;
+    font-size: 16px;
+    color: #29ABE2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;;
+}
 
 
 /* SUBTASKS */
