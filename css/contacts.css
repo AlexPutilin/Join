@@ -9,6 +9,7 @@
     width: 456px;
     height: 100%;
     padding: 24px 48px;
+    /* position: relative; */
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
@@ -297,6 +298,16 @@
     visibility: hidden;
 }
 
+#btn-create-contact-mobile {
+    display: none;
+    position: fixed;
+    bottom: 120px;
+    right: 40px;
+    padding: 12px;
+    border-radius: 50%;
+    background-color: #2A3647;
+}
+
 
 
 @media (max-width: 1500px) {
@@ -335,10 +346,6 @@
 }
 
 @media (max-width: 1200px) {
-    #btn-create-contact {
-        display: none;
-    }
-    
     .contacts-container {
         width: 100%;
         padding: 40px;
@@ -367,6 +374,14 @@
 }
 
 @media (max-width: 992px) {
+    #btn-create-contact {
+        display: none;
+    }
+
+    #btn-create-contact-mobile {
+        display: flex;
+    }
+
     .contact-dialog {
         height: 80%;
         position: relative;
@@ -482,6 +497,11 @@
 }
 
 @media (max-width: 476px) {
+    #btn-create-contact-mobile {
+        right: 16px;
+        bottom: 90px;
+    }
+
     #contact-display-container-mobile {
         padding: 16px;
     }
