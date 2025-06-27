@@ -175,6 +175,7 @@
 
 .contact-dialog {
     display: flex;
+    position: relative;
 }
 
 #contact-display-name {
@@ -198,9 +199,19 @@
     background-color: #fff;
 }
 
+#create-contact-form {
+    width: 100%;
+}
+
+#create-contact-form input[type=text] {
+    min-width: 400px;
+}
+
 .contact-form-container {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 40px 0 72px 0;
 }
 
@@ -211,6 +222,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     border-radius: 50%;
     border: 2px solid #fff;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
@@ -278,6 +290,13 @@
     white-space: nowrap;;
 }
 
+#contact-dialog-close-btn-mobile {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    visibility: hidden;
+}
+
 
 
 @media (max-width: 1500px) {
@@ -301,6 +320,18 @@
     .contact-display-header > span {
         font-size: 24px;
     }
+
+    .empty-contact-icon {
+        margin: 32px;
+    }
+
+    .contact-dialog > div:nth-child(1) {
+        padding: 32px;
+    }
+
+    .contact-dialog > div:nth-child(2) {
+        padding: 32px 32px 32px 0;
+    }
 }
 
 @media (max-width: 1200px) {
@@ -314,18 +345,94 @@
     }
 
     .contact-dialog > div:nth-child(1) {
-        padding: 32px;
+        padding: 24px;
     }
 
     .contact-dialog > div:nth-child(2) {
-        padding: 32px 32px 32px 0;
+        padding: 24px 24px 24px 0;
+    }
+
+    .contact-dialog h1 {
+        font-size: 48px;
+    }
+
+    .contact-dialog h3 {
+        font-size: 24px;
+    }
+
+    #create-contact-form input[type=text] {
+        min-width: 360px;
+    }
+    
+}
+
+@media (max-width: 992px) {
+    .contact-dialog {
+        height: 80%;
+        position: relative;
+        flex-direction: column;
+    }
+
+    .contact-dialog h1 {
+        font-size: 48px;
+    }
+
+    .contact-dialog h3 {
+        font-size: 24px;
+    }
+
+    #contact-dialog-close-btn {
+        display: none;
+    }
+
+    #contact-dialog-close-btn-mobile {
+        visibility: visible;
+    }
+
+    .contact-dialog .logo-small {
+        display: none;
     }
 
     .empty-contact-icon {
-        width: 120px;
-        height: 120px;
-        margin: 32px;
-        font-size: 48px;
+        width: 140px;
+        height: 140px;
+        position: absolute;
+        top: calc(0% - 70px);
+        left: calc(50% - 70px);
+        margin: 0;
+    }
+
+    .contact-dialog > div:nth-child(1) {
+        height: 100%;
+        border-radius: 24px 24px 0 0;
+    }
+
+    .contact-dialog > div:nth-child(2) {
+        height: 100%;
+        position: relative;
+        align-items: center;
+        border-radius: 0 0 24px 24px;
+        padding: 76px 32px 76px 32px;
+    }
+
+    #create-contact-cancel-btn {
+        display: none;
+    }
+
+    .contact-form-container {
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+
+    #create-contact-form input[type=text] {
+        min-width: 400px;
+    }
+
+    .form-btn-container {
+        justify-content: center;
+        gap: 16px;
+        margin-top: 24px;
     }
 }
 
@@ -350,6 +457,27 @@
 
     .contact-display-name-wrapper-mobile > .contact-icon {
         font-size: 32px
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-dialog {
+        width: 100vh;
+        height: 100vh;
+    }
+
+    .contact-dialog > div:nth-child(1) {
+        border-radius: 0;
+        padding: 76px 32px 76px 32px;
+    }
+
+    .contact-dialog > div:nth-child(2) {
+        border-radius: 0;
+        padding: 76px 32px 76px 32px;
+    }
+
+    #create-contact-form input[type=text] {
+        min-width: 0;
     }
 }
 
@@ -394,5 +522,45 @@
 
     .contact-display-name-wrapper-mobile > .contact-icon {
         font-size: 28px
+    }
+
+    .contact-dialog h1 {
+        font-size: 40px;
+    }
+
+    .contact-dialog h3 {
+        font-size: 20px;
+    }
+
+    .contact-dialog > div:nth-child(1) {
+        border-radius: 0;
+        padding: 24px 24px 76px 24px;
+    }
+
+    .contact-dialog > div:nth-child(2) {
+        border-radius: 0;
+        padding: 76px 24px 24px 24px;
+    }
+
+    .empty-contact-icon {
+        width: 120px;
+        height: 120px;
+        position: absolute;
+        top: calc(0% - 60px);
+        left: calc(50% - 60px);
+        margin: 0;
+    }
+
+    #create-contact-form label {
+        font-size: 16px;
+    }
+
+    #create-contact-form input {
+        height: 32px;
+    }
+
+    #contact-dialog-close-btn-mobile {
+        top: 24px;
+        right: 24px;
     }
 }

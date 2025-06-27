@@ -163,7 +163,7 @@ function toggleDialogOverlay(dialog = '') {
     const overlay = document.getElementById('overlay');
     switch (dialog) {
         case 'createContact':
-            overlay.innerHTML = getCreateContactDialogTemplate();
+            overlay.innerHTML = getCreateContactDialogTemplate(); 
             break;
         case 'editContact':
             overlay.innerHTML = getEditContactDialogTemplate(contacts[activeContactIndex]);
