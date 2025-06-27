@@ -20,7 +20,7 @@
         <script src="../js/contacts.js" defer></script>
     </head>
 
-    <body onload="initContactPage()" onresize="closeMobileContactInformation()">
+    <body id="body" onload="initContactPage()" onresize="closeMobileContactInformation()">
 
         <div id="overlay" class="overlay d-none" onclick="toggleDialogOverlay()"></div>
 
@@ -94,7 +94,7 @@
                         <span>Add new contact</span>
                         <img src="../assets/img/icon-person-add.svg">
                     </button>
-                    <button id="btn-create-contact-mobile" class="btn-small" onclick="toggleDialogOverlay('createContact')">
+                    <button id="btn-create-contact-mobile" class="btn-small-dark" onclick="toggleDialogOverlay('createContact')">
                         <img src="../assets/img/icon-person-add.svg">
                     </button>
                     <div id="contact-list"></div>
@@ -125,7 +125,7 @@
                                         <button class="btn-small" onclick="deleteContact()">
                                             <div class="icon-wrapper">
                                                 <img class="icon-default" src="../assets/img/icon-delete-default.svg">
-                                                <img class="icon-hover" src="../assets/img/icon-delet-hover-variant-2.svg">
+                                                <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
                                             </div>
                                             <span>Delete</span>
                                         </button>
@@ -183,3 +183,4 @@
         </main>
     </body>
 </html>
+   

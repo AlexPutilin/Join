@@ -252,19 +252,29 @@ function showUserFeedback(text) {
 }
 
 
-
+/**
+ * Toggles the visibility of the mobile contact information container
+ * if the viewport width is 1200px or less. Inserts the contact details
+ * of the currently active contact into the container.
+ */
 function toggleMobileContactInformation() {
+    const body = document.getElementById('body');
     const mobileContactInformationContainer = document.getElementById('contact-display-container-mobile');
-    if (screen.width <= 1200) {
+    if (body.clientWidth <= 1200) {
         mobileContactInformationContainer.innerHTML = getMobileContactInformationTemplate(contacts[activeContactIndex]);
         mobileContactInformationContainer.classList.toggle('d-none');
     }
 }
 
 
+/**
+ * Hides the mobile contact information container if the viewport width
+ * exceeds 1200px. Intended to ensure the mobile container is hidden on larger screens.
+ */
 function closeMobileContactInformation() {
+    const body = document.getElementById('body');
     const mobileContactInformationContainer = document.getElementById('contact-display-container-mobile');
-    if (screen.width > 1200) {
+    if (body.clientWidth > 1200) {
         mobileContactInformationContainer.classList.add('d-none');
     }
 }
