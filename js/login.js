@@ -213,6 +213,9 @@ function getSignupInput() {
 }
 
 
+/**
+ * Shows an overlay after user signed up successfully and redirects back to the login form.
+ */
 function showOverlayOnSignup() {
     let overlayContainer = document.getElementById('overlayContainerSignedUp');
     overlayContainer.classList.remove('d-none');
