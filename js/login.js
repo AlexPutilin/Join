@@ -219,10 +219,12 @@ function getSignupInput() {
 function showOverlayOnSignup() {
     let overlayContainer = document.getElementById('overlayContainerSignedUp');
     overlayContainer.classList.remove('d-none');
-    overlayContainer.classList.add('show');
-    //-> Klasse hinzufügen "show" -> für Element "user-feedback-overlay"
-    //-> setTimeout 1-2 Sekunden -> wieder ausblenden
-    //-> back to login
+    overlayBtn.classList.add('show');
+
+    setTimeout(() => {
+        overlayContainer.classList.add('d-none')
+        renderForm(getLoginFormTemplate())
+    }, 1000);
 }
 
 

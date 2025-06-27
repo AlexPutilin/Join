@@ -304,9 +304,13 @@ form>div {
     overflow: hidden;
 }
 
-.user-feedback-overlay.show {
-    transform: translateY(0);
+.show {
+    transform: translateY(0) !important;
 }
+
+/* .user-feedback-overlay.show {
+    transform: translateY(0);
+} */
 
 .user-feedback-overlay button {
     width: 80%;
