@@ -250,18 +250,18 @@ function getEditContactDialogTemplate(contact) {
     return `
         <div class="contact-dialog" onclick="event.stopPropagation()">
             <div>
+                <button id="contact-dialog-close-btn-mobile" class="btn-small" onclick="toggleDialogOverlay()">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-close-white-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-close-white-hover.svg">
+                    </div>
+                </button>
                 <img class="logo-small" src="../assets/img/logo-white.svg" alt="Logo">
                 <h1>Edit Contact</h1>
                 <div class="underline-accent"></div>
             </div>
             <div>
                 <button id="contact-dialog-close-btn" class="btn-small" onclick="toggleDialogOverlay()">
-                    <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-close-default.svg">
-                        <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
-                    </div>
-                </button>
-                <button id="contact-dialog-close-btn-mobile" class="btn-small" onclick="toggleDialogOverlay()">
                     <div class="icon-wrapper">
                         <img class="icon-default" src="../assets/img/icon-close-default.svg">
                         <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
