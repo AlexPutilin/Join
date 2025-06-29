@@ -219,7 +219,10 @@ function getSignupInput() {
 function showOverlayOnSignup() {
     let overlayContainer = document.getElementById('overlayContainerSignedUp');
     overlayContainer.classList.remove('d-none');
-    overlayBtn.classList.add('show');
+
+    setTimeout(() => {
+        overlayBtn.classList.add('show');
+    }, 50);
 
     setTimeout(() => {
         overlayContainer.classList.add('d-none')
