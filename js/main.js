@@ -3,7 +3,7 @@ function init() {
     setTimeout(() => {
         document.getElementById("splash-screen").classList.add("d-none");
     }, 1500);
-    
+
     handleSplashScreen();
 }
 
@@ -25,10 +25,10 @@ function openPage(url) {
  * @param {string} path - The path in the database where entries are stored (e.g. '/users').
  * @returns {Promise<number>} - A promise that resolves to the next unique numeric ID.
  */
-async function generateUID(path) {  
+async function generateUID(path) {
     let allEntries = await getAllEntries(path);
     let currentCount = allEntries.length;
-    
+
     return currentCount + 1;
 }
 
@@ -47,23 +47,23 @@ async function getAllEntries(path) {
 }
 
 
-/**
- * Sends data to a specific Firebase Realtime Database path using PUT (overwrites data at the given path).
- * @param {string} path - The Firebase DB path (e.g. "users/user1").
- * @param {Object} data - The data object to store at the given path.
- * @returns {Promise<Object>} - The response JSON from Firebase.
- */
-async function putData(path = "", data = {}) {
-    let response = await fetch(FIREBASE_URL + path + ".json", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    });
+// /**
+//  * Sends data to a specific Firebase Realtime Database path using PUT (overwrites data at the given path).
+//  * @param {string} path - The Firebase DB path (e.g. "users/user1").
+//  * @param {Object} data - The data object to store at the given path.
+//  * @returns {Promise<Object>} - The response JSON from Firebase.
+//  */
+// async function putData(path = "", data = {}) {
+//     await fetch(FIREBASE_URL + path + ".json", {
+//         method: "PUT",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(data)
+//     });
 
-    return responseAsJson = await response.json();
-}
+//     // return await response.json();
+// }
 
 
 /**

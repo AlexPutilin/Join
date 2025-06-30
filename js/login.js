@@ -133,12 +133,11 @@ function toggleCtaContainer() {
  * Signup functin -> in progress...
  */
 async function handleSignup() {
-    console.log("btn_signup enabled");
-
     if (checkFormValidation('#signup_form')) {
         if (await isUniqueEmail()) {
             if (checkPasswordValidation()) {
                 await addNewUser();
+                showOverlayOnSignup();
             } else {
                 alert('Passwörter stimmen nicht überein!')
             }
@@ -189,7 +188,7 @@ async function addNewUser() {
     let inputData = getSignupInput();
     let newUserID = await generateUID('/users');
 
-    putData(`/users/user${newUserID}`, inputData);
+    postData(`/users`, inputData);
 }
 
 
@@ -211,4 +210,58 @@ function getSignupInput() {
     });
 
     return updatedInputData[0];
+}
+
+
+/**
+ * Shows an overlay after user signed up successfully and redirects back to the login form.
+ */
+function showOverlayOnSignup() {
+    let overlayContainer = document.getElementById('overlayContainerSignedUp');
+    overlayContainer.classList.remove('d-none');
+
+    setTimeout(() => {
+        overlayBtn.classList.add('show');
+    }, 50);
+
+    setTimeout(() => {
+        overlayContainer.classList.add('d-none')
+        renderForm(getLoginFormTemplate())
+    }, 1000);
+}
+
+
+// API.JS
+async function deleteData(path = "") {
+    try {
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "DELETE",
+        });
+    } catch (error) {
+        console.error("Error while deleting data from Firebase:", error);
+    }
+}
+
+async function postData(path = "", data = {}) {
+    try {
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+    } catch (error) {
+        console.error("Error while pushing data in Firebase:", error);
+    }
+}
+
+async function updateData(path = "", data = {}) {
+    try {
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+    } catch (error) {
+        console.error("Error while update data in Firebase:", error);
+    }
 }
