@@ -233,12 +233,15 @@ function showOverlayOnSignup() {
 
 // -> Login function (in progress...)
 
+let userArray;
+
 async function handleLogin() {
-    const allUsers = await getData('/users');
-    const userArray = Object.values(allUsers);
+    let allUsers = await getData('/users');
+    userArray = Object.values(allUsers);
     console.log(userArray);
 
-    
+    //-> eingegebene Werte für Email und Password auslesen
+    //-> abgleichen via includes -> userArray
 }
 
 
