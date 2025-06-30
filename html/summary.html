@@ -11,9 +11,13 @@
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/summary.css">
 
 
+    <script src="../js/api.js"></script>
+    <script src="../js/components.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/templates.js"></script>
 </head>
 
 <body onload="init()">
@@ -76,6 +80,96 @@
                 </div>
             </div>
         </section>
+
+        <section class="summary-content">
+            <div class="summary-header">
+              <h1>Join 360</h1>
+              <div class="seperator-blue"></div>
+              <h3>Key Metrics at a Glance</h3>
+              <div class="seperator-blue-mobile"></div>
+            </div>
+          
+            <div class="summary-main-section">
+            <div class="summary-metrics-wrapper">
+
+            <div class="summary-row">
+              <div class="metric-card metric-card-top">
+                <div class="metric-icon">
+                  <span class="icon-wrapper">
+                    <img src="../assets/img/icon-edit-summary.svg" class="icon-default" alt="To-do Icon">
+                  </span>
+                </div>
+                <div class="metric-body">
+                  <div class="metric-value">1</div>
+                  <div class="metric-label">To-do</div>
+                </div>
+              </div>
+          
+              <div class="metric-card metric-card-top">
+                <div class="metric-icon">
+                  <span class="icon-wrapper">
+                    <img src="../assets/img/icon-check-summary.svg" class="icon-default" alt="Done Icon">
+                  </span>
+                </div>
+                <div class="metric-body">
+                  <div class="metric-value">1</div>
+                  <div class="metric-label">Done</div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="summary-row-urgent">
+                <div class="metric-card urgent-deadline">
+                  <div class="metric-icon">
+                    <span class="icon-wrapper">
+                      <img src="../assets/img/icon-prio-urgent-summary.png" class="icon-default" alt="Urgent Icon">
+                    </span>
+                  </div>
+                  <div class="metric-body">
+                    <div class="metric-value">1</div>
+                    <div class="metric-label">Urgent</div>
+                  </div>
+                  <div class="seperator-urgent"></div>
+                  <div class="deadline-info">
+                    <div class="metric-date">October 16, 2022</div>
+                    <div class="metric-label">Upcoming Deadline</div>
+                  </div>
+                </div>
+              </div>
+              
+          
+            <div class="summary-row summary-row-bottom">
+              <div class="metric-card center">
+                <div class="metric-body">
+                  <div class="metric-value">5</div>
+                  <div class="metric-label">Tasks in Board</div>
+                </div>
+              </div>
+              <div class="metric-card center">
+                <div class="metric-body">
+                  <div class="metric-value">2</div>
+                  <div class="metric-label">Tasks In Progress</div>
+                </div>
+              </div>
+              <div class="metric-card center">
+                <div class="metric-body">
+                  <div class="metric-value">2</div>
+                  <div class="metric-label">Awaiting Feedback</div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="greeting-section greeting-section-mobile">
+            <div class="greeting-wrapper">
+                <div class="greeting">
+                  <h2>Good morning,<h2>
+                  <h3 class="h1-summary-user-name">Sofia Müller</h3>
+                </div>
+            </div>
+        </div>
+        </div>
+          </section>
+
         <section class="navbar-mobile">
             <div class="navbar-mobile-wrapper">
                 <button onclick="openPage('summary.html')" class="btn-menu-mobile menu-active">
