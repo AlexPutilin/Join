@@ -130,7 +130,7 @@ function toggleCtaContainer() {
 
 
 /**
- * Signup functin -> in progress...
+ * Signup function, to register new users
  */
 async function handleSignup() {
     if (checkFormValidation('#signup_form')) {
@@ -228,6 +228,17 @@ function showOverlayOnSignup() {
         overlayContainer.classList.add('d-none')
         renderForm(getLoginFormTemplate())
     }, 1000);
+}
+
+
+// -> Login function (in progress...)
+
+async function handleLogin() {
+    const allUsers = await getData('/users');
+    const userArray = Object.values(allUsers);
+    console.log(userArray);
+
+    
 }
 
 
