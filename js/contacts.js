@@ -229,6 +229,7 @@ async function editContact() {
         await updateData(`/contacts/${contacts[activeContactIndex].id}`, data);
         await initContactPage();
         showContactInformation(activeContactIndex);
+        updateMobileContactInformation();
         toggleDialogOverlay();
         showUserFeedback("Contact succesfully edited");
     }
@@ -274,7 +275,32 @@ function toggleMobileContactInformation() {
 function closeMobileContactInformation() {
     const body = document.getElementById('body');
     const mobileContactInformationContainer = document.getElementById('contact-display-container-mobile');
+    const mobileOverlay = document.getElementById('overlay-mobile');
     if (body.clientWidth > 1200) {
         mobileContactInformationContainer.classList.add('d-none');
+        mobileOverlay.classList.add('d-none');
     }
+}
+
+
+/**
+ * Updates the mobile contact information display.
+ * If the container with the ID 'contact-display-container-mobile' exists,
+ * it replaces its inner HTML with the contact information template.
+ */
+function updateMobileContactInformation() {
+    const mobileContactInformationContainer = document.getElementById('contact-display-container-mobile');
+    if (mobileContactInformationContainer) {
+        mobileContactInformationContainer.innerHTML = getMobileContactInformationTemplate(contacts[activeContactIndex]);
+    }
+}
+
+
+/**
+ * Toggles the visibility of the mobile contact menu overlay.
+ * Adds or removes the 'd-none' class on the element with the ID 'overlay-mobile'.
+ */
+function toggleMobileContactMenu() {
+    const mobileOverlay = document.getElementById('overlay-mobile');
+    mobileOverlay.classList.toggle('d-none');
 }
