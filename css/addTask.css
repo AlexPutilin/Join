@@ -100,7 +100,6 @@
   align-items: center;
   width: 100%;
   max-width: 800px;
-  margin: 0 auto;
   gap: 16px;
 }
 
@@ -372,7 +371,6 @@
     min-width: 580px;
     flex-direction: column;
     gap: none;
-    padding-bottom: 150px;
   
   }
 
@@ -475,7 +473,6 @@
   .add-task-form {
     align-items: center;
     padding-bottom: 50px;
-    padding-top: 80px;
   }  
 
 }
