@@ -261,27 +261,3 @@ function clearChipsAndSubtasks() {
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
-
-  function layoutAddTaskSection() {
-    const section = document.getElementById('add-task-section');
-    const aside    = document.querySelector('aside');
-    const hug      = document.querySelector('.hug');
-    const navBar   = document.querySelector('.your-horizontal-menu-selector'); 
-    const footer   = document.querySelector('.clear-save-btn-wrapper');
-
-    if (!section || !aside || !hug || !navBar || !footer) return;
-
-    const leftOffset   = aside.offsetWidth;              // 232px
-    const topOffset    = hug.offsetHeight + navBar.offsetHeight;
-    const bottomOffset = footer.offsetHeight;
-
-    Object.assign(section.style, {
-      top:    topOffset + 'px',
-      left:   leftOffset + 'px',
-      right:  '0',
-      bottom: bottomOffset + 'px'
-    });
-  }
-
-  window.addEventListener('load', layoutAddTaskSection);
-  window.addEventListener('resize', layoutAddTaskSection);
