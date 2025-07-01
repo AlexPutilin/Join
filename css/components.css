@@ -471,9 +471,10 @@ textarea {
   
   
   .successfully-added-notification img {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 20px;
+    height: 20px;
   }
+  
   
   @keyframes slideInStayOut {
     0%   { transform: translate(-50%, 100vh); opacity: 0; }
