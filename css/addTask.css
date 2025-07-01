@@ -3,6 +3,7 @@
   display: flex;
   overflow: hidden;
   padding: 48px;
+  height: 100%;
 }
 
 .add-task-form {
@@ -387,14 +388,13 @@
 
   .clear-save-btn-wrapper {
     position: fixed;
-    bottom: 82px;
     left: 0;
+    bottom: 82px;
     background: #f6f7f8;
     z-index: 999;
     padding: 16px;
     width: 100%;
     box-sizing: border-box;
-
   }
 
   .clear-save-btn {
@@ -457,7 +457,6 @@
   }
 
   .clear-save-btn-wrapper {
-    position: fixed;
     bottom: 74px;
   }
 
@@ -497,7 +496,7 @@
 
   .add-task-form {
     align-items: center;
-    padding-bottom: 30px;
+    padding-bottom: 48px;
   }  
 }
 
