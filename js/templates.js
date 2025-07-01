@@ -491,7 +491,8 @@ function getPriority(task) {
  */
 function getAddTaskFormTemplate() {
   return `
-    <section class="add-task-form">
+    <section>
+    <div class="add-task-form">
       <form id="add-task-form">
         <div class="add-task-container">
           <div class="mobile-h1">
@@ -528,6 +529,7 @@ function getAddTaskFormTemplate() {
         </div>
         ${getaddTaskButtonsTemplate()}
       </form>
+      </div>
     </section>
   `;
 }

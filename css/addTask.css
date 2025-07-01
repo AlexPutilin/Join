@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: flex-start;
   background-color: #f6f7f8;
-  padding: 24px;
+  padding: 130px 48px 0px 64px;
 }
 
 .mobile-h1 {
@@ -304,7 +304,7 @@
 
 @media (max-width: 1200px) {
   .add-task-form {
-    padding: 24px;
+    padding: 130px 36px 36px 36px;
     overflow-y: auto;
   }
 
@@ -332,7 +332,7 @@
   }
 
   .add-task-form{
-    padding: 24px;
+    padding: 130px 54px 0px 16px;
   }
 
   .add-task-left{
@@ -361,6 +361,7 @@
 
   .add-task-form{
     align-items: center;
+    padding: 124px 0 0 0;
   }
 
   .add-task-container {
@@ -368,7 +369,7 @@
     min-width: 580px;
     flex-direction: column;
     gap: none;
-    padding-bottom: 82px;
+    padding-bottom: 150px;
   
   }
 
@@ -420,6 +421,7 @@
 
   .add-task-form {
     align-items: center;
+    padding-bottom: 100px;
   }  
 
 }
