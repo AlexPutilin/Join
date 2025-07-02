@@ -23,6 +23,24 @@
     <body id="body" onload="initContactPage()" onresize="closeMobileContactInformation()">
 
         <div id="overlay" class="overlay d-none" onclick="toggleDialogOverlay()"></div>
+        <div id="overlay-mobile" class="d-none" onclick="toggleMobileContactMenu()">
+            <div id="contact-menu-mobile" class="slide-in" onclick="event.stopPropagation()">
+                <button class="btn-small" onclick="toggleDialogOverlay('editContact'), toggleMobileContactMenu()">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-edit-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
+                    </div>
+                    <span>Edit</span>
+                </button>
+                <button class="btn-small" onclick="deleteContact(), toggleMobileContactInformation(), toggleMobileContactMenu()">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-delete-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
+                    </div>
+                    <span>Delete</span>
+                </button>
+            </div>
+        </div>
 
         <aside>
             <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
@@ -139,9 +157,9 @@
                             </div>
                         </div>
                     </div>
-        
-                    <div id="user-feedback" class="d-none"></div>
                 </div>
+
+                <div id="user-feedback" class="d-none"></div>
             </section>
 
             <section class="navbar-mobile">
@@ -170,7 +188,6 @@
                     <button onclick="openPage('contacts.html')" class="btn-menu-mobile menu-active">
                         <div class="">
                             <img class="icon-default" src="../assets/img/icon-contacts-active.svg" alt="contacts icon">
-                            <!-- <img class="icon-active" src="../assets/img/icon-contacts-active.svg" alt="contacts active icon"> -->
                         </div>
                         <span>Contacts</span>
                     </button>

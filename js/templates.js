@@ -361,28 +361,11 @@ function getMobileContactInformationTemplate(contact) {
                     <span>${contact.phone}</span>
                 </div>
                 <div class="space-container"></div>
-                <div id="contact-menu-mobile">
-                    <button class="btn-small" onclick="toggleDialogOverlay('editContact')">
-                        <div class="icon-wrapper">
-                            <img class="icon-default" src="../assets/img/icon-edit-default.svg">
-                            <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
-                        </div>
-                        <span>Edit</span>
-                    </button>
-                    <button class="btn-small" onclick="deleteContact()">
-                        <div class="icon-wrapper">
-                            <img class="icon-default" src="../assets/img/icon-delete-default.svg">
-                            <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
-                        </div>
-                        <span>Delete</span>
-                    </button>
-                </div>
-                <button id="btn-contact-menu-mobile" class="btn-small-dark" onclick="">
+                <button id="btn-contact-menu-mobile" class="btn-small-dark" onclick="toggleMobileContactMenu()">
                     <img src="../assets/img/icon-more-dots.svg">
                 </button>
             </div>
         </div>
-        <div id="user-feedback" class="d-none"></div>
     `
 }
 
