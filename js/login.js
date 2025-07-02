@@ -236,12 +236,27 @@ function showOverlayOnSignup() {
 let userArray;
 
 async function handleLogin() {
+    let emailInput = document.getElementById('emailInput').value.trim();
+    let passwordInput = document.getElementById('passwordInput').value;
+
     let allUsers = await getData('/users');
     userArray = Object.values(allUsers);
-    console.log(userArray);
 
-    //-> eingegebene Werte für Email und Password auslesen
-    //-> abgleichen via includes -> userArray
+    let foundUser = userArray.find(user => user.email === emailInput);
+
+    if (!foundUser) {
+        alert('E-Mail nicht gefunden!');
+        return;
+    }
+
+    if (foundUser.password !== passwordInput) {
+        alert('Falsches Passwort!');
+        return;
+    }
+
+    alert(`Willkommen, ${foundUser.name}!`);
+
+    openPage('./html/board.html');
 }
 
 
