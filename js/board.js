@@ -441,13 +441,3 @@ function filterAndShowTasks(filterTask) {
         renderAllTasks(allTasks);
     }
 }
-
-
-function hideBigAddTaskBtn() {
-    const btn = document.getElementById('add-task-btn');
-    if (window.innerWidth <= 1023) {
-        btn.style.display = 'none';
-    } else {
-        btn.style.display = "flex";
-    }
-}
