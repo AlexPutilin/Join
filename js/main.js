@@ -32,3 +32,10 @@ function closeOverlay() {
     let overlayRef = document.getElementById('overlay');
     overlayRef.classList.add('d-none');
 }
+
+
+
+// LOGOUT FUNCTION: CAN BE MIGRATET TO LOGIN.JS FILE OR KEEP IN MAIN.JS
+//
+//
+

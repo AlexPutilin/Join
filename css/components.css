@@ -212,8 +212,15 @@ a:hover {
     background-color: transparent;
 }
 
+.btn-menu > span {
+    width: 100%;
+    text-align: start;
+    text-indent: 8px;
+}
+
 .btn-menu:hover {
     background-color: #2A3D59;
+    color: #fff;
 }
 
 .menu-active {
