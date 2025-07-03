@@ -1,8 +1,6 @@
 .board {
-    /* height: calc(100vh - 96px); */
     display: flex;
     flex-direction: column;
-    /* flex-shrink: 0; */
     padding: 24px;
     background-color: #F6F7F8;
     font-size: 16px;
@@ -26,7 +24,6 @@
     justify-content: space-between;
     min-width: 95%;
     max-width: 1920px;
-
 }
 
 .board-content {
@@ -66,12 +63,8 @@
 
 .drag-drop-container {
     width: 100%;
-    /* height: 55%; */
-    /* max-height: 100%; */
     padding: 4px 0px;
     display: flex;
-    /* z-index: 1;
-    flex: 1 1 auto; */
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
@@ -120,7 +113,6 @@
     width: 370px;
     height: 21%;
     padding: 1%;
-
 }
 
 .overflow-y-hide {
@@ -281,19 +273,14 @@
 }
 
 /* add task mobile */
-
 .add-task-mobile {
     visibility: hidden;
 }
 
 @media (min-width: 1941px) and (max-width: 7680px) {
     .safe-scrollbar {
-        /* height: 1000px; */
         padding: 24px;
     }
-
-
-
     .placeholder-box-no-task {
         width: 260px;
     }
@@ -302,14 +289,6 @@
 @media (min-width: 2560px) {}
 
 @media (min-width: 1941px) and (max-width: 2251px) {}
-
-@media (max-width: 1800px) {
-    /* .safe-scrollbar {
-        padding: 12px;
-        width: 300px;
-    } */
-
-}
 
 @media (max-width: 1650px) {
     .single-stages {
@@ -326,8 +305,6 @@
         height: 50%;
     }
 }
-
-@media (max-width: 1530px) {}
 
 @media (max-width: 1441px) {
     .single-stages {
@@ -362,19 +339,7 @@
     }
 }
 
-@media (max-width: 1400px) {}
-
-@media (max-width: 1300px) {}
-
 @media (max-width: 1280px) {
-    /* .board-navigation {
-        overflow-x: auto;
-    }
-
-    .board-content {
-        min-width: 1200px;
-    } */
-
     .board-head {
         padding-left: 16px;
     }
@@ -418,8 +383,6 @@
         height: 90%;
     }
 }
-
-@media (max-width: 1200px) {}
 
 @media (max-width: 1175px) {
     .board-head {
@@ -466,7 +429,6 @@
 
     .board {
         max-width: 100vw;
-
     }
 
     .stages-wrapper {
@@ -482,33 +444,6 @@
     }
 }
 
-
-/* 768–1023 px 
--aside unten
--PP & LN in aside ausblenden
--
-
-
-aside {
-    width: 100vw;
-    height: 96px;
-    bottom: 0;
-    
-
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: center;
-}
- {
-    width: 232px;
-    background-color: #2A3647;
-    height: 100vh;
-    position: fixed;
-}
-*/
-@media (min-width: 768px)and (max-width: 1023px) {}
-
 @media (max-width: 992px) {
     .add-task-mobile {
         visibility: visible;
@@ -522,10 +457,6 @@ aside {
         flex-direction: column;
         padding: 3%;
     }
-
-    /* .search-area-wrapper {
-        gap: 50px;
-    } */
 
     .board {
         overflow-y: scroll;
@@ -603,8 +534,6 @@ aside {
     }
 }
 
-
-
 @media (max-width: 768px) {
     .single-stages {
         width: 650px;
@@ -669,8 +598,8 @@ aside {
     }
 }
 
-@media (max-width: 480px) {
-    .board-head {
+@media (max-width: 476px) {
+        .board-head {
         padding-left: 0;
     }
 
@@ -685,9 +614,6 @@ aside {
     .card {
         padding: 4%;
     }
-}
-
-@media (max-width: 476px) {
     .search-area-wrapper {
         padding: 0 0 8px 0;
     }
@@ -711,7 +637,6 @@ aside {
     .stages-wrapper {
         width: 300px;
     }
-
 }
 
 @media (max-width: 350px) {}
