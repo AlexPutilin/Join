@@ -219,6 +219,7 @@
   
 .assigned-chips {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 8px;
 }
@@ -361,7 +362,7 @@
   .add-task-root{
     display: flex;
     justify-content: center;
-    padding: 0;
+    padding: 16px;
     overflow: scroll;
   }
 
