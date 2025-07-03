@@ -367,262 +367,262 @@ function toggleSelectedStyle(entry, isSelected) {
     entry.classList.toggle('selected', isSelected);
   }
   
-  /**
-   * Retrieves dropdown menu and icon elements related to a given input field.
-   *
-   * @param {HTMLInputElement} input - The input element within a dropdown wrapper.
-   * @returns {{menu: HTMLElement, icons: NodeListOf<HTMLElement>}} The associated dropdown menu and icon elements.
-   */
-  function getDropdownElements(input) {
-    const wrapper = input.closest('.input-wrapper');
-    return {
-      menu: wrapper.querySelector('.drop-down-menu'),
-      icons: wrapper.querySelectorAll('.icon-wrapper')
-    };
-  }
-  
-  /**
- * Handles checkbox state change within a contact entry.
- * Updates selected styling and assigned contact chips.
- * Closes the dropdown if the search input contains text.
+/**
+ * Retrieves dropdown menu and icon elements related to a given input field.
  *
- * @param {HTMLElement} entry - The contact entry element.
+ * @param {HTMLInputElement} input - The input element within a dropdown wrapper.
+ * @returns {{menu: HTMLElement, icons: NodeListOf<HTMLElement>}} The associated dropdown menu and icon elements.
  */
+function getDropdownElements(input) {
+  const wrapper = input.closest('.input-wrapper');
+  return {
+    menu: wrapper.querySelector('.drop-down-menu'),
+    icons: wrapper.querySelectorAll('.icon-wrapper')
+  };
+}
+  
+/**
+* Handles checkbox state change within a contact entry.
+* Updates selected styling and assigned contact chips.
+* Closes the dropdown if the search input contains text.
+*
+* @param {HTMLElement} entry - The contact entry element.
+*/
 function handleCheckboxChange(entry) {
-    const checkbox = entry.querySelector('input[type="checkbox"]');
-    const input = document.getElementById('assigned-input');
-    toggleSelectedStyle(entry, checkbox.checked);
-    updateAssignedToChips();
-  
-    if (input.value.trim() !== "") {
-      const btn = document.querySelector('#assigned-to-wrapper-template .input-wrapper button');
-      toggleDropDown(btn);
-      resetAssignedSearchAndContacts();
-    }
-    
-  }
+  const checkbox = entry.querySelector('input[type="checkbox"]');
+  const input = document.getElementById('assigned-input');
+  toggleSelectedStyle(entry, checkbox.checked);
+  updateAssignedToChips();
 
-  /**
- * Filters contact entries based on a given search term.
- * Shows entries whose first name starts with the search term.
- *
- * @param {HTMLElement[]} contactEntries - Array of contact entry DOM elements.
- * @param {string} searchTerm - The search term to match against first names.
- * @returns {boolean} True if any contact remains visible, false otherwise.
- */
+  if (input.value.trim() !== "") {
+    const btn = document.querySelector('#assigned-to-wrapper-template .input-wrapper button');
+    toggleDropDown(btn);
+    resetAssignedSearchAndContacts();
+  }
+  
+}
+
+/**
+* Filters contact entries based on a given search term.
+* Shows entries whose first name starts with the search term.
+*
+* @param {HTMLElement[]} contactEntries - Array of contact entry DOM elements.
+* @param {string} searchTerm - The search term to match against first names.
+* @returns {boolean} True if any contact remains visible, false otherwise.
+*/
 function filterItems(contactEntries, searchTerm) {
-    let anyContactVisible = false;
-  
-    contactEntries.forEach(contactEntry => {
-      const checkboxElement = contactEntry.querySelector('input[type="checkbox"]');
-      const contactId = checkboxElement.dataset.contactId;
-      const rawName = contactsById[contactId]?.name || '';
-      const normalizedFullName = rawName.toLowerCase().trim();
-      const filterdFirstName = normalizedFullName.split(' ')[0];
-      const nameMatch = filterdFirstName.startsWith(searchTerm);
-      contactEntry.style.display = nameMatch ? 'flex' : 'none';
-      if (nameMatch) anyContactVisible = true;
-    });
-  
-    return anyContactVisible;
-  }
+  let anyContactVisible = false;
 
-  /**
- * Sets up the search functionality for the "Assigned To" contact dropdown.
- * Filters contact entries in real-time based on the user's input.
- */
+  contactEntries.forEach(contactEntry => {
+    const checkboxElement = contactEntry.querySelector('input[type="checkbox"]');
+    const contactId = checkboxElement.dataset.contactId;
+    const rawName = contactsById[contactId]?.name || '';
+    const normalizedFullName = rawName.toLowerCase().trim();
+    const filterdFirstName = normalizedFullName.split(' ')[0];
+    const nameMatch = filterdFirstName.startsWith(searchTerm);
+    contactEntry.style.display = nameMatch ? 'flex' : 'none';
+    if (nameMatch) anyContactVisible = true;
+  });
+
+  return anyContactVisible;
+}
+
+/**
+* Sets up the search functionality for the "Assigned To" contact dropdown.
+* Filters contact entries in real-time based on the user's input.
+*/
 function setupAssignedToSearch() {
-    const searchInput = document.getElementById('assigned-input');
-    if (!searchInput) return;
-  
-    searchInput.addEventListener('input', () => {
-      const term = searchInput.value.toLowerCase().trim();
-  
-      const wrapper = searchInput.closest('.input-wrapper');
-      const dropdown = wrapper.querySelector('.drop-down-menu');
-      if (dropdown && dropdown.dataset.open !== 'true') {
-        toggleDropDown(wrapper.querySelector('button'));
-      }
-  
-      const { menu } = getDropdownElements(searchInput);
-      const items = Array.from(menu.querySelectorAll('.select-contact'));
-      filterItems(items, term);
-    });
-  }
+  const searchInput = document.getElementById('assigned-input');
+  if (!searchInput) return;
 
-  /**
- * Adds a category option element to the specified container.
- * @param {HTMLElement} container - The container to append the option to.
- * @param {string} name - The name of the category.
- */
+  searchInput.addEventListener('input', () => {
+    const term = searchInput.value.toLowerCase().trim();
+
+    const wrapper = searchInput.closest('.input-wrapper');
+    const dropdown = wrapper.querySelector('.drop-down-menu');
+    if (dropdown && dropdown.dataset.open !== 'true') {
+      toggleDropDown(wrapper.querySelector('button'));
+    }
+
+    const { menu } = getDropdownElements(searchInput);
+    const items = Array.from(menu.querySelectorAll('.select-contact'));
+    filterItems(items, term);
+  });
+}
+
+/**
+* Adds a category option element to the specified container.
+* @param {HTMLElement} container - The container to append the option to.
+* @param {string} name - The name of the category.
+*/
 function addCategoryOption(container, name) {
-    const option = document.createElement('div');
-    option.classList.add('dropdown-single-option');
-    option.textContent = name;
-    option.onclick = () => selectCategoryOption(option);
-    container.appendChild(option);
-  }
+  const option = document.createElement('div');
+  option.classList.add('dropdown-single-option');
+  option.textContent = name;
+  option.onclick = () => selectCategoryOption(option);
+  container.appendChild(option);
+}
   
-  /**
-   * Handles selection of a category option.
-   * Updates the input value, closes the dropdown, hides error messages,
-   * and updates the state of the create button.
-   *
-   * @param {HTMLElement} optionElement - The selected category option element.
-   */
-  function selectCategoryOption(optionElement) {
-    const selectedValue = optionElement.innerText;
-    const categoryInput = document.getElementById('task-category');
-    if (!categoryInput) return;
-  
-    categoryInput.value = selectedValue;
-    const toggleBtn = categoryInput
-    .closest('.input-wrapper')
-    .querySelector('button');
-    toggleDropDown(toggleBtn);
-  
-    document.querySelector('#category-wrapper-template .err-msg')
-      ?.classList.add('hidden');
-  
-    updateCreateButtonState();
-  }
+/**
+ * Handles selection of a category option.
+ * Updates the input value, closes the dropdown, hides error messages,
+ * and updates the state of the create button.
+ *
+ * @param {HTMLElement} optionElement - The selected category option element.
+ */
+function selectCategoryOption(optionElement) {
+  const selectedValue = optionElement.innerText;
+  const categoryInput = document.getElementById('task-category');
+  if (!categoryInput) return;
+
+  categoryInput.value = selectedValue;
+  const toggleBtn = categoryInput
+  .closest('.input-wrapper')
+  .querySelector('button');
+  toggleDropDown(toggleBtn);
+
+  document.querySelector('#category-wrapper-template .err-msg')
+    ?.classList.add('hidden');
+
+  updateCreateButtonState();
+}
 
   /**
  * Resets the "Assigned To" search input and restores all contact visibility.
  */
 function resetAssignedSearchAndContacts() {
-    const input = document.querySelector('#assigned-to-wrapper-template .input-area input[type="text"]');
-    if (input) input.value = '';
-  
-    const allContacts = document.querySelectorAll('#contacts-dropdown .select-contact');
-    allContacts.forEach(contact => {
-      contact.style.display = 'flex';
-    });
-  }
+  const input = document.querySelector('#assigned-to-wrapper-template .input-area input[type="text"]');
+  if (input) input.value = '';
+
+  const allContacts = document.querySelectorAll('#contacts-dropdown .select-contact');
+  allContacts.forEach(contact => {
+    contact.style.display = 'flex';
+  });
+}
 
   /**
  * Displays a temporary task creation success notification.
  */
 function showAddTaskNotification() {
-    const notificationWrapper = document.createElement('div');
-    notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
-    const notificationElement = notificationWrapper.firstElementChild;
-    if (!notificationElement) return;
-    document.body.appendChild(notificationElement);
-    notificationElement.addEventListener('animationend', () => {
-      notificationElement.remove();
-    });
-  }
+  const notificationWrapper = document.createElement('div');
+  notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
+  const notificationElement = notificationWrapper.firstElementChild;
+  if (!notificationElement) return;
+  document.body.appendChild(notificationElement);
+  notificationElement.addEventListener('animationend', () => {
+    notificationElement.remove();
+  });
+}
   
 
   /**
  * Renders the priority selection buttons and enables their interaction.
  */
 function renderPriorityButtons() {
-    const priorityWrapper = document.getElementById('priority-wrapper-template');
-    if (!priorityWrapper) return;
-    priorityWrapper.innerHTML = getPriorityTemplate();
-    setDefaultPriority();
-    enablePrioritySelection();
-  }
+  const priorityWrapper = document.getElementById('priority-wrapper-template');
+  if (!priorityWrapper) return;
+  priorityWrapper.innerHTML = getPriorityTemplate();
+  setDefaultPriority();
+  enablePrioritySelection();
+}
   
-  /**
-   * Sets the default selected priority to "medium".
-   */
-  function setDefaultPriority() {
-    const mediumInput = document.querySelector('input[name="priority"][value="medium"]');
-    if (!mediumInput) return;
-    mediumInput.checked = true;
-    const mediumLabel = mediumInput.closest('.priority-option');
-    if (mediumLabel) mediumLabel.classList.add('active');
-  }
-  
-  /**
-   * Enables interaction with the priority selection buttons.
-   */
-  function enablePrioritySelection() {
-    document.querySelectorAll('.priority-option').forEach(label => {
-      label.addEventListener('click', () => {
-        document.querySelectorAll('.priority-option').forEach(l => l.classList.remove('active'));
-        label.classList.add('active');
-        const input = label.querySelector('input[name="priority"]');
-        if (input) input.checked = true;
-      });
+/**
+ * Sets the default selected priority to "medium".
+ */
+function setDefaultPriority() {
+  const mediumInput = document.querySelector('input[name="priority"][value="medium"]');
+  if (!mediumInput) return;
+  mediumInput.checked = true;
+  const mediumLabel = mediumInput.closest('.priority-option');
+  if (mediumLabel) mediumLabel.classList.add('active');
+}
+
+/**
+ * Enables interaction with the priority selection buttons.
+ */
+function enablePrioritySelection() {
+  document.querySelectorAll('.priority-option').forEach(label => {
+    label.addEventListener('click', () => {
+      document.querySelectorAll('.priority-option').forEach(l => l.classList.remove('active'));
+      label.classList.add('active');
+      const input = label.querySelector('input[name="priority"]');
+      if (input) input.checked = true;
     });
-  }
-  
-  /**
-   * Renders the category field UI and sets up dropdown close on outside click.
-   */
-  function renderCategoryField() {
-    const wrapper = document.getElementById('category-wrapper-template');
-    if (!wrapper) return;
-    wrapper.innerHTML = getCategoryTemplate();
-    renderCategoryOptions();
-    setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper',() => {
-        const toggleButton = document.querySelector('#category-wrapper-template .input-wrapper button');
-        toggleDropDown(toggleButton);
-      }
-    );
-  }
-  
-  /**
-   * Renders available category options in the dropdown.
-   */
-  function renderCategoryOptions() {
-    const categoryContainer = getAndClearCategoryContainer();
-    if (!categoryContainer) return;
-  
-    const categories = ['Technical Task', 'User Story'];
-    categories.forEach(category => addCategoryOption(categoryContainer, category));
-  }
-  
-  /**
-   * Retrieves and clears the container for category options.
-   * @returns {HTMLElement|null} The container element or null if not found.
-   */
-  function getAndClearCategoryContainer() {
-    const container = document.getElementById('category-options-container');
-    if (!container) return null;
-    container.innerHTML = '';
-    return container;
-  }
-  
-  /**
-   * Validates the category field input.
-   * Checks whether the field has a non-empty value and toggles error display accordingly.
-   *
-   * @returns {boolean} True if valid, false otherwise.
-   */
-  function validateCategoryField() {
-    const input = document.getElementById('task-category');
-    const wrapper = input?.closest('.input-wrapper');
-    const area = wrapper?.querySelector('.input-area');
-    const errorMsg = wrapper?.querySelector('.err-msg');
-  
-    if (!input || !area || !errorMsg) return true;
-  
-    const isValid = !!input.value.trim();
-    toggleValidationFeedback(area, errorMsg, isValid);
-    return isValid;
-  }
-  
-  /**
-   * Toggles error display for an input area based on validation result.
-   *
-   * @param {HTMLElement} area - The element to highlight as invalid.
-   * @param {HTMLElement} errorMsg - The element showing the error message.
-   * @param {boolean} isValid - Whether the input is valid.
-   */
-  function toggleValidationFeedback(area, errorMsg, isValid) {
-    if (isValid) {
-      area.classList.remove('invalid-input');
-      errorMsg.classList.add('hidden');
-    } else {
-      area.classList.add('invalid-input');
-      errorMsg.classList.remove('hidden');
+  });
+}
+
+/**
+ * Renders the category field UI and sets up dropdown close on outside click.
+ */
+function renderCategoryField() {
+  const wrapper = document.getElementById('category-wrapper-template');
+  if (!wrapper) return;
+  wrapper.innerHTML = getCategoryTemplate();
+  renderCategoryOptions();
+  setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper',() => {
+      const toggleButton = document.querySelector('#category-wrapper-template .input-wrapper button');
+      toggleDropDown(toggleButton);
     }
+  );
+}
+
+/**
+ * Renders available category options in the dropdown.
+ */
+function renderCategoryOptions() {
+  const categoryContainer = getAndClearCategoryContainer();
+  if (!categoryContainer) return;
+
+  const categories = ['Technical Task', 'User Story'];
+  categories.forEach(category => addCategoryOption(categoryContainer, category));
+}
+
+/**
+ * Retrieves and clears the container for category options.
+ * @returns {HTMLElement|null} The container element or null if not found.
+ */
+function getAndClearCategoryContainer() {
+  const container = document.getElementById('category-options-container');
+  if (!container) return null;
+  container.innerHTML = '';
+  return container;
+}
+
+/**
+ * Validates the category field input.
+ * Checks whether the field has a non-empty value and toggles error display accordingly.
+ *
+ * @returns {boolean} True if valid, false otherwise.
+ */
+function validateCategoryField() {
+  const input = document.getElementById('task-category');
+  const wrapper = input?.closest('.input-wrapper');
+  const area = wrapper?.querySelector('.input-area');
+  const errorMsg = wrapper?.querySelector('.err-msg');
+
+  if (!input || !area || !errorMsg) return true;
+
+  const isValid = !!input.value.trim();
+  toggleValidationFeedback(area, errorMsg, isValid);
+  return isValid;
+}
+
+/**
+ * Toggles error display for an input area based on validation result.
+ *
+ * @param {HTMLElement} area - The element to highlight as invalid.
+ * @param {HTMLElement} errorMsg - The element showing the error message.
+ * @param {boolean} isValid - Whether the input is valid.
+ */
+function toggleValidationFeedback(area, errorMsg, isValid) {
+  if (isValid) {
+    area.classList.remove('invalid-input');
+    errorMsg.classList.add('hidden');
+  } else {
+    area.classList.add('invalid-input');
+    errorMsg.classList.remove('hidden');
   }
+}
 
   /**
  * Renders the "Assigned To" field by injecting the template,
@@ -631,255 +631,246 @@ function renderPriorityButtons() {
  * @async
  */
 async function renderAssignedToField() {
-    if (!injectAssignedToTemplate()) return;
-    await loadAssignedToContacts();
-    initAssignedToInteractions();
-    bindAssignedToOutsideClick();
-  }
+  if (!injectAssignedToTemplate()) return;
+  await loadAssignedToContacts();
+  initAssignedToInteractions();
+  bindAssignedToOutsideClick();
+}
   
-  /**
-   * Injects the "Assigned To" template into the corresponding wrapper element.
-   *
-   * @returns {boolean} True if the template was successfully injected, false otherwise.
-   */
-  function injectAssignedToTemplate() {
-    const wrapper = document.getElementById('assigned-to-wrapper-template');
-    if (!wrapper) return false;
-    wrapper.innerHTML = getAssignedToTemplate();
-    return true;
-  }
-  
-  /**
-   * Loads contacts data for the "Assigned To" dropdown and renders the list.
-   *
-   * @async
-   */
-  async function loadAssignedToContacts() {
-    contactColorIndex = 0;
-    const contacts = await getData('/contacts');
-    if (contacts) {
-      renderContacts(contacts);
-    }
-  }
-  
-  /**
-   * Initializes the interactions for the "Assigned To" section:
-   * search input, contact selection, and chip update.
-   */
-  function initAssignedToInteractions() {
-    setupAssignedToSearch();
-    setupContactSelection();
-    updateAssignedToChips();
-  }
-  
-  /**
-   * Binds event listener to close the "Assigned To" dropdown when clicking outside.
-   */
-  function bindAssignedToOutsideClick() {
-    setupCloseOnOutsideClick(
-      '#assigned-to-wrapper-template .input-wrapper',
-      () => {
-        const btn = document.querySelector('#assigned-to-wrapper-template .input-wrapper button');
-        toggleDropDown(btn);
-      }
-    );
-  }
-  
-  /**
-   * Renders the contact list into the "Assigned To" dropdown.
-   * Each contact entry is assigned a color and converted into a selection element.
-   *
-   * @param {Object.<string, {name: string}>} contactsData - An object mapping contact IDs to contact info.
-   */
-  function renderContacts(contactsData) {
-    const dropdown = document.getElementById('contacts-dropdown');
-    if (!dropdown) return;
-    dropdown.innerHTML = '';
-  
-    Object.entries(contactsData).forEach(([id, info]) => {
-      contactsById[id] = info;
-      contactsById[id].color = getContactBackgroundColor();
-  
-      const html = getContactSelectionTemplate({
-        initials: getContactInitials(info.name),
-        name: info.name,
-        id,
-        color: info.color
-      });
-      dropdown.insertAdjacentHTML('beforeend', html);
-    });
-  }
-  
-  /**
-   * Initializes event bindings for each contact entry in the "Assigned To" dropdown.
-   */
-  function setupContactSelection() {
-    const entries = Array.from(
-      document.querySelectorAll('#contacts-dropdown .select-contact')
-    );
-    entries.forEach(entry => bindEventsToEntry(entry));
-  }
-  
-  
-  /**
-   * Binds click and change event listeners to a contact entry.
-   *
-   * @param {HTMLElement} entry - The contact entry element.
-   */
-  function bindEventsToEntry(entry) {
-    const checkbox = entry.querySelector('input[type="checkbox"]');
-  
-    checkbox.addEventListener('change', () => {
-      handleCheckboxChange(entry);
-    });
-  
-    entry.addEventListener('click', event => {
-      const target = event.target;
-      if (target === checkbox || target.closest('label.checkbox')) return;
-      checkbox.checked = !checkbox.checked;
-      checkbox.dispatchEvent(new Event('change'));
-    });
-  }
-  
-  
-  /**
-   * Updates the displayed assigned contact chips and stores their IDs.
-   */
-  function updateAssignedToChips() {
-    const ids = getCheckedContactIds();
-    renderAssignedContactChips(ids);
-    storeAssignedContactIds(ids);
-  }
-  
-  /**
-   * Retrieves the IDs of all checked contacts in the dropdown.
-   *
-   * @returns {string[]} An array of selected contact IDs.
-   */
-  function getCheckedContactIds() {
-    return Array.from(
-      document.querySelectorAll(
-        '#contacts-dropdown .select-contact .checkbox input[type="checkbox"]:checked'
-      )
-    ).map(cb => cb.dataset.contactId);
-  }
-  
-  /**
-   * Renders visual chips for the assigned contacts based on their IDs.
-   *
-   * @param {string[]} contactIds - The array of selected contact IDs.
-   */
-  function renderAssignedContactChips(contactIds) {
-    const container = document.getElementById('assigned-chips-container');
-    container.innerHTML = '';
-  
-    contactIds.forEach(id => {
-      const info = contactsById[id];
-      if (!info) return;
-      const chip = createContactChip(getContactInitials(info.name), info.color);
-      container.appendChild(chip);
-    });
-  }
-  
-  /**
-   * Stores the selected contact IDs in the dataset of the input field.
-   *
-   * @param {string[]} contactIds - The array of selected contact IDs.
-   */
-  function storeAssignedContactIds(contactIds) {
-    const input = document.getElementById('assigned-input');
-    if (!input) return;
-    input.value = '';
-    input.dataset.value = contactIds.join(',');
-  }
-  
-  /**
-   * Maps a list of contact IDs to their corresponding names.
-   *
-   * @param {string[]} contactIds - An array of contact IDs.
-   * @returns {string} A comma-separated string of contact names.
-   */
-  function mapContactIdsToNames(contactIds) {
-    return contactIds
-      .map(id => contactsById[id]?.name)
-      .filter(Boolean)
-      .join(', ');
-  }
-  
-  /**
-   * Renders the input field for adding subtasks by injecting the corresponding template.
-   */
-  function renderSubtaskInput() {
-    const subtaskWrapper = document.getElementById('subtask-wrapper-template');
-    if (!subtaskWrapper) return;
-    subtaskWrapper.innerHTML = getSubtaskInputTemplate();
-  }
-  
-  /**
-   * Extracts all subtasks currently entered in the DOM.
-   *
-   * @returns {Object.<string, {title: string, done: boolean}>} An object of subtasks indexed by key.
-   */
-  function getSubtasksFromDOM() {
-    const subtaskElements = getAllSubtaskElements();
-    const subtasks = {};
-  
-    subtaskElements.forEach((element, index) => {
-      const title = extractSubtaskTitle(element);
-      if (title) {
-        subtasks[`subtask${index + 1}`] = createSubtaskObject(title);
-      }
-    });
-  
-    return subtasks;
-  }
-  
-  /**
-   * Validates the Add Task form before submission.
-   * Checks if required fields are filled.
-   *
-   * @returns {boolean} True if the form is valid, false otherwise.
-   */
-  function validateFormBeforeSubmit() {
-    const isTitleValid = !!document.getElementById('task-title')?.value.trim();
-    const isDateValid = !!document.getElementById('due-date')?.value.trim();
-    const isCategoryValid = validateCategoryField(); // schon vorhanden
-  
-    return isTitleValid && isDateValid && isCategoryValid;
-  }
+/**
+ * Injects the "Assigned To" template into the corresponding wrapper element.
+ *
+ * @returns {boolean} True if the template was successfully injected, false otherwise.
+ */
+function injectAssignedToTemplate() {
+  const wrapper = document.getElementById('assigned-to-wrapper-template');
+  if (!wrapper) return false;
+  wrapper.innerHTML = getAssignedToTemplate();
+  return true;
+}
 
-  /**
+/**
+ * Loads contacts data for the "Assigned To" dropdown and renders the list.
+ *
+ * @async
+ */
+async function loadAssignedToContacts() {
+  contactColorIndex = 0;
+  const contacts = await getData('/contacts');
+  if (contacts) {
+    renderContacts(contacts);
+  }
+}
+
+/**
+ * Initializes the interactions for the "Assigned To" section:
+ * search input, contact selection, and chip update.
+ */
+function initAssignedToInteractions() {
+  setupAssignedToSearch();
+  setupContactSelection();
+  updateAssignedToChips();
+}
+
+/**
+ * Binds event listener to close the "Assigned To" dropdown when clicking outside.
+ */
+function bindAssignedToOutsideClick() {
+  setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper', () => {
+      const btn = document.querySelector('#assigned-to-wrapper-template .input-wrapper button');
+      toggleDropDown(btn);
+  });
+}
+
+/**
+ * Renders the contact list into the "Assigned To" dropdown.
+ * Each contact entry is assigned a color and converted into a selection element.
+ *
+ * @param {Object.<string, {name: string}>} contactsData - An object mapping contact IDs to contact info.
+ */
+function renderContacts(contactsData) {
+  const dropdown = document.getElementById('contacts-dropdown');
+  if (!dropdown) return;
+  dropdown.innerHTML = '';
+
+  Object.entries(contactsData).forEach(([id, info]) => {
+    contactsById[id] = info;
+    contactsById[id].color = getContactBackgroundColor();
+
+    const html = getContactSelectionTemplate({
+      initials: getContactInitials(info.name),
+      name: info.name,
+      id,
+      color: info.color
+    });
+    dropdown.insertAdjacentHTML('beforeend', html);
+  });
+}
+
+/**
+ * Initializes event bindings for each contact entry in the "Assigned To" dropdown.
+ */
+function setupContactSelection() {
+  const entries = Array.from(document.querySelectorAll('#contacts-dropdown .select-contact'));
+  entries.forEach(entry => bindEventsToEntry(entry));
+}
+
+
+/**
+ * Binds click and change event listeners to a contact entry.
+ *
+ * @param {HTMLElement} entry - The contact entry element.
+ */
+function bindEventsToEntry(entry) {
+  const checkbox = entry.querySelector('input[type="checkbox"]');
+
+  checkbox.addEventListener('change', () => {
+    handleCheckboxChange(entry);
+  });
+
+  entry.addEventListener('click', event => {
+    const target = event.target;
+    if (target === checkbox || target.closest('label.checkbox')) return;
+    checkbox.checked = !checkbox.checked;
+    checkbox.dispatchEvent(new Event('change'));
+  });
+}
+
+
+/**
+ * Updates the displayed assigned contact chips and stores their IDs.
+ */
+function updateAssignedToChips() {
+  const ids = getCheckedContactIds();
+  renderAssignedContactChips(ids);
+  storeAssignedContactIds(ids);
+}
+
+/**
+ * Retrieves the IDs of all checked contacts in the dropdown.
+ *
+ * @returns {string[]} An array of selected contact IDs.
+ */
+function getCheckedContactIds() {
+  return Array.from(
+    document.querySelectorAll(
+      '#contacts-dropdown .select-contact .checkbox input[type="checkbox"]:checked'
+    )
+  ).map(cb => cb.dataset.contactId);
+}
+
+/**
+ * Renders visual chips for the assigned contacts based on their IDs.
+ *
+ * @param {string[]} contactIds - The array of selected contact IDs.
+ */
+function renderAssignedContactChips(contactIds) {
+  const container = document.getElementById('assigned-chips-container');
+  container.innerHTML = '';
+
+  contactIds.forEach(id => {
+    const info = contactsById[id];
+    if (!info) return;
+    const chip = createContactChip(getContactInitials(info.name), info.color);
+    container.appendChild(chip);
+  });
+}
+
+/**
+ * Stores the selected contact IDs in the dataset of the input field.
+ *
+ * @param {string[]} contactIds - The array of selected contact IDs.
+ */
+function storeAssignedContactIds(contactIds) {
+  const input = document.getElementById('assigned-input');
+  if (!input) return;
+  input.value = '';
+  input.dataset.value = contactIds.join(',');
+}
+
+/**
+ * Maps a list of contact IDs to their corresponding names.
+ *
+ * @param {string[]} contactIds - An array of contact IDs.
+ * @returns {string} A comma-separated string of contact names.
+ */
+function mapContactIdsToNames(contactIds) {
+  return contactIds
+    .map(id => contactsById[id]?.name)
+    .filter(Boolean)
+    .join(', ');
+}
+
+/**
+ * Renders the input field for adding subtasks by injecting the corresponding template.
+ */
+function renderSubtaskInput() {
+  const subtaskWrapper = document.getElementById('subtask-wrapper-template');
+  if (!subtaskWrapper) return;
+  subtaskWrapper.innerHTML = getSubtaskInputTemplate();
+}
+
+/**
+ * Extracts all subtasks currently entered in the DOM.
+ *
+ * @returns {Object.<string, {title: string, done: boolean}>} An object of subtasks indexed by key.
+ */
+function getSubtasksFromDOM() {
+  const subtaskElements = getAllSubtaskElements();
+  const subtasks = {};
+  subtaskElements.forEach((element, index) => {
+    const title = extractSubtaskTitle(element);
+    if (title) {
+      subtasks[`subtask${index + 1}`] = createSubtaskObject(title);
+    }
+  });
+  return subtasks;
+}
+
+/**
+ * Validates the Add Task form before submission.
+ * Checks if required fields are filled.
+ *
+ * @returns {boolean} True if the form is valid, false otherwise.
+ */
+function validateFormBeforeSubmit() {
+  const isTitleValid = !!document.getElementById('task-title')?.value.trim();
+  const isDateValid = !!document.getElementById('due-date')?.value.trim();
+  const isCategoryValid = validateCategoryField(); // schon vorhanden
+
+  return isTitleValid && isDateValid && isCategoryValid;
+}
+
+/**
  * Retrieves all DOM elements representing individual subtasks.
  *
  * @returns {NodeListOf<HTMLElement>} A list of subtask container elements.
  */
 function getAllSubtaskElements() {
-    const listContainer = document.querySelector('#subtask-input .list-subtasks');
-    return listContainer.querySelectorAll('.subtask-item-container');
-  }
-  
-  /**
-   * Extracts and cleans the title of a subtask from its DOM container.
-   *
-   * @param {HTMLElement} container - The subtask container element.
-   * @returns {string|null} The subtask title, or null if not found.
-   */
-  function extractSubtaskTitle(container) {
-    const textSpan = container.querySelector('.subtask-name');
-    if (!textSpan) return null;
-    const raw = textSpan.textContent.trim();
-    return raw.startsWith('•')
-      ? raw.slice(1).trim()
-      : raw;
-  }
-  
-  /**
-   * Creates a subtask object with a given title.
-   *
-   * @param {string} title - The title of the subtask.
-   * @returns {{title: string, done: boolean}} A subtask object.
-   */
-  function createSubtaskObject(title) {
-    return { title: title, done: false };
-  }
+  const listContainer = document.querySelector('#subtask-input .list-subtasks');
+  return listContainer.querySelectorAll('.subtask-item-container');
+}
+
+/**
+ * Extracts and cleans the title of a subtask from its DOM container.
+ *
+ * @param {HTMLElement} container - The subtask container element.
+ * @returns {string|null} The subtask title, or null if not found.
+ */
+function extractSubtaskTitle(container) {
+  const textSpan = container.querySelector('.subtask-name');
+  if (!textSpan) return null;
+  const raw = textSpan.textContent.trim();
+  return raw.startsWith('•') ? raw.slice(1).trim() : raw;
+}
+
+/**
+ * Creates a subtask object with a given title.
+ *
+ * @param {string} title - The title of the subtask.
+ * @returns {{title: string, done: boolean}} A subtask object.
+ */
+function createSubtaskObject(title) {
+  return { title: title, done: false };
+}
   

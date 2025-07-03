@@ -35,10 +35,10 @@ function closeOverlay() {
 
 
 
-// LOGOUT FUNCTION: CAN BE MIGRATET TO LOGIN.JS FILE OR KEEP IN MAIN.JS
-//
-//
 
+
+
+//------- LOGOUT FUNCTION: CAN BE MIGRATET TO LOGIN.JS FILE OR KEEP IN MAIN.JS ---------
 
 /**
  * Toggles the visibility of the profile menu overlay.
