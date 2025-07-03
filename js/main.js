@@ -39,7 +39,22 @@ function closeOverlay() {
 //
 //
 
+
+/**
+ * Toggles the visibility of the profile menu overlay.
+ * Adds or removes the 'd-none' class to show or hide the menu.
+ */
 function toggleProfileMenu() {
     const menu = document.getElementById('profile-menu-overlay');
     menu.classList.toggle('d-none');
+}
+
+
+/**
+ * Logs out the current user by resetting the active user 
+ * and redirecting to the login page.
+ */
+function logout() {
+    // set activeUser = null;
+    openPage('../index.html');
 }
