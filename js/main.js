@@ -39,3 +39,7 @@ function closeOverlay() {
 //
 //
 
+function toggleProfileMenu() {
+    const menu = document.getElementById('profile-menu-overlay');
+    menu.classList.toggle('d-none');
+}

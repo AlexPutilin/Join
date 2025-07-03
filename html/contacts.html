@@ -42,6 +42,23 @@
             </div>
         </div>
 
+        <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
+            <div class="profile-menu" onclick="event.stopPropagation()">
+                <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
+                    <span>Help</span>
+                </button>
+                <button onclick="openPage('privacy-policy.html')" class="btn-menu">
+                    <span>Privacy Policy</span>
+                </button>
+                <button onclick="openPage('legal-notice.html')" class="btn-menu">
+                    <span>Legal Notice</span>
+                </button>
+                <button onclick="logout()" class="btn-menu">
+                    <span>Log out</span>
+                </button>
+            </div>
+        </div>
+
         <aside>
             <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
             <nav>
@@ -80,6 +97,7 @@
                 </div>
             </nav>
         </aside>
+
         <main>
             <section class="hug">
                 <div class="hug-wrapper">
@@ -90,33 +108,18 @@
                     </div>
                     <div class="help-and-profile">
 
-                        <button onclick="openPage('help.html')" class="btn-small">
+                        <button id="help-btn" class="btn-small" onclick="openPage('help.html')">
                             <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
                             <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
                         </button>
 
-                        <button class="btn-profile">
+                        <button class="btn-profile" onclick="toggleProfileMenu()">
                             <span>ds</span>
                         </button>
                     </div>
                 </div>
             </section>
-
-            <div id="profile-menu">
-                <button onclick="openPage('help.html')" class="btn-menu">
-                    <span>Help</span>
-                </button>
-                <button onclick="openPage('privacy-policy.html')" class="btn-menu">
-                    <span>Privacy Policy</span>
-                </button>
-                <button onclick="openPage('legal-notice.html')" class="btn-menu">
-                    <span>Legal Notice</span>
-                </button>
-                <button onclick="logout()" class="btn-menu">
-                    <span>Log out</span>
-                </button>
-            </div>
-
+                
             <section id="contacts-board">
                 <div class="contacts-container">
                     <button id="btn-create-contact" class="btn-dark" onclick="toggleDialogOverlay('createContact')">
