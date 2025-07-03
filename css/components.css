@@ -261,7 +261,7 @@ label {
 input {
     height: 48px;
     width: 100%;
-    min-width: 400px;
+    /* min-width: 400px; */
     border: none;
     outline: none;
     font-size: 20px;
@@ -398,7 +398,12 @@ textarea {
     background-color: #1FD7C1;
 }
 
-
+@media (max-width: 1140px) {
+    .icon-add{
+        height: 22px;
+        width: 22px;
+    }
+}
 
 @media (max-width: 476px) {
     .btn-profile {
