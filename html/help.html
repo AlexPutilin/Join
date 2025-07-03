@@ -17,6 +17,22 @@
 </head>
 
 <body>
+    <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
+        <div class="profile-menu" onclick="event.stopPropagation()">
+            <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
+                <span>Help</span>
+            </button>
+            <button onclick="openPage('privacy-policy.html')" class="btn-menu">
+                <span>Privacy Policy</span>
+            </button>
+            <button onclick="openPage('legal-notice.html')" class="btn-menu">
+                <span>Legal Notice</span>
+            </button>
+            <button onclick="logout()" class="btn-menu">
+                <span>Log out</span>
+            </button>
+        </div>
+    </div>
     <aside>
         <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
@@ -35,14 +51,14 @@
                     <span>Add Task</span>
                 </button>
 
-                <button onclick="openPage('board.html')" class="btn-menu btn-board">
+                <button onclick="openPage('board.html')" class="btn-menu">
                     <div class="icon-wrapper">
                         <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
                     </div>
                     <span>Board</span>
                 </button>
 
-                <button onclick="openPage('contacts.html')" class="btn-menu btn-contacts">
+                <button onclick="openPage('contacts.html')" class="btn-menu">
                     <div class="icon-wrapper">
                         <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
                     </div>
