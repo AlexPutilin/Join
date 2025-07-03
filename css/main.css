@@ -85,6 +85,8 @@ main {
 .content {
   background-color: #F6F7F8;
   padding: 24px 48px;
+  position: relative;
+  overflow: hidden;
 }
 
 @media (max-width: 1500px) {
@@ -151,7 +153,8 @@ main {
   h2 {
     font-size: 28px;
   }
-  h3{
+
+  h3 {
     font-size: 20px;
   }
 }
