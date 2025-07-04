@@ -165,19 +165,20 @@
     justify-content: center;
     align-items: center;
     gap: 32px;
+    padding-top: 54px;
   }
   
   .summary-metrics-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
   }
   
   .greeting-wrapper {
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    margin-right: 120px;
+    margin-right: 360px;
   }
   
   .greeting-section {
