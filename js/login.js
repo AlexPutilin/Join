@@ -234,7 +234,6 @@ function showOverlayOnSignup() {
 // -> Login function (in progress...)
 
 let userArray;
-let activeUser;
 
 async function handleLogin() {
     let emailInput = document.getElementById('emailInput').value.trim();
