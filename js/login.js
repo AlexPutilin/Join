@@ -234,6 +234,7 @@ function showOverlayOnSignup() {
 // -> Login function (in progress...)
 
 let userArray;
+let activeUser;
 
 async function handleLogin() {
     let emailInput = document.getElementById('emailInput').value.trim();
@@ -255,8 +256,12 @@ async function handleLogin() {
     }
 
     alert(`Willkommen, ${foundUser.name}!`);
+    activeUser = foundUser.name;
+    console.log(activeUser);
+    
 
-    openPage('./html/board.html');
+    return;
+    openPage('./html/summary.html');
 }
 
 
