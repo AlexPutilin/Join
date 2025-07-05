@@ -22,7 +22,7 @@
     <script src="../js/board.js" defer></script>
 </head>
 
-<body onload="tasksToArray()">
+<body onload="tasksToArray(), initProfile()">
     <div onclick="closeOverlay()" id="overlay" class="overlay d-none"></div>
     <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
         <div class="profile-menu" onclick="event.stopPropagation()">
@@ -94,7 +94,7 @@
                     </button>
 
                     <button class="btn-profile" onclick="toggleProfileMenu()">
-                        <span>ds</span>
+                        <span id="profile"></span>
                     </button>
                 </div>
             </div>

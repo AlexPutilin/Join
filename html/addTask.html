@@ -21,7 +21,7 @@
     <script src="../js/contacts.js"></script>
 </head>
 
-<body>
+<body onload="initProfile()">
     <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
         <div class="profile-menu" onclick="event.stopPropagation()">
             <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
@@ -92,7 +92,7 @@
                     </button>
 
                     <button class="btn-profile" onclick="toggleProfileMenu()">
-                        <span>ds</span>
+                        <span id="profile"></span>
                     </button>
                 </div>
             </div>

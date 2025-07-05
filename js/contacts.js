@@ -92,24 +92,6 @@ function getAlphabeticList() {
 
 
 /**
- * Extracts and returns the initials from a full name.
- * For names with multiple words, returns the first letter of the first two words.
- * 
- * @param {string} name - The full name of the contact.
- * @returns {string} The contact's initials.
- */
-function getContactInitials(name) {
-    let initials = name.split(" ");
-    if (initials.length > 1) {
-        initials = initials[0].charAt(0) + initials[1].charAt(0);
-    } else {
-        initials = initials[0].charAt(0);
-    }
-    return initials;
-}
-
-
-/**
  * Returns the next background color for a contact from the predefined color list,
  * cycling through the list based on the current index.
  * 

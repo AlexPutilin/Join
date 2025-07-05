@@ -1,3 +1,5 @@
+let activeUser = "Guest"
+
 /** Initializes the app once the DOM is fully loaded. */
 function init() {
     setTimeout(() => {
@@ -34,11 +36,29 @@ function closeOverlay() {
 }
 
 
+/**
+ * Extracts and returns the initials from a full name.
+ * For names with multiple words, returns the first letter of the first two words.
+ * 
+ * @param {string} name - The full name of the contact.
+ * @returns {string} The name initials.
+ */
+function getContactInitials(name) {
+    let initials = name.split(" ");
+    if (initials.length > 1) {
+        initials = initials[0].charAt(0) + initials[1].charAt(0);
+    } else {
+        initials = initials[0].charAt(0);
+    }
+    return initials;
+}
 
 
+function initProfile() {
+    const profile = document.getElementById('profile');
+    profile.innerHTML = getContactInitials(activeUser);
+}
 
-
-//------- LOGOUT FUNCTION: CAN BE MIGRATET TO LOGIN.JS FILE OR KEEP IN MAIN.JS ---------
 
 /**
  * Toggles the visibility of the profile menu overlay.
