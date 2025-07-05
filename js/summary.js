@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
       greeting = 'Good morning,';
     }
     document.getElementById('greeting').textContent = greeting;
-    initGreedingUser();
+    initGreetingUser();
   });
 
   function initializeMetricCards(){
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-function initGreedingUser() {
+function initGreetingUser() {
   const userName = document.getElementById('greeting-user-name');
   userName.innerText = activeUser;
 }
