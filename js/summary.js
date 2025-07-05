@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
       greeting = 'Good morning,';
     }
     document.getElementById('greeting').textContent = greeting;
+    initGreedingUser();
   });
 
   function initializeMetricCards(){
@@ -107,5 +108,12 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('Failed to update To-Do count:', err);
     }
   }
+
+
+
+function initGreedingUser() {
+  const userName = document.getElementById('greeting-user-name');
+  userName.innerText = activeUser;
+}
 
   initializeMetricCards();
