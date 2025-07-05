@@ -1,68 +1,129 @@
 .board {
-    background-color: #f6f7f8;
-    min-height: 845px;
-    padding: 96px;
+    min-height: max-content;
+    padding: 56px;
+    flex: 1;
 }
-
-/* .board-navigation {
-   
-    
-} */
 
 .board-head {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    padding-left: 24px;
+
+}
+
+.board-head-wrapper {
+    display: flex;
+    justify-content: space-between;
+    min-width: 95%;
+    max-width: 1920px;
 
 }
 
 .board-content {
     display: flex;
     justify-content: space-between;
-    gap: 36px;
-    overflow-x: hidden;
-    height: 480px;
+    /* gap: 36px;
+    overflow: hidden;
+    height: 100%; */
+    max-width: 1600px;
+    /* min-width: 1440px; */
 }
 
 .workflow-stages {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 24px;
-    color: #42526e;
-    font-weight: 700;
-    padding: 36px 0px;
+
+    padding: 36px 48px 0px 36px;
 }
 
 .single-stages {
     display: flex;
-    align-items: center;
-    gap: 40px;
-    width: 245px;
     justify-content: space-between;
 
+    width: 95%;
+
+    font-size: 24px;
+    color: #42526e;
+    font-weight: 700;
+    padding: 8px 16px 8px 8px;
 }
+
+
+
+
 
 .drag-drop-container {
-    width: 260px;
-    height: 100%;
+    width: 98%;
+    height: 95%;
+    overflow-x: hidden;
+    /* scrollbar-color: #2a3d59 #e3e4e5; */
+    padding: 8px 0px;
+}
 
+.drop-placeholder {
+    width: 90%;
+    height: 80px;
+    margin: 8px 0;
+    border: 2px dashed #aaa;
+    border-radius: 8px;
+}
+
+.drag-drop-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.drag-drop-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+.drag-drop-container::-webkit-scrollbar-thumb {
+    background: rgb(42, 54, 71);
+    border-radius: 10px;
 }
 
 
+.drag-drop-container::-webkit-scrollbar-thumb:hover {
+    background: #2a3d59;
+}
 
+.safe-scrollbar {
+    width: 350px;
+    height: 600px;
+    padding: 24px;
 
+}
 
-.task-card {
-    width: 260px;
+.overflow-y-hide {
+    overflow-y: hidden;
+}
+
+.drag-active .placeholder-box-no-task {
+    display: none;
+}
+
+[class^="card"] {
+    width: 90%;
     border-radius: 16px;
     padding: 16px;
+    margin: 4px;
     background-color: #ffffff;
+
 }
 
-.task-card:hover {
+.card {
+    box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.08);
+}
+
+[class="card"]:hover {
     cursor: pointer;
+}
+
+.draggable.dragging {
+    opacity: 0.5;
 }
 
 .task-title {
@@ -110,8 +171,8 @@
     margin: 0;
 }
 
-.placeholder-box {
-    width: 260px;
+.placeholder-box-no-task {
+    width: 90%;
     height: 48px;
     border: 1px dashed #a8a8a8;
     border-radius: 8px;
@@ -136,7 +197,6 @@
     border: 1px solid #f1f1f1;
     border-radius: 16px;
     /* box-shadow: 2px 2px 2px 1px #e3e3e3; */
-
     top: 20%;
     left: 40%;
     width: 25%;
@@ -148,15 +208,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.font-color {
-    color: #42526e;
+    padding: 0;
+    width: 100%;
 }
 
 .priority-wrapper {
     display: flex;
     align-items: center;
+}
+
+.font-color-grey {
+    color: #42526e;
 }
 
 .d-none {
@@ -167,14 +229,316 @@
     visibility: hidden;
 }
 
+.headling-add-btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .beam {
-    height: 36px;
+    height: 30px;
     width: 1px;
-    background-color: #d1d1d1;
+    margin: 0px 8px;
+    background-color: #d1d1d1 !important;
 }
 
 .search-area-wrapper {
     display: flex;
     align-items: center;
-    gap: 36px;
+    gap: 16px;
 }
+
+.delete-and-edit-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* color: #2A3647; */
+    gap: 16px;
+}
+
+/* add task mobile */
+
+.add-task-mobile {
+    visibility: hidden;
+}
+
+@media (min-width: 1941px) and (max-width: 7680px) {
+
+    .safe-scrollbar {
+        /* width: 450px; */
+        height: 1000px;
+        padding: 24px;
+    }
+
+    /* .board-head,
+    .board-content {
+        justify-content: flex-start;
+    } */
+
+    /* .board-head {
+        gap: 700px;
+    } */
+
+    .single-stages {
+
+        width: 280px;
+    }
+
+    [class^="card"] {
+        width: 270px;
+    }
+
+    .placeholder-box-no-task {
+        width: 260px;
+    }
+
+}
+
+/* @media (min-width: 2560px) {
+    [class^="card"] {
+    width: 300px;}
+}
+@media (min-width: 1941px) and (max-width: 2251px){
+    
+} */
+
+@media (max-width: 1800px) {
+    /* .board-head {
+        padding-left: 12px;
+    } */
+
+    .safe-scrollbar {
+        padding: 12px;
+        width: 300px;
+    }
+}
+
+@media (max-width: 1650px) {
+    .single-stages {
+        font-size: 22px;
+        padding: 4px 8px 4px 4px;
+    }
+
+    .card {
+        /* height: 250px; */
+        width: 230px;
+    }
+}
+
+@media (max-width: 1530px) {
+
+    .card {
+        /* height: 250px; */
+        width: 220px;
+    }
+}
+
+@media (max-width: 1460px) {
+    .single-stages {
+        font-size: 20px;
+    }
+
+    .board {
+        padding: 40px;
+    }
+
+    .safe-scrollbar {
+
+        width: 270px;
+    }
+
+    .board-content {
+
+        min-width: 1000px;
+    }
+}
+
+
+@media (max-width: 1400px) {
+    .board {
+        padding: 28px;
+    }
+
+    .single-stages {
+        padding: 2px 4px 2px 2px;
+    }
+
+    .no-tasks-text {
+        font-size: 16px;
+    }
+
+    [class^="card"] {
+        padding: 16px 8px;
+        width: 210px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .safe-scrollbar {
+        width: 260px;
+    }
+}
+
+@media (max-width: 1300px) {
+
+    .board {
+
+        padding: 24px;
+    }
+}
+
+@media (max-width: 1280px) {
+
+    /* .board-head-wrapper {} */
+    .board-head {
+
+        padding-left: 16px;
+    }
+
+    .board-content {
+        flex-direction: column;
+
+    }
+
+    .board {
+        overflow-y: auto;
+    }
+
+    .board::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .board::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    .board::-webkit-scrollbar-thumb {
+        background: rgb(42, 54, 71);
+        border-radius: 10px;
+    }
+
+
+    .board::-webkit-scrollbar-thumb:hover {
+        background: #2a3d59;
+    }
+
+    .drag-drop-container {
+        display: flex;
+        overflow-x: scroll;
+    }
+
+    .safe-scrollbar {
+        width: 1100px;
+        height: 350px;
+
+    }
+
+    [class^="card"] {
+
+        width: 230px;
+    }
+
+    .drop-placeholder {
+        width: 230px;
+        height: 280px;
+
+    }
+}
+
+@media (max-width: 1200px) {
+    /* .single-stages {} */
+}
+
+@media (max-width: 1175px) {
+    .board-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-area-wrapper {
+        padding: 12px 0px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .add-task-mobile {
+        visibility: visible;
+    }
+
+
+
+    .btn-dark {
+        display: none;
+    }
+
+    .board-head-wrapper {
+
+        flex-direction: column;
+    }
+}
+
+/* 768–1023 px 
+-aside unten
+-PP & LN in aside ausblenden
+-
+
+
+aside {
+    width: 100vw;
+    height: 96px;
+    bottom: 0;
+    
+
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+}
+ {
+    width: 232px;
+    background-color: #2A3647;
+    height: 100vh;
+    position: fixed;
+}
+*/
+@media (min-width: 768px)and (max-width: 1023px) {}
+
+@media (max-width: 992px) {
+    .single-stages {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {}
+
+@media (max-width: 576px) {
+    .board {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .board-head {
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 350px) {}
+
+/* 
+Breakpoint	Class	Dimensions
+X-Small	None	< 576px
+Small	sm	≥ 576px
+Medium	md	≥ 768px
+Large	lg	≥ 992px
+Extra large	xl	≥ 1200px
+Extra extra large	xxl	≥ 1400px */
+
+/* chat gpt
+Gerätetyp	                         Bildschirmbreite (px)	      Design-Stil
+Mobil (klein)	                            < 480 px	        Kompaktes, mobiles Design
+Mobil (groß)	                          481–767 px	        Mobiles Design
+Tablet (hoch)	                         768–1023 px	        Tablet-Layout, evtl. angepasst
+Tablet (quer) / kleiner Desktop	        1024–1279 px	        Übergangsdesign / Desktop light
+Desktop	                                   ≥ 1280 px	        Vollständiges Desktop-Layout */

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/main.css">
 
-
+    <script src="../js/templates.js"></script>
     <script src="../js/components.js"></script>
 
     <style>
@@ -34,14 +34,18 @@
 
 
         <button class="btn-small">
-            <img class="icon-default" src="../assets/img/icon-back-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
+            <div class="icon-wrapper">
+                <img class="icon-default" src="../assets/img/icon-back-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
+            </div>
         </button>
 
 
         <button class="btn-small">
-            <img class="icon-default" src="../assets/img/icon-close-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+            <div class="icon-wrapper">
+                <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+            </div>
         </button>
 
 
@@ -127,10 +131,36 @@
         <form class="input-container" id="test-form">
 
 
+            <label class="priority-option low">
+                <input type="radio" name="priority" value="low" hidden>
+                <span>Low</span>
+                <img src="../assets/img/icon-prio-low.svg">
+                <div class="bg-checked"></div>
+                <span class="err-msg hidden">Invalid input.</span>
+            </label>
+
+
+            <label class="priority-option medium">
+                <input type="radio" name="priority" value="medium" hidden>
+                <span>Medium</span>
+                <img src="../assets/img/icon-prio-medium.svg">
+                <div class="bg-checked"></div>
+                <span class="err-msg hidden">Invalid input.</span>
+            </label>
+        
+
+            <label class="priority-option urgent">
+                <input type="radio" name="priority" value="urgent" hidden>
+                <span>Urgent</span>
+                <img src="../assets/img/icon-prio-urgent.svg">
+                <div class="bg-checked"></div>
+                <span class="err-msg hidden">Invalid input.</span>
+            </label>
+
             <div class="input-wrapper">
                 <label for="">Title<span class="required-mark">*</span> </label>
                 <div class="input-area">
-                    <input type="text" placeholder="Enter a title" required oninput="resetInputError()">
+                    <input type="text" name="title" placeholder="Enter a title" required oninput="resetInputError()">
                 </div>
                 <span class="err-msg hidden">Invalid input.</span>
             </div>
@@ -139,7 +169,7 @@
             <div class="input-wrapper">
                 <label for="">Password<span class="required-mark">*</span> </label>
                 <div class="input-area">
-                    <input type="password" id="password-input" required placeholder="password" oninput="resetInputError()">
+                    <input type="password" id="password-input" name="password" required placeholder="password" oninput="resetInputError()">
                     <button type="button" class="btn-small" id="visibility-btn" onclick="togglePasswordVisibility()">
                         <img class="icon-default" src="../assets/img/icon-visibility-off.svg">
                         <img class="icon-hover" src="../assets/img/icon-visibility-off.svg">
@@ -153,7 +183,7 @@
             <div class="input-wrapper">
                 <label for="">E-Mail<span class="required-mark">*</span> </label>
                 <div class="input-area">
-                    <input type="email" placeholder="email" required oninput="resetInputError()">
+                    <input type="email" name="email" placeholder="email" required oninput="resetInputError()">
                     <img src="../assets/img/icon-mail.svg" alt="">
                 </div>
                 <span class="err-msg hidden">Invalid input.</span>
@@ -177,11 +207,11 @@
                 <div class="drop-down-menu d-none" data-open="false">
                     <div class="select-contact">
                         <div>
-                            <div class="icon-contact">PA</div>
+                            <div class="contact-icon">PA</div>
                             <span>Person A</span>
                         </div>
                         <label class="checkbox">
-                            <input type="checkbox" hidden>
+                            <input type="checkbox" name="contacts" value="person-A" hidden>
                             <div class="icon-wrapper icon-checkbox-default">
                                 <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
                                 <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
@@ -265,7 +295,7 @@
 
             <div class="input-wrapper">
                 <div class="input-area drop-down-input">
-                    <input type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Select task category">
+                    <input type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Select task category" required>
                     <button type="button" class="btn-small" onclick="toggleDropDown(this)">
                         <div class="icon-wrapper">
                             <img class="icon-default" src="../assets/img/icon-down-default.svg">
@@ -281,13 +311,44 @@
                     <option value="userstory">User Story</option>
                     <option value="technicaltask">Technical Task</option>
                 </div>
+                <span class="err-msg hidden">Invalid input.</span>
+            </div>
+
+            <div class="input-wrapper" id="subtask-input">
+                <div class="input-area">
+                    <input type="text" placeholder="Add new subtask" data-placeholder="Add new subtask" data-placeholder-active="" oninput="toggleInputBtns(this)" onfocus="closeAllSubtaskEdits()">
+                    <button type="button" class="btn-small" onclick="setInputFocus(this)">
+                        <div class="icon-wrapper">
+                            <img class="icon-default" src="../assets/img/icon-add-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-add-hover.svg">
+                        </div>
+                    </button>
+                    <div class="btn-collection-container d-none">
+                        <button type="button" class="btn-small" onclick="resetSubtaskInput()">
+                            <div class="icon-wrapper">
+                                <img class="icon-default" src="../assets/img/icon-cancel-task-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-cancel-task-hover.svg">
+                            </div>
+                        </button>
+                        <div class="btn-seperator"></div>
+                        <button type="button" class="btn-small" onclick="addSubtask()">
+                            <div class="icon-wrapper">
+                                <img class="icon-default" src="../assets/img/icon-check-default.svg">
+                                <img class="icon-hover" src="../assets/img/icon-check-hover.svg">
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="list-subtasks">
+                    
+                </div>
             </div>
 
             
-            <textarea placeholder="Enter a description" rows="3"></textarea>
+            <textarea name="description" placeholder="Enter a description" rows="3"></textarea>
 
 
-            <button class="btn-dark" type="button" onclick="checkFormValidation('#test-form')">
+            <button class="btn-dark" type="button" onclick="checkFormValidation('#test-form'), getInputData('#test-form')">
                 <span>Make something</span>
             </button>
 

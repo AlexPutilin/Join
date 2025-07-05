@@ -8,71 +8,120 @@
     <link rel="shortcut icon" href="../assets/img/logo.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
-    <link rel="stylesheet" href="../css/components.css">
+
+    <script src="../js/main.js"></script>
 </head>
 
-<body onload="init()">
-    <aside>
-        <img class="logo" src="../assets/img/logo-white.svg" alt="Join Logo">
-        <nav>
-            <button onclick="openPage('summary.html')" class="btn-menu">
-                <div class="icon-wrapper">
-                    <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
-                    <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="summary active icon">
-                </div>
-                <span>Summary</span>
+<body onload="initProfile()">
+    <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
+        <div class="profile-menu" onclick="event.stopPropagation()">
+            <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
+                <span>Help</span>
             </button>
-
-            <button onclick="openPage('addTask.html')" class="btn-menu ">
-                <div class="icon-wrapper">
-                    <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
-                    <img class="icon-active" src="../assets/img/icon-task-active.svg" alt="add task active icon">
-                </div>
-                <span>Add Task</span>
+            <button onclick="openPage('privacy-policy.html')" class="btn-menu">
+                <span>Privacy Policy</span>
             </button>
-
-            <button onclick="openPage('board.html')" class="btn-menu btn-board">
-                <div class="icon-wrapper">
-                    <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
-                    <img class="icon-active" src="../assets/img/icon-board-active.svg" alt="board active icon">
-                </div>
-                <span>Board</span>
+            <button onclick="openPage('legal-notice.html')" class="btn-menu">
+                <span>Legal Notice</span>
             </button>
-
-            <button onclick="openPage('contacts.html')" class="btn-menu btn-contacts">
-                <div class="icon-wrapper">
-                    <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
-                    <img class="icon-active" src="../assets/img/icon-contacts-active.svg" alt="contacts active icon">
-                </div>
-                <span>Contacts</span>
+            <button onclick="logout()" class="btn-menu">
+                <span>Log out</span>
             </button>
-
-        </nav>
-
-        <div class="legal">
-            <a class="" href="privacy-policy.html">Privacy Policy</a>
-            <a class="" href="legal-notice.html">Legal notice</a>
         </div>
+    </div>
+    <aside>
+        <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
+        <nav>
+            <div class="navigate-btn-wrapper">
+                <button onclick="openPage('summary.html')" class="btn-menu">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                    </div>
+                    <span>Summary</span>
+                </button>
+
+                <button onclick="openPage('addTask.html')" class="btn-menu ">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                    </div>
+                    <span>Add Task</span>
+                </button>
+
+                <button onclick="openPage('board.html')" class="btn-menu">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                    </div>
+                    <span>Board</span>
+                </button>
+
+                <button onclick="openPage('contacts.html')" class="btn-menu">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                    </div>
+                    <span>Contacts</span>
+                </button>
+            </div>
+            <div class="legal-informations-wrapper">
+                <a class="" href="privacy-policy.html">Privacy Policy</a>
+                <a class="" href="legal-notice.html">Legal Notice</a>
+            </div>
+        </nav>
     </aside>
     <main>
         <section class="hug">
-            <p class="kanban-text">
-                Kanban Project Management Tool</p>
-            <div class="help-and-profile">
+            <div class="hug-wrapper">
+                <div class="logo-kanban-text-wrapper">
+                    <img class="logo-blue" src="../assets/img/logo.svg" alt="Join Logo">
+                    <span class="kanban-text">
+                        Kanban Project Management Tool</span>
+                </div>
+                <div class="help-and-profile">
 
-                <button onclick="openPage('help.html')" class="btn-small">
-                    <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
-                    <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
+                    <button id="help-btn" class="btn-small" onclick="openPage('help.html')">
+                        <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
+                        <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
+                    </button>
+
+                    <button class="btn-profile" onclick="toggleProfileMenu()">
+                        <span id="profile"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="navbar-mobile">
+            <div class="navbar-mobile-wrapper">
+                <button onclick="openPage('summary.html')" class="btn-menu-mobile">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                    </div>
+                    <span>Summary</span>
                 </button>
 
-                <button class="btn-profile">
-                    <span>ds</span>
+                <button onclick="openPage('addTask.html')" class="btn-menu-mobile ">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                    </div>
+                    <span>Add Tasks</span>
+                </button>
+
+                <button onclick="openPage('board.html')" class="btn-menu-mobile">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                    </div>
+                    <span>Board</span>
+                </button>
+
+                <button onclick="openPage('contacts.html')" class="btn-menu-mobile">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                    </div>
+                    <span>Contacts</span>
                 </button>
             </div>
         </section>
-
     </main>
 
 

@@ -1,3 +1,5 @@
+let activeUser = "Guest"
+
 /** Initializes the app once the DOM is fully loaded. */
 function init() {
     setTimeout(() => {
@@ -17,23 +19,6 @@ function openPage(url) {
 
 
 /**
- * Generates a new unique ID based on the number of existing entries at the given path.
- * The ID is computed as the current count of entries plus one.
- *
- * @async
- * @function generateUID
- * @param {string} path - The path in the database where entries are stored (e.g. '/users').
- * @returns {Promise<number>} - A promise that resolves to the next unique numeric ID.
- */
-async function generateUID(path) {
-    let allEntries = await getAllEntries(path);
-    let currentCount = allEntries.length;
-
-    return currentCount + 1;
-}
-
-
-/**
  * Retrieves all entries from the given database path and returns them as an array of key-value pairs.
  *
  * @async
@@ -47,25 +32,6 @@ async function getAllEntries(path) {
 }
 
 
-// /**
-//  * Sends data to a specific Firebase Realtime Database path using PUT (overwrites data at the given path).
-//  * @param {string} path - The Firebase DB path (e.g. "users/user1").
-//  * @param {Object} data - The data object to store at the given path.
-//  * @returns {Promise<Object>} - The response JSON from Firebase.
-//  */
-// async function putData(path = "", data = {}) {
-//     await fetch(FIREBASE_URL + path + ".json", {
-//         method: "PUT",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(data)
-//     });
-
-//     // return await response.json();
-// }
-
-
 /**
  * Retrieves the value of an input element by its ID.
  *
@@ -74,4 +40,63 @@ async function getAllEntries(path) {
  */
 function getInput(element) {
     return document.getElementById(element).value;
+}/**
+ * @function eventBubblingProtection - Stops the propagation of the event to parent elements.
+ * @param {Event} event - The event object to stop from bubbling.
+ */
+function eventBubblingProtection(event) {
+    event.stopPropagation();
+}
+
+
+/**
+ * @function closeOverlay - Closes the task detail view.
+ */
+function closeOverlay() {
+    let overlayRef = document.getElementById('overlay');
+    overlayRef.classList.add('d-none');
+}
+
+
+/**
+ * Extracts and returns the initials from a full name.
+ * For names with multiple words, returns the first letter of the first two words.
+ * 
+ * @param {string} name - The full name of the contact.
+ * @returns {string} The name initials.
+ */
+function getContactInitials(name) {
+    let initials = name.split(" ");
+    if (initials.length > 1) {
+        initials = initials[0].charAt(0) + initials[1].charAt(0);
+    } else {
+        initials = initials[0].charAt(0);
+    }
+    return initials;
+}
+
+
+function initProfile() {
+    const profile = document.getElementById('profile');
+    profile.innerHTML = getContactInitials(activeUser);
+}
+
+
+/**
+ * Toggles the visibility of the profile menu overlay.
+ * Adds or removes the 'd-none' class to show or hide the menu.
+ */
+function toggleProfileMenu() {
+    const menu = document.getElementById('profile-menu-overlay');
+    menu.classList.toggle('d-none');
+}
+
+
+/**
+ * Logs out the current user by resetting the active user 
+ * and redirecting to the login page.
+ */
+function logout() {
+    // set activeUser = null;
+    openPage('../index.html');
 }

@@ -1,78 +1,76 @@
 const FIREBASE_URL = "https://join-b179e-default-rtdb.europe-west1.firebasedatabase.app";
 
-
 /**
  * Fetches data from the Firebase Realtime Database at the specified path.
  * 
  * @param {string} [path=""] - The path in the database to fetch data from.
  * @returns {Promise<any>} - A promise that resolves to the fetched JSON data.
  */
-async function getData(path="") {
-    let response = await fetch(FIREBASE_URL + path + ".json");
-    let responseAsJson = await response.json();
-    return responseAsJson;
-}
-
-
-/**
- * Loads all tasks from the Kanban board stored in the Firebase database.
- *
- * @async
- * @function loadAllTasks
- * @returns {Promise<Object>} A promise that resolves to an object containing all tasks.
- *                            If an error occurs, an empty object will be returned.
- */
-async function loadAllTasks() {
+async function getData(path = "") {
     try {
-        const response = await fetch(`${FIREBASE_URL}/board/tasks.json`);
-        const tasks = await response.json();
-        return tasks;  
-    } catch (error) {
-        console.error("Error while loading tasks:", error);
+        let response = await fetch(FIREBASE_URL + path + ".json");
+        let responseAsJson = await response.json();
+        return responseAsJson;
+    }
+    catch (error) {
+        console.error("Error while loading:", error);
         return {};
     }
 }
 
+
 /**
- * Loads all users from the Firebase database.
- *
- * @async
- * @function loadAllUsers
- * @returns {Promise<Object>} A promise that resolves to an object containing all users.
- *                            If an error occurs, an empty object will be returned.
+ * Sends a DELETE request to the specified Firebase path to remove data.
+ * 
+ * @param {string} [path=""] - The relative path in the Firebase database to delete data from.
+ * @returns {Promise<void>} A promise that resolves when the request is completed.
  */
-async function loadAllUsers() {
-    try {
-        const response = await fetch(`${FIREBASE_URL}/users.json`);
-        const users = await response.json();
-        console.log("Users loaded:", users);
-        return users;
+async function deleteData(path = "") {
+    try { 
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "DELETE",
+        });
     } catch (error) {
-        console.error("Error while loading users:", error);
-        return {};
+        console.error("Error while deleting data from Firebase:", error);
+    }    
+}
+
+
+/**
+ * Sends a POST request to the specified Firebase path to add new data.
+ * 
+ * @param {string} [path=""] - The relative path in the Firebase database to post data to.
+ * @param {Object} [data={}] - The data object to be stored.
+ * @returns {Promise<void>} A promise that resolves when the request is completed.
+ */
+async function postData(path = "", data = {}) {
+    try {
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        });
+    } catch (error) {
+        console.error("Error while pushing data in Firebase:", error);
     }
 }
 
+
 /**
- * Loads all contacts from the Firebase database.
- *
- * @async
- * @function loadAllContacts
- * @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
- *                            If an error occurs, an empty object will be returned.
+ * Sends a PUT request to the specified Firebase path to manipulate data.
+ * 
+ * @param {string} [path=""] - The relative path in the Firebase database to put data to.
+ * @param {Object} [data={}] - The data object to be stored.
+ * @returns {Promise<void>} A promise that resolves when the request is completed.
  */
-async function loadAllContacts() {
+async function updateData(path = "", data = {}) {
     try {
-        const response = await fetch(`${FIREBASE_URL}/contacts.json`);
-        const contacts = await response.json();
-        console.log("Contacts loaded:", contacts);
-        return contacts;
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data),
+        });
     } catch (error) {
-        console.error("Error while loading contacts:", error);
-        return {};
+        console.error("Error while update data in Firebase:", error);
     }
 }
-
-window.loadAllTasks = loadAllTasks;
-window.loadAllUsers = loadAllUsers;
-window.loadAllContacts = loadAllContacts;
