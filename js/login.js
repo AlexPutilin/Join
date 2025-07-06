@@ -67,6 +67,10 @@ function changeImgSrc(id, ref) {
 }
 
 
+/**
+ * Displays the signup form by rendering the template and initializing form behavior.
+ * Also handles enabling/disabling of the signup button.
+ */
 function showSignupForm() {
     renderForm(getSignupFormTemplate());
     initSignupForm(); // -> handle disabled attribute of btn_signup
@@ -188,8 +192,6 @@ function checkPasswordValidation() {
  */
 async function addNewUser() {
     let inputData = getSignupInput();
-    // let newUserID = await generateUID('/users');
-
     postData(`/users`, inputData);
 }
 
