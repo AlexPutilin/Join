@@ -8,39 +8,31 @@ const contactsById = {};
  * Loads all users from the Firebase database.
  *
  * @async
- * @function loadAllUsers
  * @returns {Promise<Object>} A promise that resolves to an object containing all users.
- *                            If an error occurs, an empty object will be returned.
  */
 async function loadAllUsers() {
   try {
-      const response = await fetch(`${FIREBASE_URL}/users.json`);
-      const users = await response.json();
-      console.log("Users loaded:", users);
-      return users;
+    const users = await getData("/users");
+    console.log("Users loaded:", users);
+    return users;
   } catch (error) {
-      console.error("Error while loading users:", error);
-      return {};
+    console.error("Error while loading users:", error);
   }
 }
 
 /**
-* Loads all contacts from the Firebase database.
-*
-* @async
-* @function loadAllContacts
-* @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
-*                            If an error occurs, an empty object will be returned.
-*/
+ * Loads all contacts from the Firebase database.
+ *
+ * @async
+ * @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
+ */
 async function loadAllContacts() {
   try {
-      const response = await fetch(`${FIREBASE_URL}/contacts.json`);
-      const contacts = await response.json();
-      console.log("Contacts loaded:", contacts);
-      return contacts;
+    const contacts = await getData("/contacts");
+    console.log("Contacts loaded:", contacts);
+    return contacts;
   } catch (error) {
-      console.error("Error while loading contacts:", error);
-      return {};
+    console.error("Error while loading contacts:", error);
   }
 }
 
@@ -80,6 +72,19 @@ function setupCreateButtonListeners() {
   if (dueDateInput) {
     dueDateInput.addEventListener('input', updateCreateButtonState);
   }
+}
+
+/**
+ * Maps a list of contact IDs to their corresponding names.
+ *
+ * @param {string[]} contactIds - An array of contact IDs.
+ * @returns {string} A comma-separated string of contact names.
+ */
+function mapContactIdsToNames(contactIds) {
+  return contactIds
+    .map(id => contactsById[id]?.name)
+    .filter(Boolean)
+    .join(', ');
 }
 
 /**
@@ -241,3 +246,18 @@ function clearChipsAndSubtasks() {
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
+
+
+  /**
+ * Displays a temporary task creation success notification.
+ */
+  function showAddTaskNotification() {
+    const notificationWrapper = document.createElement('div');
+    notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
+    const notificationElement = notificationWrapper.firstElementChild;
+    if (!notificationElement) return;
+    document.body.appendChild(notificationElement);
+    notificationElement.addEventListener('animationend', () => {
+      notificationElement.remove();
+    });
+  }
