@@ -118,7 +118,6 @@ async function addTask() {
   await submitTaskData(taskData);
 }
 
-
 /**
  * Submits the task data to the backend and manages post-submit actions.
  *
@@ -152,8 +151,6 @@ async function saveTaskToFirebase(taskData) {
     throw error;
   }
 }
-
-
 
 /**
  * Updates the state of the "Create Task" button based on required form field values.
