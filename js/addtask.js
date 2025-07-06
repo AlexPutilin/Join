@@ -131,7 +131,7 @@ async function submitTaskData(taskData) {
     clearAddTaskForm();
     showAddTaskNotification();
   } catch (error) {
-    handleTaskSaveError(error);
+    console.error('Failed submit Task Data:', error);
   }
 }
 
@@ -145,32 +145,12 @@ async function submitTaskData(taskData) {
  */
 async function saveTaskToFirebase(taskData) {
   try {
-    const response = await fetch(`${FIREBASE_URL}/board/tasks.json`, {
-      method: "POST",
-      body: JSON.stringify(taskData)
-    });
-    const result = await response.json();
-    console.log('Task created with id:', result.name);
-
-    return result.name;
+    await postData("/board/tasks", taskData);
   } catch (error) {
     console.error('Failed to save task:', error);
     throw error;
   }
 }
-
-/**
- * Handles errors that occur during task saving.
- * Logs the error and notifies the user.
- *
- * @param {Error} error - The error that occurred.
- */
-function handleTaskSaveError(error) {
-  console.error("addTask: Failed to save task to Firebase:", error);
-  alert("Failed to create task: " + error.message);
-}
-
-
 
 /**
  * Updates the state of the "Create Task" button based on required form field values.
