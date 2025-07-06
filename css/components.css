@@ -436,6 +436,8 @@ textarea {
 }
 
 
+
+
 /* LABELS */
 .label {
     color: #fff;
@@ -449,6 +451,8 @@ textarea {
 .technical-task {
     background-color: #1FD7C1;
 }
+
+  
 
 @media (max-width: 1140px) {
     .icon-add{

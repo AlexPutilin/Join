@@ -308,6 +308,33 @@
   display: none;
 }
 
+@keyframes slide-in-out-add-task {
+  0% {transform: translateY(100vh);}
+  20% {transform: translateY(0);}
+  70% {transform: translateY(0);}
+  100% {transform: translateY(-100vh);}
+}
+
+.slide-in-out-add-task {
+  animation: slide-in-out-add-task 2s ease-in-out forwards;
+}
+
+.successfully-added-notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #2a2a2a;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.95;
+}
+
 
 @media (max-width: 1200px) {
   .add-task-container {
