@@ -254,10 +254,15 @@ async function handleLogin() {
         return;
     }
 
+    onLogin(foundUser);
+}
+
+
+function onLogin(foundUser) {
     alert(`Willkommen, ${foundUser.name}!`);
     activeUser = foundUser.name;
     console.log(activeUser);
-    
+
     openPage('./html/summary.html');
 }
 
