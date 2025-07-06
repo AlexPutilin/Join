@@ -180,26 +180,25 @@ function updateCreateButtonState() {
 
 
 function clearAddTaskForm() {
-  resetTextDateAndTextareaInputs();
-  resetPriorityRadios();
-  resetDropdownCheckboxes();
-  resetDropdownTextInputs();
+  const form = document.getElementById('add-task-form');
+  if (!form) return;
+
+  form.reset();
+  resetForm();
   hideDropdownMenus();
-  clearChipsAndSubtasks();
   hideErrorMessages();
   initializeAddTaskPage();
   updateCreateButtonState();
 }
 
-function resetTextDateAndTextareaInputs() {
-  document
-    .querySelectorAll('input[type="text"], input[type="date"], textarea')
-    .forEach(input => {
-      input.value = "";
-    });
+function resetForm(){
+  document.querySelectorAll('input[name="priority"]').forEach(radio => {radio.checked = false;});
+  document.querySelectorAll('.drop-down-input input[type="text"]').forEach(input => {input.value = "";input.removeAttribute("data-placeholder-active");});
+  document.getElementById('assigned-chips-container')?.replaceChildren();
+  document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
 
-
+/*
 function resetPriorityRadios() {
   document
     .querySelectorAll('input[name="priority"]')
@@ -232,7 +231,7 @@ function clearChipsAndSubtasks() {
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
-
+ */
 
 
 
