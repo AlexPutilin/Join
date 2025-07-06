@@ -20,7 +20,7 @@
         <script src="../js/contacts.js" defer></script>
     </head>
 
-    <body id="body" onload="initContactPage()" onresize="closeMobileContactInformation()">
+    <body id="body" onload="initContactPage(), initProfile()" onresize="closeMobileContactInformation()">
 
         <div id="overlay" class="overlay d-none" onclick="toggleDialogOverlay()"></div>
         <div id="overlay-mobile" class="d-none" onclick="toggleMobileContactMenu()">
@@ -114,7 +114,7 @@
                         </button>
 
                         <button class="btn-profile" onclick="toggleProfileMenu()">
-                            <span>ds</span>
+                            <span id="profile"></span>
                         </button>
                     </div>
                 </div>

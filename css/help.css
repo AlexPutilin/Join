@@ -26,5 +26,6 @@ li::marker {
 @media (max-width: 400px) {
   .enjoy-text {
     justify-content: center;
+    font-size: 30px;
   }
 }
