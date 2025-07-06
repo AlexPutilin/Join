@@ -99,84 +99,93 @@
                 </div>
             </div>
         </section>
-        <section class="board">
-            <div class="board-navigation">
+        <section class="board ">
 
+            <div style="display: flex; flex-direction: column; flex-shrink: 0;">
                 <div class="board-head">
                     <div class="board-head-wrapper">
                         <div class="headling-add-btn-wrapper">
                             <h1>Board</h1>
                             <button class="btn-small add-task-mobile">
-                                <img class="icon-default" src="../assets/img/icon-add-variant3-default.svg" alt="">
                                 <img class="icon-hover" src="../assets/img/icon-add-variant3-hover.svg" alt="">
-                                <img class="icon-active" src="../assets/img/icon-add-variant3-click.svg" alt="">
+                                <img class="icon-default" src="../assets/img/icon-add-variant3-click.svg" alt="">
                             </button>
                         </div>
 
                         <div class="search-area-wrapper">
-                            <div class="input-area">
-                                <input type="text" id="search-input" required="" placeholder="Find Task"
-                                    oninput="filterAndShowTasks(this.value)">
-                                <button type="button" class="btn-small" id="visibility-btn">
-                                    <div class="beam"></div>
-                                    <div class="icon-wrapper overflow-y-hide">
-                                        <img class="icon-default" src="../assets/img/icon-search-default.svg">
-                                        <img class="icon-hover" src="../assets/img/icon-search-hover.svg">
-                                        <img class="icon-active" src="../assets/img/icon-search-click.svg">
-                                    </div>
-                                </button>
+                            <div class="input-wrapper">
+                                <div class="input-area">
+                                    <input type="text" id="search-input" required="" placeholder="Find Task"
+                                        oninput="filterAndShowTasks(this.value)">
+                                    <button type="button" class="btn-small" id="visibility-btn">
+                                        <div class="beam"></div>
+                                        <div class="icon-wrapper overflow-y-hide">
+                                            <img class="icon-default" src="../assets/img/icon-search-default.svg">
+                                            <img class="icon-hover" src="../assets/img/icon-search-hover.svg">
+                                            <img class="icon-active" src="../assets/img/icon-search-click.svg">
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
-
-                            <button onload="hideBigAddTaskBtn()" id="add-task-btn" class="btn-dark">
-                                <span>Add Task</span>
-                                <img src="../assets/img/icon-add-white.svg" alt="">
+                            <button id="add-task-btn" class="btn-dark">
+                                <span style="min-width: 106px;">Add Task</span>
+                                <img class="icon-add" src="../assets/img/icon-add-white.svg" alt="">
                             </button>
 
                         </div>
                     </div>
                 </div>
                 <div id="board-content" class="board-content">
-                    <div class="safe-scrollbar overflow-y-hide">
-                        <div class="single-stages">
-                            <span>To Do</span>
-                            <button class="btn-small">
-                                <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                                <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                                <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
-                            </button>
+                    <div class="safe-scrollbar">
+                        <div class="stages-wrapper">
+                            <div class="single-stages">
+                                <span>To Do</span>
+                                <button class="btn-small">
+                                    <img class="icon-default icon-add" src="../assets/img/icon-add-variant2-default.svg" alt="">
+                                    <img class="icon-hover icon-add" src="../assets/img/icon-add-variant2-hover.svg" alt="">
+                                    <img class="icon-active icon-add" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                                </button>
+                            </div>
+                            <div id="to-do" class="drag-drop-container"></div>
                         </div>
-                        <div id="to-do" class="drag-drop-container"></div>
                     </div>
-                    <div class="safe-scrollbar overflow-y-hide">
-                        <div class="single-stages">
-                            <span>In Progress</span>
-                            <button class="btn-small">
-                                <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                                <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                                <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
-                            </button>
+                    <div class="safe-scrollbar">
+                        <div class="stages-wrapper">
+                            <div class="single-stages">
+                                <span>In Progress</span>
+                                <button class="btn-small">
+                                    <img class="icon-default icon-add" src="../assets/img/icon-add-variant2-default.svg" alt="">
+                                    <img class="icon-hover icon-add" src="../assets/img/icon-add-variant2-hover.svg" alt="">
+                                    <img class="icon-active icon-add" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                                </button>
+                            </div>
+                            <div id="in-progress" class="drag-drop-container"></div>
                         </div>
-                        <div id="in-progress" class="drag-drop-container"></div>
                     </div>
-                    <div class="safe-scrollbar overflow-y-hide">
-                        <div class="single-stages">
-                            <span>Await Feedback</span>
-                            <button class="btn-small">
-                                <img class="icon-default" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                                <img class="icon-hover" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                                <img class="icon-active" src="../assets/img/icon-add-variant2-click.svg" alt="">
-                            </button>
+                    <div class="safe-scrollbar">
+                        <div class="stages-wrapper">
+                            <div class="single-stages">
+                                <span>Await Feedback</span>
+                                <button class="btn-small">
+                                    <img class="icon-default icon-add" src="../assets/img/icon-add-variant2-default.svg" alt="">
+                                    <img class="icon-hover icon-add" src="../assets/img/icon-add-variant2-hover.svg" alt="">
+                                    <img class="icon-active icon-add" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                                </button>
+                            </div>
+                            <div id="await-feedback" class="drag-drop-container"></div>
                         </div>
-                        <div id="await-feedback" class="drag-drop-container"></div>
                     </div>
-                    <div class="safe-scrollbar overflow-y-hide">
-                        <div class="single-stages">
-                            <span>Done</span>
+                    <div class="safe-scrollbar">
+                        <div class="stages-wrapper">
+                            <div class="single-stages">
+                                <span>Done</span>
+                            </div>
+                            <div id="done" class="drag-drop-container"></div>
                         </div>
-                        <div id="done" class="drag-drop-container"></div>
                     </div>
                 </div>
             </div>
+
         </section>
         <section class="navbar-mobile">
             <div class="navbar-mobile-wrapper">

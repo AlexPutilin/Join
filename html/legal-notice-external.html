@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="../assets/img/logo.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="../css/main.css">
+
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
@@ -15,55 +16,21 @@
     <script src="../js/main.js"></script>
 </head>
 
-<body onload="initProfile()">
-    <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
-        <div class="profile-menu" onclick="event.stopPropagation()">
-            <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
-                <span>Help</span>
-            </button>
-            <button onclick="openPage('privacy-policy.html')" class="btn-menu">
-                <span>Privacy Policy</span>
-            </button>
-            <button onclick="openPage('legal-notice.html')" class="btn-menu">
-                <span>Legal Notice</span>
-            </button>
-            <button onclick="logout()" class="btn-menu">
-                <span>Log out</span>
-            </button>
-        </div>
-    </div>
+<body>
     <aside>
         <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
         <nav>
             <div class="navigate-btn-wrapper">
-                <button onclick="openPage('summary.html')" class="btn-menu">
+                <button onclick="openPage('index.html')" class="btn-menu">
                     <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                        <img class="icon-default" src="../assets/img/icon-login.svg" alt="summary icon">
                     </div>
-                    <span>Summary</span>
-                </button>
-                <button onclick="openPage('addTask.html')" class="btn-menu ">
-                    <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
-                    </div>
-                    <span>Add Task</span>
-                </button>
-                <button onclick="openPage('board.html')" class="btn-menu">
-                    <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
-                    </div>
-                    <span>Board</span>
-                </button>
-                <button onclick="openPage('contacts.html')" class="btn-menu">
-                    <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
-                    </div>
-                    <span>Contacts</span>
+                    <span>Log In</span>
                 </button>
             </div>
             <div class="legal-informations-wrapper">
                 <a class="" href="privacy-policy.html">Privacy Policy</a>
-                <a class="" href="legal-notice.html">Legal Notice</a>
+                <a class="" href="legal-notice-external.html">Legal Notice</a>
             </div>
         </nav>
     </aside>
@@ -79,10 +46,10 @@
             </div>
         </section>
         <section class="content">
-            <div style="display: flex; flex-direction: column; flex-shrink: 0;">
+            <div style="display: flex; flex-direction: column; flex-shrink: 0; height: 100%;">
                 <h1>Legal Notice</h1>
                 <br>
-                <h2>Imprint</h2>
+                <h2><b>Imprint</b></h2>
                 <br>
                 <p>
                     Janine | Michael | Alexander | Aslihan
@@ -93,10 +60,10 @@
                     <br>
                 </p>
                 <br>
-                <h3>Exploring the Board</h3>
+                <h3><b>Exploring the Board</b></h3>
                 <span>Email: [email]</span>
                 <br><br>
-                <h3> Acceptance of terms</h3>
+                <h3><b>Acceptance of terms</b> </h3>
                 <p>
                     By accessing and using <span class="color-blue">Join</span> (Product),
                     you acknowledge and
@@ -109,7 +76,7 @@
                 </p>
                 <br>
                 <br>
-                <h3> Scope and ownership of the product</h3>
+                <h3><b>Scope and ownership of the product</b> </h3>
                 <p>
                     <span class="color-blue">Join</span> has been developed as part of a
                     student group project
@@ -129,7 +96,7 @@
                 </p>
                 <br>
                 <br>
-                <h3>Proprietary rights</h3>
+                <h3><b>Proprietary rights</b></h3>
                 <p>
                     Aside from the design owned by <span class="color-blue">Developer Akademie GmbH</span>, we, the
                     listed
@@ -142,7 +109,7 @@
                 </p>
                 <br>
                 <br>
-                <h3> Use of the product</h3>
+                <h3><b>Use of the product</b> </h3>
                 <p>
                     <span class="color-blue">Join</span> is intended to be used for lawful
                     purposes only, in
@@ -157,7 +124,7 @@
                 </p>
                 <br>
                 <br>
-                <h3>Disclaimer of warranties and limitation of liability</h3>
+                <h3><b>Disclaimer of warranties and limitation of liability</b></h3>
                 <p>
                     <span class="color-blue">Join</span> is provided "as is" without
                     warranty of any kind,
@@ -180,7 +147,7 @@
                 </p>
                 <br>
                 <br>
-                <h3>Indemnity</h3>
+                <h3><b>Indemnity</b></h3>
                 <p>
                     You agree to indemnify, defend and hold harmless us, the listed students, the
                     <span class="color-blue">Developer Akademie</span>, and our
@@ -200,38 +167,22 @@
                 <span>Date: April 29, 2025</span>
             </div>
         </section>
-
-        </section>
         <section class="navbar-mobile">
             <div class="navbar-mobile-wrapper">
-                <button onclick="openPage('summary.html')" class="btn-menu-mobile">
+                <button onclick="openPage('index.html')" class="btn-menu-mobile">
                     <div class="">
-                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                        <img class="icon-default" src="../assets/img/icon-login.svg" alt="summary icon">
                     </div>
-                    <span>Summary</span>
+                    <span>Log In</span>
                 </button>
-
-                <button onclick="openPage('addTask.html')" class="btn-menu-mobile ">
-                    <div class="">
-                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
-                    </div>
-                    <span>Add Tasks</span>
-                </button>
-
-                <button onclick="openPage('board.html')" class="btn-menu-mobile">
-                    <div class="">
-                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
-                    </div>
-                    <span>Board</span>
-                </button>
-
-                <button onclick="openPage('contacts.html')" class="btn-menu-mobile">
-                    <div class="">
-                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
-                      
-                    </div>
-                    <span>Contacts</span>
-                </button>
+                <div class="data-protection-imprint-wrapper">
+                      <button onclick="openPage('privacy-policy-external.html')" class="btn-menu-mobile">
+                        <span>Privacy Policy</span>
+                    </button>
+                    <button onclick="openPage('legal-notice-external.html')" class="btn-menu-mobile menu-active">
+                        <span>Legal Notice</span>
+                    </button>
+                </div>
             </div>
         </section>
     </main>

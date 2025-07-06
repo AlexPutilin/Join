@@ -24,7 +24,7 @@ h2 {
 
 h3 {
   font-size: 32px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 /* body {
@@ -77,54 +77,84 @@ main {
 }
 
 /* Link Style for Join-Links on Help and Legal Notice Pages */
-.join-link {
+.color-blue {
   color: #29abe2;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 /* Padding for Content in Help and Legal Notice Pages */
 .content {
-  padding: 80px;
-  max-width: 1600px;
+  background-color: #F6F7F8;
+  padding: 24px 48px;
+  position: relative;
+  overflow: hidden;
 }
 
-@media (max-width: 1460px) {
+@media (max-width: 1500px) {
   .content {
-    padding: 64px;
+    padding: 24px 24px;
+  }
+
+  h1 {
+    font-size: 64px;
   }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
   .content {
-    padding: 52px;
+    padding: 40px;
   }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 992px) {
   .content {
-    padding: 48px;
+    overflow-y: scroll;
+  }
+
+  .content::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .content::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  .content::-webkit-scrollbar-thumb {
+    background: rgb(42, 54, 71);
+    border-radius: 10px;
+  }
+
+  .content::-webkit-scrollbar-thumb:hover {
+    background: #2a3d59;
+  }
+
+  h1 {
+    font-size: 56px;
+  }
+
+  h2 {
+    font-size: 36px;
+  }
+
+  h3 {
+    font-size: 24px;
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 476px) {
   .content {
-    padding: 36px;
-  }
-}
-
-@media (max-width: 480px) {
-  .content {
-    padding: 24px;
+    padding: 16px;
   }
 
-  h1{
+  h1 {
     font-size: 48px;
   }
-}
 
-@media (max-width: 380px) {
-  .content {
-    padding: 12px;
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 20px;
   }
 }
