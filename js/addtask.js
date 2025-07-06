@@ -2,7 +2,7 @@
  * Stores contact information by their unique IDs.
  * @type {Object.<string, Object>}
  */
-const contactsById = {};
+contactsById = {};
 
 /**
  * Loads all users from the Firebase database.
@@ -178,10 +178,7 @@ function updateCreateButtonState() {
   }
 }
 
-/**
- * Clears the Add Task form by resetting all inputs, dropdowns, chips, subtasks,
- * error messages, and re-initializing the form.
- */
+
 function clearAddTaskForm() {
   resetTextDateAndTextareaInputs();
   resetPriorityRadios();
@@ -194,9 +191,6 @@ function clearAddTaskForm() {
   updateCreateButtonState();
 }
 
-/**
- * Resets all text, date, and textarea inputs to an empty value.
- */
 function resetTextDateAndTextareaInputs() {
   document
     .querySelectorAll('input[type="text"], input[type="date"], textarea')
@@ -205,9 +199,7 @@ function resetTextDateAndTextareaInputs() {
     });
 }
 
-/**
- * Unchecks all radio buttons in the "priority" group.
- */
+
 function resetPriorityRadios() {
   document
     .querySelectorAll('input[name="priority"]')
@@ -216,9 +208,7 @@ function resetPriorityRadios() {
     });
 }
 
-/**
- * Unchecks all checkboxes within dropdown menus.
- */
+
 function resetDropdownCheckboxes() {
   document
     .querySelectorAll('.drop-down-menu input[type="checkbox"]')
@@ -227,9 +217,7 @@ function resetDropdownCheckboxes() {
     });
 }
 
-/**
- * Clears text inputs inside dropdown areas and removes any active placeholder attributes.
- */
+
 function resetDropdownTextInputs() {
   document
     .querySelectorAll('.drop-down-input input[type="text"]')
@@ -239,13 +227,13 @@ function resetDropdownTextInputs() {
     });
 }
 
-/**
- * Removes all assigned contact chips and subtask list items from the DOM.
- */
+
 function clearChipsAndSubtasks() {
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
+
+
 
 
   /**

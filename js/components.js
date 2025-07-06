@@ -753,8 +753,7 @@ function renderAssignedContactChips(contactIds) {
   const container = document.getElementById('assigned-chips-container');
   container.innerHTML = '';
 
-  contactIds.forEach(id => {
-    const info = contactsById[id];
+  contactIds.forEach(id => {const info = contactsById[id];
     if (!info) return;
     const chip = createContactChip(getContactInitials(info.name), info.color);
     container.appendChild(chip);
