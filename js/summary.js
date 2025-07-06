@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
+
 function updateCount(tasks, elementId, taskFilter){
     const taskElement = document.getElementById(elementId);
     const metricCount = tasks.filter(taskFilter).length;
