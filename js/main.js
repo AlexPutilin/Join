@@ -12,7 +12,7 @@ function init() {
 
 function redirectIfNotLoggedIn() {
     if (!activeUser) {
-        openPage('index.html');       
+        openPage('./index.html');       
     }
 }
 
