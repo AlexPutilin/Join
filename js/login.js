@@ -1,3 +1,5 @@
+let userArray;
+
 /**
  * Handles the splash screen transition and hides it after a delay.
  * Triggers the logo animation before hiding the splash screen.
@@ -231,10 +233,12 @@ function showOverlayOnSignup() {
 }
 
 
-// -> Login function (in progress...)
-
-let userArray;
-
+/**
+ * Handles the login process: fetches users, validates credentials,
+ * and calls onLogin if a matching user is found.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function handleLogin() {
     let emailInput = document.getElementById('emailInput').value.trim();
     let passwordInput = document.getElementById('passwordInput').value;
@@ -242,22 +246,45 @@ async function handleLogin() {
     let allUsers = await getData('/users');
     userArray = Object.values(allUsers);
 
-    let foundUser = userArray.find(user => user.email === emailInput);
-
-    if (!foundUser) {
-        alert('E-Mail nicht gefunden!');
-        return;
-    }
-
-    if (foundUser.password !== passwordInput) {
-        alert('Falsches Passwort!');
-        return;
-    }
+    let foundUser = validateUser(userArray, emailInput, passwordInput);
+    if (!foundUser) return;
 
     onLogin(foundUser);
 }
 
 
+/**
+ * Validates the given email and password against a list of users.
+ * Shows an alert if the email is not found or the password is incorrect.
+ *
+ * @param {Array<Object>} userArray - List of user objects to search through.
+ * @param {string} emailInput - The email entered by the user.
+ * @param {string} passwordInput - The password entered by the user.
+ * @returns {Object|null} The matching user object if valid, otherwise null.
+ */
+function validateUser(userArray, emailInput, passwordInput) {
+    let foundUser = userArray.find(user => user.email === emailInput);
+
+    if (!foundUser) {
+        alert('E-Mail nicht gefunden!');
+        return null;
+    }
+
+    if (foundUser.password !== passwordInput) {
+        alert('Falsches Passwort!');
+        return null;
+    }
+
+    return foundUser;
+}
+
+
+/**
+ * Handles actions after a successful login.
+ * Welcomes the user, sets the active user, and navigates to the summary page.
+ *
+ * @param {Object} foundUser - The user object of the successfully logged-in user.
+ */
 function onLogin(foundUser) {
     alert(`Willkommen, ${foundUser.name}!`);
     activeUser = foundUser.name;
