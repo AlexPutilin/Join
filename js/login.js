@@ -258,8 +258,6 @@ async function handleLogin() {
     activeUser = foundUser.name;
     console.log(activeUser);
     
-
-    return;
     openPage('./html/summary.html');
 }
 

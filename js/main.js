@@ -9,6 +9,14 @@ function init() {
     handleSplashScreen();
 }
 
+
+function redirectIfNotLoggedIn() {
+    if (!activeUser) {
+        openPage('index.html');       
+    }
+}
+
+
 /**
  * This function handles navigation to a new HTML page when triggered by a button interaction.
  * @param {string} url - The destination URL to navigate to.
