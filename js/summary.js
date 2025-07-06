@@ -31,10 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function updateCount(tasks, elementId, taskFilter){
     const taskElement = document.getElementById(elementId);
-    if (!taskElement) {
-        console.warn(`Element mit ID '${elementId}' nicht gefunden`);
-        return;
-      }
     const metricCount = tasks.filter(taskFilter).length;
     taskElement.textContent = metricCount;
 }
