@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <link rel="shortcut icon" href="../assets/img/logo.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/sidebar-hug.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/summary.css">
+
+
+    <script src="../js/api.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/templates.js"></script>
+</head>
+
+<body onload="initProfile()">
+  <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
+      <div class="profile-menu" onclick="event.stopPropagation()">
+          <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
+              <span>Help</span>
+          </button>
+          <button onclick="openPage('privacy-policy.html')" class="btn-menu">
+              <span>Privacy Policy</span>
+          </button>
+          <button onclick="openPage('legal-notice.html')" class="btn-menu">
+              <span>Legal Notice</span>
+          </button>
+          <button onclick="logout()" class="btn-menu">
+              <span>Log out</span>
+          </button>
+      </div>
+  </div>
+  <aside>
+      <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
+      <nav>
+          <div class="navigate-btn-wrapper">
+              <button onclick="openPage('summary.html')" class="btn-menu menu-active">
+                  <div class="icon-wrapper">
+                      <img class="icon-default" src="../assets/img/icon-summary-active.svg" alt="summary icon">
+                  </div>
+                  <span>Summary</span>
+              </button>
+
+              <button onclick="openPage('addTask.html')" class="btn-menu ">
+                  <div class="icon-wrapper">
+                      <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                  </div>
+                  <span>Add Task</span>
+              </button>
+
+              <button onclick="openPage('board.html')" class="btn-menu">
+                  <div class="icon-wrapper">
+                      <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                  </div>
+                  <span>Board</span>
+              </button>
+
+              <button onclick="openPage('contacts.html')" class="btn-menu">
+                  <div class="icon-wrapper">
+                      <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                  </div>
+                  <span>Contacts</span>
+              </button>
+          </div>
+          <div class="legal-informations-wrapper">
+              <a class="" href="privacy-policy.html">Privacy Policy</a>
+              <a class="" href="legal-notice.html">Legal Notice</a>
+          </div>
+      </nav>
+  </aside>
+  <main>
+      <section class="hug">
+        <div class="hug-wrapper">
+            <div class="logo-kanban-text-wrapper">
+                <img class="logo-blue" src="../assets/img/logo.svg" alt="Join Logo">
+                <span class="kanban-text">
+                    Kanban Project Management Tool</span>
+            </div>
+            <div class="help-and-profile">
+
+                <button id="help-btn" class="btn-small" onclick="openPage('help.html')">
+                    <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
+                    <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
+                </button>
+
+                <button class="btn-profile" onclick="toggleProfileMenu()">
+                    <span id="profile"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+      <section class="summary-content">
+          <div class="summary-header">
+            <h1>Join 360</h1>
+            <div class="seperator-blue"></div>
+            <h3>Key Metrics at a Glance</h3>
+            <div class="seperator-blue-mobile"></div>
+          </div>
+        
+          <div class="summary-main-section">
+          <div class="summary-metrics-wrapper">
+
+          <div class="summary-row">
+            <div class="metric-card metric-card-top">
+              <div class="metric-icon">
+                <span class="icon-wrapper">
+                  <img src="../assets/img/icon-edit-summary.svg" class="icon-default" alt="To-do Icon">
+                </span>
+              </div>
+              <div class="metric-body">
+                <div class="metric-value">1</div>
+                <div class="metric-label">To-do</div>
+              </div>
+            </div>
+        
+            <div class="metric-card metric-card-top">
+              <div class="metric-icon">
+                <span class="icon-wrapper">
+                  <img src="../assets/img/icon-check-summary.svg" class="icon-default" alt="Done Icon">
+                </span>
+              </div>
+              <div class="metric-body">
+                <div class="metric-value">1</div>
+                <div class="metric-label">Done</div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="summary-row-urgent">
+              <div class="metric-card urgent-deadline">
+                <div class="metric-icon">
+                  <span class="icon-wrapper">
+                    <img src="../assets/img/icon-prio-urgent-summary.png" class="icon-default" alt="Urgent Icon">
+                  </span>
+                </div>
+                <div class="metric-body">
+                  <div class="metric-value">1</div>
+                  <div class="metric-label">Urgent</div>
+                </div>
+                <div class="seperator-urgent"></div>
+                <div class="deadline-info">
+                  <div class="metric-date">October 16, 2022</div>
+                  <div class="metric-label">Upcoming Deadline</div>
+                </div>
+              </div>
+            </div>
+            
+        
+          <div class="summary-row summary-row-bottom">
+            <div class="metric-card center">
+              <div class="metric-body">
+                <div class="metric-value">5</div>
+                <div class="metric-label">Tasks in Board</div>
+              </div>
+            </div>
+            <div class="metric-card center">
+              <div class="metric-body">
+                <div class="metric-value">2</div>
+                <div class="metric-label">Tasks In Progress</div>
+              </div>
+            </div>
+            <div class="metric-card center">
+              <div class="metric-body">
+                <div class="metric-value">2</div>
+                <div class="metric-label">Awaiting Feedback</div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="greeting-section greeting-section-mobile">
+          <div class="greeting-wrapper">
+              <div class="greeting">
+                <h2>Good morning,<h2>
+                <h3 class="h1-summary-user-name">Sofia Müller</h3>
+              </div>
+          </div>
+      </div>
+      </div>
+        </section>
+
+      <section class="navbar-mobile">
+          <div class="navbar-mobile-wrapper">
+              <button onclick="openPage('summary.html')" class="btn-menu-mobile menu-active">
+                  <div class="">
+                      <img class="icon-default" src="../assets/img/icon-summary-active.svg" alt="summary icon">
+                  </div>
+                  <span>Summary</span>
+              </button>
+
+              <button onclick="openPage('addTask.html')" class="btn-menu-mobile ">
+                  <div class="">
+                      <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                  </div>
+                  <span>Add Tasks</span>
+              </button>
+
+              <button onclick="openPage('board.html')" class="btn-menu-mobile">
+                  <div class="">
+                      <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                  </div>
+                  <span>Board</span>
+              </button>
+
+              <button onclick="openPage('contacts.html')" class="btn-menu-mobile">
+                  <div class="">
+                      <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                  </div>
+                  <span>Contacts</span>
+              </button>
+          </div>
+      </section>
+  </main>
+
+</body>
+
+</html>
