@@ -20,9 +20,44 @@
         <script src="../js/contacts.js" defer></script>
     </head>
 
-    <body onload="initContactPage()" onresize="closeMobileContactInformation()">
+    <body id="body" onload="initContactPage(), initProfile()" onresize="closeMobileContactInformation()">
 
         <div id="overlay" class="overlay d-none" onclick="toggleDialogOverlay()"></div>
+        <div id="overlay-mobile" class="d-none" onclick="toggleMobileContactMenu()">
+            <div id="contact-menu-mobile" class="slide-in" onclick="event.stopPropagation()">
+                <button class="btn-small" onclick="toggleDialogOverlay('editContact'), toggleMobileContactMenu()">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-edit-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
+                    </div>
+                    <span>Edit</span>
+                </button>
+                <button class="btn-small" onclick="deleteContact(), toggleMobileContactInformation(), toggleMobileContactMenu()">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-delete-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
+                    </div>
+                    <span>Delete</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
+            <div class="profile-menu" onclick="event.stopPropagation()">
+                <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
+                    <span>Help</span>
+                </button>
+                <button onclick="openPage('privacy-policy.html')" class="btn-menu">
+                    <span>Privacy Policy</span>
+                </button>
+                <button onclick="openPage('legal-notice.html')" class="btn-menu">
+                    <span>Legal Notice</span>
+                </button>
+                <button onclick="logout()" class="btn-menu">
+                    <span>Log out</span>
+                </button>
+            </div>
+        </div>
 
         <aside>
             <img class="logo-white" src="../assets/img/logo-white.svg" alt="Join Logo">
@@ -31,7 +66,6 @@
                     <button onclick="openPage('summary.html')" class="btn-menu">
                         <div class="icon-wrapper">
                             <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
-                            <!-- <img class="icon-active" src="../assets/img/icon-summary-active.svg" alt="summary active icon"> -->
                         </div>
                         <span>Summary</span>
                     </button>
@@ -39,23 +73,20 @@
                     <button onclick="openPage('addTask.html')" class="btn-menu">
                         <div class="icon-wrapper">
                             <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
-                            <!-- <img class="icon-active" src="../assets/img/icon-task-active.svg" alt="add task active icon"> -->
                         </div>
                         <span>Add Task</span>
                     </button>
 
-                    <button onclick="openPage('board.html')" class="btn-menu btn-board">
+                    <button onclick="openPage('board.html')" class="btn-menu">
                         <div class="icon-wrapper">
                             <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
-                            <!-- <img class="icon-active" src="../assets/img/icon-board-active.svg" alt="board active icon"> -->
                         </div>
                         <span>Board</span>
                     </button>
 
-                    <button onclick="openPage('contacts.html')" class="btn-menu btn-contacts menu-active">
+                    <button onclick="openPage('contacts.html')" class="btn-menu menu-active">
                         <div class="icon-wrapper">
                             <img class="icon-default" src="../assets/img/icon-contacts-active.svg" alt="contacts icon">
-                            <!-- <img class="icon-active" src="../assets/img/icon-contacts-active.svg" alt="contacts active icon"> -->
                         </div>
                         <span>Contacts</span>
                     </button>
@@ -66,6 +97,7 @@
                 </div>
             </nav>
         </aside>
+
         <main>
             <section class="hug">
                 <div class="hug-wrapper">
@@ -76,22 +108,25 @@
                     </div>
                     <div class="help-and-profile">
 
-                        <button onclick="openPage('help.html')" class="btn-small">
+                        <button id="help-btn" class="btn-small" onclick="openPage('help.html')">
                             <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
                             <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
                         </button>
 
-                        <button class="btn-profile">
-                            <span>ds</span>
+                        <button class="btn-profile" onclick="toggleProfileMenu()">
+                            <span id="profile"></span>
                         </button>
                     </div>
                 </div>
             </section>
-
+                
             <section id="contacts-board">
                 <div class="contacts-container">
                     <button id="btn-create-contact" class="btn-dark" onclick="toggleDialogOverlay('createContact')">
                         <span>Add new contact</span>
+                        <img src="../assets/img/icon-person-add.svg">
+                    </button>
+                    <button id="btn-create-contact-mobile" class="btn-small-dark" onclick="toggleDialogOverlay('createContact')">
                         <img src="../assets/img/icon-person-add.svg">
                     </button>
                     <div id="contact-list"></div>
@@ -122,7 +157,7 @@
                                         <button class="btn-small" onclick="deleteContact()">
                                             <div class="icon-wrapper">
                                                 <img class="icon-default" src="../assets/img/icon-delete-default.svg">
-                                                <img class="icon-hover" src="../assets/img/icon-delet-hover-variant-2.svg">
+                                                <img class="icon-hover" src="../assets/img/icon-delete-hover-variant-2.svg">
                                             </div>
                                             <span>Delete</span>
                                         </button>
@@ -140,9 +175,9 @@
                             </div>
                         </div>
                     </div>
-        
-                    <div id="user-feedback" class="d-none"></div>
                 </div>
+
+                <div id="user-feedback" class="d-none"></div>
             </section>
 
             <section class="navbar-mobile">
@@ -171,7 +206,6 @@
                     <button onclick="openPage('contacts.html')" class="btn-menu-mobile menu-active">
                         <div class="">
                             <img class="icon-default" src="../assets/img/icon-contacts-active.svg" alt="contacts icon">
-                            <!-- <img class="icon-active" src="../assets/img/icon-contacts-active.svg" alt="contacts active icon"> -->
                         </div>
                         <span>Contacts</span>
                     </button>
@@ -180,3 +214,4 @@
         </main>
     </body>
 </html>
+   

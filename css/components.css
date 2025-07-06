@@ -18,17 +18,6 @@
     animation: slide-in 0.2s ease-in-out forwards; 
 }
 
-#user-feedback {
-    padding: 24px;
-    border: 0;
-    border-radius: 16px;
-    font-size: 24px;
-    font-weight: 300;
-    text-align: center;
-    color: #fff;
-    background-color: #2A3647;
-}
-
 button, .checkbox {
     cursor: pointer;
     transition: all 75ms;
@@ -48,6 +37,7 @@ a:hover {
     border: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 4px;
     font-size: 20px;
     background-color: transparent;
@@ -55,6 +45,20 @@ a:hover {
 
 .btn-small:hover {
     color: #29ABE2;
+}
+
+.btn-small-dark {
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 50%;
+    background-color: #2A3647; 
+}
+
+.btn-small-dark:hover {
+    background-color: #29ABE2;
 }
 
 .btn-dark {
@@ -208,21 +212,21 @@ a:hover {
     background-color: transparent;
 }
 
+.btn-menu > span {
+    width: 100%;
+    text-align: start;
+    text-indent: 8px;
+}
+
 .btn-menu:hover {
     background-color: #2A3D59;
+    color: #fff;
 }
 
 .menu-active {
     color: #fff !important;
     background-color: #091931 !important;
 }
-
-/* .btn-menu.menu-active .icon-default {
-    opacity: 0;
-}
-.btn-menu.menu-active .icon-active {
-    opacity: 1;
-} */
 
 
 /* INPUTS / TEXTAREAS / CHECKBOX */
@@ -261,7 +265,6 @@ label {
 input {
     height: 48px;
     width: 100%;
-    /* min-width: 400px; */
     border: none;
     outline: none;
     font-size: 20px;
@@ -340,8 +343,57 @@ textarea {
     background-color: #FF3D00;
 }
 
+/* CONTACT */
+.contact {
+    width: 100%;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    border-radius: 16px;
+    cursor: pointer;
+}
 
+.contact:hover {
+    background-color: #F9F9F9;
+}
 
+.contact-active {
+    color: #fff;
+    background-color: #2A3647;
+}
+
+.contact-active:hover {
+    color: #fff;
+    background-color: #2A3647;
+}
+
+.contact > .contact-icon {
+    width: auto;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+
+.contact-infos {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 20px;
+}
+
+.contact-name {
+    text-transform: capitalize;
+}
+
+.contact-mail {
+    width: 220px;
+    min-height: 20px;
+    font-size: 16px;
+    color: #29ABE2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;;
+}
 
 
 /* SUBTASKS */
@@ -414,3 +466,4 @@ textarea {
         font-weight: bold;
     }
 }
+

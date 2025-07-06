@@ -92,24 +92,6 @@ function getAlphabeticList() {
 
 
 /**
- * Extracts and returns the initials from a full name.
- * For names with multiple words, returns the first letter of the first two words.
- * 
- * @param {string} name - The full name of the contact.
- * @returns {string} The contact's initials.
- */
-function getContactInitials(name) {
-    let initials = name.split(" ");
-    if (initials.length > 1) {
-        initials = initials[0].charAt(0) + initials[1].charAt(0);
-    } else {
-        initials = initials[0].charAt(0);
-    }
-    return initials;
-}
-
-
-/**
  * Returns the next background color for a contact from the predefined color list,
  * cycling through the list based on the current index.
  * 
@@ -163,7 +145,7 @@ function toggleDialogOverlay(dialog = '') {
     const overlay = document.getElementById('overlay');
     switch (dialog) {
         case 'createContact':
-            overlay.innerHTML = getCreateContactDialogTemplate();
+            overlay.innerHTML = getCreateContactDialogTemplate(); 
             break;
         case 'editContact':
             overlay.innerHTML = getEditContactDialogTemplate(contacts[activeContactIndex]);
@@ -229,6 +211,7 @@ async function editContact() {
         await updateData(`/contacts/${contacts[activeContactIndex].id}`, data);
         await initContactPage();
         showContactInformation(activeContactIndex);
+        updateMobileContactInformation();
         toggleDialogOverlay();
         showUserFeedback("Contact succesfully edited");
     }
@@ -252,19 +235,54 @@ function showUserFeedback(text) {
 }
 
 
-
+/**
+ * Toggles the visibility of the mobile contact information container
+ * if the viewport width is 1200px or less. Inserts the contact details
+ * of the currently active contact into the container.
+ */
 function toggleMobileContactInformation() {
+    const body = document.getElementById('body');
     const mobileContactInformationContainer = document.getElementById('contact-display-container-mobile');
-    if (screen.width <= 1200) {
+    if (body.clientWidth <= 1200) {
         mobileContactInformationContainer.innerHTML = getMobileContactInformationTemplate(contacts[activeContactIndex]);
         mobileContactInformationContainer.classList.toggle('d-none');
     }
 }
 
 
+/**
+ * Hides the mobile contact information container if the viewport width
+ * exceeds 1200px. Intended to ensure the mobile container is hidden on larger screens.
+ */
 function closeMobileContactInformation() {
+    const body = document.getElementById('body');
     const mobileContactInformationContainer = document.getElementById('contact-display-container-mobile');
-    if (screen.width > 1200) {
+    const mobileOverlay = document.getElementById('overlay-mobile');
+    if (body.clientWidth > 1200) {
         mobileContactInformationContainer.classList.add('d-none');
+        mobileOverlay.classList.add('d-none');
     }
+}
+
+
+/**
+ * Updates the mobile contact information display.
+ * If the container with the ID 'contact-display-container-mobile' exists,
+ * it replaces its inner HTML with the contact information template.
+ */
+function updateMobileContactInformation() {
+    const mobileContactInformationContainer = document.getElementById('contact-display-container-mobile');
+    if (mobileContactInformationContainer) {
+        mobileContactInformationContainer.innerHTML = getMobileContactInformationTemplate(contacts[activeContactIndex]);
+    }
+}
+
+
+/**
+ * Toggles the visibility of the mobile contact menu overlay.
+ * Adds or removes the 'd-none' class on the element with the ID 'overlay-mobile'.
+ */
+function toggleMobileContactMenu() {
+    const mobileOverlay = document.getElementById('overlay-mobile');
+    mobileOverlay.classList.toggle('d-none');
 }
