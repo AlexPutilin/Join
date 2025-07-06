@@ -8,7 +8,7 @@ const FIREBASE_URL = "https://join-b179e-default-rtdb.europe-west1.firebasedatab
  */
 async function getData(path = "") {
     try {
-        let response = await fetch(FIREBASE_URL + path + ".json");
+        let response = await fetch(FIREBASE_URL + "/" + path + ".json");
         let responseAsJson = await response.json();
         return responseAsJson;
     }
