@@ -219,14 +219,6 @@
     color: #42526e;
 }
 
-.d-none {
-    display: none;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
 .headling-add-btn-wrapper {
     display: flex;
     justify-content: space-between;
