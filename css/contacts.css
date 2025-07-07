@@ -19,6 +19,24 @@
     transition: padding 75ms linear;
 }
 
+.contacts-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.contacts-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+.contacts-container::-webkit-scrollbar-thumb {
+    background: rgb(42, 54, 71);
+    border-radius: 10px;
+}
+
+.contacts-container::-webkit-scrollbar-thumb:hover {
+    background: #2a3d59;
+}
+
 #contact-list {
     width: 100%;
     display: flex;
@@ -58,7 +76,7 @@
     margin-bottom: 32px;
 }
 
-.contact-section > span {
+.contact-section>span {
     height: 48px;
     border-bottom: 2px solid #ddd;
     font-size: 20px;
@@ -77,8 +95,8 @@
     gap: 16px;
 }
 
-.contact-display-header > span, 
-.contact-display-header-mobile > span {
+.contact-display-header>span,
+.contact-display-header-mobile>span {
     font-size: 28px;
 }
 
@@ -118,7 +136,7 @@
     gap: 24px;
 }
 
-.contact-display-mobile > span {
+.contact-display-mobile>span {
     font-size: 24px;
 }
 
@@ -138,21 +156,21 @@
     margin-top: 40px;
 }
 
-.contact-display-name-wrapper > .contact-icon,
-.contact-display-name-wrapper-mobile > .contact-icon {
+.contact-display-name-wrapper>.contact-icon,
+.contact-display-name-wrapper-mobile>.contact-icon {
     width: auto;
     height: 100%;
     aspect-ratio: 1/1;
     font-size: 48px
 }
 
-.contact-display-name-wrapper > div:nth-child(2) {
+.contact-display-name-wrapper>div:nth-child(2) {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.contact-display > span {
+.contact-display>span {
     font-size: 24px;
     margin-bottom: 24px;
 }
@@ -182,7 +200,7 @@
     text-transform: capitalize;
 }
 
-.contact-dialog > div:nth-child(1) {
+.contact-dialog>div:nth-child(1) {
     padding: 48px;
     align-content: center;
     border-radius: 24px 0 0 24px;
@@ -190,7 +208,7 @@
     background-color: #2A3647;
 }
 
-.contact-dialog > div:nth-child(2) {
+.contact-dialog>div:nth-child(2) {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -319,7 +337,7 @@
         gap: 28px;
     }
 
-    .contact-display-header > span {
+    .contact-display-header>span {
         font-size: 24px;
     }
 
@@ -327,11 +345,11 @@
         margin: 32px;
     }
 
-    .contact-dialog > div:nth-child(1) {
+    .contact-dialog>div:nth-child(1) {
         padding: 32px;
     }
 
-    .contact-dialog > div:nth-child(2) {
+    .contact-dialog>div:nth-child(2) {
         padding: 32px 32px 32px 0;
     }
 
@@ -346,11 +364,11 @@
         padding: 40px;
     }
 
-    .contact-dialog > div:nth-child(1) {
+    .contact-dialog>div:nth-child(1) {
         padding: 24px;
     }
 
-    .contact-dialog > div:nth-child(2) {
+    .contact-dialog>div:nth-child(2) {
         padding: 24px 24px 24px 0;
     }
 
@@ -371,7 +389,7 @@
         width: 400px;
         left: calc(50% - 200px);
     }
-    
+
 }
 
 @media (max-width: 992px) {
@@ -418,12 +436,12 @@
         margin: 0;
     }
 
-    .contact-dialog > div:nth-child(1) {
+    .contact-dialog>div:nth-child(1) {
         height: 100%;
         border-radius: 24px 24px 0 0;
     }
 
-    .contact-dialog > div:nth-child(2) {
+    .contact-dialog>div:nth-child(2) {
         height: 100%;
         position: relative;
         align-items: center;
@@ -477,7 +495,7 @@
         gap: 16px;
     }
 
-    .contact-display-name-wrapper-mobile > .contact-icon {
+    .contact-display-name-wrapper-mobile>.contact-icon {
         font-size: 32px
     }
 
@@ -493,12 +511,12 @@
         height: 100vh;
     }
 
-    .contact-dialog > div:nth-child(1) {
+    .contact-dialog>div:nth-child(1) {
         border-radius: 0;
         padding: 76px 32px 76px 32px;
     }
 
-    .contact-dialog > div:nth-child(2) {
+    .contact-dialog>div:nth-child(2) {
         border-radius: 0;
         padding: 76px 32px 76px 32px;
     }
@@ -523,7 +541,7 @@
         gap: 8px
     }
 
-    .contact-display-header-mobile > span {
+    .contact-display-header-mobile>span {
         font-size: 20px;
     }
 
@@ -536,7 +554,7 @@
         gap: 8px;
     }
 
-    .contact-section > span {
+    .contact-section>span {
         text-indent: 24px;
     }
 
@@ -553,7 +571,7 @@
         height: 76px;
     }
 
-    .contact-display-name-wrapper-mobile > .contact-icon {
+    .contact-display-name-wrapper-mobile>.contact-icon {
         font-size: 28px
     }
 
@@ -565,12 +583,12 @@
         font-size: 20px;
     }
 
-    .contact-dialog > div:nth-child(1) {
+    .contact-dialog>div:nth-child(1) {
         border-radius: 0;
         padding: 24px 24px 76px 24px;
     }
 
-    .contact-dialog > div:nth-child(2) {
+    .contact-dialog>div:nth-child(2) {
         border-radius: 0;
         padding: 76px 24px 24px 24px;
     }
