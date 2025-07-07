@@ -76,7 +76,27 @@ main {
   flex-direction: column;
 }
 
-/* Link Style for Join-Links on Help and Legal Notice Pages */
+/* webit for scrollbars */
+.drag-drop-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.drag-drop-container::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+.drag-drop-container::-webkit-scrollbar-thumb {
+  background: rgb(42, 54, 71);
+  border-radius: 10px;
+}
+
+
+.drag-drop-container::-webkit-scrollbar-thumb:hover {
+  background: #2a3d59;
+}
+
+/* blue font color on Help and Legal Notice Pages */
 .color-blue {
   color: #29abe2;
 }
@@ -110,20 +130,24 @@ main {
     overflow-y: scroll;
   }
 
+  .board::-webkit-scrollbar,
   .content::-webkit-scrollbar {
     width: 10px;
   }
 
+  .board::-webkit-scrollbar-track,
   .content::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
   }
 
+  .board::-webkit-scrollbar-thumb,
   .content::-webkit-scrollbar-thumb {
     background: rgb(42, 54, 71);
     border-radius: 10px;
   }
 
+  .board::-webkit-scrollbar-thumb:hover,
   .content::-webkit-scrollbar-thumb:hover {
     background: #2a3d59;
   }
