@@ -1,4 +1,4 @@
-let activeUser = "Guest"
+let activeUser = null
 
 /** Initializes the app once the DOM is fully loaded. */
 function init() {
@@ -75,6 +75,6 @@ function toggleProfileMenu() {
  * and redirecting to the login page.
  */
 function logout() {
-    // set activeUser = null;
+    activeUser = null;
     openPage('../index.html');
 }
