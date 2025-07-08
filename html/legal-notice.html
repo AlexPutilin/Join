@@ -72,10 +72,17 @@
             <div class="hug-wrapper">
                 <div class="logo-kanban-text-wrapper">
                     <img class="logo-blue" src="../assets/img/logo.svg" alt="Join Logo">
-                    <span class="kanban-text">
-                        Kanban Project Management Tool</span>
+                    <span class="kanban-text">Kanban Project Management Tool</span>
                 </div>
-
+                <div class="help-and-profile">
+                    <button id="help-btn" class="btn-small" onclick="openPage('help.html')">
+                        <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
+                        <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
+                    </button>
+                    <button class="btn-profile" onclick="toggleProfileMenu()">
+                        <span id="profile"></span>
+                    </button>
+                </div>
             </div>
         </section>
         <section class="content">
