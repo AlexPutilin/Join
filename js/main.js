@@ -1,4 +1,4 @@
-let activeUser = null
+let activeUser = ""
 
 /** Initializes the app once the DOM is fully loaded. */
 function init() {
@@ -67,6 +67,21 @@ function initProfile() {
 function toggleProfileMenu() {
     const menu = document.getElementById('profile-menu-overlay');
     menu.classList.toggle('d-none');
+}
+
+
+function updateMenuForUnauthUser() {
+    const nav = document.querySelector('.navigate-btn-wrapper');
+    const menuBtns = nav.querySelectorAll('.btn-menu');
+    const loginBtn = document.getElementById('menu-login-btn');
+    const profileBtn = document.getElementById('btn-profile');
+    if (!activeUser) {
+        menuBtns.forEach(btn => {
+            btn.classList.add('d-none');
+        });
+        loginBtn.classList.remove('d-none');
+        profileBtn.classList.add('d-none');
+    }
 }
 
 
