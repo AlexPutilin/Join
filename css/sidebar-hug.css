@@ -89,9 +89,11 @@ nav {
 .navbar-mobile-wrapper {
     display: none;
     justify-content: space-evenly;
+    padding: 0 40px;
 }
 
 .btn-menu-mobile {
+    height: 100%;
     padding: 16px;
     border: 0;
     border-radius: 8px;
@@ -166,7 +168,7 @@ nav {
 
 @media (max-width: 476px) {
     .btn-menu-mobile {
-        padding: 12px;
+        padding: 8px;
     }
 
     .hug {
@@ -181,5 +183,9 @@ nav {
     #profile-menu-overlay {
         padding: 74px 16px;
         z-index: 299;
+    }
+
+    .navbar-mobile-wrapper {
+        padding: 0 16px;
     }
 }

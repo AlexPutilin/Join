@@ -76,6 +76,12 @@ main {
   flex-direction: column;
 }
 
+.flex-row-layout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* Link Style for Join-Links on Help and Legal Notice Pages */
 .color-blue {
   color: #29abe2;

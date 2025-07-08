@@ -9,6 +9,13 @@ function init() {
     handleSplashScreen();
 }
 
+
+function initUnauthUser() {
+    updateMenuForUnauthUser();
+    updateMobileMenuForUnauthUser();
+}
+
+
 /**
  * This function handles navigation to a new HTML page when triggered by a button interaction.
  * @param {string} url - The destination URL to navigate to.
@@ -71,17 +78,37 @@ function toggleProfileMenu() {
 
 
 function updateMenuForUnauthUser() {
-    const nav = document.querySelector('.navigate-btn-wrapper');
-    const menuBtns = nav.querySelectorAll('.btn-menu');
-    const loginBtn = document.getElementById('menu-login-btn');
-    const profileBtn = document.getElementById('btn-profile');
     if (!activeUser) {
+        const nav = document.querySelector('.navigate-btn-wrapper');
+        const menuBtns = nav.querySelectorAll('.btn-menu');
+        const loginBtn = document.getElementById('menu-login-btn');
         menuBtns.forEach(btn => {
             btn.classList.add('d-none');
         });
         loginBtn.classList.remove('d-none');
-        profileBtn.classList.add('d-none');
+        disableProfileBtn();
     }
+}
+
+
+function updateMobileMenuForUnauthUser() {
+    if (!activeUser) {
+        const menuBtns = document.querySelectorAll('.btn-menu-mobile');
+        const unauthMenuBtns = document.querySelectorAll('.unauth-menu-btn');
+        menuBtns.forEach(btn => {
+            btn.classList.add('d-none');
+        });
+        unauthMenuBtns.forEach(btn => {
+            btn.classList.remove('d-none');
+        });
+        disableProfileBtn();
+    }
+}
+
+
+function disableProfileBtn() {
+    const profileBtn = document.getElementById('btn-profile');
+    profileBtn.classList.add('d-none');
 }
 
 
