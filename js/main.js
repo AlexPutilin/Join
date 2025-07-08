@@ -7,6 +7,7 @@ function init() {
     }, 1500);
 
     handleSplashScreen();
+    renderForm(getLoginFormTemplate());
 }
 
 

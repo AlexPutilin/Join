@@ -63,7 +63,7 @@ function getLoginFormTemplate() {
                     <!-- <input type="email" placeholder="Email" required> -->
                     <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
-                            <input type="email" placeholder="Email" required>
+                            <input id="emailInput" type="email" placeholder="Email" required>
                             <img src="../assets/img/icon-mail.svg" alt="">
                         </div>
                         <span class="err-msg hidden">Invalid input.</span>
@@ -71,14 +71,14 @@ function getLoginFormTemplate() {
                     <!-- <input type="password" placeholder="Password" required> -->
                     <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
-                            <input type="password" placeholder="Password" required>
+                            <input id="passwordInput" type="password" placeholder="Password" required>
                             <img src="../assets/img/icon-lock.svg" alt="">
                         </div>
                         <span class="err-msg hidden">Invalid input.</span>
                     </div>
                     <div class="login-btn-container form-elements-padding mobile-flex-col">
-                        <button type="button" class="btn-dark cta-text-mobile-sm">Log in</button>
-                        <button type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
+                        <button onclick="handleLogin()" type="button" class="btn-dark cta-text-mobile-sm">Log in</button>
+                        <button onclick="openPage('./html/summary.html')" type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
                     </div>
                 </form>
             </section>`;
