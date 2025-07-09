@@ -127,6 +127,7 @@ function disableHelpBtn() {
  */
 function logout() {
     activeUser = "";
+    sessionStorage.removeItem("user");
     openPage('../index.html');
 }
 
