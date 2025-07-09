@@ -27,6 +27,12 @@ h3 {
   font-weight: 400;
 }
 
+.subtitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
 /* body {
   height: 100%;
   width: 100vw;
@@ -82,22 +88,21 @@ main {
   gap: 8px;
 }
 
-/* Link Style for Join-Links on Help and Legal Notice Pages */
 .color-blue {
   color: #29abe2;
 }
 
-/* Padding for Content in Help and Legal Notice Pages */
 .content {
   background-color: #F6F7F8;
   padding: 24px 48px;
   position: relative;
   overflow: hidden;
+  flex: 1;
 }
 
 @media (max-width: 1500px) {
   .content {
-    padding: 24px 24px;
+    padding: 24px 40px;
   }
 
   h1 {
@@ -107,7 +112,7 @@ main {
 
 @media (max-width: 1200px) {
   .content {
-    padding: 40px;
+    padding: 24px 24px;
   }
 }
 
@@ -162,5 +167,15 @@ main {
 
   h3 {
     font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 375px) {
+  h1 {
+    font-size: 40px;
   }
 }

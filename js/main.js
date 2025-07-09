@@ -88,6 +88,7 @@ function updateMenuForUnauthUser() {
         });
         loginBtn.classList.remove('d-none');
         disableProfileBtn();
+        disableHelpBtn()
     }
 }
 
@@ -103,6 +104,7 @@ function updateMobileMenuForUnauthUser() {
             btn.classList.remove('d-none');
         });
         disableProfileBtn();
+        disableHelpBtn()
     }
 }
 
@@ -110,6 +112,12 @@ function updateMobileMenuForUnauthUser() {
 function disableProfileBtn() {
     const profileBtn = document.getElementById('btn-profile');
     profileBtn.classList.add('d-none');
+}
+
+
+function disableHelpBtn() {
+    const helpBtn = document.getElementById('help-btn');
+    helpBtn.classList.add('d-none');
 }
 
 
