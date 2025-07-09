@@ -1,4 +1,4 @@
-let activeUser = ""
+let activeUser = "";
 
 /** Initializes the app once the DOM is fully loaded. */
 function init() {
@@ -13,6 +13,13 @@ function init() {
 function initUnauthUser() {
     updateMenuForUnauthUser();
     updateMobileMenuForUnauthUser();
+}
+
+
+function initProfile() {
+    loadUser();
+    const profile = document.getElementById('profile');
+    profile.innerHTML = getContactInitials(activeUser);
 }
 
 
@@ -58,12 +65,6 @@ function getContactInitials(name) {
         initials = initials[0].charAt(0);
     }
     return initials;
-}
-
-
-function initProfile() {
-    const profile = document.getElementById('profile');
-    profile.innerHTML = getContactInitials(activeUser);
 }
 
 
@@ -117,6 +118,16 @@ function disableProfileBtn() {
  * and redirecting to the login page.
  */
 function logout() {
-    activeUser = null;
+    activeUser = "";
     openPage('../index.html');
+}
+
+
+function saveUser() {
+    sessionStorage.setItem("user", activeUser);
+}
+
+
+function loadUser() {
+    activeUser = sessionStorage.getItem("user") || "";
 }
