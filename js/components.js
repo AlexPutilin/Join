@@ -501,21 +501,6 @@ function resetAssignedSearchAndContacts() {
 }
 
   /**
- * Displays a temporary task creation success notification.
- */
-function showAddTaskNotification() {
-  const notificationWrapper = document.createElement('div');
-  notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
-  const notificationElement = notificationWrapper.firstElementChild;
-  if (!notificationElement) return;
-  document.body.appendChild(notificationElement);
-  notificationElement.addEventListener('animationend', () => {
-    notificationElement.remove();
-  });
-}
-  
-
-  /**
  * Renders the priority selection buttons and enables their interaction.
  */
 function renderPriorityButtons() {
@@ -768,8 +753,7 @@ function renderAssignedContactChips(contactIds) {
   const container = document.getElementById('assigned-chips-container');
   container.innerHTML = '';
 
-  contactIds.forEach(id => {
-    const info = contactsById[id];
+  contactIds.forEach(id => {const info = contactsById[id];
     if (!info) return;
     const chip = createContactChip(getContactInitials(info.name), info.color);
     container.appendChild(chip);
@@ -786,19 +770,6 @@ function storeAssignedContactIds(contactIds) {
   if (!input) return;
   input.value = '';
   input.dataset.value = contactIds.join(',');
-}
-
-/**
- * Maps a list of contact IDs to their corresponding names.
- *
- * @param {string[]} contactIds - An array of contact IDs.
- * @returns {string} A comma-separated string of contact names.
- */
-function mapContactIdsToNames(contactIds) {
-  return contactIds
-    .map(id => contactsById[id]?.name)
-    .filter(Boolean)
-    .join(', ');
 }
 
 /**

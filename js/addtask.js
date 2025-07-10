@@ -2,45 +2,37 @@
  * Stores contact information by their unique IDs.
  * @type {Object.<string, Object>}
  */
-const contactsById = {};
+contactsById = {};
 
 /**
  * Loads all users from the Firebase database.
  *
  * @async
- * @function loadAllUsers
  * @returns {Promise<Object>} A promise that resolves to an object containing all users.
- *                            If an error occurs, an empty object will be returned.
  */
 async function loadAllUsers() {
   try {
-      const response = await fetch(`${FIREBASE_URL}/users.json`);
-      const users = await response.json();
-      console.log("Users loaded:", users);
-      return users;
+    const users = await getData("/users");
+    console.log("Users loaded:", users);
+    return users;
   } catch (error) {
-      console.error("Error while loading users:", error);
-      return {};
+    console.error("Error while loading users:", error);
   }
 }
 
 /**
-* Loads all contacts from the Firebase database.
-*
-* @async
-* @function loadAllContacts
-* @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
-*                            If an error occurs, an empty object will be returned.
-*/
+ * Loads all contacts from the Firebase database.
+ *
+ * @async
+ * @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
+ */
 async function loadAllContacts() {
   try {
-      const response = await fetch(`${FIREBASE_URL}/contacts.json`);
-      const contacts = await response.json();
-      console.log("Contacts loaded:", contacts);
-      return contacts;
+    const contacts = await getData("/contacts");
+    console.log("Contacts loaded:", contacts);
+    return contacts;
   } catch (error) {
-      console.error("Error while loading contacts:", error);
-      return {};
+    console.error("Error while loading contacts:", error);
   }
 }
 
@@ -80,6 +72,19 @@ function setupCreateButtonListeners() {
   if (dueDateInput) {
     dueDateInput.addEventListener('input', updateCreateButtonState);
   }
+}
+
+/**
+ * Maps a list of contact IDs to their corresponding names.
+ *
+ * @param {string[]} contactIds - An array of contact IDs.
+ * @returns {string} A comma-separated string of contact names.
+ */
+function mapContactIdsToNames(contactIds) {
+  return contactIds
+    .map(id => contactsById[id]?.name)
+    .filter(Boolean)
+    .join(', ');
 }
 
 /**
@@ -131,7 +136,7 @@ async function submitTaskData(taskData) {
     clearAddTaskForm();
     showAddTaskNotification();
   } catch (error) {
-    handleTaskSaveError(error);
+    console.error('Failed submit Task Data:', error);
   }
 }
 
@@ -145,32 +150,12 @@ async function submitTaskData(taskData) {
  */
 async function saveTaskToFirebase(taskData) {
   try {
-    const response = await fetch(`${FIREBASE_URL}/board/tasks.json`, {
-      method: "POST",
-      body: JSON.stringify(taskData)
-    });
-    const result = await response.json();
-    console.log('Task created with id:', result.name);
-
-    return result.name;
+    await postData("/board/tasks", taskData);
   } catch (error) {
     console.error('Failed to save task:', error);
     throw error;
   }
 }
-
-/**
- * Handles errors that occur during task saving.
- * Logs the error and notifies the user.
- *
- * @param {Error} error - The error that occurred.
- */
-function handleTaskSaveError(error) {
-  console.error("addTask: Failed to save task to Firebase:", error);
-  alert("Failed to create task: " + error.message);
-}
-
-
 
 /**
  * Updates the state of the "Create Task" button based on required form field values.
@@ -193,36 +178,27 @@ function updateCreateButtonState() {
   }
 }
 
-/**
- * Clears the Add Task form by resetting all inputs, dropdowns, chips, subtasks,
- * error messages, and re-initializing the form.
- */
+
 function clearAddTaskForm() {
-  resetTextDateAndTextareaInputs();
-  resetPriorityRadios();
-  resetDropdownCheckboxes();
-  resetDropdownTextInputs();
+  const form = document.getElementById('add-task-form');
+  if (!form) return;
+
+  form.reset();
+  resetForm();
   hideDropdownMenus();
-  clearChipsAndSubtasks();
   hideErrorMessages();
   initializeAddTaskPage();
   updateCreateButtonState();
 }
 
-/**
- * Resets all text, date, and textarea inputs to an empty value.
- */
-function resetTextDateAndTextareaInputs() {
-  document
-    .querySelectorAll('input[type="text"], input[type="date"], textarea')
-    .forEach(input => {
-      input.value = "";
-    });
+function resetForm(){
+  document.querySelectorAll('input[name="priority"]').forEach(radio => {radio.checked = false;});
+  document.querySelectorAll('.drop-down-input input[type="text"]').forEach(input => {input.value = "";input.removeAttribute("data-placeholder-active");});
+  document.getElementById('assigned-chips-container')?.replaceChildren();
+  document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
 
-/**
- * Unchecks all radio buttons in the "priority" group.
- */
+/*
 function resetPriorityRadios() {
   document
     .querySelectorAll('input[name="priority"]')
@@ -231,9 +207,7 @@ function resetPriorityRadios() {
     });
 }
 
-/**
- * Unchecks all checkboxes within dropdown menus.
- */
+
 function resetDropdownCheckboxes() {
   document
     .querySelectorAll('.drop-down-menu input[type="checkbox"]')
@@ -242,9 +216,7 @@ function resetDropdownCheckboxes() {
     });
 }
 
-/**
- * Clears text inputs inside dropdown areas and removes any active placeholder attributes.
- */
+
 function resetDropdownTextInputs() {
   document
     .querySelectorAll('.drop-down-input input[type="text"]')
@@ -254,10 +226,25 @@ function resetDropdownTextInputs() {
     });
 }
 
-/**
- * Removes all assigned contact chips and subtask list items from the DOM.
- */
+
 function clearChipsAndSubtasks() {
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
+ */
+
+
+
+  /**
+ * Displays a temporary task creation success notification.
+ */
+  function showAddTaskNotification() {
+    const notificationWrapper = document.createElement('div');
+    notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
+    const notificationElement = notificationWrapper.firstElementChild;
+    if (!notificationElement) return;
+    document.body.appendChild(notificationElement);
+    notificationElement.addEventListener('animationend', () => {
+      notificationElement.remove();
+    });
+  }

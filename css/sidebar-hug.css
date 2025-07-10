@@ -1,8 +1,13 @@
 aside {
     width: 232px;
     background-color: #2A3647;
-    height: 100vh;
+    height: 100%;
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 64px 0px;
+    gap: 120px;
+    align-items: center;
 }
 
 nav {
@@ -10,8 +15,14 @@ nav {
     flex-direction: column;
     justify-content: space-between;
     color: #cdcdcd;
-    height: 55%;
-    max-height: 800px;
+    flex: 1;
+    width: 100%;
+}
+
+.navigate-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .logo-kanban-text-wrapper {
@@ -25,9 +36,9 @@ nav {
 }
 
 .logo-white {
-    padding-top: 64px;
-    padding-left: 65.5px;
-    padding-bottom: 146px;
+    width: 50%;
+    height: auto;
+    aspect-ratio: 1/1;
 }
 
 .legal-informations-wrapper {
@@ -78,9 +89,11 @@ nav {
 .navbar-mobile-wrapper {
     display: none;
     justify-content: space-evenly;
+    padding: 0 40px;
 }
 
 .btn-menu-mobile {
+    height: 100%;
     padding: 16px;
     border: 0;
     border-radius: 8px;
@@ -114,6 +127,11 @@ nav {
     display: none;
 }
 
+.data-protection-imprint-wrapper{
+    display: flex;
+}
+
+
 @media (max-width: 992px) {
     .logo-blue {
         visibility: visible;
@@ -121,6 +139,7 @@ nav {
 
     .navbar-mobile-wrapper {
         display: flex;
+        justify-content: space-between;
     }
 
     aside {
@@ -149,7 +168,7 @@ nav {
 
 @media (max-width: 476px) {
     .btn-menu-mobile {
-        padding: 12px;
+        padding: 8px;
     }
 
     .hug {
@@ -164,5 +183,9 @@ nav {
     #profile-menu-overlay {
         padding: 74px 16px;
         z-index: 299;
+    }
+
+    .navbar-mobile-wrapper {
+        padding: 0 16px;
     }
 }

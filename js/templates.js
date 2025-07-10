@@ -376,7 +376,7 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
             <div class="task-progressbar">
                 <div class="task-progrssbar-content" style="width: ${calcuProgress}%;"></div>
             </div>
-            <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} subtasks</span>
+            <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} Subtasks</span>
         </div>` : '';
 }
 
@@ -385,12 +385,12 @@ function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgre
     return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h4 class="task-title">${task.title}</h4>
-                <span>Order: ${task.order}</span> <br>
+                <span>Order: ${task.order}</span>
                 <span class="task-description-short">${description_short}</span>
                 ${subtasksProgress}
                 <div class="profiles-priority-container">
                     <div style="border: 2px solid black; border-radius: 100%; width: 32px; height: 32px;"></div>
-                    <div>${getPriority(task)}</div>
+                    ${getPriority(task)}
                 </div>
             </div>`;
 }
@@ -732,7 +732,7 @@ function getAssignedToTemplate() {
 
 function getAddTaskNotificationTemplate() {
   return `
-    <div class="successfully-added-notification btn-dark">
+    <div class="successfully-added-notification btn-dark slide-in-out-add-task">
       <span>Task added to board</span>
       <img src="../assets/img/icon-board.svg" alt="Board icon">
     </div>

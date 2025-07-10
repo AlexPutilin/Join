@@ -1,4 +1,4 @@
-let activeUser = "Guest"
+let activeUser = "";
 
 /** Initializes the app once the DOM is fully loaded. */
 function init() {
@@ -17,6 +17,18 @@ function redirectIfNotLoggedIn() {
     if (!activeUser) {
         openPage('./index.html');       
     }
+
+  
+function initUnauthUser() {
+    updateMenuForUnauthUser();
+    updateMobileMenuForUnauthUser();
+}
+
+
+function initProfile() {
+    loadUser();
+    const profile = document.getElementById('profile');
+    profile.innerHTML = getContactInitials(activeUser);
 }
 
 
@@ -87,12 +99,6 @@ function getContactInitials(name) {
 }
 
 
-function initProfile() {
-    const profile = document.getElementById('profile');
-    profile.innerHTML = getContactInitials(activeUser);
-}
-
-
 /**
  * Toggles the visibility of the profile menu overlay.
  * Adds or removes the 'd-none' class to show or hide the menu.
@@ -103,11 +109,65 @@ function toggleProfileMenu() {
 }
 
 
+function updateMenuForUnauthUser() {
+    if (!activeUser) {
+        const nav = document.querySelector('.navigate-btn-wrapper');
+        const menuBtns = nav.querySelectorAll('.btn-menu');
+        const loginBtn = document.getElementById('menu-login-btn');
+        menuBtns.forEach(btn => {
+            btn.classList.add('d-none');
+        });
+        loginBtn.classList.remove('d-none');
+        disableProfileBtn();
+        disableHelpBtn()
+    }
+}
+
+
+function updateMobileMenuForUnauthUser() {
+    if (!activeUser) {
+        const menuBtns = document.querySelectorAll('.btn-menu-mobile');
+        const unauthMenuBtns = document.querySelectorAll('.unauth-menu-btn');
+        menuBtns.forEach(btn => {
+            btn.classList.add('d-none');
+        });
+        unauthMenuBtns.forEach(btn => {
+            btn.classList.remove('d-none');
+        });
+        disableProfileBtn();
+        disableHelpBtn()
+    }
+}
+
+
+function disableProfileBtn() {
+    const profileBtn = document.getElementById('btn-profile');
+    profileBtn.classList.add('d-none');
+}
+
+
+function disableHelpBtn() {
+    const helpBtn = document.getElementById('help-btn');
+    helpBtn.classList.add('d-none');
+}
+
+
 /**
  * Logs out the current user by resetting the active user 
  * and redirecting to the login page.
  */
 function logout() {
-    // set activeUser = null;
+    activeUser = "";
+    sessionStorage.removeItem("user");
     openPage('../index.html');
+}
+
+
+function saveUser() {
+    sessionStorage.setItem("user", activeUser);
+}
+
+
+function loadUser() {
+    activeUser = sessionStorage.getItem("user") || "";
 }
