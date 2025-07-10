@@ -24,34 +24,35 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCount(tasks, 'number-tasks-total', () => true);
         updateCount(tasks, 'number-in-progress', task => task.status === 'in-progress');
         updateCount(tasks, 'number-await-feedback', task => task.status === 'await-feedback');
+        updateUrgentDeadline(tasks);
       } catch (err) {
         console.error('Failed to initialize metric cards:', err);
       }
     }
 
-function updateUrgentDeadline(tasks) {
-  const urgentTasks = tasks
-    .filter(task => task.status === 'to-do' && task.priority === 'urgent' && task.dueDate)
-    .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-
-  const deadlineElement = document.getElementById('deadline-date-urgent');
-  if (deadlineElement) {
-    if (urgentTasks.length > 0) {
-      deadlineElement.textContent = formatDate(urgentTasks[0].dueDate);
-    } else {
-      deadlineElement.textContent = 'No Deadline';
-    }
-  }
-}
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('de-DE', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  });
-}
+    function updateUrgentDeadline(tasks) {
+        const urgentTasks = tasks
+          .filter(task => task.status === 'to-do' && task.priority === 'urgent' && task.due_date)
+          .sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+      
+        const deadlineElement = document.getElementById('deadline-date-urgent');
+        if (deadlineElement) {
+          if (urgentTasks.length > 0) {
+            deadlineElement.textContent = formatDate(urgentTasks[0].due_date);
+          } else {
+            deadlineElement.textContent = 'Keine Deadline';
+          }
+        }
+      }
+      
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('de-DE', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        });
+      }
 
 
 function updateCount(tasks, elementId, taskFilter){
