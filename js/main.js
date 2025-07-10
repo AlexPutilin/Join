@@ -2,7 +2,7 @@ let activeUser = "";
 
 /** Initializes the app once the DOM is fully loaded. */
 function init() {
-    redirectIfNotLoggedIn();
+    // redirectIfNotLoggedIn();
 
     setTimeout(() => {
         document.getElementById("splash-screen").classList.add("d-none");
@@ -17,6 +17,7 @@ function redirectIfNotLoggedIn() {
     if (!activeUser) {
         openPage('./index.html');       
     }
+}
 
   
 function initUnauthUser() {
