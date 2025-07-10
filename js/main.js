@@ -2,14 +2,23 @@ let activeUser = "";
 
 /** Initializes the app once the DOM is fully loaded. */
 function init() {
+    redirectIfNotLoggedIn();
+
     setTimeout(() => {
         document.getElementById("splash-screen").classList.add("d-none");
     }, 1500);
-    
+
     handleSplashScreen();
+    renderForm(getLoginFormTemplate());
 }
 
 
+function redirectIfNotLoggedIn() {
+    if (!activeUser) {
+        openPage('./index.html');       
+    }
+
+  
 function initUnauthUser() {
     updateMenuForUnauthUser();
     updateMobileMenuForUnauthUser();
@@ -33,6 +42,28 @@ function openPage(url) {
 
 
 /**
+ * Retrieves all entries from the given database path and returns them as an array of key-value pairs.
+ *
+ * @async
+ * @function getAllEntries
+ * @param {string} path - The path in the database from which to retrieve the entries.
+ * @returns {Promise<Array<[string, any]>>} - A promise that resolves to an array of key-value pairs from the database object.
+ */
+async function getAllEntries(path) {
+    let allEntriesRef = await getData(path);
+    return Object.entries(allEntriesRef);
+}
+
+
+/**
+ * Retrieves the value of an input element by its ID.
+ *
+ * @param {string} element - The ID of the input element.
+ * @returns {string} The value of the input element.
+ */
+function getInput(element) {
+    return document.getElementById(element).value;
+}/**
  * @function eventBubblingProtection - Stops the propagation of the event to parent elements.
  * @param {Event} event - The event object to stop from bubbling.
  */

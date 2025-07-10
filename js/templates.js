@@ -1,7 +1,7 @@
 function getSignupFormTemplate() {
     return /*html*/`
             <section class="form-wrapper">
-            <form class="pos-rel" action="submit">
+            <form id="signup_form" class="pos-rel" action="#">
                 <!-- BACK to Login Form -->
                 <button onclick="renderForm(getLoginFormTemplate())" type="button" class="btn-small pos-abs back-signup bg-none">
                     <img class="icon-default" src="../assets/img/icon-back-default.svg">
@@ -11,34 +11,34 @@ function getSignupFormTemplate() {
                 <!-- <input type="text" placeholder="Name" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="text" placeholder="Name" required>
+                        <input id="signup_name" type="text" placeholder="Name" required>
                         <img src="./assets/img/icon-person.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
                 <!-- <input type="email" placeholder="Email" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="email" placeholder="Email" required>
+                        <input id="signup_email" type="email" placeholder="Email" required>
                         <img src="./assets/img/icon-mail.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
                 <!-- <input type="password" placeholder="Password" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="password" placeholder="Password" required>
+                        <input id="signup_password" type="password" placeholder="Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
                 <!-- <input type="password" placeholder="Password" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input type="password" placeholder="Confirm Password" required>
+                        <input id="signup_password_confirmed" type="password" placeholder="Confirm Password" required>
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
-                    <span class="err-msg">Invalid input.</span>
+                    <span class="err-msg hidden">Invalid input.</span>
                 </div>
                 <!-- <input type="checkbox" Accept Privacy policy required> -->
                 <div class="checkbox-wrapper">
@@ -48,7 +48,7 @@ function getSignupFormTemplate() {
                     </label>
                 </div>
                 <div>
-                    <button class="btn-dark cta-text-mobile-sm">Sign up</button>
+                    <button id="btn_signup" type="button" onclick="handleSignup()" class="btn-dark cta-text-mobile-sm" disabled>Sign up</button>
                 </div>
             </form>
         </section>`;
@@ -63,22 +63,22 @@ function getLoginFormTemplate() {
                     <!-- <input type="email" placeholder="Email" required> -->
                     <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
-                            <input type="email" placeholder="Email" required>
+                            <input id="emailInput" type="email" placeholder="Email" required>
                             <img src="../assets/img/icon-mail.svg" alt="">
                         </div>
-                        <span class="err-msg">Invalid input.</span>
+                        <span class="err-msg hidden">Invalid input.</span>
                     </div>
                     <!-- <input type="password" placeholder="Password" required> -->
                     <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
-                            <input type="password" placeholder="Password" required>
+                            <input id="passwordInput" type="password" placeholder="Password" required>
                             <img src="../assets/img/icon-lock.svg" alt="">
                         </div>
-                        <span class="err-msg">Invalid input.</span>
+                        <span class="err-msg hidden">Invalid input.</span>
                     </div>
                     <div class="login-btn-container form-elements-padding mobile-flex-col">
-                        <button class="btn-dark cta-text-mobile-sm">Log in</button>
-                        <button class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
+                        <button onclick="handleLogin()" type="button" class="btn-dark cta-text-mobile-sm">Log in</button>
+                        <button onclick="openPage('./html/summary.html')" type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
                     </div>
                 </form>
             </section>`;
