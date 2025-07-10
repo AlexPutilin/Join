@@ -78,7 +78,7 @@ function getLoginFormTemplate() {
                     </div>
                     <div class="login-btn-container form-elements-padding mobile-flex-col">
                         <button onclick="handleLogin()" type="button" class="btn-dark cta-text-mobile-sm">Log in</button>
-                        <button onclick="openPage('./html/summary.html')" type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
+                        <button onclick="onLogin()" type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
                     </div>
                 </form>
             </section>`;

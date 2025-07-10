@@ -287,7 +287,7 @@ function validateUser(userArray, emailInput, passwordInput) {
  *
  * @param {Object} foundUser - The user object of the successfully logged-in user.
  */
-function onLogin(foundUser) {
+function onLogin(foundUser = {name: "Guest"}) {
     alert(`Willkommen, ${foundUser.name}!`);
     activeUser = foundUser.name;
     console.log(activeUser);
