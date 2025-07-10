@@ -292,5 +292,6 @@ function onLogin(foundUser) {
     activeUser = foundUser.name;
     console.log(activeUser);
 
+    saveUser();
     openPage('./html/summary.html');
 }
