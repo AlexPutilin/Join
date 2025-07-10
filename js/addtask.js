@@ -1,46 +1,40 @@
+redirectIfNotLoggedIn();
+
 /**
  * Stores contact information by their unique IDs.
  * @type {Object.<string, Object>}
  */
-const contactsById = {};
+contactsById = {};
 
 /**
  * Loads all users from the Firebase database.
  *
  * @async
- * @function loadAllUsers
  * @returns {Promise<Object>} A promise that resolves to an object containing all users.
- *                            If an error occurs, an empty object will be returned.
  */
 async function loadAllUsers() {
   try {
-      const response = await fetch(`${FIREBASE_URL}/users.json`);
-      const users = await response.json();
-      console.log("Users loaded:", users);
-      return users;
+    const users = await getData("/users");
+    console.log("Users loaded:", users);
+    return users;
   } catch (error) {
-      console.error("Error while loading users:", error);
-      return {};
+    console.error("Error while loading users:", error);
   }
 }
 
 /**
-* Loads all contacts from the Firebase database.
-*
-* @async
-* @function loadAllContacts
-* @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
-*                            If an error occurs, an empty object will be returned.
-*/
+ * Loads all contacts from the Firebase database.
+ *
+ * @async
+ * @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
+ */
 async function loadAllContacts() {
   try {
-      const response = await fetch(`${FIREBASE_URL}/contacts.json`);
-      const contacts = await response.json();
-      console.log("Contacts loaded:", contacts);
-      return contacts;
+    const contacts = await getData("/contacts");
+    console.log("Contacts loaded:", contacts);
+    return contacts;
   } catch (error) {
-      console.error("Error while loading contacts:", error);
-      return {};
+    console.error("Error while loading contacts:", error);
   }
 }
 
@@ -64,6 +58,78 @@ function initializeAddTaskPage() {
   renderSubtaskInput();
   setupCreateButtonListeners();
   FullAreaCategoryDropdownClick()
+}
+
+  /**
+ * Renders the priority selection buttons and enables their interaction.
+ */
+  function renderPriorityButtons() {
+    const priorityWrapper = document.getElementById('priority-wrapper-template');
+    if (!priorityWrapper) return;
+    priorityWrapper.innerHTML = getPriorityTemplate();
+    setDefaultPriority();
+    enablePrioritySelection();
+  }
+
+  /**
+ * Updates the displayed assigned contact chips and stores their IDs.
+ */
+function updateAssignedToChips() {
+  const ids = getCheckedContactIds();
+  renderAssignedContactChips(ids);
+  storeAssignedContactIds(ids);
+}
+
+  /**
+ * Renders visual chips for the assigned contacts based on their IDs.
+ *
+ * @param {string[]} contactIds - The array of selected contact IDs.
+ */
+function renderAssignedContactChips(contactIds) {
+  const container = document.getElementById('assigned-chips-container');
+  container.innerHTML = '';
+
+  contactIds.forEach(id => {const info = contactsById[id];
+    if (!info) return;
+    const chip = createContactChip(getContactInitials(info.name), info.color);
+    container.appendChild(chip);
+  });
+}
+
+/**
+ * Stores the selected contact IDs in the dataset of the input field.
+ *
+ * @param {string[]} contactIds - The array of selected contact IDs.
+ */
+function storeAssignedContactIds(contactIds) {
+  const input = document.getElementById('assigned-input');
+  if (!input) return;
+  input.value = '';
+  input.dataset.value = contactIds.join(',');
+}
+
+
+
+/**
+ * Maps a list of contact IDs to their corresponding names.
+ *
+ * @param {string[]} contactIds - An array of contact IDs.
+ * @returns {string} A comma-separated string of contact names.
+ */
+function mapContactIdsToNames(contactIds) {
+  return contactIds
+    .map(id => contactsById[id]?.name)
+    .filter(Boolean)
+    .join(', ');
+}
+
+/**
+ * Renders the input field for adding subtasks by injecting the corresponding template.
+ */
+function renderSubtaskInput() {
+  const subtaskWrapper = document.getElementById('subtask-wrapper-template');
+  if (!subtaskWrapper) return;
+  subtaskWrapper.innerHTML = getSubtaskInputTemplate();
 }
 
 
@@ -173,71 +239,36 @@ function updateCreateButtonState() {
   }
 }
 
-/**
- * Clears the Add Task form by resetting all inputs, dropdowns, chips, subtasks,
- * error messages, and re-initializing the form.
- */
+
 function clearAddTaskForm() {
-  resetTextDateAndTextareaInputs();
-  resetPriorityRadios();
-  resetDropdownCheckboxes();
-  resetDropdownTextInputs();
+  const form = document.getElementById('add-task-form');
+  if (!form) return;
+  form.reset();
+  resetForm();
   hideDropdownMenus();
-  clearChipsAndSubtasks();
   hideErrorMessages();
   initializeAddTaskPage();
   updateCreateButtonState();
 }
 
-/**
- * Resets all text, date, and textarea inputs to an empty value.
- */
-function resetTextDateAndTextareaInputs() {
-  document
-    .querySelectorAll('input[type="text"], input[type="date"], textarea')
-    .forEach(input => {
-      input.value = "";
-    });
-}
-
-/**
- * Unchecks all radio buttons in the "priority" group.
- */
-function resetPriorityRadios() {
-  document
-    .querySelectorAll('input[name="priority"]')
-    .forEach(radio => {
-      radio.checked = false;
-    });
-}
-
-/**
- * Unchecks all checkboxes within dropdown menus.
- */
-function resetDropdownCheckboxes() {
-  document
-    .querySelectorAll('.drop-down-menu input[type="checkbox"]')
-    .forEach(checkbox => {
-      checkbox.checked = false;
-    });
-}
-
-/**
- * Clears text inputs inside dropdown areas and removes any active placeholder attributes.
- */
-function resetDropdownTextInputs() {
-  document
-    .querySelectorAll('.drop-down-input input[type="text"]')
-    .forEach(input => {
-      input.value = "";
-      input.removeAttribute("data-placeholder-active");
-    });
-}
-
-/**
- * Removes all assigned contact chips and subtask list items from the DOM.
- */
-function clearChipsAndSubtasks() {
+function resetForm(){
+  document.querySelectorAll('input[name="priority"]').forEach(radio => {radio.checked = false;});
+  document.querySelectorAll('.drop-down-input input[type="text"]').forEach(input => {input.value = "";input.removeAttribute("data-placeholder-active");});
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
+
+
+  /**
+ * Displays a temporary task creation success notification.
+ */
+  function showAddTaskNotification() {
+    const notificationWrapper = document.createElement('div');
+    notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
+    const notificationElement = notificationWrapper.firstElementChild;
+    if (!notificationElement) return;
+    document.body.appendChild(notificationElement);
+    notificationElement.addEventListener('animationend', () => {
+      notificationElement.remove();
+    });
+  }

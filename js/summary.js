@@ -29,6 +29,30 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
+function updateUrgentDeadline(tasks) {
+  const urgentTasks = tasks
+    .filter(task => task.status === 'to-do' && task.priority === 'urgent' && task.dueDate)
+    .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+  const deadlineElement = document.getElementById('deadline-date-urgent');
+  if (deadlineElement) {
+    if (urgentTasks.length > 0) {
+      deadlineElement.textContent = formatDate(urgentTasks[0].dueDate);
+    } else {
+      deadlineElement.textContent = 'No Deadline';
+    }
+  }
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+}
+
 
 function updateCount(tasks, elementId, taskFilter){
     const taskElement = document.getElementById(elementId);
