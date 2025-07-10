@@ -1,3 +1,5 @@
+redirectIfNotLoggedIn();
+
 let allTasks = [];
 
 let currentDraggedElement;

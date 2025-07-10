@@ -1,3 +1,5 @@
+redirectIfNotLoggedIn();
+
 /**
  * Stores contact information by their unique IDs.
  * @type {Object.<string, Object>}
