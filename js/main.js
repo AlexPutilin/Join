@@ -1,7 +1,7 @@
 let activeUser = "";
 
 /** Initializes the app once the DOM is fully loaded. */
-function init() {
+function initLogin() {
     setTimeout(() => {
         document.getElementById("splash-screen").classList.add("d-none");
     }, 1500);
