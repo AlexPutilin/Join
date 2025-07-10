@@ -1,4 +1,4 @@
-redirectIfNotLoggedIn();
+//*redirectIfNotLoggedIn();*/
 
 /**
  * Stores contact information by their unique IDs.
@@ -59,6 +59,17 @@ function initializeAddTaskPage() {
   setupCreateButtonListeners();
   FullAreaCategoryDropdownClick()
 }
+
+  /**
+ * Renders the priority selection buttons and enables their interaction.
+ */
+  function renderPriorityButtons() {
+    const priorityWrapper = document.getElementById('priority-wrapper-template');
+    if (!priorityWrapper) return;
+    priorityWrapper.innerHTML = getPriorityTemplate();
+    setDefaultPriority();
+    enablePrioritySelection();
+  }
 
 
 /**
@@ -184,7 +195,6 @@ function updateCreateButtonState() {
 function clearAddTaskForm() {
   const form = document.getElementById('add-task-form');
   if (!form) return;
-
   form.reset();
   resetForm();
   hideDropdownMenus();
@@ -199,42 +209,6 @@ function resetForm(){
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
-
-/*
-function resetPriorityRadios() {
-  document
-    .querySelectorAll('input[name="priority"]')
-    .forEach(radio => {
-      radio.checked = false;
-    });
-}
-
-
-function resetDropdownCheckboxes() {
-  document
-    .querySelectorAll('.drop-down-menu input[type="checkbox"]')
-    .forEach(checkbox => {
-      checkbox.checked = false;
-    });
-}
-
-
-function resetDropdownTextInputs() {
-  document
-    .querySelectorAll('.drop-down-input input[type="text"]')
-    .forEach(input => {
-      input.value = "";
-      input.removeAttribute("data-placeholder-active");
-    });
-}
-
-
-function clearChipsAndSubtasks() {
-  document.getElementById('assigned-chips-container')?.replaceChildren();
-  document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
-}
- */
-
 
 
   /**

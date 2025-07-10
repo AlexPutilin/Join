@@ -499,17 +499,6 @@ function resetAssignedSearchAndContacts() {
     contact.style.display = 'flex';
   });
 }
-
-  /**
- * Renders the priority selection buttons and enables their interaction.
- */
-function renderPriorityButtons() {
-  const priorityWrapper = document.getElementById('priority-wrapper-template');
-  if (!priorityWrapper) return;
-  priorityWrapper.innerHTML = getPriorityTemplate();
-  setDefaultPriority();
-  enablePrioritySelection();
-}
   
 /**
  * Sets the default selected priority to "medium".
@@ -807,7 +796,7 @@ function getSubtasksFromDOM() {
 function validateFormBeforeSubmit() {
   const isTitleValid = !!document.getElementById('task-title')?.value.trim();
   const isDateValid = !!document.getElementById('due-date')?.value.trim();
-  const isCategoryValid = validateCategoryField(); // schon vorhanden
+  const isCategoryValid = validateCategoryField(); 
 
   return isTitleValid && isDateValid && isCategoryValid;
 }
