@@ -18,7 +18,6 @@ function checkFormValidation(form) {
     return isValid;
 }
 
-
 /**
  * Adds error styling to an input field and displays its associated error message.
  *
@@ -710,16 +709,6 @@ function bindEventsToEntry(entry) {
   });
 }
 
-
-/**
- * Updates the displayed assigned contact chips and stores their IDs.
- */
-function updateAssignedToChips() {
-  const ids = getCheckedContactIds();
-  renderAssignedContactChips(ids);
-  storeAssignedContactIds(ids);
-}
-
 /**
  * Retrieves the IDs of all checked contacts in the dropdown.
  *
@@ -731,43 +720,6 @@ function getCheckedContactIds() {
       '#contacts-dropdown .select-contact .checkbox input[type="checkbox"]:checked'
     )
   ).map(cb => cb.dataset.contactId);
-}
-
-/**
- * Renders visual chips for the assigned contacts based on their IDs.
- *
- * @param {string[]} contactIds - The array of selected contact IDs.
- */
-function renderAssignedContactChips(contactIds) {
-  const container = document.getElementById('assigned-chips-container');
-  container.innerHTML = '';
-
-  contactIds.forEach(id => {const info = contactsById[id];
-    if (!info) return;
-    const chip = createContactChip(getContactInitials(info.name), info.color);
-    container.appendChild(chip);
-  });
-}
-
-/**
- * Stores the selected contact IDs in the dataset of the input field.
- *
- * @param {string[]} contactIds - The array of selected contact IDs.
- */
-function storeAssignedContactIds(contactIds) {
-  const input = document.getElementById('assigned-input');
-  if (!input) return;
-  input.value = '';
-  input.dataset.value = contactIds.join(',');
-}
-
-/**
- * Renders the input field for adding subtasks by injecting the corresponding template.
- */
-function renderSubtaskInput() {
-  const subtaskWrapper = document.getElementById('subtask-wrapper-template');
-  if (!subtaskWrapper) return;
-  subtaskWrapper.innerHTML = getSubtaskInputTemplate();
 }
 
 /**

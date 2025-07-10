@@ -1,4 +1,4 @@
-//*redirectIfNotLoggedIn();*/
+redirectIfNotLoggedIn();
 
 /**
  * Stores contact information by their unique IDs.
@@ -71,6 +71,56 @@ function initializeAddTaskPage() {
     enablePrioritySelection();
   }
 
+  /**
+ * Renders visual chips for the assigned contacts based on their IDs.
+ *
+ * @param {string[]} contactIds - The array of selected contact IDs.
+ */
+function renderAssignedContactChips(contactIds) {
+  const container = document.getElementById('assigned-chips-container');
+  container.innerHTML = '';
+
+  contactIds.forEach(id => {const info = contactsById[id];
+    if (!info) return;
+    const chip = createContactChip(getContactInitials(info.name), info.color);
+    container.appendChild(chip);
+  });
+}
+
+/**
+ * Stores the selected contact IDs in the dataset of the input field.
+ *
+ * @param {string[]} contactIds - The array of selected contact IDs.
+ */
+function storeAssignedContactIds(contactIds) {
+  const input = document.getElementById('assigned-input');
+  if (!input) return;
+  input.value = '';
+  input.dataset.value = contactIds.join(',');
+}
+
+/**
+ * Maps a list of contact IDs to their corresponding names.
+ *
+ * @param {string[]} contactIds - An array of contact IDs.
+ * @returns {string} A comma-separated string of contact names.
+ */
+function mapContactIdsToNames(contactIds) {
+  return contactIds
+    .map(id => contactsById[id]?.name)
+    .filter(Boolean)
+    .join(', ');
+}
+
+/**
+ * Renders the input field for adding subtasks by injecting the corresponding template.
+ */
+function renderSubtaskInput() {
+  const subtaskWrapper = document.getElementById('subtask-wrapper-template');
+  if (!subtaskWrapper) return;
+  subtaskWrapper.innerHTML = getSubtaskInputTemplate();
+}
+
 
 /**
  * Sets up listeners on the task title and due date inputs to update create button state.
@@ -85,19 +135,6 @@ function setupCreateButtonListeners() {
   if (dueDateInput) {
     dueDateInput.addEventListener('input', updateCreateButtonState);
   }
-}
-
-/**
- * Maps a list of contact IDs to their corresponding names.
- *
- * @param {string[]} contactIds - An array of contact IDs.
- * @returns {string} A comma-separated string of contact names.
- */
-function mapContactIdsToNames(contactIds) {
-  return contactIds
-    .map(id => contactsById[id]?.name)
-    .filter(Boolean)
-    .join(', ');
 }
 
 /**
