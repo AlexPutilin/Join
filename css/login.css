@@ -35,7 +35,6 @@ a {
 @media (max-width: 1024px) {
     .logo {
         width: 192px;
-        /* content: url('../assets/img/logo-white.svg'); */
     }
 
     .splash-screen {
@@ -93,7 +92,6 @@ a {
 header {
     padding: 80px 77px 0 80px;
     display: flex;
-    /* justify-content: flex-end; */
     justify-content: space-between;
 }
 
@@ -153,6 +151,7 @@ form>h1 {
 }
 
 /* === Wrapper for Log in / Guest Log in Buttons === */
+
 form>div {
     gap: 24px;
     display: flex;
@@ -224,7 +223,6 @@ form>div {
     .logo--moved {
         top: 32px;
         left: 64px;
-        /* width: 64px; */
     }
 }
 
@@ -269,8 +267,6 @@ form>div {
     }
 
     .cta-container {
-        /* margin: 0 auto;
-        transform: translate(0, 760px); */
         z-index: 997;
         width: 100%;
         position: fixed;
@@ -302,20 +298,26 @@ form>div {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    left: 0;
+    top: 0;
+    right: 0;
 }
 
 .show {
     transform: translateY(0) !important;
 }
 
-/* .user-feedback-overlay.show {
-    transform: translateY(0);
-} */
-
 .user-feedback-overlay button {
-    width: 80%;
+    max-width: 50%;
+    padding: 16px;
 
     /* Startposition: unterhalb des Bildschirms */
     transform: translateY(100vh);
     transition: transform 0.8s ease-out;
+}
+
+@media (max-width: 768px) {
+    .user-feedback-overlay button {
+        max-width: 80%;
+    }
 }
