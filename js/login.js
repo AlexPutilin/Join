@@ -145,10 +145,10 @@ async function handleSignup() {
                 await addNewUser();
                 showOverlayOnSignup();
             } else {
-                alert('Passwörter stimmen nicht überein!')
+                showCustomInputError('#signup_password_confirmed', 'Passwörter stimmen nicht überein!');
             }
         } else {
-            alert('Angegebene Email-Adresse ist bereits registriert!')
+            showCustomInputError('#signup_email', 'Diese E-Mail-Adresse ist bereits registriert!');
         }
     }
 }
@@ -288,10 +288,29 @@ function validateUser(userArray, emailInput, passwordInput) {
  * @param {Object} foundUser - The user object of the successfully logged-in user.
  */
 function onLogin(foundUser = {name: "Guest"}) {
-    alert(`Willkommen, ${foundUser.name}!`);
     activeUser = foundUser.name;
     console.log(activeUser);
 
     saveUser();
     openPage('./html/summary.html');
+}
+
+
+/**
+ * Displays a custom error message on a specific input field.
+ *
+ * @param {string} selector - A CSS selector for the input field (e.g. '#email' or '#password-confirm')
+ * @param {string} message - The error message to display to the user
+ */
+function showCustomInputError(selector, message) {
+    const input = document.querySelector(selector);
+    if (!input) return;
+
+    const inputWrapper = input.closest('.input-wrapper');
+    const errorMessage = inputWrapper.querySelector('.err-msg');
+    const inputArea = inputWrapper.querySelector('.input-area');
+
+    inputArea.classList.add('invalid-input');
+    errorMessage.textContent = message;
+    errorMessage.classList.remove('hidden');
 }

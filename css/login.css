@@ -132,6 +132,7 @@ footer {
 
 form {
     display: flex;
+    gap: 8px;
     flex-direction: column;
     background-color: #fff;
     border-radius: 30px;
