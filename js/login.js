@@ -268,12 +268,12 @@ function validateUser(userArray, emailInput, passwordInput) {
     let foundUser = userArray.find(user => user.email === emailInput);
 
     if (!foundUser) {
-        alert('E-Mail nicht gefunden!');
+        showCustomInputError('#emailInput', 'E-Mail Adresse existiert nicht!');
         return null;
     }
 
     if (foundUser.password !== passwordInput) {
-        alert('Falsches Passwort!');
+        showCustomInputError('#passwordInput', 'Das eingegebene Passwort ist falsch');
         return null;
     }
 
