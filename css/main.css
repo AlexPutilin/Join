@@ -98,6 +98,12 @@ main {
   position: relative;
   overflow: hidden;
   flex: 1;
+  overflow: auto;
+}
+
+.textbox {
+  max-width: 1080px;
+  width: 100%;
 }
 
 @media (max-width: 1500px) {
@@ -117,10 +123,6 @@ main {
 }
 
 @media (max-width: 992px) {
-  .content {
-    overflow-y: scroll;
-  }
-
   .content::-webkit-scrollbar {
     width: 10px;
   }
