@@ -1,5 +1,3 @@
-redirectIfNotLoggedIn();
-
 /**
  * Stores contact information by their unique IDs.
  * @type {Object.<string, Object>}
@@ -45,6 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById('add-task-root');
   if (!container) return; 
   container.innerHTML = getAddTaskFormTemplate();
+  initProfile();
+  redirectIfNotLoggedIn();
   initializeAddTaskPage();
 });
 

@@ -1,5 +1,3 @@
-redirectIfNotLoggedIn();
-
 let allTasks = [];
 
 let currentDraggedElement;
@@ -8,6 +6,13 @@ let touchClone;
 let touchCurrentTarget;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
+
+
+async function initBoardPage() {
+    initProfile();
+    redirectIfNotLoggedIn();
+    await tasksToArray();
+}
 
 
 function renderAllTasks(taskList = allTasks) {

@@ -11,8 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.greeting-text').forEach(welcome => {
         welcome.textContent = greeting;
       });
+    initProfile();
+    redirectIfNotLoggedIn();
     initGreetingUser();
-    showMobileWelcomeScreen()
+    showMobileWelcomeScreen();
+    initializeMetricCards();
   });
 
 
@@ -86,6 +89,4 @@ function showMobileWelcomeScreen() {
       welcomeScreen.classList.remove('show');
       welcomeScreen.classList.add('d-none');
     }, 2000);
-  }
-
-initializeMetricCards();
+}
