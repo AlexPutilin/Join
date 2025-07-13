@@ -10,7 +10,8 @@
 .summary-grids{
   display: flex;
   flex-direction: row;
-   gap: 120px;
+  gap: 120px;
+  padding-bottom: 24px;
 }
 
 .summary-header {
@@ -217,7 +218,6 @@ display: flex !important;
   @media (max-width: 1345px) {
   .summary-metrics-wrapper{
     max-width: 480px;
-  
 }
 
   .summary-grids {
@@ -239,10 +239,11 @@ display: flex !important;
   }
 
   .summary-content {
-    padding: 80px 48px 82px 64px;
-    max-width: 1800px;
+    padding: 32px 48px 82px 64px;
     display: flex;
     justify-content: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .summary-main-section {
