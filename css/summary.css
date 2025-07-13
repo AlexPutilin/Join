@@ -243,6 +243,8 @@ display: flex !important;
     max-width: 1800px;
     display: flex;
     justify-content: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .summary-main-section {
