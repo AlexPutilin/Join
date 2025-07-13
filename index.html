@@ -20,30 +20,20 @@
 </head>
 
 <body onload="initLogin()">
-    <!-- LOGO -->
     <picture>
         <source media="(max-width: 1024px)" srcset="./assets/img/logo-white.svg">
         <img id="logo" class="logo" src="./assets/img/logo.svg" alt="Logo">
     </picture>
 
-    <!-- OVERLAY << SUCCESSFULLY SIGNED UP -->
     <section id="overlayContainerSignedUp" class="user-feedback-overlay d-none">
         <button id="overlayBtn" class="btn-dark">You successfully signed up!</button>
     </section>
 
-    <!-- SPLASH SCREEN -->
-    <!-- >>> fades out after 1200 ms -->
-    <section id="splash-screen" class="splash-screen ">
-    </section>
+    <section id="splash-screen" class="splash-screen "></section>
 
-    <!-- OVERLAY BG FOR SIGNED UP -->
-
-    <!-- PAGE CONTENT -->
     <section class="login-main-content">
-        <!-- HEADER -->
         <header>
             <img id="logo_new" class="invisible" src="./assets/img/logo.svg" alt="Logo">
-            <!-- <img src="./assets/img/logo.svg" alt="Logo"> -->
             <div class="cta-container invisible" id="cta-container">
                 <div>
                     <span class="cta-text-mobile-sm">Not a Join user?</span>
@@ -52,12 +42,10 @@
             </div>
         </header>
 
-        <!-- LOGIN FORM -->
         <section id="form-container" class="form-wrapper">
             <form action="submit">
                 <h1>Log in</h1>
 
-                <!-- <input type="email" placeholder="Email" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
                         <input id="emailInput" type="email" placeholder="Email" required>
@@ -66,7 +54,6 @@
                     <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
-                <!-- <input type="password" placeholder="Password" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
                         <input id="passwordInput" type="password" placeholder="Password" required>
@@ -81,14 +68,12 @@
                 </div>
             </form>
         </section>
-
-        <!-- FOOTER -->
         <footer>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Legal Notice</a>
+            <a href="./html/privacy-policy.html">Privacy Policy</a>
+            <a href="./html/legal-notice.html">Legal Notice</a>
         </footer>
     </section>
-
+    
 </body>
 
 </html>

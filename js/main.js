@@ -127,6 +127,8 @@ function updateMobileMenuForUnauthUser() {
     if (!activeUser) {
         const menuBtns = document.querySelectorAll('.btn-menu-mobile');
         const unauthMenuBtns = document.querySelectorAll('.unauth-menu-btn');
+        const btnWrapper = document.getElementById('unauth-menu-btn-wrapper');
+        btnWrapper.classList.remove('d-none');
         menuBtns.forEach(btn => {
             btn.classList.add('d-none');
         });
