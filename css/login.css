@@ -1,12 +1,3 @@
-/* ========== BASE STYLES ========== */
-
-a {
-    color: #a8a8a8;
-    text-decoration: none;
-}
-
-/* ========== LAYOUT =============== */
-
 .splash-screen {
     display: flex;
     justify-content: center;
@@ -20,47 +11,6 @@ a {
     left: 0;
     z-index: 998;
 }
-
-@media (min-width: 1921px) {
-    .login-main-content {
-        max-width: 1920px;
-        margin: 0 auto;
-    }
-
-    body {
-        background-color: #f0f0f0;
-    }
-}
-
-@media (max-width: 1024px) {
-    .logo {
-        width: 192px;
-    }
-
-    .splash-screen {
-        background-color: #2A3647;
-    }
-}
-
-@media (max-width: 728px) {
-    .logo {
-        width: 168px;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo {
-        width: 140px;
-    }
-}
-
-@media (max-width: 320px) {
-    .logo {
-        width: 120px;
-    }
-}
-
-/* ===== LOGO =========== */
 
 .logo {
     width: 274px;
@@ -78,8 +28,6 @@ a {
     width: 100px;
     transform: translate(0, 0);
 }
-
-/* ===== LOGIN PAGE ===== */
 
 .login-main-content {
     display: flex;
@@ -113,15 +61,12 @@ button {
     opacity: 0.7;
 }
 
-
 footer {
     padding: 40px 0;
     display: flex;
     justify-content: center;
     gap: 32px;
 }
-
-/* ========== LOGIN FORM ========== */
 
 .form-wrapper {
     display: flex;
@@ -150,8 +95,6 @@ form>h1 {
     text-underline-offset: 16px;
     text-decoration-thickness: 2px;
 }
-
-/* === Wrapper for Log in / Guest Log in Buttons === */
 
 form>div {
     gap: 24px;
@@ -202,17 +145,44 @@ form>div {
     padding: 0 21px;
 }
 
-/* ========== MEDIA QUERIES ========== */
-
-@media (min-width: 1921px) {
-    .back-signup {
-        top: 48px;
-    }
+.user-feedback-overlay {
+    height: 100vh;
+    z-index: 9999;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    right: 0;
 }
+
+.show {
+    transform: translateY(0) !important;
+}
+
+.user-feedback-overlay button {
+    max-width: 50%;
+    padding: 16px;
+    transform: translateY(100vh);
+    transition: transform 0.8s ease-out;
+}
+
 
 @media (max-width: 1920px) {
     .back-signup {
         top: 48px;
+    }
+
+    .login-main-content {
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+
+    body {
+        background-color: #f0f0f0;
     }
 }
 
@@ -227,7 +197,21 @@ form>div {
     }
 }
 
+@media (max-width: 1024px) {
+    .logo {
+        width: 192px;
+    }
+
+    .splash-screen {
+        background-color: #2A3647;
+    }
+}
+
 @media (max-width: 768px) {
+    .logo {
+        width: 168px;
+    }
+
     .logo--moved {
         left: 36px;
         top: 36px;
@@ -260,9 +244,17 @@ form>div {
     .back-signup {
         top: 36px;
     }
+
+    .user-feedback-overlay button {
+        max-width: 80%;
+    }
 }
 
 @media (max-width: 520px) {
+    .logo {
+        width: 140px;
+    }
+
     form {
         padding: 32px 0;
     }
@@ -280,6 +272,10 @@ form>div {
 }
 
 @media (max-width: 350px) {
+    .logo {
+        width: 120px;
+    }
+
     form {
         padding: 32px 0;
     }
@@ -287,38 +283,5 @@ form>div {
     .back-signup {
         top: 36px;
         left: 20px;
-    }
-}
-
-.user-feedback-overlay {
-    height: 100vh;
-    z-index: 9999;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    left: 0;
-    top: 0;
-    right: 0;
-}
-
-.show {
-    transform: translateY(0) !important;
-}
-
-.user-feedback-overlay button {
-    max-width: 50%;
-    padding: 16px;
-
-    /* Startposition: unterhalb des Bildschirms */
-    transform: translateY(100vh);
-    transition: transform 0.8s ease-out;
-}
-
-@media (max-width: 768px) {
-    .user-feedback-overlay button {
-        max-width: 80%;
     }
 }
