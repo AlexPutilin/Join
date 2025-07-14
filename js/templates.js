@@ -1,5 +1,5 @@
 function getSignupFormTemplate() {
-    return /*html*/`
+  return /*html*/`
             <section class="form-wrapper">
             <form id="signup_form" class="pos-rel" action="#">
                 <!-- BACK to Login Form -->
@@ -40,13 +40,37 @@ function getSignupFormTemplate() {
                     </div>
                     <span class="err-msg hidden">Invalid input.</span>
                 </div>
+
+
+
                 <!-- <input type="checkbox" Accept Privacy policy required> -->
-                <div class="checkbox-wrapper">
+
+                <!-- <div class="checkbox-wrapper">
                     <input type="checkbox" id="checkbox_privacy_policy" required>
                     <label for="checkbox_privacy_policy">
                         I accept the <a href="#">Privacy policy</a>
                     </label>
-                </div>
+                </div> -->
+
+                <label class="checkbox">
+                  <input type="checkbox" hidden>
+                  <div class="icon-wrapper icon-checkbox-default">
+                      <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                      <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                  </div>
+                  <label for="checkbox_privacy_policy">
+                      I accept the <a href="#">Privacy policy</a>
+                  </label>
+
+                  <!-- <div class="icon-wrapper icon-checkbox-checked">
+                      <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                      <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                  </div> -->
+                </label>
+
+
+
+
                 <div>
                     <button id="btn_signup" type="button" onclick="handleSignup()" class="btn-dark cta-text-mobile-sm" disabled>Sign up</button>
                 </div>
@@ -56,7 +80,7 @@ function getSignupFormTemplate() {
 
 
 function getLoginFormTemplate() {
-    return /*html*/`
+  return /*html*/`
             <section id="form-container" class="form-wrapper">
                 <form action="submit">
                     <h1>Log in</h1>
@@ -168,7 +192,7 @@ function getSubtaskTemplate(name) {
 
 
 function getContactSectionTemplate(letter) {
-    return `
+  return `
         <div class="contact-section" data-section-letter="${letter}">
             <span>${letter}</span>
         </div>
@@ -177,7 +201,7 @@ function getContactSectionTemplate(letter) {
 
 
 function getContactTemplate(contact, index) {
-    return `
+  return `
         <div class="contact" data-contact-index='${index}' onclick="addContactActiveState(this), showContactInformation(${index}), toggleMobileContactInformation()">
             <div class="contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
             <div class="contact-infos">
@@ -190,7 +214,7 @@ function getContactTemplate(contact, index) {
 
 
 function getCreateContactDialogTemplate() {
-    return `
+  return `
         <div class="contact-dialog" onclick="event.stopPropagation()">
             <div>
                 <button id="contact-dialog-close-btn-mobile" class="btn-small" onclick="toggleDialogOverlay()">
@@ -263,7 +287,7 @@ function getCreateContactDialogTemplate() {
 
 
 function getEditContactDialogTemplate(contact) {
-    return `
+  return `
         <div class="contact-dialog" onclick="event.stopPropagation()">
             <div>
                 <button id="contact-dialog-close-btn-mobile" class="btn-small" onclick="toggleDialogOverlay()">
@@ -333,7 +357,7 @@ function getEditContactDialogTemplate(contact) {
 
 
 function getMobileContactInformationTemplate(contact) {
-    return `
+  return `
         <div class="flex-column-layout pos-rel">
             <div class="contact-display-closebtn-container">
                 <button class="btn-small" onclick="toggleMobileContactInformation()">
@@ -371,7 +395,7 @@ function getMobileContactInformationTemplate(contact) {
 
 
 function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength) {
-    return showProgress ? `
+  return showProgress ? `
         <div class="task-progress-container">
             <div class="task-progressbar">
                 <div class="task-progrssbar-content" style="width: ${calcuProgress}%;"></div>
@@ -382,7 +406,7 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
 
 
 function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress) {
-    return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
+  return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <span class="label ${bgCategory}">${task.category}</span>
                 <h4 class="task-title">${task.title}</h4>
                 <span>Order: ${task.order}</span>
@@ -402,8 +426,8 @@ function getTaskCardTemplate(task, bgCategory, description_short, subtasksProgre
  * @returns {string} - HTML-Template representing the task detail view.
  */
 function getOverviewTemplate(task) {
-    const bgCategory = getBgCategory(task.category);
-    return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
+  const bgCategory = getBgCategory(task.category);
+  return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
                     <div class="card-overview-header">
                         <span class="label ${bgCategory}">${task.category}</span><br>
                         <button onclick="closeOverlay()" class="btn-small">
@@ -457,15 +481,15 @@ function getOverviewTemplate(task) {
  * @returns - individual Priority depending on the Task
  */
 function getPriority(task) {
-    if (task.priority === "urgent") {
-        return `<img src="../assets/img/icon-prio-urgent.svg" alt="icon-urgent">`;
-    } else if (task.priority === "medium") {
-        return `<img src="../assets/img/icon-prio-medium.svg" alt="icon-medium">`;
-    } else if (task.priority === "low") {
-        return `<img src="../assets/img/icon-prio-low.svg" alt="icon-low">`;
-    } else {
-        return "";
-    }
+  if (task.priority === "urgent") {
+    return `<img src="../assets/img/icon-prio-urgent.svg" alt="icon-urgent">`;
+  } else if (task.priority === "medium") {
+    return `<img src="../assets/img/icon-prio-medium.svg" alt="icon-medium">`;
+  } else if (task.priority === "low") {
+    return `<img src="../assets/img/icon-prio-low.svg" alt="icon-low">`;
+  } else {
+    return "";
+  }
 }
 
 /**
@@ -517,7 +541,7 @@ function getAddTaskFormTemplate() {
   `;
 }
 
-  
+
 /**
  * Returns the HTML template for the task title input field.
  * @returns {string} HTML structure for task title input.
