@@ -21,18 +21,14 @@ async function loadAllUsers() {
 }
 
 /**
- * Loads all contacts from the Firebase database.
- *
+ * Loads contacts data and resets color index, then renders them.
  * @async
- * @returns {Promise<Object>} A promise that resolves to an object containing all contacts.
  */
-async function loadAllContacts() {
-  try {
-    const contacts = await getData("/contacts");
-    console.log("Contacts loaded:", contacts);
-    return contacts;
-  } catch (error) {
-    console.error("Error while loading contacts:", error);
+async function loadAssignedToContacts() {
+  contactColorIndex = 0;
+  const contacts = await getData('/contacts');
+  if (contacts) {
+    renderContacts(contacts);
   }
 }
 
@@ -57,7 +53,6 @@ function initializeAddTaskPage() {
   renderPriorityButtons();
   renderSubtaskInput();
   setupCreateButtonListeners();
-  FullAreaCategoryDropdownClick()
 }
 
   /**
@@ -71,47 +66,6 @@ function initializeAddTaskPage() {
     enablePrioritySelection();
   }
 
-  /**
- * Renders visual chips for the assigned contacts based on their IDs.
- *
- * @param {string[]} contactIds - The array of selected contact IDs.
- */
-function renderAssignedContactChips(contactIds) {
-  const container = document.getElementById('assigned-chips-container');
-  container.innerHTML = '';
-
-  contactIds.forEach(id => {const info = contactsById[id];
-    if (!info) return;
-    const chip = createContactChip(getContactInitials(info.name), info.color);
-    container.appendChild(chip);
-  });
-}
-
-/**
- * Stores the selected contact IDs in the dataset of the input field.
- *
- * @param {string[]} contactIds - The array of selected contact IDs.
- */
-function storeAssignedContactIds(contactIds) {
-  const input = document.getElementById('assigned-input');
-  if (!input) return;
-  input.value = '';
-  input.dataset.value = contactIds.join(',');
-}
-
-/**
- * Maps a list of contact IDs to their corresponding names.
- *
- * @param {string[]} contactIds - An array of contact IDs.
- * @returns {string} A comma-separated string of contact names.
- */
-function mapContactIdsToNames(contactIds) {
-  return contactIds
-    .map(id => contactsById[id]?.name)
-    .filter(Boolean)
-    .join(', ');
-}
-
 /**
  * Renders the input field for adding subtasks by injecting the corresponding template.
  */
@@ -121,6 +75,155 @@ function renderSubtaskInput() {
   subtaskWrapper.innerHTML = getSubtaskInputTemplate();
 }
 
+
+function initCategoryInteractions(wrapper) {
+  const inputWrapper = wrapper.querySelector('.input-wrapper');
+  const toggleBtn = inputWrapper.querySelector('button');
+  const inputArea = inputWrapper.querySelector('.input-area');
+  [toggleBtn, inputArea].forEach(element =>element.addEventListener('click', () => toggleDropDown(toggleBtn)));
+
+  setupCategoryOptionSelection(wrapper, toggleBtn);
+  setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
+}
+
+function renderCategoryField() {
+  const wrapper = document.getElementById('category-wrapper-template');
+  if (!wrapper) return;
+  wrapper.innerHTML = getCategoryTemplate();
+  createCategoryOptions(wrapper);
+  initCategoryInteractions(wrapper);
+}
+
+function createCategoryOptions(wrapper) {
+  const optionsContainer = wrapper.querySelector('#category-options-container');
+  optionsContainer.innerHTML = '';
+  ['Technical Task', 'User Story'].forEach(name => {
+    const opt = document.createElement('div');
+    opt.classList.add('dropdown-single-option');
+    opt.textContent = name;
+    optionsContainer.appendChild(opt);
+  });
+}
+
+
+function setupCategoryOptionSelection(wrapper, toggleBtn) {
+  const optionsContainer = wrapper.querySelector('#category-options-container');
+  const inputWrapper     = wrapper.querySelector('.input-wrapper');
+  optionsContainer.addEventListener('click', event => {
+    const opt = event.target.closest('.dropdown-single-option');
+    const input = wrapper.querySelector('input');
+    input.value = opt.textContent;
+    toggleDropDown(toggleBtn);
+    inputWrapper.querySelector('.input-area').classList.remove('invalid-input');
+    wrapper.querySelector('.err-msg').classList.add('hidden');
+    updateCreateButtonState();
+  });
+}
+
+/**
+ * Prüft, ob im Category-Input etwas steht,
+ * blendet sonst die Fehlermeldung ein.
+ *
+ * @returns {boolean} true, wenn Kategorie gesetzt ist
+ */
+function validateCategoryField() {
+  const input    = document.getElementById('task-category');
+  const wrapper  = input.closest('.input-wrapper');
+  const area     = wrapper.querySelector('.input-area');
+  const errMsg   = wrapper.querySelector('.err-msg');
+  const isValid  = !!input.value.trim();
+
+  if (isValid) {
+    area.classList.remove('invalid-input');
+    errMsg.classList.add('hidden');
+  } else {
+    area.classList.add('invalid-input');
+    errMsg.classList.remove('hidden');
+  }
+
+  return isValid;
+}
+
+
+/**
+ * Injects the "Assigned To" template into its wrapper element.
+ * @returns {boolean} True if injected, false otherwise.
+ */
+function injectAssignedToTemplate() {
+  const wrapper = document.getElementById('assigned-to-wrapper-template');
+  if (!wrapper) return false;
+  wrapper.innerHTML = getAssignedToTemplate();
+  return true;
+}
+
+/**
+ * Renders contact entries into the "Assigned To" dropdown.
+ * @param {Object.<string, {name:string}>} contactsData
+ */
+function renderContacts(contactsData) {
+  const dropdown = document.getElementById('contacts-dropdown');
+  if (!dropdown) return;
+  dropdown.innerHTML = '';
+
+  Object.entries(contactsData).forEach(([id, info]) => {
+    contactsById[id] = info;
+    contactsById[id].color = getContactBackgroundColor();
+
+    const html = getContactSelectionTemplate({
+      initials: getContactInitials(info.name),
+      name: info.name,
+      id,
+      color: info.color
+    });
+    dropdown.insertAdjacentHTML('beforeend', html);
+  });
+}
+
+async function renderAssignedToField() {
+  if (!injectAssignedToTemplate()) return;
+  await loadAssignedToContacts();
+  const btn = document.querySelector('#assigned-to-wrapper-template .input-wrapper button');
+  btn.addEventListener('click', () => toggleDropDown(btn));
+  document.getElementById('contacts-dropdown').addEventListener('change', event => {
+    const checkbox = event.target;
+    const entry = checkbox.closest('.select-contact');
+    entry.classList.toggle('selected', checkbox.checked);
+    renderAssignedChips();
+  });
+  setupAssignedToSearch();
+  setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper',() => toggleDropDown(btn));
+}
+
+
+function renderAssignedChips() {
+  const container = document.getElementById('assigned-chips-container');
+  container.innerHTML = '';
+  document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked')
+    .forEach(checkbox => {
+      const id = checkbox.dataset.contactId;
+      const info = contactsById[id];
+      if (!info) return;
+      const chip = createContactChip(getContactInitials(info.name), info.color);
+      container.appendChild(chip);
+    });
+}
+
+/**
+ * Extracts all subtasks currently entered in the DOM.
+ *
+ * @returns {Object.<string, {title: string, done: boolean}>} An object of subtasks indexed by key.
+ */
+function getSubtasksFromDOM() {
+  const subtaskElements = getAllSubtaskElements();
+  const subtasks = {};
+  subtaskElements.forEach((element, index) => {
+    const title = extractSubtaskTitle(element);
+    if (title) {
+      subtasks[`subtask${index + 1}`] = createSubtaskObject(title);
+    }
+  });
+  return subtasks;
+}
 
 /**
  * Sets up listeners on the task title and due date inputs to update create button state.
@@ -138,23 +241,36 @@ function setupCreateButtonListeners() {
 }
 
 /**
- * Gathers all task-related input data from the form and prepares it for submission.
- * Includes assigned contacts, status, and subtasks if present.
+ * Sammelt die aktuell angewählten Kontakt‐IDs aus dem Dropdown.
+ * @returns {string[]} Array der Contact‐IDs
+ */
+function getSelectedContactIds() {
+  return Array.from(
+    document.querySelectorAll(
+      '#contacts-dropdown .select-contact input[type="checkbox"]:checked'
+    ),
+    cb => cb.dataset.contactId
+  );
+}
+
+/**
+ * Bereitet alle Task‐Daten vor, inkl. assigned_to aus contactsById.
  *
- * @returns {Object} The complete task data object.
+ * @returns {Object} Das fertige Task‐Objekt
  */
 function prepareTaskData() {
   const taskData = getInputData('#add-task-form');
-  const assignedInputElement = document.getElementById('assigned-input');
-  const assignedIds = (assignedInputElement?.dataset?.value || "")
-    .split(",")
-    .filter(id => id);
+  const ids = getSelectedContactIds();               // IDs sammeln
 
-  taskData.assigned_to = mapContactIdsToNames(assignedIds);
-  taskData.status = "to-do";
+  // names statt mapContactIdsToNames:
+  taskData.assigned_to = ids
+    .map(id => contactsById[id]?.name)
+    .filter(Boolean);
+
+  taskData.status = 'to-do';
 
   const subtasks = getSubtasksFromDOM();
-  if (Object.keys(subtasks).length > 0) {
+  if (Object.keys(subtasks).length) {
     taskData.subtasks = subtasks;
   }
 
@@ -162,50 +278,36 @@ function prepareTaskData() {
 }
 
 /**
- * Handles the full task creation process:
- * validates the form, prepares data, and submits it.
- *
- * @async
+ * Speichert den Task, nachdem validateFormBeforeSubmit() grünes Licht gibt.
  */
 async function addTask() {
   if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData();
-  await submitTaskData(taskData);
-}
 
-/**
- * Submits the task data to the backend and manages post-submit actions.
- *
- * @async
- * @param {Object} taskData - The task data object to submit.
- */
-async function submitTaskData(taskData) {
   try {
-    await saveTaskToFirebase(taskData);
-    console.info("addTask: Task successfully saved.");
+    await postData('/board/tasks', taskData);
+    console.info('addTask: Task erfolgreich gespeichert.');
     clearAddTaskForm();
     showAddTaskNotification();
   } catch (error) {
-    console.error('Failed submit Task Data:', error);
+    console.error('Fehler beim Speichern des Tasks:', error);
   }
 }
 
 /**
- * Saves the task data to Firebase.
+ * Validates the Add Task form before submission.
+ * Nutzt checkFormValidation für alle Inputs und prüft zusätzlich
+ * das Category-Feld.
  *
- * @async
- * @param {Object} taskData - The task data to be saved.
- * @returns {Promise<string>} The ID of the created task.
- * @throws Will throw an error if the request fails.
+ * @returns {boolean} true, wenn alle Felder (inkl. Kategorie) gültig sind.
  */
-async function saveTaskToFirebase(taskData) {
-  try {
-    await postData("/board/tasks", taskData);
-  } catch (error) {
-    console.error('Failed to save task:', error);
-    throw error;
-  }
+function validateFormBeforeSubmit() {
+  const inputsValid = checkFormValidation('#add-task-form');
+  const categoryValid = validateCategoryField();
+  return inputsValid && categoryValid;
 }
+
+
 
 /**
  * Updates the state of the "Create Task" button based on required form field values.
