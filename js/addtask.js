@@ -41,7 +41,7 @@ async function loadAllContacts() {
  */
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById('add-task-root');
-  if (!container) return; 
+  if (!container) return;
   container.innerHTML = getAddTaskFormTemplate();
   initializeAddTaskPage();
 });
@@ -121,6 +121,7 @@ async function addTask() {
   if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData();
   await submitTaskData(taskData);
+  closeOverlay();
 }
 
 /**
@@ -191,9 +192,9 @@ function clearAddTaskForm() {
   updateCreateButtonState();
 }
 
-function resetForm(){
-  document.querySelectorAll('input[name="priority"]').forEach(radio => {radio.checked = false;});
-  document.querySelectorAll('.drop-down-input input[type="text"]').forEach(input => {input.value = "";input.removeAttribute("data-placeholder-active");});
+function resetForm() {
+  document.querySelectorAll('input[name="priority"]').forEach(radio => { radio.checked = false; });
+  document.querySelectorAll('.drop-down-input input[type="text"]').forEach(input => { input.value = ""; input.removeAttribute("data-placeholder-active"); });
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
@@ -235,16 +236,29 @@ function clearChipsAndSubtasks() {
 
 
 
-  /**
- * Displays a temporary task creation success notification.
- */
-  function showAddTaskNotification() {
-    const notificationWrapper = document.createElement('div');
-    notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
-    const notificationElement = notificationWrapper.firstElementChild;
-    if (!notificationElement) return;
-    document.body.appendChild(notificationElement);
-    notificationElement.addEventListener('animationend', () => {
-      notificationElement.remove();
-    });
-  }
+/**
+* Displays a temporary task creation success notification.
+*/
+function showAddTaskNotification() {
+  const notificationWrapper = document.createElement('div');
+  notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
+  const notificationElement = notificationWrapper.firstElementChild;
+  if (!notificationElement) return;
+  document.body.appendChild(notificationElement);
+  notificationElement.addEventListener('animationend', () => {
+    notificationElement.remove();
+  });
+}
+
+function addTaskBoard() {
+  overlayRef.classList.remove('d-none');
+  //  let closeBtn = document.getElementsByClassName('btn-small');
+  // closeBtn.classList.remove('hidden');
+  overlayRef.innerHTML = `<div  onclick="eventBubblingProtection(event)" class="add-task-wrapper">
+                             ${getAddTaskFormTemplate()}
+ 
+                           
+                          </div>`;
+  addTask();
+  clearAddTaskForm();
+}
