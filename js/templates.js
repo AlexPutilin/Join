@@ -467,6 +467,65 @@ function getPriority(task) {
       return '';
   }
 }
+/**
+ * @function getSubtasksContent - Returns HTML-Template for subtasks section or empty string.
+ * @param {Object} task - individually Task 
+ * @returns {string} - Returns Subtasks Container
+ */
+function getSubtasksContent(task) {
+    if(getSubtasksTemplate(task)){
+        return `<div><span class="font-color-grey">Subtasks:</span>${getSubtasksTemplate(task)}</div>`;
+    } else{
+        return "";
+    }
+}
+
+/**
+ * creates the placeholder for the message “no tasks”
+ * @param {String} message 
+ * @returns HTML structure for placeholder box
+ */
+function noTasksContainer(message){
+    return `<div class="placeholder-box-no-task"><p class="no-tasks-text">${message}</p></div>`;
+}
+
+/**
+ * Creates an icon for user initials
+ * @param {*} contact 
+ * @returns HTML structure for user initials
+ */
+function getInitialIcons(contact) {
+    return `<div class="contact-icon initial-icon" style="background-color: ${contact.color};">${contact.initial}</div>`;
+
+}
+
+/**
+ * Creates an icon for remaining user count
+ * @param {Number} remainingCount - indicates the number of remaining users
+ * @returns HTML structure for remaining number of users
+ */
+function getOverflowNumberIcon(remainingCount){
+    return `<div class="more-icon font-color-grey">+${remainingCount}</div>`;
+}
+
+
+function getInitialsWithNamesTemplate(contact) {
+    return `<div class="names-wrapper">
+                <div class="contact-icon" style="background-color: ${contact.color};">${contact.initial}</div>
+                <span class="contact-name contact-name-board">${contact.name}</span>
+            </div>`;
+}
+
+
+function getAssignedToContentTemplate(initialsWithName) {
+    return `<div>
+                <span class="font-color-grey">Assigned To:</span>
+                  <div class="initials-container">
+                     <div class="initials-wrapper">${initialsWithName} </div>
+                  </div>
+            </div>`;
+} 
+
 
 /**
  * Returns the HTML template for the "Add Task" form.
