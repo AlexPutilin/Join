@@ -246,10 +246,8 @@ function setupCreateButtonListeners() {
  */
 function getSelectedContactIds() {
   return Array.from(
-    document.querySelectorAll(
-      '#contacts-dropdown .select-contact input[type="checkbox"]:checked'
-    ),
-    cb => cb.dataset.contactId
+    document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked'),
+    checkbox => checkbox.dataset.contactId
   );
 }
 
