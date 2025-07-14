@@ -1,8 +1,8 @@
-.add-task-root{
+.add-task-root {
   position: relative;
   display: flex;
   overflow: hidden;
-  padding: 48px;
+  padding: 12px;
   height: 100%;
 }
 
@@ -12,6 +12,8 @@
   justify-content: center;
   align-items: flex-start;
   background-color: #f6f7f8;
+  padding: 36px;
+  border-radius: 24px;
 }
 
 .mobile-h1 {
@@ -19,74 +21,81 @@
   margin-bottom: 20px;
 }
 
-
-.required-description{
-    display: flex;
+.add-task-head-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.redstar{
-    color: red;
+
+.required-description {
+  display: flex;
+}
+
+.redstar {
+  color: red;
 }
 
 .add-task-container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    margin-top: 20px;
-    margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
-.add-task-container-wrapper{
+.add-task-container-wrapper {
   display: flex;
   flex-direction: row;
 }
 
 .add-task-left {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-right: 40px; 
-    border-right: 1px solid #D1D1D1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 40px;
+  border-right: 1px solid #D1D1D1;
 }
 
 .add-task-right {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-left: 40px; 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 40px;
 }
 
 .priority-buttons-wrapper {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 
-.subtask-btn{
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
+.subtask-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
 }
 
 .drop-down-menu {
   background-color: white;
   border-radius: 10px;
 }
-  .dropdown-options.hidden {
-    max-height: 0;
-    opacity: 0;
-    visibility: hidden;
-  }
-  
-  .dropdown-single-option {
-    padding: 12px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .dropdown-single-option:hover {
-    background-color: #D1D1D1;
-  }
+
+.dropdown-options.hidden {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.dropdown-single-option {
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown-single-option:hover {
+  background-color: #D1D1D1;
+}
 
 /* Desktop */
 .clear-save-btn-wrapper {
@@ -104,111 +113,111 @@
   gap: 16px;
 }
 
-  .clear-save-btn-pos {
-    display: flex;
-    gap: 16px;
-  }
-  
-  
-  .select-contact {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 12px;
-    gap: 12px;
-    width: 100%;
-    box-sizing: border-box;
-    cursor: pointer;
-    margin-bottom: 1px;
-  }
-  
-  
-  .select-contact:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .contact-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .icon-contact {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .contact-name {
-    font-size: 16px;
-    color: #2A3647;
-  }
-  
-  
-  .drop-down-menu {
-    position: absolute;
-    top: calc(100% + 6px);   
-    left: 0;
-    width: 100%;
-    max-height: 200px;      
-    overflow-y: auto;
-    overflow-x: hidden;
-    z-index: 100;            
-    background-color: #fff;  
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding-right: 4px;      
-  }
-  
-  
-  .checkbox {
-    position: relative;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  
-  .checkbox .icon-checkbox-default,
-  .checkbox .icon-checkbox-checked {
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s ease;
-    pointer-events: none;
-  }
-  
-  .checkbox .icon-checkbox-default {
-    opacity: 1;
-  }
-  
-  .checkbox .icon-checkbox-checked {
-    opacity: 0;
-  }
-  
-  .checkbox input:checked + .icon-checkbox-default {
-    opacity: 0;
-  }
-  
-  .checkbox input:checked + .icon-checkbox-default + .icon-checkbox-checked {
-    opacity: 1;
-  }
+.clear-save-btn-pos {
+  display: flex;
+  gap: 16px;
+}
 
-  .checkbox:hover .icon-default,
-  .checkbox:hover .icon-hover {
+
+.select-contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin-bottom: 1px;
+}
+
+
+.select-contact:hover {
+  background-color: #f0f0f0;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-contact {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-name {
+  font-size: 16px;
+  color: #2A3647;
+}
+
+
+.drop-down-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding-right: 4px;
+}
+
+
+.checkbox {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkbox .icon-checkbox-default,
+.checkbox .icon-checkbox-checked {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.checkbox .icon-checkbox-default {
+  opacity: 1;
+}
+
+.checkbox .icon-checkbox-checked {
+  opacity: 0;
+}
+
+.checkbox input:checked+.icon-checkbox-default {
+  opacity: 0;
+}
+
+.checkbox input:checked+.icon-checkbox-default+.icon-checkbox-checked {
+  opacity: 1;
+}
+
+.checkbox:hover .icon-default,
+.checkbox:hover .icon-hover {
   opacity: 1 !important;
 }
 
@@ -216,7 +225,7 @@
   display: none !important;
 }
 
-  
+
 .assigned-chips {
   display: flex;
   flex-wrap: wrap;
@@ -239,9 +248,9 @@
 .icon-name-contact {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly; 
+  justify-content: space-evenly;
   align-items: center;
-  gap: 8px; 
+  gap: 8px;
 }
 
 .select-contact.selected {
@@ -276,12 +285,12 @@
 }
 
 
-.input-area > input,
-.drop-down-input > input {
-  flex: 1 1 auto;  
-  width: auto;      
-  min-width: 0;  
-  cursor: pointer;    
+.input-area>input,
+.drop-down-input>input {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  cursor: pointer;
 }
 
 :root {
@@ -309,10 +318,21 @@
 }
 
 @keyframes slide-in-out-add-task {
-  0% {transform: translateY(100vh);}
-  20% {transform: translateY(0);}
-  70% {transform: translateY(0);}
-  100% {transform: translateY(-100vh);}
+  0% {
+    transform: translateY(100vh);
+  }
+
+  20% {
+    transform: translateY(0);
+  }
+
+  70% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100vh);
+  }
 }
 
 .slide-in-out-add-task {
@@ -335,6 +355,13 @@
   opacity: 0.95;
 }
 
+/* add Task Board */
+.add-task-wapper {
+  background-color: #f6f7f8;
+  border-radius: 8px;
+  padding: 24px;
+}
+
 
 @media (max-width: 1200px) {
   .add-task-container {
@@ -343,24 +370,24 @@
   }
 
   .add-task-right {
-    padding-left: 50px; 
+    padding-left: 50px;
   }
 
-.clear-save-btn {
-  display: flex;
-  gap: 16px;
-  width: 100%;
-  justify-content: space-between;
+  .clear-save-btn {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    justify-content: space-between;
   }
- 
+
 }
 
-@media (max-width: 1080px){
+@media (max-width: 1080px) {
   .add-task-container {
     gap: 4px;
   }
 
-  .add-task-left{
+  .add-task-left {
     padding-right: 16px;
   }
 
@@ -369,8 +396,8 @@
   }
 }
 
-@media (max-width: 1008px){
-  .add-task-root{
+@media (max-width: 1008px) {
+  .add-task-root {
     padding: 48px 16px 48px 16px;
   }
 }
@@ -385,8 +412,8 @@
     display: flex;
     padding-top: 16px;
   }
-  
-  .add-task-root{
+
+  .add-task-root {
     display: flex;
     justify-content: center;
     padding: 16px;
@@ -397,16 +424,16 @@
     flex-direction: column;
   }
 
-  .add-task-form{
+  /* .add-task-form{
     align-items: center;
-  }
+  } */
 
   .add-task-container {
     width: 100%;
     min-width: 580px;
     flex-direction: column;
     gap: none;
-  
+
   }
 
   .add-task-left {
@@ -414,7 +441,7 @@
     border: none;
   }
 
-  .add-task-right{
+  .add-task-right {
     padding: 0;
     border: none;
     margin-top: 16px;
@@ -457,18 +484,18 @@
   .add-task-form {
     align-items: center;
     padding-bottom: 100px;
-  }  
+  }
 
 }
 
 
-@media (max-width: 576px){
+@media (max-width: 576px) {
   .add-task-container {
     width: 100%;
     min-width: 300px;
   }
 
-  .priority-option{
+  .priority-option {
     justify-content: center;
   }
 
@@ -480,7 +507,7 @@
 }
 
 
-@media (max-width: 476px){
+@media (max-width: 476px) {
   .add-task-container {
     min-width: 320px;
   }
@@ -496,9 +523,9 @@
 
   .priority-buttons-wrapper {
     gap: 4px;
-}
+  }
 
-  .priority-option{
+  .priority-option {
     font-size: 16px;
     padding: 4px 8px;
   }
@@ -506,7 +533,7 @@
   .add-task-form {
     align-items: center;
     padding-bottom: 50px;
-  }  
+  }
 
 }
 
@@ -523,7 +550,7 @@
     min-width: 200px;
   }
 
-  .priority-option{
+  .priority-option {
     font-size: 12px;
     padding: 4px 8px;
   }
@@ -531,11 +558,12 @@
   .add-task-form {
     align-items: center;
     padding-bottom: 48px;
-  }  
+  }
 }
 
 
 @media (max-width: 320px) {
+
   .add-task-form input,
   .add-task-form textarea,
   .add-task-form select {
@@ -556,7 +584,7 @@
     padding: 8px 10px;
   }
 
-  .successfully-added-notification{
+  .successfully-added-notification {
     font-size: 10px;
   }
 }
