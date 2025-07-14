@@ -39,7 +39,6 @@ async function loadContacts() {
         contact.color = getContactBackgroundColor();
         contacts.push(contact);
     });
-    return contacts;
 }
 
 
