@@ -490,6 +490,10 @@ textarea {
     background-color: #1FD7C1;
 }
 
+.default-category{
+    background-color: #fc49c0;
+}
+
 
 
 @media (max-width: 1140px) {
