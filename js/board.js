@@ -1,15 +1,22 @@
 let allTasks = [];
-
 let currentDraggedElement;
 let currentSourceContainer;
 let touchClone;
 let touchCurrentTarget;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
+const overlayRef = document.getElementById('overlay');
 
+async function initBoard() {
+    await tasksToArray();
+    initProfile();
+    await loadContacts();
+}
 
-function renderAllTasks(taskList = allTasks) {
-    statuses.forEach(status => renderTasksByStatus(status, taskList));
+async function renderAllTasks(taskList = allTasks) {
+    for (const status of statuses) {
+        await renderTasksByStatus(status, taskList);
+    }
     enableTaskDragging();
 }
 
@@ -30,7 +37,7 @@ async function tasksToArray() {
             ...task
         });
     }
-    renderAllTasks();
+    await renderAllTasks();
 }
 
 
@@ -48,19 +55,19 @@ function updateSubtasks(task) {
  * @param {string} status - Status of the Tasks
  * @param {string} status - corresponds to the ID
  */
-function renderTasksByStatus(status, taskList) {
+async function renderTasksByStatus(status, taskList) {
     let statusContainer = document.getElementById(status);
     statusContainer.innerHTML = "";
     let filteredStatus = taskList.filter(task => task.status === status).sort((a, b) => (a.order || 0) - (b.order || 0));
     if (filteredStatus.length === 0) {
         return updateNoTasksDisplay(status, statusContainer);
     }
-    renderFilteredTaskStatus(filteredStatus, statusContainer);
+    await renderFilteredTaskStatus(filteredStatus, statusContainer);
 
 }
 
 
-function renderFilteredTaskStatus(filteredStatus, statusContainer) {
+async function renderFilteredTaskStatus(filteredStatus, statusContainer) {
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
         let subtasksLength = 0;
@@ -71,7 +78,7 @@ function renderFilteredTaskStatus(filteredStatus, statusContainer) {
             ({ subtasksLength, doneTasksLength, calcuProgress } = updateSubtasks(task));
             showProgress = true;
         }
-        statusContainer.innerHTML += getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress);
+        statusContainer.innerHTML += await getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress);
     }
 }
 
@@ -119,37 +126,15 @@ function calcuProgressbar(task) {
  * @returns - returns the class for the background color
  */
 function getBgCategory(category) {
-    if (category === "User Story") {
-        return "user-story";
-    } else if (category === "Technical Task") {
-        return "technical-task";
-    } else {
-        console.error("the background-color could not be assigned", category);
-        return "default-category";
+    switch (category) {
+        case "User Story":
+            return "user-story";
+        case "Technical Task":
+            return "technical-task";
+        default:
+            return "default-category";
     }
 }
-
-
-/**
- * @function updateTaskInFirebase - Synchronizes task changes with Firebase.
- * @param {string} taskId - Individual ID of the respective Task
- * @param {Object} updatedTask - The changed Task
- */
-async function updateTaskInFirebase(taskId, updatedTask) {
-    try {
-        await fetch(`${FIREBASE_URL}/board/tasks/${taskId}.json`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedTask)
-        });
-    } catch (error) {
-        console.error("Error while loading tasks(PUT):", error);
-    }
-}
-
-
 
 
 function enableTaskDragging() {
@@ -169,7 +154,6 @@ function enableTaskDragging() {
         });
 
     });
-    
     enableDragReordering();
     enableTaskDraggingByTouch(draggables);
 }
@@ -184,11 +168,11 @@ function enableTaskDraggingByTouch(draggables) {
             draggable.classList.add('dragging');
             document.body.classList.add('drag-active');
             touchClone = draggable.cloneNode(true);
-           
+
             touchClone.classList.add('touch-clone');
             document.body.appendChild(touchClone);
 
-            
+
             updateTouchPosition(e.touches[0]);
         });
         draggable.addEventListener('touchend', async () => {
@@ -203,38 +187,40 @@ function enableTaskDraggingByTouch(draggables) {
             }
             touchCurrentTarget = null;
         });
-        newFunction(draggable);
+        moveByTouch(draggables);
     });
 }
 
 
-function newFunction(draggable) {
-    draggable.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        updateTouchPosition(e.touches[0]);
-        const touch = e.touches[0];
-        const target = document.elementFromPoint(touch.clientX, touch.clientY);
-        const dropZone = target?.closest('.drag-drop-container');
-        // const nearestTask = target?.closest('.task');
+function moveByTouch(draggables) {
+    draggables.forEach(draggable => {
+        draggable.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            updateTouchPosition(e.touches[0]);
+            const touch = e.touches[0];
+            const target = document.elementFromPoint(touch.clientX, touch.clientY);
+            const dropZone = target?.closest('.drag-drop-container');
+            // const nearestTask = target?.closest('.task');
 
-        if (dropZone) {
-            touchCurrentTarget = dropZone;
-            const allTasks = Array.from(dropZone.querySelectorAll('.task')).filter(element => element !== draggable && element !== placeholder);
-            let inserted = false;
-            for (const task of allTasks) {
-                const taskBox = task.getBoundingClientRect();
-                const middleY = taskBox.top + taskBox.height / 2;
-                if (touch.clientY < middleY) {
-                    task.parentNode.insertBefore(placeholder, task);
-                    inserted = true;
-                    break;
+            if (dropZone) {
+                touchCurrentTarget = dropZone;
+                const allTasks = Array.from(dropZone.querySelectorAll('.task')).filter(element => element !== draggable && element !== placeholder);
+                let inserted = false;
+                for (const task of allTasks) {
+                    const taskBox = task.getBoundingClientRect();
+                    const middleY = taskBox.top + taskBox.height / 2;
+                    if (touch.clientY < middleY) {
+                        task.parentNode.insertBefore(placeholder, task);
+                        inserted = true;
+                        break;
+                    }
+                }
+                if (!inserted) {
+                    dropZone.appendChild(placeholder);
                 }
             }
-            if (!inserted) {
-                dropZone.appendChild(placeholder);
-            }
-        }
-    }, { passive: true });
+        }, { passive: false });
+    });
 }
 
 function updateTouchPosition(touch) {
@@ -247,9 +233,6 @@ function updateTouchPosition(touch) {
 
 
 function enableDragReordering() {
-
-    // let placeholder = document.createElement('div');
-    // placeholder.classList.add('drop-placeholder');
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('dragover', event => {
             console.log("dragover on", dragAndDropContainer.id);
@@ -326,7 +309,7 @@ async function updateOrderInContainer(container, status) {
         task.order = index;
         task.status = status;
         allTasks[taskIndex] = task;
-        await updateTaskInFirebase(task.id, task);
+        await updateData(`/board/tasks/${task.id}`, task);
         console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
     }
     renderAllTasks();
@@ -337,12 +320,14 @@ async function updateOrderInContainer(container, status) {
  * @function getTaskCard - Render the little Task-Card in Board
  * @param {Object} task - individual Tasks
  */
-function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress) {
+async function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress) {
     // console.log(task);
-    const bgCategory = getBgCategory(task.category);
-    const description_short = getShortenedDescription(task);
+    // const title_short = getShortenedTitle(task);
+    // const description_short = getShortenedDescription(task);
+    const shortDescription = getShortenedField(task, "description_full", 30);
+    const shortTitle = getShortenedField(task, "title", 30);
     const subtasksProgress = getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength);
-    return getTaskCardTemplate(task, bgCategory, description_short, subtasksProgress);
+    return await getTaskCardTemplate(task, shortTitle, shortDescription, subtasksProgress);
 }
 
 
@@ -350,12 +335,11 @@ function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showP
  * @function showOverview -
  * @param {string} id - 
  */
-function showOverview(id) {
+async function showOverview(id) {
     const task = allTasks.find(t => t.id.toString() === id.toString());
     console.log(id);
-    let overlayRef = document.getElementById('overlay');
     overlayRef.classList.remove('d-none');
-    overlayRef.innerHTML = getOverviewTemplate(task);
+    overlayRef.innerHTML = await getOverviewTemplate(task);
 }
 
 
@@ -374,6 +358,73 @@ async function deleteAndUpdateTasks(taskID) {
     });
 }
 
+function hasAssignedContacts(task) {
+    return task.assigned_to && task.assigned_to.trim() !== "";
+}
+
+/**
+ * 
+ * @param {Object} task - 
+ * @param {Array} contacts - 
+ * @returns {Array} 
+ */
+async function getContactsForTask(task) {
+    const contacts = await loadContacts();
+    // console.log("Contacts-Array:", contacts);
+    if (!hasAssignedContacts(task)) {
+        return [];
+    }
+    const assignedNames = task.assigned_to.split(",").map(name => name.trim().toLowerCase());
+    return contacts.filter(contact => {
+        const contactName = contact.name.trim().toLowerCase();
+        return assignedNames.includes(contactName);
+    });
+}
+async function getContactDisplayData(task) {
+    if (!hasAssignedContacts(task)) {
+        return [];
+    }
+    const names = task.assigned_to.split(",").map(name => name.trim());
+    const matchingContacts = await getContactsForTask(task);
+    return names.map(name => {
+        const contact = matchingContacts.find(c => c.name.trim().toLowerCase() === name.trim().toLowerCase());
+        return { name: name, initial: getContactInitials(name), color: contact ? contact.color : "#ccc" };
+    });
+}
+
+async function getInitialsOnly(task) {
+    const displayData = await getContactDisplayData(task);
+    const maxIcons = 3;
+    const visibleData = displayData.slice(0, maxIcons);
+    const initialsIcon = visibleData.map(d => `<div class="contact-icon initial-icon" style="background-color: ${d.color};">${d.initial}</div>`).join("");
+    const remainingCount = displayData.length - maxIcons;
+    const overflowIcon = remainingCount > 0 ? `<div class="more-icon font-color-grey">+${remainingCount}</div>` : "";
+    return initialsIcon + overflowIcon;
+}
+
+async function getInitialsWithNames(task) {
+    const displayData = await getContactDisplayData(task);
+
+    return displayData.map(d => `
+        <div class="names-wrapper">
+            <div class="contact-icon" style="background-color: ${d.color};">${d.initial}</div>
+            <span class="contact-name contact-name-board">${d.name}</span>
+        </div>
+    `).join("");
+}
+
+
+async function getAssignedToContent(task) {
+    const initialsWithName = await getInitialsWithNames(task);
+    return initialsWithName ? `<div>
+                                            <span class="font-color-grey">Assigned To:</span>
+                                              <div class="initials-container">
+                                                 <div class="initials-wrapper">${initialsWithName} </div>
+                                              </div>
+                                        </div>` : '';
+}
+
+
 
 /**
  * @function getSubtasksContent - Returns HTML-Template for subtasks section or empty string.
@@ -381,50 +432,95 @@ async function deleteAndUpdateTasks(taskID) {
  * @returns {string} - Returns Subtasks Container
  */
 function getSubtasksContent(task) {
-    let template = getSubtasksTemplate(task);
-    if (template) {
-        return `<div><span class="font-color-grey">Subtasks:</span>${template}</div>`;
-    } else {
-        return "";
-    }
+    return getSubtasksTemplate(task) ? `<div><span class="font-color-grey">Subtasks:</span>${getSubtasksTemplate(task)}</div>` : '';
 }
 
-
 /**
- * @function getSubtasksTemplate -  Returns HTML-Template for subtasks and checkboxes or empty string.
- * @param {Object} task - individually Task 
- * @returns {string} - Returns Subtasks and Checkboxes
+ * @function getSubtasksTemplate - Returns HTML-Template for subtasks and checkboxes or empty string.
+ * @param {Object} task - Individual Task
+ * @returns {string} - Subtasks and Checkboxes
  */
 function getSubtasksTemplate(task) {
     if (task.subtasks && Object.keys(task.subtasks).length > 0) {
         const subtasksArray = Object.values(task.subtasks);
         let subtasksTemplate = "";
         for (const subtask of subtasksArray) {
-            const checked = subtask.done ? 'checked' : "";
-            subtasksTemplate += `<div class="subtask-item">
-                   
-                    <label>${subtask.title}</label>
+            const checked = subtask.done ? "checked" : "";
+
+            subtasksTemplate += `
+                <div class="subtask-item">
+                    <label class="checkbox">
+                        <input type="checkbox" hidden ${checked} data-subtask-title="${subtask.title}">
+                        <div class="icon-wrapper icon-checkbox-default">
+                            <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                        </div>
+                        <div class="icon-wrapper icon-checkbox-checked">
+                            <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                        </div>
+                    </label>
+                    <span>${subtask.title}</span>
                 </div>`;
         }
-        return subtasksTemplate;
+        return `<div class="subtasks-wrapper">${subtasksTemplate}</div>`;
     } else {
         return "";
     }
 }
+// async function editTask(task) {
+// const assignedToContent = await getAssignedToContent(task);
+//     return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
+//                     <div class="card-overview-header">
+//                         <span class="label ${getBgCategory(task.category)}">${task.category}</span>
+//                         <button onclick="closeOverlay()" class="btn-small">
+//                             <img class="icon-default" src="../assets/img/icon-close-default.svg">
+//                             <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+//                         </button>
+//                     </div>
+//                     ${getAddTaskTitleTemplate()}
+//                     <h2 class="task-title">${task.title}</h2>
+//                     <span class="task-description">${task.description_full}</span>
+
+//                     <div class="">
+//                         <span style="padding-right: 16px;" class="font-color-grey">Due Date:</span>
+//                         <span> ${task.due_date}</span>
+//                     </div>
+
+//                     <div class="priority-wrapper ">
+//                         <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
+//                         <span style="text-transform: capitalize;"> ${task.priority} </span>
+//                         ${getPriority(task)}
+//                     </div>
+
+
+//                             ${assignedToContent}
+//                             ${getSubtasksContent(task)}
+//                     <div class="delete-and-edit-wrapper">
+//                    <button id="" class="btn-dark" onclick="">
+//                                 <span>OK</span>
+//                                 <img class="icon-default" src="../assets/img/icon-check-huge-default.svg" alt="">
+//                             </button>
+
+//                     </div>
+//                 </div>`;
+
+// }
 
 
 /**
  * @function getShortenedDescription - Shorten the Description for the small Task-Cards
  * @param {Object} task - individual Tasks
  */
-function getShortenedDescription(task) {
-    let maxLength = 30;
-    if (task.description_full.length > maxLength) {
-        return task.description_full.substring(0, maxLength) + "...";
+function getShortenedField(task, fieldName, maxLength = 30) {
+    const value = task[fieldName];
+    if (value.length > maxLength) {
+        return value.substring(0, maxLength) + "...";
     } else {
-        return task.description_full;
+        return value;
     }
 }
+
 
 
 /**
