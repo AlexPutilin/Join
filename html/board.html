@@ -13,16 +13,19 @@
 
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/addTask.css">
 
 
     <script src="../js/templates.js" defer></script>
     <script src="../js/api.js" defer></script>
     <script src="../js/components.js" defer></script>
     <script src="../js/main.js" defer></script>
+    <script src="../js/contacts.js" defer></script>  
+    <script src="../js/addtask.js" defer></script>      
     <script src="../js/board.js" defer></script>
 </head>
 
-<body onload="tasksToArray(), initProfile()">
+<body onload="initBoard()">
     <div onclick="closeOverlay()" id="overlay" class="overlay d-none"></div>
     <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
         <div class="profile-menu" onclick="event.stopPropagation()">
@@ -127,7 +130,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <button id="add-task-btn" class="btn-dark">
+                            <button id="add-task-btn" class="btn-dark" onclick="addTaskBoard()">
                                 <span style="min-width: 106px;">Add Task</span>
                                 <img class="icon-add" src="../assets/img/icon-add-white.svg" alt="">
                             </button>
