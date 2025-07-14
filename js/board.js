@@ -6,11 +6,14 @@ let touchCurrentTarget;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
 const overlayRef = document.getElementById('overlay');
+let placeholder = document.createElement('div');
+placeholder.classList.add('drop-placeholder');
+
 
 async function initBoard() {
-    await tasksToArray();
     initProfile();
     await loadContacts();
+    await tasksToArray();
 }
 
 async function renderAllTasks(taskList = allTasks) {
@@ -28,7 +31,6 @@ async function renderAllTasks(taskList = allTasks) {
 async function tasksToArray() {
     let taskResponse = await getData("/board/tasks");
     allTasks = [];
-
     for (let key in taskResponse) {
         let task = taskResponse[key];
         allTasks.push({
@@ -44,7 +46,7 @@ async function tasksToArray() {
 function updateSubtasks(task) {
     let subtasks = Object.values(task.subtasks || {});
     let subtasksLength = subtasks.length;
-    let doneTasksLength = subtasks.filter(s => s.done).length;
+    let doneTasksLength = subtasks.filter(subtask => subtask.done).length;
     let calcuProgress = calcuProgressbar(task);
     return { subtasksLength, doneTasksLength, calcuProgress };
 }
@@ -63,7 +65,6 @@ async function renderTasksByStatus(status, taskList) {
         return updateNoTasksDisplay(status, statusContainer);
     }
     await renderFilteredTaskStatus(filteredStatus, statusContainer);
-
 }
 
 
@@ -98,7 +99,7 @@ function updateNoTasksDisplay(status, statusContainer) {
     } else if (status === "done") {
         message = "No Tasks Done";
     }
-    statusContainer.innerHTML = `<div class="placeholder-box-no-task"><p class="no-tasks-text">${message}</p></div>`;
+    statusContainer.innerHTML = noTasksContainer(message);
 }
 
 
@@ -140,7 +141,6 @@ function getBgCategory(category) {
 function enableTaskDragging() {
     const draggables = document.querySelectorAll('.card');
     draggables.forEach(draggable => {
-        const placeholder = document.createElement('div');
         draggable.addEventListener('dragstart', () => {
             currentDraggedElement = draggable.id;
             currentSourceContainer = draggable.parentNode;
@@ -152,14 +152,12 @@ function enableTaskDragging() {
             draggable.classList.remove('dragging');
             document.body.classList.remove('drag-active');
         });
-
     });
     enableDragReordering();
     enableTaskDraggingByTouch(draggables);
 }
 
-let placeholder = document.createElement('div');
-placeholder.classList.add('drop-placeholder');
+
 
 function enableTaskDraggingByTouch(draggables) {
     draggables.forEach(draggable => {
@@ -168,18 +166,14 @@ function enableTaskDraggingByTouch(draggables) {
             draggable.classList.add('dragging');
             document.body.classList.add('drag-active');
             touchClone = draggable.cloneNode(true);
-
             touchClone.classList.add('touch-clone');
             document.body.appendChild(touchClone);
-
-
             updateTouchPosition(e.touches[0]);
         });
         draggable.addEventListener('touchend', async () => {
             if (touchClone) touchClone.remove();
             document.body.classList.remove('drag-active');
             draggable.classList.remove('dragging');
-
             if (placeholder && placeholder.parentNode) {
                 placeholder.parentNode.insertBefore(draggable, placeholder);
                 placeholder.remove();
@@ -194,14 +188,12 @@ function enableTaskDraggingByTouch(draggables) {
 
 function moveByTouch(draggables) {
     draggables.forEach(draggable => {
-        draggable.addEventListener('touchmove', (e) => {
-            e.preventDefault();
+        draggable.addEventListener('touchmove', (event) => {
+            event.preventDefault();
             updateTouchPosition(e.touches[0]);
             const touch = e.touches[0];
             const target = document.elementFromPoint(touch.clientX, touch.clientY);
             const dropZone = target?.closest('.drag-drop-container');
-            // const nearestTask = target?.closest('.task');
-
             if (dropZone) {
                 touchCurrentTarget = dropZone;
                 const allTasks = Array.from(dropZone.querySelectorAll('.task')).filter(element => element !== draggable && element !== placeholder);
@@ -262,7 +254,6 @@ function enableTaskDropByStatus() {
             event.preventDefault();
             const draggedCard = document.getElementById(currentDraggedElement);
             let placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
-
             if (draggedCard) {
                 if (placeholder) {
                     dragAndDropContainer.insertBefore(draggedCard, placeholder);
@@ -271,18 +262,14 @@ function enableTaskDropByStatus() {
                     dragAndDropContainer.appendChild(draggedCard);
                 }
             }
-
-            // aktualisiert den verlassenen container
             if (currentSourceContainer && currentSourceContainer !== dragAndDropContainer) {
                 updateOrderInContainer(currentSourceContainer, currentSourceContainer.id);
             }
-            // aktualisiert den ziel container
             updateOrderInContainer(dragAndDropContainer, dragAndDropContainer.id);
         });
 
     });
 }
-
 
 
 function getDragAfterElement(container, y) {
@@ -312,7 +299,7 @@ async function updateOrderInContainer(container, status) {
         await updateData(`/board/tasks/${task.id}`, task);
         console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
     }
-    renderAllTasks();
+    await renderAllTasks();
 }
 
 
@@ -321,9 +308,6 @@ async function updateOrderInContainer(container, status) {
  * @param {Object} task - individual Tasks
  */
 async function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress) {
-    // console.log(task);
-    // const title_short = getShortenedTitle(task);
-    // const description_short = getShortenedDescription(task);
     const shortDescription = getShortenedField(task, "description_full", 30);
     const shortTitle = getShortenedField(task, "title", 30);
     const subtasksProgress = getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength);
@@ -337,7 +321,6 @@ async function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength,
  */
 async function showOverview(id) {
     const task = allTasks.find(t => t.id.toString() === id.toString());
-    console.log(id);
     overlayRef.classList.remove('d-none');
     overlayRef.innerHTML = await getOverviewTemplate(task);
 }
@@ -369,71 +352,81 @@ function hasAssignedContacts(task) {
  * @returns {Array} 
  */
 async function getContactsForTask(task) {
-    const contacts = await loadContacts();
     // console.log("Contacts-Array:", contacts);
     if (!hasAssignedContacts(task)) {
         return [];
+    } else {
+        const assignedNames = task.assigned_to.split(",").map(name => name.trim().toLowerCase());
+        const filteredContacts = [];
+        for (const contact of contacts) {
+            const contactName = contact.name.trim().toLowerCase();
+            if (assignedNames.includes(contactName)) {
+                filteredContacts.push(contact);
+            }
+        }
+        return filteredContacts;
     }
-    const assignedNames = task.assigned_to.split(",").map(name => name.trim().toLowerCase());
-    return contacts.filter(contact => {
-        const contactName = contact.name.trim().toLowerCase();
-        return assignedNames.includes(contactName);
-    });
 }
+
+
 async function getContactDisplayData(task) {
     if (!hasAssignedContacts(task)) {
         return [];
+    } else {
+        const names = task.assigned_to.split(",").map(name => name.trim());
+        const matchingContacts = await getContactsForTask(task);
+        const displayData = [];
+        for (const name of names) {
+            const contact = matchingContacts.find(contact => contact.name.trim().toLowerCase() === name.trim().toLowerCase());
+            if (contact) {
+                displayData.push(
+                    { name: name, initial: getContactInitials(name), color: contact.color });
+            } else {
+                displayData.push({ name: name, initial: getContactInitials(name), color: "#ccc" });
+            }
+        }
+        return displayData;
     }
-    const names = task.assigned_to.split(",").map(name => name.trim());
-    const matchingContacts = await getContactsForTask(task);
-    return names.map(name => {
-        const contact = matchingContacts.find(c => c.name.trim().toLowerCase() === name.trim().toLowerCase());
-        return { name: name, initial: getContactInitials(name), color: contact ? contact.color : "#ccc" };
-    });
 }
+
 
 async function getInitialsOnly(task) {
     const displayData = await getContactDisplayData(task);
-    const maxIcons = 3;
-    const visibleData = displayData.slice(0, maxIcons);
-    const initialsIcon = visibleData.map(d => `<div class="contact-icon initial-icon" style="background-color: ${d.color};">${d.initial}</div>`).join("");
-    const remainingCount = displayData.length - maxIcons;
-    const overflowIcon = remainingCount > 0 ? `<div class="more-icon font-color-grey">+${remainingCount}</div>` : "";
-    return initialsIcon + overflowIcon;
+    const visibleData = displayData.slice(0, 3);
+    const remainingCount = displayData.length - 3;
+    let initialsIcon = "";
+    let overflowNumberIcon = "";
+    for (const contact of visibleData) {
+        initialsIcon += getInitialIcons(contact);
+    }
+    if (remainingCount > 0) {
+        overflowNumberIcon = getOverflowNumberIcon(remainingCount);
+    } else {
+        overflowNumberIcon = "";
+    }
+    return initialsIcon + overflowNumberIcon;
 }
+
 
 async function getInitialsWithNames(task) {
     const displayData = await getContactDisplayData(task);
-
-    return displayData.map(d => `
-        <div class="names-wrapper">
-            <div class="contact-icon" style="background-color: ${d.color};">${d.initial}</div>
-            <span class="contact-name contact-name-board">${d.name}</span>
-        </div>
-    `).join("");
+    for (let i = 0; i < displayData.length; i++) {
+        const contact = displayData[i];
+        if (contact) {
+            return getInitialsWithNamesTemplate(contact);
+        }
+    }
 }
 
 
 async function getAssignedToContent(task) {
     const initialsWithName = await getInitialsWithNames(task);
-    return initialsWithName ? `<div>
-                                            <span class="font-color-grey">Assigned To:</span>
-                                              <div class="initials-container">
-                                                 <div class="initials-wrapper">${initialsWithName} </div>
-                                              </div>
-                                        </div>` : '';
+    if (initialsWithName) {
+        return getAssignedToContentTemplate(initialsWithName);
+    }
+
 }
 
-
-
-/**
- * @function getSubtasksContent - Returns HTML-Template for subtasks section or empty string.
- * @param {Object} task - individually Task 
- * @returns {string} - Returns Subtasks Container
- */
-function getSubtasksContent(task) {
-    return getSubtasksTemplate(task) ? `<div><span class="font-color-grey">Subtasks:</span>${getSubtasksTemplate(task)}</div>` : '';
-}
 
 /**
  * @function getSubtasksTemplate - Returns HTML-Template for subtasks and checkboxes or empty string.
@@ -441,14 +434,28 @@ function getSubtasksContent(task) {
  * @returns {string} - Subtasks and Checkboxes
  */
 function getSubtasksTemplate(task) {
+    let subtasksTemplate = "";
     if (task.subtasks && Object.keys(task.subtasks).length > 0) {
         const subtasksArray = Object.values(task.subtasks);
-        let subtasksTemplate = "";
         for (const subtask of subtasksArray) {
-            const checked = subtask.done ? "checked" : "";
+            let subtaskTemplateBoardPage = "";
+            if (subtask.done) {
+                subtaskTemplateBoardPage = getSubtaskCheckboxTemplate("checked", subtask);
+            } else {
+                subtaskTemplateBoardPage = getSubtaskCheckboxTemplate("", subtask);
+            }
+            subtasksTemplate += subtaskTemplateBoardPage;
+        }
+        subtasksTemplate = `<div class="subtasks-wrapper">${subtasksTemplate}</div>`;
+    } else {
+        subtasksTemplate = "";
+    }
+    return subtasksTemplate;
+}
 
-            subtasksTemplate += `
-                <div class="subtask-item">
+
+function getSubtaskCheckboxTemplate(checked, subtask) {
+    return `<div class="subtask-item">
                     <label class="checkbox">
                         <input type="checkbox" hidden ${checked} data-subtask-title="${subtask.title}">
                         <div class="icon-wrapper icon-checkbox-default">
@@ -462,12 +469,8 @@ function getSubtasksTemplate(task) {
                     </label>
                     <span>${subtask.title}</span>
                 </div>`;
-        }
-        return `<div class="subtasks-wrapper">${subtasksTemplate}</div>`;
-    } else {
-        return "";
-    }
 }
+
 // async function editTask(task) {
 // const assignedToContent = await getAssignedToContent(task);
 //     return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
@@ -527,13 +530,11 @@ function getShortenedField(task, fieldName, maxLength = 30) {
  * @function filterAndShowTasks - Filters tasks by title and displays matching results. If the search input is empty, all tasks are displayed.
  * @param {string} filterTask - The search string used to filter tasks by their title.
  */
-function filterAndShowTasks(filterTask) {
+async function filterAndShowTasks(filterTask) {
     if (filterTask.trim().length > 0) {
-        const filteredTasks = allTasks.filter(task =>
-            task.title.toLowerCase().includes(filterTask.toLowerCase())
-        );
-        renderAllTasks(filteredTasks);
+        const filteredTasks = allTasks.filter(task => task.title.toLowerCase().includes(filterTask.toLowerCase()));
+        await renderAllTasks(filteredTasks);
     } else {
-        renderAllTasks(allTasks);
+        await renderAllTasks(allTasks);
     }
 }
