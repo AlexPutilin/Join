@@ -132,7 +132,6 @@ function validateCategoryField() {
   const area     = wrapper.querySelector('.input-area');
   const errMsg   = wrapper.querySelector('.err-msg');
   const isValid  = !!input.value.trim();
-
   if (isValid) {
     area.classList.remove('invalid-input');
     errMsg.classList.add('hidden');
@@ -140,10 +139,20 @@ function validateCategoryField() {
     area.classList.add('invalid-input');
     errMsg.classList.remove('hidden');
   }
-
   return isValid;
 }
 
+/**
+ * Master-Initializer fürs Assigned-To-Feld:
+ * – Dropdown-Klick & Suche
+ * – Kontakt-Selektion
+ * – Outside-Click zum Schließen
+ */
+async function renderAssignedToField() {
+  if (!injectAssignedToTemplate()) return;
+  await loadAssignedToContacts();
+  initAssignedToInteractions();
+}
 
 /**
  * Injects the "Assigned To" template into its wrapper element.
@@ -164,11 +173,9 @@ function renderContacts(contactsData) {
   const dropdown = document.getElementById('contacts-dropdown');
   if (!dropdown) return;
   dropdown.innerHTML = '';
-
   Object.entries(contactsData).forEach(([id, info]) => {
     contactsById[id] = info;
     contactsById[id].color = getContactBackgroundColor();
-
     const html = getContactSelectionTemplate({
       initials: getContactInitials(info.name),
       name: info.name,
@@ -179,19 +186,43 @@ function renderContacts(contactsData) {
   });
 }
 
-async function renderAssignedToField() {
-  if (!injectAssignedToTemplate()) return;
-  await loadAssignedToContacts();
-  const btn = document.querySelector('#assigned-to-wrapper-template .input-wrapper button');
-  btn.addEventListener('click', () => toggleDropDown(btn));
-  document.getElementById('contacts-dropdown').addEventListener('change', event => {
-    const checkbox = event.target;
-    const entry = checkbox.closest('.select-contact');
-    entry.classList.toggle('selected', checkbox.checked);
-    renderAssignedChips();
+
+function initAssignedToInteractions() {
+  const wrapper     = document.querySelector('#assigned-to-wrapper-template .input-wrapper');
+  const toggleBtn   = wrapper.querySelector('button.btn-small');
+  const searchInput = wrapper.querySelector('input[type="text"]');
+  const menu        = wrapper.querySelector('.drop-down-menu');
+
+  initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu);
+  initAssignedToContactSelection();
+  setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
+}
+
+/**
+ * 1) Klick auf den Pfeil öffnet/schließt das Menü
+ * 2) Tippen öffnet (falls geschlossen) und filtert die Liste
+ */
+function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
+  toggleBtn.addEventListener('click', () => openDropDownMenu(toggleBtn));
+  searchInput.addEventListener('input', () => {
+    if (menu.dataset.open !== 'true') toggleDropDown(toggleBtn);
+    const items = Array.from(menu.querySelectorAll('.select-contact'));
+    filterItems(items, searchInput.value.toLowerCase().trim());
   });
-  setupAssignedToSearch();
-  setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper',() => toggleDropDown(btn));
+}
+
+/**
+ * 3) Delegation auf Checkbox-Änderungen:
+ *    setzt ausgewählten Style & updated Chips
+ */
+function initAssignedToContactSelection() {
+  document
+    .getElementById('contacts-dropdown')
+    .addEventListener('change', event => {const cb = event.target;
+      if (!cb.matches('input[type="checkbox"]')) return;
+      cb.closest('.select-contact').classList.toggle('selected', cb.checked);
+      renderAssignedChips();
+    });
 }
 
 
@@ -221,8 +252,7 @@ function getSubtasksFromDOM() {
     if (title) {
       subtasks[`subtask${index + 1}`] = createSubtaskObject(title);
     }
-  });
-  return subtasks;
+  }); return subtasks;
 }
 
 /**
@@ -231,7 +261,6 @@ function getSubtasksFromDOM() {
 function setupCreateButtonListeners() {
   const titleInput = document.getElementById('task-title');
   const dueDateInput = document.getElementById('due-date');
-
   if (titleInput) {
     titleInput.addEventListener('input', updateCreateButtonState);
   }
@@ -258,21 +287,15 @@ function getSelectedContactIds() {
  */
 function prepareTaskData() {
   const taskData = getInputData('#add-task-form');
-  const ids = getSelectedContactIds();               // IDs sammeln
-
-  // names statt mapContactIdsToNames:
+  const ids = getSelectedContactIds(); 
   taskData.assigned_to = ids
     .map(id => contactsById[id]?.name)
     .filter(Boolean);
-
   taskData.status = 'to-do';
-
   const subtasks = getSubtasksFromDOM();
   if (Object.keys(subtasks).length) {
     taskData.subtasks = subtasks;
-  }
-
-  return taskData;
+  } return taskData;
 }
 
 /**
@@ -281,7 +304,6 @@ function prepareTaskData() {
 async function addTask() {
   if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData();
-
   try {
     await postData('/board/tasks', taskData);
     console.info('addTask: Task erfolgreich gespeichert.');
@@ -305,8 +327,6 @@ function validateFormBeforeSubmit() {
   return inputsValid && categoryValid;
 }
 
-
-
 /**
  * Updates the state of the "Create Task" button based on required form field values.
  * Enables the button only when all required fields are filled.
@@ -316,9 +336,7 @@ function updateCreateButtonState() {
   const dueDateValue = document.getElementById('due-date')?.value.trim();
   const categoryValue = document.getElementById('task-category')?.value.trim();
   const createButton = document.getElementById('create-task-btn');
-
   const formIsValid = Boolean(titleValue && dueDateValue && categoryValue);
-
   if (!formIsValid) {
     createButton.disabled = true;
     createButton.setAttribute('title', 'Please fill out the required fields');
