@@ -314,3 +314,27 @@ function showCustomInputError(selector, message) {
     errorMessage.textContent = message;
     errorMessage.classList.remove('hidden');
 }
+
+
+/**
+ * Moves the CTA container below the form on small screens,
+ * and back into the header on larger screens.
+ */
+function moveCTA() {
+  const cta = document.getElementById('cta-container');
+  const formContainer = document.getElementById('form-container');
+  const header = document.querySelector('header');
+
+  if (window.innerWidth <= 520) {
+    if (cta.parentNode !== formContainer.parentNode) {
+      formContainer.insertAdjacentElement('afterend', cta);
+    }
+  } else {
+    if (cta.parentNode !== header) {
+      header.appendChild(cta);
+    }
+  }
+}
+
+window.addEventListener('resize', moveCTA);
+window.addEventListener('DOMContentLoaded', moveCTA);
