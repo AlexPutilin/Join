@@ -308,9 +308,7 @@ function prepareTaskData(status) {
   } return taskData;
 }
 
-/**
- * Speichert den Task, nachdem validateFormBeforeSubmit() grünes Licht gibt.
- */
+
 async function addTask(status = 'to-do') {
   if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData(status);
