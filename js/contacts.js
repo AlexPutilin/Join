@@ -18,6 +18,8 @@ let contactColorIndex = 0;
  * creating sections, and rendering the contact list.
  */
 async function initContactPage() {
+    initProfile();
+    redirectIfNotLoggedIn();
     await loadContacts();
     createContactSections();
     renderContactList();

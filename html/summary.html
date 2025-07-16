@@ -18,9 +18,10 @@
     <script src="../js/components.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/templates.js"></script>
+    <script src="../js/summary.js"></script>
 </head>
 
-<body onload="initProfile()">
+<body>
   <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
       <div class="profile-menu" onclick="event.stopPropagation()">
           <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
@@ -80,8 +81,7 @@
         <div class="hug-wrapper">
             <div class="logo-kanban-text-wrapper">
                 <img class="logo-blue" src="../assets/img/logo.svg" alt="Join Logo">
-                <span class="kanban-text">
-                    Kanban Project Management Tool</span>
+                <span class="kanban-text">Kanban Project Management Tool</span>
             </div>
             <div class="help-and-profile">
 
@@ -97,57 +97,68 @@
         </div>
     </section>
 
+    <section id="welcome-screen-mobile" class="welcome-screen-mobile d-none">
+      <div class="mobile-greeting-wrapper">
+        <div class="greeting">
+          <h2 class="greeting-text"></h2>
+          <h3 class="greeting-user-name h1-summary-user-name"></h3>
+        </div>
+      </div>
+    </section>
+  
       <section class="summary-content">
-          <div class="summary-header">
-            <h1>Join 360</h1>
-            <div class="seperator-blue"></div>
-            <h3>Key Metrics at a Glance</h3>
-            <div class="seperator-blue-mobile"></div>
-          </div>
-        
           <div class="summary-main-section">
+            <div class="summary-header">
+              <h1>Join 360</h1>
+              <div class="seperator-blue"></div>
+              <h3>Key Metrics at a Glance</h3>
+              <div class="seperator-blue-mobile"></div>
+            </div>
+            <div class="summary-grids">
           <div class="summary-metrics-wrapper">
 
           <div class="summary-row">
-            <div class="metric-card metric-card-top">
+            <div class="metric-card metric-card-top" onclick="openPage('board.html')">
               <div class="metric-icon">
-                <span class="icon-wrapper">
-                  <img src="../assets/img/icon-edit-summary.svg" class="icon-default" alt="To-do Icon">
+                <span class="summary-icon-wrapper">
+                  <img src="../assets/img/icon-edit-summary.svg" class="summary-icon-default" alt="To-do Icon">
+                  <img src="../assets/img/icon-edit-summary-hover.svg" class="summary-icon-hover" alt="Edit Icon Hover">
                 </span>
               </div>
               <div class="metric-body">
-                <div class="metric-value">1</div>
+                <div id="number-to-do" class="metric-value"></div>
                 <div class="metric-label">To-do</div>
               </div>
             </div>
         
-            <div class="metric-card metric-card-top">
+            <div class="metric-card metric-card-top" onclick="openPage('board.html')">
               <div class="metric-icon">
-                <span class="icon-wrapper">
-                  <img src="../assets/img/icon-check-summary.svg" class="icon-default" alt="Done Icon">
+                <span class="summary-icon-wrapper">
+                  <img src="../assets/img/icon-check-summary.svg" class="summary-icon-default" alt="Done Icon">
+                  <img src="../assets/img/icon-check-summary-hover.svg" class="summary-icon-hover" alt="Check Icon Hover">
                 </span>
               </div>
               <div class="metric-body">
-                <div class="metric-value">1</div>
+                <div  id="number-done" class="metric-value"></div>
                 <div class="metric-label">Done</div>
               </div>
             </div>
           </div>
         
           <div class="summary-row-urgent">
-              <div class="metric-card urgent-deadline">
+              <div class="metric-card urgent-deadline" onclick="openPage('board.html')">
                 <div class="metric-icon">
-                  <span class="icon-wrapper">
-                    <img src="../assets/img/icon-prio-urgent-summary.png" class="icon-default" alt="Urgent Icon">
+                  <span class="summary-icon-wrapper">
+                    <img src="../assets/img/icon-prio-urgent-summary.png" alt="Urgent Icon">
                   </span>
                 </div>
                 <div class="metric-body">
-                  <div class="metric-value">1</div>
+                  <div id="number-urgent" class="metric-value"></div>
                   <div class="metric-label">Urgent</div>
                 </div>
                 <div class="seperator-urgent"></div>
                 <div class="deadline-info">
-                  <div class="metric-date">October 16, 2022</div>
+                  <div id="deadline-date-urgent" class="metric-date">October 16, 2022</div>
                   <div class="metric-label">Upcoming Deadline</div>
                 </div>
               </div>
@@ -155,35 +166,36 @@
             
         
           <div class="summary-row summary-row-bottom">
-            <div class="metric-card center">
+            <div class="metric-card center" onclick="openPage('board.html')">
               <div class="metric-body">
-                <div class="metric-value">5</div>
+                <div id="number-tasks-total" class="metric-value"></div>
                 <div class="metric-label">Tasks in Board</div>
               </div>
             </div>
-            <div class="metric-card center">
+            <div class="metric-card center" onclick="openPage('board.html')">
               <div class="metric-body">
-                <div class="metric-value">2</div>
+                <div id="number-in-progress" class="metric-value"></div>
                 <div class="metric-label">Tasks In Progress</div>
               </div>
             </div>
-            <div class="metric-card center">
+            <div class="metric-card center" onclick="openPage('board.html')">
               <div class="metric-body">
-                <div class="metric-value">2</div>
+                <div id="number-await-feedback" class="metric-value"></div>
                 <div class="metric-label">Awaiting Feedback</div>
               </div>
             </div>
           </div>
       </div>
-      <div class="greeting-section greeting-section-mobile">
+      <div class="greeting-section greeting-section-mobile ">
           <div class="greeting-wrapper">
               <div class="greeting">
-                <h2>Good morning,<h2>
-                <h3 class="h1-summary-user-name">Sofia Müller</h3>
+                <h2 class="greeting-text"></h2>
+                <h3 class="greeting-user-name h1-summary-user-name"></h3>
               </div>
           </div>
       </div>
       </div>
+    </div>
         </section>
 
       <section class="navbar-mobile">
@@ -218,7 +230,6 @@
           </div>
       </section>
   </main>
-
 </body>
 
 </html>

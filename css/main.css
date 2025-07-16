@@ -27,12 +27,11 @@ h3 {
   font-weight: 400;
 }
 
-/* body {
-  height: 100%;
-  width: 100vw;
-  overflow: auto;
-  background-color: #f6f7f8;
-} */
+.subtitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
 
 main {
   height: 100vh;
@@ -97,21 +96,48 @@ main {
 }
 
 /* blue font color on Help and Legal Notice Pages */
+.flex-row-layout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flex-spacebtw-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .color-blue {
   color: #29abe2;
 }
 
-/* Padding for Content in Help and Legal Notice Pages */
 .content {
   background-color: #F6F7F8;
   padding: 24px 48px;
   position: relative;
   overflow: hidden;
+  flex: 1;
+  overflow: auto;
+}
+
+.textbox {
+  max-width: 1080px;
+  width: 100%;
+}
+
+ol {
+  margin-left: 24px;
+}
+
+li::marker {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 @media (max-width: 1500px) {
   .content {
-    padding: 24px 24px;
+    padding: 24px 40px;
   }
 
   h1 {
@@ -121,7 +147,7 @@ main {
 
 @media (max-width: 1200px) {
   .content {
-    padding: 40px;
+    padding: 24px 24px;
   }
 }
 
@@ -130,7 +156,6 @@ main {
     overflow-y: scroll;
   }
 
-  .board::-webkit-scrollbar,
   .content::-webkit-scrollbar {
     width: 10px;
   }
@@ -180,5 +205,15 @@ main {
 
   h3 {
     font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 375px) {
+  h1 {
+    font-size: 40px;
   }
 }

@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="../assets/img/logo.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/help.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
@@ -16,7 +15,7 @@
     <script src="../js/main.js"></script>
 </head>
 
-<body onload="initProfile()">
+<body onload="initProfile(), initUnauthUser()">
     <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
         <div class="profile-menu" onclick="event.stopPropagation()">
             <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
@@ -39,35 +38,38 @@
             <div class="navigate-btn-wrapper">
                 <button onclick="openPage('summary.html')" class="btn-menu">
                     <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary">
                     </div>
                     <span>Summary</span>
                 </button>
-
                 <button onclick="openPage('addTask.html')" class="btn-menu ">
                     <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task">
                     </div>
                     <span>Add Task</span>
                 </button>
-
                 <button onclick="openPage('board.html')" class="btn-menu">
                     <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board">
                     </div>
                     <span>Board</span>
                 </button>
-
                 <button onclick="openPage('contacts.html')" class="btn-menu">
                     <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts">
                     </div>
                     <span>Contacts</span>
                 </button>
+                <button onclick="openPage('../index.html')" class="btn-menu d-none" id="menu-login-btn">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-login.svg" alt="login">
+                    </div>
+                    <span>Log in</span>
+                </button>
             </div>
             <div class="legal-informations-wrapper">
-                <a class="" href="privacy-policy.html">Privacy Policy</a>
-                <a class="" href="legal-notice.html">Legal Notice</a>
+                <a class="a-menu" href="privacy-policy.html">Privacy Policy</a>
+                <a class="a-menu" href="legal-notice.html">Legal Notice</a>
             </div>
         </nav>
     </aside>
@@ -76,17 +78,14 @@
             <div class="hug-wrapper">
                 <div class="logo-kanban-text-wrapper">
                     <img class="logo-blue" src="../assets/img/logo.svg" alt="Join Logo">
-                    <span class="kanban-text">
-                        Kanban Project Management Tool</span>
+                    <span class="kanban-text">Kanban Project Management Tool</span>
                 </div>
                 <div class="help-and-profile">
-
-                    <button id="help-btn" class="btn-small" onclick="openPage('help.html')">
+                    <button id="help-btn" class="btn-small d-none" onclick="openPage('help.html')">
                         <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
                         <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
                     </button>
-
-                    <button class="btn-profile" onclick="toggleProfileMenu()">
+                    <button id="btn-profile" class="btn-profile" onclick="toggleProfileMenu()">
                         <span id="profile"></span>
                     </button>
                 </div>
@@ -94,159 +93,141 @@
         </section>
 
         <section class="content">
-            <div style="display: flex; flex-direction: column; flex-shrink: 0;">
-                <div class="headling-back-arrow-wrapper">
-                    <h1>Help</h1>
-                    <button onclick="history.back()" class="btn-small">
-                        <img class="icon-default" src="../assets/img/icon-back-default.svg">
-                        <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
-                    </button>
-                </div>
-                <br>
-                <p> Welcome to the help page for <span class="color-blue">Join</span> , your
-                    guide
-                    to using our
-                    kanban
-                    project
-                    management tool. Here, we'll
-                    provide an overview of what <span class="color-blue">Join</span> is, how
-                    it
-                    can benefit you,
-                    and
-                    how to use it.
+            <div class="flex-spacebtw-layout">
+                <h1>Help</h1>
+                <button onclick="history.back()" class="btn-small">
+                    <img class="icon-default" src="../assets/img/icon-back-default.svg">
+                    <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
+                </button>
+            </div>
+            <br>
+            <div class="textbox">
+                <p>
+                    Welcome to the help page for <span class="color-blue">Join</span> , your guide to using our kanban project management tool. 
+                    Here, we'll provide an overview of what <span class="color-blue">Join</span> is, how it can benefit you, and how to use it.
                 </p>
                 <br>
-                <h2><b>What is Join?</b></h2>
-                <br>
-                <p> <span class="color-blue">Join</span> is a kanban-based project
-                    management tool designed and
-                    built
-                    by a group of
-                    dedicated students as part
-                    of their web development bootcamp at the <span class="color-blue">Developer Akademie</span>.
+                <h3 class="subtitle">What is Join?</h3>
+                <p>
+                    <span class="color-blue">Join</span> is a kanban-based project
+                    management tool designed and built by a group of dedicated students as part of their web development bootcamp at the <span class="color-blue">Developer Akademie</span>.
                 </p>
                 <br>
-                <p> Kanban, a Japanese term meaning "billboard," is a highly effective method to visualize work, limit
-                    work-in-progress, and maximize efficiency (or flow). <span class="color-blue">Join</span>
-                    leverages the
-                    principles of kanban to help users
+                <p>
+                    Kanban, a Japanese term meaning "billboard," is a highly effective method to visualize work, 
+                    limit work-in-progress, and maximize efficiency (or flow). <span class="color-blue">Join</span> leverages the principles of kanban to help users
                     manage their tasks and projects in an intuitive, visual interface.
                 </p>
                 <br>
-                <p> It is important to note that <span class="color-blue">Join</span> is
-                    designed as an
-                    educational
-                    exercise and is
-                    not intended for extensive
-                    business usage. While we strive to ensure the best possible user experience, we cannot guarantee
-                    consistent
-                    availability, reliability, accuracy, or other aspects of quality regarding <span
-                        class="color-blue">Join</span>.
+                <p> 
+                    It is important to note that <span class="color-blue">Join</span> is designed as an educational exercise and is not intended for extensive business usage. 
+                    While we strive to ensure the best possible user experience, we cannot guarantee consistent availability, reliability, accuracy, 
+                    or other aspects of quality regarding <span class="color-blue">Join</span>.
                 </p>
                 <br>
-                <h2><b>How to use it</b></h2>
-                <span> Here is a step-by-step guide on how to use <span class="color-blue">Join</span>:
-                </span>
-                <br>
+                <h3 class="subtitle">How to use it</h3>
+                <p>
+                    Here is a step-by-step guide on how to use <span class="color-blue">Join</span>:
+                </p>
                 <br>
                 <ol>
                     <li>
-                        <h3><b>Exploring the Board </b></h3>
-                        <p> When you log in to <span class="color-blue">Join</span>, you'll
-                            find a default
-                            board. This
-                            board represents your project and contains four
-                            default lists: "To Do", "In Progress", "Await feedback" and "Done".
+                        <h3 class="subtitle">Exploring the Board</h3>
+                        <p>
+                            When you log in to <span class="color-blue">Join</span>, you'll find a default board.
+                            This board represents your project and contains four default lists: "To Do", "In Progress", "Await feedback" and "Done".
                         </p>
                         <br>
                     </li>
                     <li>
-                        <h3><b>Creating Contacts</b></h3>
-                        <p> In <span class="color-blue">Join</span>, you can add contacts
-                            to collaborate on
-                            your
-                            projects. Go to the "Contacts" section, click on "New
-                            contact", and fill in the required information. Once added, these contacts can be assigned
-                            tasks
-                            and
-                            they can interact with the tasks on the board.
+                        <h3 class="subtitle">Creating Contacts</h3>
+                        <p> 
+                            In <span class="color-blue">Join</span>, you can add contacts to collaborate on your projects. 
+                            Go to the "Contacts" section, click on "New contact", and fill in the required information. 
+                            Once added, these contacts can be assigned tasks and they can interact with the tasks on the board.
                         </p>
                         <br>
                     </li>
                     <li>
-                        <h3><b>Adding Cards</b></h3>
-                        <p>Now that you've added your contacts, you can start adding cards. Cards represent individual
-                            tasks. Click
-                            the "+" button under the appropriate list to create a new card. Fill in the task details in
-                            the
-                            card, like
-                            task name, description, due date, assignees, etc.</p>
-                        <br>
-                    </li>
-                    <li>
-                        <h3><b>Moving Cards</b></h3>
-                        <p> As the task moves from one stage to another, you can reflect that on the board by dragging
-                            and
-                            dropping
-                            the card from one list to another.
+                        <h3 class="subtitle">Adding Cards</h3>
+                        <p>
+                            Now that you've added your contacts, you can start adding cards. 
+                            Cards represent individual tasks. Click the "+" button under the appropriate list to create a new card. 
+                            Fill in the task details in the card, like task name, description, due date, assignees, etc.
                         </p>
                         <br>
                     </li>
                     <li>
-                        <h3><b>Deleting Cards</b></h3>
-                        <p> Once a task is completed, you can either move it to the "Done" list or delete it. Deleting a
-                            card will
-                            permanently remove it from the board. Please exercise caution when deleting cards, as this
-                            action is
-                            irreversible.
+                        <h3 class="subtitle">Moving Cards</h3>
+                        <p> 
+                            As the task moves from one stage to another, you can reflect that on the board by dragging and dropping the card from one list to another.
                         </p>
                         <br>
-                        <p> Remember that using <span class="color-blue">Join</span>
-                            effectively requires
-                            consistent
-                            updates from you and your team to ensure the board reflects the current state of your
-                            project.
+                    </li>
+                    <li>
+                        <h3 class="subtitle">Deleting Cards</h3>
+                        <p> 
+                            Once a task is completed, you can either move it to the "Done" list or delete it.
+                            Deleting a card will permanently remove it from the board. 
+                            Please exercise caution when deleting cards, as this action is irreversible.
                         </p>
                         <br>
-                        <p> Have more questions about <span class="color-blue">Join</span>?
-                            Feel free to contact
-                            us at
-                            [email]. We're here
-                            to help you!</p>
-                        <br>
-                        <br>
+                        
                     </li>
                 </ol>
-                <span class="enjoy-text">Enjoy using Join! </span>
                 <br>
+                <p> 
+                    Remember that using <span class="color-blue">Join</span> effectively requires consistent updates from you and your team to 
+                    ensure the board reflects the current state of your project.
+                </p>
+                <br>
+                <p> 
+                    Have more questions about <span class="color-blue">Join</span>? Feel free to contact us at [email]. We're here to help you!
+                </p>
+                <br>
+                <h3 class="subtitle">Enjoy using <span class="color-blue">Join!</span></h3>
             </div>
         </section>
         <section class="navbar-mobile">
             <div class="navbar-mobile-wrapper">
                 <button onclick="openPage('summary.html')" class="btn-menu-mobile">
                     <div class="">
-                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary">
                     </div>
                     <span>Summary</span>
                 </button>
                 <button onclick="openPage('addTask.html')" class="btn-menu-mobile ">
                     <div class="">
-                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task">
                     </div>
                     <span>Add Tasks</span>
                 </button>
                 <button onclick="openPage('board.html')" class="btn-menu-mobile">
                     <div class="">
-                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board">
                     </div>
                     <span>Board</span>
                 </button>
                 <button onclick="openPage('contacts.html')" class="btn-menu-mobile">
                     <div class="">
-                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts">
                     </div>
                     <span>Contacts</span>
                 </button>
+                <button onclick="openPage('../index.html')" class="btn-menu-mobile d-none unauth-menu-btn">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-login.svg" alt="contacts">
+                    </div>
+                    <span>Log in</span>
+                </button>
+                <div id="unauth-menu-btn-wrapper" class="flex-row-layout d-none">
+                    <button onclick="openPage('privacy-policy.html')" class="btn-menu-mobile d-none unauth-menu-btn">
+                        <span>Private Policy</span>
+                    </button>
+                    <button onclick="openPage('legal-notice.html')" class="btn-menu-mobile d-none unauth-menu-btn">
+                        <span>Legal Notice</span>
+                    </button>
+                </div>
             </div>
         </section>
     </main>

@@ -15,7 +15,7 @@
     <script src="../js/main.js"></script>
 </head>
 
-<body onload="initProfile()">
+<body onload="initProfile(), initUnauthUser()">
     <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
         <div class="profile-menu" onclick="event.stopPropagation()">
             <button onclick="openPage('help.html')" id="profile-menu-help-btn" class="btn-menu">
@@ -38,35 +38,38 @@
             <div class="navigate-btn-wrapper">
                 <button onclick="openPage('summary.html')" class="btn-menu">
                     <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary">
                     </div>
                     <span>Summary</span>
                 </button>
-
                 <button onclick="openPage('addTask.html')" class="btn-menu ">
                     <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task">
                     </div>
                     <span>Add Task</span>
                 </button>
-
                 <button onclick="openPage('board.html')" class="btn-menu">
                     <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board">
                     </div>
                     <span>Board</span>
                 </button>
-
                 <button onclick="openPage('contacts.html')" class="btn-menu">
                     <div class="icon-wrapper">
-                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts">
                     </div>
                     <span>Contacts</span>
                 </button>
+                <button onclick="openPage('../index.html')" class="btn-menu d-none" id="menu-login-btn">
+                    <div class="icon-wrapper">
+                        <img class="icon-default" src="../assets/img/icon-login.svg" alt="login">
+                    </div>
+                    <span>Log in</span>
+                </button>
             </div>
             <div class="legal-informations-wrapper">
-                <a class="" href="privacy-policy.html">Privacy Policy</a>
-                <a class="" href="legal-notice.html">Legal Notice</a>
+                <a class="a-menu menu-active" href="privacy-policy.html">Privacy Policy</a>
+                <a class="a-menu" href="legal-notice.html">Legal Notice</a>
             </div>
         </nav>
     </aside>
@@ -75,51 +78,102 @@
             <div class="hug-wrapper">
                 <div class="logo-kanban-text-wrapper">
                     <img class="logo-blue" src="../assets/img/logo.svg" alt="Join Logo">
-                    <span class="kanban-text">
-                        Kanban Project Management Tool</span>
+                    <span class="kanban-text">Kanban Project Management Tool</span>
                 </div>
                 <div class="help-and-profile">
-
                     <button id="help-btn" class="btn-small" onclick="openPage('help.html')">
-                        <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
-                        <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
+                        <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help">
+                        <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help">
                     </button>
-
-                    <button class="btn-profile" onclick="toggleProfileMenu()">
+                    <button id="btn-profile" class="btn-profile" onclick="toggleProfileMenu()">
                         <span id="profile"></span>
                     </button>
                 </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="textbox">
+                <h1>Privay Policy</h1>
+                <br>
+                <h3 class="subtitle">Introduction</h3>
+                <p>
+                    Protecting your personal data is very important to us. We process your data exclusively on the basis of the applicable legal provisions (GDPR, TKG).
+                    In this privacy policy, we inform you about the most important aspects of data processing on our website.
+                </p>
+                <br>
+                <h3 class="subtitle">Collection and Processing of Personal Data</h3>
+                <p>
+                    We collect, process, and use your personal data only with your consent or if a legal basis exists.
+                    Personal data includes your name, email address, phone number, IP address, and any other information that can be linked to your identity.
+                    These details may be collected, for example, when you fill out a contact form, register on the website, or use certain services.
+                </p>
+                <br>
+                <h3 class="subtitle">Purpose of Data Processing</h3>
+                <p>
+                    The data you provide will be used for the following purposes: 
+                    to provide our services, to communicate with you, to improve our website and services, and to comply with legal obligations.
+                    Your data will only be shared with third parties if necessary for contract fulfillment or if you have given your explicit consent.
+                </p>
+                <br>
+                <h3 class="subtitle">Cookies and Tracking Technologies</h3>
+                <p>
+                    Our website uses cookies to provide a user-friendly experience and to optimize usability. Cookies are small text files stored on your device.
+                    You can restrict or disable the use of cookies through your browser settings. Please note that doing so may affect the functionality of the website.
+                </p>
+                <br>
+                <h3 class="subtitle">Your Rights</h3>
+                <p>
+                    You have the right to access your stored personal data at any time, including information about their origin, recipient, and the purpose of processing.
+                    You also have the right to rectify, restrict, transfer, withdraw, or delete this data.
+                    If you believe that the processing of your data violates data protection law, you can file a complaint with the relevant supervisory authority.
+                </p>
+                <br>
+                <h3 class="subtitle">Contact</h3>
+                <p>
+                    If you have any questions about privacy or would like to exercise your rights, please contact us using the contact details provided in the legal notice (imprint).
+                </p>
             </div>
         </section>
         <section class="navbar-mobile">
             <div class="navbar-mobile-wrapper">
                 <button onclick="openPage('summary.html')" class="btn-menu-mobile">
                     <div class="">
-                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary icon">
+                        <img class="icon-default" src="../assets/img/icon-summary.svg" alt="summary">
                     </div>
                     <span>Summary</span>
                 </button>
-
                 <button onclick="openPage('addTask.html')" class="btn-menu-mobile ">
                     <div class="">
-                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
+                        <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task">
                     </div>
                     <span>Add Tasks</span>
                 </button>
-
                 <button onclick="openPage('board.html')" class="btn-menu-mobile">
                     <div class="">
-                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board icon">
+                        <img class="icon-default" src="../assets/img/icon-board.svg" alt="board">
                     </div>
                     <span>Board</span>
                 </button>
-
                 <button onclick="openPage('contacts.html')" class="btn-menu-mobile">
                     <div class="">
-                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
+                        <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts">
                     </div>
                     <span>Contacts</span>
                 </button>
+                <button onclick="openPage('../index.html')" class="btn-menu-mobile d-none unauth-menu-btn">
+                    <div class="">
+                        <img class="icon-default" src="../assets/img/icon-login.svg" alt="contacts">
+                    </div>
+                    <span>Log in</span>
+                </button>
+                <div id="unauth-menu-btn-wrapper" class="flex-row-layout d-none">
+                    <button onclick="openPage('privacy-policy.html')" class="btn-menu-mobile menu-active d-none unauth-menu-btn">
+                        <span>Private Policy</span>
+                    </button>
+                    <button onclick="openPage('legal-notice.html')" class="btn-menu-mobile d-none unauth-menu-btn">
+                        <span>Legal Notice</span>
+                    </button>
+                </div>
             </div>
         </section>
     </main>
