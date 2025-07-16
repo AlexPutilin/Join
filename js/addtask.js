@@ -393,11 +393,9 @@ function showAddTaskNotification() {
   notificationElement.addEventListener('animationend', () => {
     notificationElement.remove();
   });
-  // renderAllTasks();
 }
 
-async function addTaskBoard(status = 'to-do') {
-  prepareTaskData(status);
+async function addTaskBoard() {
   overlayRef.classList.remove('d-none');
   //  let closeBtn = document.getElementsByClassName('btn-small');
   // closeBtn.classList.remove('hidden');
