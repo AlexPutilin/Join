@@ -381,7 +381,7 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
 }
 
 
- async function getTaskCardTemplate(task, shortTitle, shortDescription, subtasksProgress) {
+async function getTaskCardTemplate(task, shortTitle, shortDescription, subtasksProgress) {
   const onlyInitials = await getInitialsOnly(task);
   return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <div class="label-wrapper"><span class="label ${getBgCategory(task.category)}">${task.category}</span></div>
@@ -405,7 +405,7 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
  * @returns {string} - HTML-Template representing the task detail view.
  */
 async function getOverviewTemplate(task) {
-const assignedToContent = await getAssignedToContent(task);
+  const assignedToContent = await getAssignedToContent(task);
   return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
                     <div class="card-overview-header">
                         <span class="label ${getBgCategory(task.category)}">${task.category}</span>
@@ -473,11 +473,11 @@ function getPriority(task) {
  * @returns {string} - Returns Subtasks Container
  */
 function getSubtasksContent(task) {
-    if(getSubtasksTemplate(task)){
-        return `<div><span class="font-color-grey">Subtasks:</span>${getSubtasksTemplate(task)}</div>`;
-    } else{
-        return "";
-    }
+  if (getSubtasksTemplate(task)) {
+    return `<div><span class="font-color-grey">Subtasks:</span>${getSubtasksTemplate(task)}</div>`;
+  } else {
+    return "";
+  }
 }
 
 /**
@@ -485,8 +485,8 @@ function getSubtasksContent(task) {
  * @param {String} message 
  * @returns HTML structure for placeholder box
  */
-function noTasksContainer(message){
-    return `<div class="placeholder-box-no-task"><p class="no-tasks-text">${message}</p></div>`;
+function noTasksContainer(message) {
+  return `<div class="placeholder-box-no-task"><p class="no-tasks-text">${message}</p></div>`;
 }
 
 /**
@@ -495,7 +495,7 @@ function noTasksContainer(message){
  * @returns HTML structure for user initials
  */
 function getInitialIcons(contact) {
-    return `<div class="contact-icon initial-icon" style="background-color: ${contact.color};">${contact.initial}</div>`;
+  return `<div class="contact-icon initial-icon" style="background-color: ${contact.color};">${contact.initial}</div>`;
 
 }
 
@@ -504,13 +504,13 @@ function getInitialIcons(contact) {
  * @param {Number} remainingCount - indicates the number of remaining users
  * @returns HTML structure for remaining number of users
  */
-function getOverflowNumberIcon(remainingCount){
-    return `<div class="more-icon font-color-grey">+${remainingCount}</div>`;
+function getOverflowNumberIcon(remainingCount) {
+  return `<div class="more-icon font-color-grey">+${remainingCount}</div>`;
 }
 
 
 function getInitialsWithNamesTemplate(contact) {
-    return `<div class="names-wrapper">
+  return `<div class="names-wrapper">
                 <div class="contact-icon" style="background-color: ${contact.color};">${contact.initial}</div>
                 <span class="contact-name contact-name-board">${contact.name}</span>
             </div>`;
@@ -518,13 +518,13 @@ function getInitialsWithNamesTemplate(contact) {
 
 
 function getAssignedToContentTemplate(initialsWithName) {
-    return `<div>
+  return `<div>
                 <span class="font-color-grey">Assigned To:</span>
                   <div class="initials-container">
                      <div class="initials-wrapper">${initialsWithName} </div>
                   </div>
             </div>`;
-} 
+}
 
 
 /**
