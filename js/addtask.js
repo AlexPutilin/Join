@@ -287,10 +287,9 @@ function getSelectedContactIds() {
  */
 function prepareTaskData() {
   const taskData = getInputData('#add-task-form');
-  const ids = getSelectedContactIds(); 
-  taskData.assigned_to = ids
-    .map(id => contactsById[id]?.name)
-    .filter(Boolean);
+  const ids = getSelectedContactIds();
+  const names = ids.map(id => contactsById[id]?.name).filter(Boolean);
+  taskData.assigned_to = names.join(', '); 
   taskData.status = 'to-do';
   const subtasks = getSubtasksFromDOM();
   if (Object.keys(subtasks).length) {
