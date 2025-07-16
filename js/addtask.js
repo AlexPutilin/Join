@@ -81,10 +81,7 @@ function setupCreateButtonListeners() {
  * @returns {string} A comma-separated string of contact names.
  */
 function mapContactIdsToNames(contactIds) {
-  return contactIds
-    .map(id => contactsById[id]?.name)
-    .filter(Boolean)
-    .join(', ');
+  return contactIds.map(id => contactsById[id]?.name).filter(Boolean).join(', ');
 }
 
 /**
@@ -107,7 +104,6 @@ function prepareTaskData() {
   if (Object.keys(subtasks).length > 0) {
     taskData.subtasks = subtasks;
   }
-
   return taskData;
 }
 
@@ -121,7 +117,9 @@ async function addTask() {
   if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData();
   await submitTaskData(taskData);
+  await refreshBoardContainer();
   closeOverlay();
+
 }
 
 /**
@@ -248,9 +246,11 @@ function showAddTaskNotification() {
   notificationElement.addEventListener('animationend', () => {
     notificationElement.remove();
   });
+  // renderAllTasks();
 }
 
-function addTaskBoard() {
+async function addTaskBoard(status = 'to-do') {
+  prepareTaskData(status);
   overlayRef.classList.remove('d-none');
   //  let closeBtn = document.getElementsByClassName('btn-small');
   // closeBtn.classList.remove('hidden');
@@ -259,6 +259,11 @@ function addTaskBoard() {
  
                            
                           </div>`;
-  addTask();
   clearAddTaskForm();
+
+}
+
+async function refreshBoardContainer() {
+  await tasksToArray();
+  await renderAllTasks(allTasks);
 }

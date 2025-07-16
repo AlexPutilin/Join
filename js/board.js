@@ -192,7 +192,7 @@ function moveByTouch(draggables) {
         draggable.addEventListener('touchmove', (event) => {
             event.preventDefault();
             updateTouchPosition(e.touches[0]);
-            const touch = e.touches[0];
+            const touch = event.touches[0];
             const target = document.elementFromPoint(touch.clientX, touch.clientY);
             const dropZone = target?.closest('.drag-drop-container');
             if (dropZone) {
@@ -212,7 +212,7 @@ function moveByTouch(draggables) {
                     dropZone.appendChild(placeholder);
                 }
             }
-        }, { passive: false });
+        }, { passive: true });
     });
 }
 
@@ -344,6 +344,12 @@ async function deleteAndUpdateTasks(taskID) {
 }
 
 function hasAssignedContacts(task) {
+    // console.log(allTasks);
+    // allTasks.forEach((task, index) => {
+    //     console.log(`Task ${index}:`, task.assigned_to);
+    // });
+    // const assignedToList = allTasks.map(task => task.assigned_to);
+    // console.log(assignedToList);
     return task.assigned_to && task.assigned_to.trim() !== "";
 }
 
@@ -355,7 +361,7 @@ function hasAssignedContacts(task) {
  */
 async function getContactsForTask(task) {
     // console.log("Contacts-Array:", contacts);
-    if (!hasAssignedContacts(task)) {
+    if (hasAssignedContacts(task)) {
         return [];
     } else {
         const assignedNames = task.assigned_to.split(",").map(name => name.trim().toLowerCase());
@@ -372,7 +378,7 @@ async function getContactsForTask(task) {
 
 
 async function getContactDisplayData(task) {
-    if (!hasAssignedContacts(task)) {
+    if (hasAssignedContacts(task)) {
         return [];
     } else {
         const names = task.assigned_to.split(",").map(name => name.trim());
