@@ -156,6 +156,13 @@
 
 .task-description-short {
     color: #cecece;
+    overflow-wrap: break-word;
+    /* word-break: break-word; */
+}
+
+.task-description {
+    overflow-wrap: break-word;
+    /* word-break: break-word; */
 }
 
 .task-progress-container {

@@ -198,9 +198,9 @@ form>div {
 }
 
 @media (max-width: 1024px) {
-    .logo {
+    /* .logo {
         width: 192px;
-    }
+    } */
 
     .splash-screen {
         background-color: #2A3647;
@@ -208,9 +208,9 @@ form>div {
 }
 
 @media (max-width: 768px) {
-    .logo {
+    /* .logo {
         width: 168px;
-    }
+    } */
 
     .logo--moved {
         left: 36px;
@@ -251,8 +251,12 @@ form>div {
 }
 
 @media (max-width: 520px) {
-    .logo {
+    /* .logo {
         width: 140px;
+    } */
+
+    header {
+        padding: 36px 36px 16px 36px;
     }
 
     form {
@@ -260,21 +264,24 @@ form>div {
     }
 
     .cta-container {
-        z-index: 997;
         width: 100%;
-        position: fixed;
-        bottom: 0;
-        left: 0;
         display: flex;
         justify-content: center;
-        padding: 5rem 0;
+        padding: 1rem 0;
+        margin-top: 2rem;
+    }
+
+    .cta-container div {
+        display: flex;
+        align-items: center;
+        gap: 16px;
     }
 }
 
 @media (max-width: 350px) {
-    .logo {
+    /* .logo {
         width: 120px;
-    }
+    } */
 
     form {
         padding: 32px 0;
