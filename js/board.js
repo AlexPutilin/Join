@@ -350,8 +350,9 @@ function hasAssignedContacts(task) {
     // });
     // const assignedToList = allTasks.map(task => task.assigned_to);
     // console.log(assignedToList);
-    return task.assigned_to && task.assigned_to.trim() !== "";
+    return typeof task.assigned_to === "string" && task.assigned_to.trim() !== "";
 }
+
 
 /**
  * 
@@ -361,7 +362,7 @@ function hasAssignedContacts(task) {
  */
 async function getContactsForTask(task) {
     // console.log("Contacts-Array:", contacts);
-    if (hasAssignedContacts(task)) {
+    if (!hasAssignedContacts(task)) {
         return [];
     } else {
         const assignedNames = task.assigned_to.split(",").map(name => name.trim().toLowerCase());
@@ -378,7 +379,7 @@ async function getContactsForTask(task) {
 
 
 async function getContactDisplayData(task) {
-    if (hasAssignedContacts(task)) {
+    if (!hasAssignedContacts(task)) {
         return [];
     } else {
         const names = task.assigned_to.split(",").map(name => name.trim());
@@ -418,13 +419,16 @@ async function getInitialsOnly(task) {
 
 async function getInitialsWithNames(task) {
     const displayData = await getContactDisplayData(task);
+    let resultIconWithName = "";
     for (let i = 0; i < displayData.length; i++) {
         const contact = displayData[i];
         if (contact) {
-            return getInitialsWithNamesTemplate(contact);
+            resultIconWithName += getInitialsWithNamesTemplate(contact);
         }
     }
+    return resultIconWithName;
 }
+
 
 
 async function getAssignedToContent(task) {
