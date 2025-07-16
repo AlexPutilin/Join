@@ -66,15 +66,6 @@ function initializeAddTaskPage() {
     enablePrioritySelection();
   }
 
-/**
- * Renders the input field for adding subtasks by injecting the corresponding template.
- */
-function renderSubtaskInput() {
-  const subtaskWrapper = document.getElementById('subtask-wrapper-template');
-  if (!subtaskWrapper) return;
-  subtaskWrapper.innerHTML = getSubtaskInputTemplate();
-}
-
 
 function initCategoryInteractions(wrapper) {
   const inputWrapper = wrapper.querySelector('.input-wrapper');
@@ -240,6 +231,15 @@ function renderAssignedChips() {
 }
 
 /**
+ * Renders the input field for adding subtasks by injecting the corresponding template.
+ */
+function renderSubtaskInput() {
+  const subtaskWrapper = document.getElementById('subtask-wrapper-template');
+  if (!subtaskWrapper) return;
+  subtaskWrapper.innerHTML = getSubtaskInputTemplate();
+}
+
+/**
  * Extracts all subtasks currently entered in the DOM.
  *
  * @returns {Object.<string, {title: string, done: boolean}>} An object of subtasks indexed by key.
@@ -280,17 +280,28 @@ function getSelectedContactIds() {
   );
 }
 
+function getStatusFromButtonId(buttonId) {
+  let status = 'to-do';              
+  if (buttonId === 'in-progress-btn') {
+    status = 'in-progress';
+  }
+  else if (buttonId === 'await-feedback-btn') {
+    status = 'await-feedback';
+  }
+  return status;
+}
+
 /**
  * Bereitet alle Task‐Daten vor, inkl. assigned_to aus contactsById.
  *
  * @returns {Object} Das fertige Task‐Objekt
  */
-function prepareTaskData() {
+function prepareTaskData(status) {
   const taskData = getInputData('#add-task-form');
   const ids = getSelectedContactIds();
   const names = ids.map(id => contactsById[id]?.name).filter(Boolean);
   taskData.assigned_to = names.join(', '); 
-  taskData.status = 'to-do';
+  taskData.status = status;
   const subtasks = getSubtasksFromDOM();
   if (Object.keys(subtasks).length) {
     taskData.subtasks = subtasks;
@@ -300,18 +311,14 @@ function prepareTaskData() {
 /**
  * Speichert den Task, nachdem validateFormBeforeSubmit() grünes Licht gibt.
  */
-async function addTask() {
+async function addTask(status = 'to-do') {
   if (!validateFormBeforeSubmit()) return;
-  const taskData = prepareTaskData();
-  try {
+  const taskData = prepareTaskData(status);
     await postData('/board/tasks', taskData);
     console.info('addTask: Task erfolgreich gespeichert.');
     clearAddTaskForm();
     showAddTaskNotification();
-  } catch (error) {
-    console.error('Fehler beim Speichern des Tasks:', error);
-  }
-}
+  } 
 
 /**
  * Validates the Add Task form before submission.
