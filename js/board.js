@@ -162,14 +162,14 @@ function enableTaskDragging() {
 
 function enableTaskDraggingByTouch(draggables) {
     draggables.forEach(draggable => {
-        draggable.addEventListener('touchstart', (e) => {
+        draggable.addEventListener('touchstart', (event) => {
             currentDraggedElement = draggable.id;
             draggable.classList.add('dragging');
             document.body.classList.add('drag-active');
             touchClone = draggable.cloneNode(true);
             touchClone.classList.add('touch-clone');
             document.body.appendChild(touchClone);
-            updateTouchPosition(e.touches[0]);
+            updateTouchPosition(event.touches[0]);
         });
         draggable.addEventListener('touchend', async () => {
             if (touchClone) touchClone.remove();
@@ -191,7 +191,7 @@ function moveByTouch(draggables) {
     draggables.forEach(draggable => {
         draggable.addEventListener('touchmove', (event) => {
             event.preventDefault();
-            updateTouchPosition(e.touches[0]);
+            updateTouchPosition(event.touches[0]);
             const touch = event.touches[0];
             const target = document.elementFromPoint(touch.clientX, touch.clientY);
             const dropZone = target?.closest('.drag-drop-container');
