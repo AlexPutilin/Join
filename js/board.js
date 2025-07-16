@@ -3,6 +3,7 @@ let currentDraggedElement;
 let currentSourceContainer;
 let touchClone;
 let touchCurrentTarget;
+let activeBoardCard;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
 const overlayRef = document.getElementById('overlay');
@@ -321,6 +322,7 @@ async function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength,
  */
 async function showOverview(id) {
     const task = allTasks.find(t => t.id.toString() === id.toString());
+    activeBoardCard = task;
     overlayRef.classList.remove('d-none');
     overlayRef.innerHTML = await getOverviewTemplate(task);
 }
@@ -537,4 +539,12 @@ async function filterAndShowTasks(filterTask) {
     } else {
         await renderAllTasks(allTasks);
     }
+}
+
+
+
+function switchToTaskEditmode() {
+    overlayRef.innerHTML = getOverviewEditmodeTemplate(activeBoardCard);
+    console.log(activeBoardCard);
+    
 }
