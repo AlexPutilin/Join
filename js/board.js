@@ -13,6 +13,7 @@ placeholder.classList.add('drop-placeholder');
 
 async function initBoard() {
     initProfile();
+    // redirectIfNotLoggedIn();
     await loadContacts();
     await tasksToArray();
 }
@@ -552,5 +553,16 @@ async function filterAndShowTasks(filterTask) {
 function switchToTaskEditmode() {
     overlayRef.innerHTML = getOverviewEditmodeTemplate(activeBoardCard);
     console.log(activeBoardCard);
-    
+    setPriorityValue("#edit-task-form")
+}
+
+
+function setPriorityValue(form) {
+    const inputs = document.querySelectorAll(`${form} input[name="priority"]`);
+    const priority = activeBoardCard.priority;
+    inputs.forEach(input => {
+        if(input.value === priority) {
+            input.checked = true;
+        }
+    });
 }
