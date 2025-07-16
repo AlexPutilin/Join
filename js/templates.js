@@ -462,7 +462,7 @@ async function getOverviewTemplate(task) {
                             </div>
                         </button>
                         <div class="beam"></div>
-                        <button class="btn-small" onclick="editTask()">
+                        <button class="btn-small" onclick="switchToTaskEditmode()">
                             <div class="icon-wrapper">
                                 <img class="icon-default" src="../assets/img/icon-edit-default.svg">
                                 <img class="icon-hover" src="../assets/img/icon-edit-hover-variant-2.svg">
@@ -471,6 +471,61 @@ async function getOverviewTemplate(task) {
                         </button>
                     </div>
                 </div>`;
+}
+
+
+function getOverviewEditmodeTemplate(task) {
+  return `
+    <div class="card-overview" onclick="eventBubblingProtection(event)">
+      <form id="edit-task-form">
+        <div class="input-wrapper">
+          <label for="">Title</label>
+          <div class="input-area">
+              <input type="text" name="title" placeholder="Enter a title" value="${task.title}" oninput="resetInputError()">
+          </div>
+          <span class="err-msg hidden">Invalid input.</span>
+        </div>
+        <div class="input-wrapper">
+          <label>Description</label>
+          <textarea name="description" placeholder="Enter a description" value="${task.description_full}" rows="3"></textarea>
+          <span class="err-msg hidden">Invalid input.</span>
+        </div>
+        <div class="input-wrapper">
+          <label for="">Due date</label>
+          <div class="input-area">
+              <input type="date" name="date">
+          </div>
+          <span class="err-msg hidden">Not a valid date.</span>
+        </div>
+        <div class="priority-buttons-wrapper">
+          <label class="priority-option urgent">
+            <input type="radio" name="priority" value="urgent" hidden>
+            <span>Urgent</span>
+            <img src="../assets/img/icon-prio-urgent.svg">
+            <div class="bg-checked"></div>
+            <span class="err-msg hidden">Invalid input.</span>
+          </label>
+          <label class="priority-option medium">
+            <input type="radio" name="priority" value="medium" hidden>
+            <span>Medium</span>
+            <img src="../assets/img/icon-prio-medium.svg">
+            <div class="bg-checked"></div>
+            <span class="err-msg hidden">Invalid input.</span>
+          </label>
+          <label class="priority-option low">
+            <input type="radio" name="priority" value="low" hidden>
+            <span>Low</span>
+            <img src="../assets/img/icon-prio-low.svg">
+            <div class="bg-checked"></div>
+            <span class="err-msg hidden">Invalid input.</span>
+          </label>
+        </div>
+      </form>
+      <button class="btn-dark">
+        <span>OK</span>
+      </button>
+    </div>
+  `
 }
 
 
@@ -557,7 +612,6 @@ function getAssignedToContentTemplate(initialsWithName) {
  */
 function getAddTaskFormTemplate() {
   return `
-    
     <div class="add-task-form">
       <form id="add-task-form">
         <div class="add-task-container">
