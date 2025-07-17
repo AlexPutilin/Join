@@ -168,6 +168,11 @@ function enableTaskDraggingByTouch(draggables) {
             document.body.classList.add('drag-active');
             touchClone = draggable.cloneNode(true);
             touchClone.classList.add('touch-clone');
+            const rect = draggable.getBoundingClientRect();
+            touchClone.style.width = rect.width + 'px';
+            touchClone.style.height = rect.height + 'px';
+            touchClone.style.top = rect.top + 'px';
+            touchClone.style.left = rect.left + 'px';
             document.body.appendChild(touchClone);
             updateTouchPosition(event.touches[0]);
         });
@@ -212,7 +217,7 @@ function moveByTouch(draggables) {
                     dropZone.appendChild(placeholder);
                 }
             }
-        }, { passive: true });
+        }, { passive: false });
     });
 }
 
@@ -220,8 +225,8 @@ function updateTouchPosition(touch) {
     if (!touchClone) {
         return;
     }
-    touchClone.style.left = `${touch.clientX + 10}px`;
-    touchClone.style.top = `${touch.clientY + 10}px`;
+    touchClone.style.left = `${touch.clientX + 100}px`;
+    touchClone.style.top = `${touch.clientY + 100}px`;
 }
 
 
@@ -309,10 +314,10 @@ async function updateOrderInContainer(container, status) {
  * @param {Object} task - individual Tasks
  */
 async function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress) {
-    const shortDescription = getShortenedField(task, "description_full", 30);
-    const shortTitle = getShortenedField(task, "title", 30);
+    // const shortDescription = getShortenedField(task, "description_full", 30);
+    // const shortTitle = getShortenedField(task, "title", 30);
     const subtasksProgress = getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength);
-    return await getTaskCardTemplate(task, shortTitle, shortDescription, subtasksProgress);
+    return await getTaskCardTemplate(task, subtasksProgress);
 }
 
 
@@ -325,6 +330,7 @@ async function showOverview(id) {
     activeBoardCard = task;
     overlayRef.classList.remove('d-none');
     overlayRef.innerHTML = await getOverviewTemplate(task);
+    initSubtaskCheckboxListeners(task.id);
 }
 
 
@@ -436,7 +442,6 @@ async function getAssignedToContent(task) {
     if (initialsWithName) {
         return getAssignedToContentTemplate(initialsWithName);
     }
-
 }
 
 
@@ -448,93 +453,69 @@ async function getAssignedToContent(task) {
 function getSubtasksTemplate(task) {
     let subtasksTemplate = "";
     if (task.subtasks && Object.keys(task.subtasks).length > 0) {
-        const subtasksArray = Object.values(task.subtasks);
-        for (const subtask of subtasksArray) {
-            let subtaskTemplateBoardPage = "";
-            if (subtask.done) {
-                subtaskTemplateBoardPage = getSubtaskCheckboxTemplate("checked", subtask);
-            } else {
-                subtaskTemplateBoardPage = getSubtaskCheckboxTemplate("", subtask);
-            }
-            subtasksTemplate += subtaskTemplateBoardPage;
+        for (const [key, subtask] of Object.entries(task.subtasks)) {
+            const checked = subtask.done ? "checked" : "";
+            subtasksTemplate += getSubtaskCheckboxTemplate(checked, subtask, task.id, key);
         }
         subtasksTemplate = `<div class="subtasks-wrapper">${subtasksTemplate}</div>`;
-    } else {
-        subtasksTemplate = "";
     }
     return subtasksTemplate;
 }
 
 
-function getSubtaskCheckboxTemplate(checked, subtask) {
-    return `<div class="subtask-item">
-                    <label class="checkbox">
-                        <input type="checkbox" hidden ${checked} data-subtask-title="${subtask.title}">
-                        <div class="icon-wrapper icon-checkbox-default">
-                            <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                            <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
-                        </div>
-                        <div class="icon-wrapper icon-checkbox-checked">
-                            <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                            <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-                        </div>
-                    </label>
-                    <span>${subtask.title}</span>
-                </div>`;
+
+
+function getSubtaskCheckboxTemplate(checked, subtask, taskId, subtaskKey) {
+    return `<div class="subtask-item flex-start">
+        <label class="checkbox">
+            <input 
+                type="checkbox" 
+                hidden 
+                class="subtask-checkbox"
+                ${checked}
+                data-task-id="${taskId}"
+                data-subtask-key="${subtaskKey}"
+            >
+            <div class="icon-wrapper icon-checkbox-default">
+                <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+            </div>
+            <div class="icon-wrapper icon-checkbox-checked">
+                <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+            </div>
+        </label>
+        <span>${subtask.title}</span>
+    </div>`;
 }
 
-// async function editTask(task) {
-// const assignedToContent = await getAssignedToContent(task);
-//     return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
-//                     <div class="card-overview-header">
-//                         <span class="label ${getBgCategory(task.category)}">${task.category}</span>
-//                         <button onclick="closeOverlay()" class="btn-small">
-//                             <img class="icon-default" src="../assets/img/icon-close-default.svg">
-//                             <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
-//                         </button>
-//                     </div>
-//                     ${getAddTaskTitleTemplate()}
-//                     <h2 class="task-title">${task.title}</h2>
-//                     <span class="task-description">${task.description_full}</span>
-
-//                     <div class="">
-//                         <span style="padding-right: 16px;" class="font-color-grey">Due Date:</span>
-//                         <span> ${task.due_date}</span>
-//                     </div>
-
-//                     <div class="priority-wrapper ">
-//                         <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
-//                         <span style="text-transform: capitalize;"> ${task.priority} </span>
-//                         ${getPriority(task)}
-//                     </div>
 
 
-//                             ${assignedToContent}
-//                             ${getSubtasksContent(task)}
-//                     <div class="delete-and-edit-wrapper">
-//                    <button id="" class="btn-dark" onclick="">
-//                                 <span>OK</span>
-//                                 <img class="icon-default" src="../assets/img/icon-check-huge-default.svg" alt="">
-//                             </button>
+function initSubtaskCheckboxListeners(taskId) {
+    const checkboxes = document.querySelectorAll('.subtask-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', async () => {
+            const subtaskKey = checkbox.dataset.subtaskKey;
+            const taskId = checkbox.dataset.taskId;
+            const done = checkbox.checked;
 
-//                     </div>
-//                 </div>`;
-
-// }
-
-
-/**
- * @function getShortenedDescription - Shorten the Description for the small Task-Cards
- * @param {Object} task - individual Tasks
- */
-function getShortenedField(task, fieldName, maxLength = 30) {
-    const value = task[fieldName];
-    if (value.length > maxLength) {
-        return value.substring(0, maxLength) + "...";
-    } else {
-        return value;
-    }
+            try {
+                await updateSubtaskStatus(taskId, subtaskKey, done);
+                console.log(`Subtask ${subtaskKey} of task ${taskId} updated to done = ${done}`);
+            } catch (err) {
+                console.error("Failed to update subtask in Firebase", err);
+            }
+        });
+    });
 }
+async function updateSubtaskStatus(taskId, subtaskKey, done) {
+    const updatePayload = {};
+    updatePayload[`subtasks/${subtaskKey}/done`] = done;
+    await patchData(`/board/tasks/${taskId}`, updatePayload);
+    tasksToArray();
+}
+
+
 
 
 
@@ -556,5 +537,5 @@ async function filterAndShowTasks(filterTask) {
 function switchToTaskEditmode() {
     overlayRef.innerHTML = getOverviewEditmodeTemplate(activeBoardCard);
     console.log(activeBoardCard);
-    
+
 }
