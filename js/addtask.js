@@ -124,7 +124,7 @@ async function renderAssignedToField() {
   }
 
   // 2) Dropdown befüllen
-  renderContacts(contacts);     
+  renderContacts(contacts);
 
   // 3) Restliche Interaktionen
   initAssignedToInteractions();
@@ -173,7 +173,8 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
 function initAssignedToContactSelection() {
   document
     .getElementById('contacts-dropdown')
-    .addEventListener('change', event => {const cb = event.target;
+    .addEventListener('change', event => {
+      const cb = event.target;
       if (!cb.matches('input[type="checkbox"]')) return;
       cb.closest('.select-contact').classList.toggle('selected', cb.checked);
       renderAssignedChips();
@@ -248,6 +249,7 @@ function prepareTaskData(status) {
   return taskData;
 }
 
+
 /**
  * Speichert den Task, nachdem validateFormBeforeSubmit() grünes Licht gibt.
  */
@@ -307,16 +309,49 @@ function resetForm() {
 }
 
 
-  /**
- * Displays a temporary task creation success notification.
+/**
+* Displays a temporary task creation success notification.
+*/
+function showAddTaskNotification() {
+  const notificationWrapper = document.createElement('div');
+  notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
+  const notificationElement = notificationWrapper.firstElementChild;
+  if (!notificationElement) return;
+  document.body.appendChild(notificationElement);
+  notificationElement.addEventListener('animationend', () => {
+    notificationElement.remove();
+  });
+}
+
+
+/** 
+* Opens the Add Task form either on the Add Task page (for small screens)
+* or in an overlay (for larger screens), depending on the specified status.
+* @param {*} status – The status to pre-populate or assign to the new task.
+* @returns {Promise<void>}
  */
-  function showAddTaskNotification() {
-    const notificationWrapper = document.createElement('div');
-    notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
-    const notificationElement = notificationWrapper.firstElementChild;
-    if (!notificationElement) return;
-    document.body.appendChild(notificationElement);
-    notificationElement.addEventListener('animationend', () => {
-      notificationElement.remove();
-    });
+async function addTaskBoard(status) {
+  if (window.innerWidth <= 992) {
+    openPage(`addTask.html?status=${encodeURIComponent(status)}`);
+    return;
   }
+  selectedStatusForNewTask = status;
+  overlayRef.classList.remove('d-none');
+  overlayRef.innerHTML = `<div onclick="eventBubblingProtection(event)" class="add-task-wrapper">
+                            <button onclick="closeOverlay()" class="btn-small">
+                            ${getAddTaskFormTemplate()}
+                          </div>`;
+  clearAddTaskForm();
+  await tasksToArray();
+}
+
+
+/**
+ * Retrieves the 'status' parameter from the current URL.
+ * If the parameter is missing, returns the default value 'to-do'.
+ * @returns {string} The value of the 'status' parameter or 'to-do' if not present.
+ */
+function getStatusFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('status') || 'to-do';
+}
