@@ -185,7 +185,6 @@ function initAssignedToInteractions() {
   const toggleBtn = wrapper.querySelector('button.btn-small');
   const searchInput = wrapper.querySelector('input[type="text"]');
   const menu = wrapper.querySelector('.drop-down-menu');
-
   initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu);
   initAssignedToContactSelection();
   setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper', () => toggleDropDown(toggleBtn));
@@ -283,19 +282,6 @@ function getSelectedContactIds() {
   );
 }
 
-// function getStatusFromButtonId(buttonId) {
-//   let status = 'to-do';
-//   if (buttonId === 'in-progress-btn') {
-//     status = 'in-progress';
-//   }
-//   else if (buttonId === 'await-feedback-btn') {
-//     status = 'await-feedback';
-//   } else{
-//     return status;
-//   }
-
-// }
-
 /**
  * Bereitet alle Task‐Daten vor, inkl. assigned_to aus contactsById.
  *
@@ -326,7 +312,7 @@ async function addTask() {
   clearAddTaskForm();
   showAddTaskNotification();
   overlayRef.classList.add('d-none');
-  refreshBoardContainer();
+  await tasksToArray();
 }
 
 /**
@@ -362,7 +348,7 @@ function updateCreateButtonState() {
 }
 
 
-function clearAddTaskForm() {
+async function clearAddTaskForm() {
   const form = document.getElementById('add-task-form');
   if (!form) return;
   form.reset();
@@ -371,7 +357,7 @@ function clearAddTaskForm() {
   hideErrorMessages();
   initializeAddTaskPage();
   updateCreateButtonState();
-  refreshBoardContainer();
+  await tasksToArray();
 }
 
 function resetForm() {
@@ -396,14 +382,18 @@ function showAddTaskNotification() {
   });
 }
 
+/** 
+* Opens the Add Task form either on the Add Task page (for small screens)
+* or in an overlay (for larger screens), depending on the specified status.
+* @param {*} status – The status to pre-populate or assign to the new task.
+* @returns {Promise<void>}
+ */
 async function addTaskBoard(status) {
   if (window.innerWidth <= 992) {
-
     openPage(`addTask.html?status=${encodeURIComponent(status)}`);
     return;
   }
   selectedStatusForNewTask = status;
-
   overlayRef.classList.remove('d-none');
   overlayRef.innerHTML = `<div onclick="eventBubblingProtection(event)" class="add-task-wrapper">
                             <button onclick="closeOverlay()" class="btn-small">
@@ -413,14 +403,15 @@ async function addTaskBoard(status) {
                             ${getAddTaskFormTemplate()}
                           </div>`;
   clearAddTaskForm();
-  await refreshBoardContainer();
-}
-
-async function refreshBoardContainer() {
   await tasksToArray();
-  await renderAllTasks(allTasks);
 }
 
+
+/**
+ * Retrieves the 'status' parameter from the current URL.
+ * If the parameter is missing, returns the default value 'to-do'.
+ * @returns {string} The value of the 'status' parameter or 'to-do' if not present.
+ */
 function getStatusFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get('status') || 'to-do';
