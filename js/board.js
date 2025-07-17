@@ -557,7 +557,7 @@ async function filterAndShowTasks(filterTask) {
 function switchToTaskEditmode() {
     overlayRef.innerHTML = getOverviewEditmodeTemplate(activeBoardCard);
     console.log(activeBoardCard);
-    setPriorityValue("#edit-task-form")
+    setPriorityValue("#edit-task-form");
 }
 
 
@@ -570,3 +570,31 @@ function setPriorityValue(form) {
         }
     });
 }
+
+
+//
+function renderContacts2() {
+    const dropdown = document.getElementById('contacts-dropdown');
+    if (!dropdown) return;
+    dropdown.innerHTML = '';
+    contacts.forEach(contact => {
+        dropdown.innerHTML += getContactOptionTemplate(contact);
+    });
+}
+
+
+
+
+function renderAssignedChips() {
+  const container = document.getElementById('assigned-chips-container');
+  container.innerHTML = '';
+  document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked')
+    .forEach(checkbox => {
+      const id = checkbox.dataset.contactId;
+      const info = contactsById[id];
+      if (!info) return;
+      const chip = createContactChip(getContactInitials(info.name), info.color);
+      container.appendChild(chip);
+    });
+}
+

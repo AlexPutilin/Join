@@ -207,13 +207,11 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
  *    setzt ausgewählten Style & updated Chips
  */
 function initAssignedToContactSelection() {
-  document
-    .getElementById('contacts-dropdown')
-    .addEventListener('change', event => {const cb = event.target;
-      if (!cb.matches('input[type="checkbox"]')) return;
-      cb.closest('.select-contact').classList.toggle('selected', cb.checked);
-      renderAssignedChips();
-    });
+  document.getElementById('contacts-dropdown').addEventListener('change', event => {const cb = event.target;
+  if (!cb.matches('input[type="checkbox"]')) return;
+    cb.closest('.select-contact').classList.toggle('selected', cb.checked);
+    renderAssignedChips();
+  });
 }
 
 
