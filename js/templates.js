@@ -53,7 +53,7 @@ function getSignupFormTemplate() {
                   </div>
 
                   <label for="checkbox_privacy_policy">
-                      I accept the <a href="#">Privacy policy</a>
+                      I accept the <a href="./html/privacy-policy.html">Privacy policy</a>
                   </label>
                 </label>
 
