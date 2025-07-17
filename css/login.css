@@ -107,33 +107,16 @@ form>div {
     margin-top: 16px;
 }
 
-.checkbox-wrapper {
-    margin: 16px 0;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.icon-wrapper .checked {
+  display: none;
 }
 
-.checkbox-wrapper input {
-    width: auto;
+.checkbox-container input[type="checkbox"]:checked ~ .icon-wrapper .unchecked {
+  display: none;
 }
 
-.checkbox-wrapper input:hover {
-    cursor: pointer;
-}
-
-.checkbox-wrapper a {
-    color: #29abe3;
-}
-
-.checkbox-wrapper a:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-.invisible {
-    visibility: hidden;
+.checkbox-container input[type="checkbox"]:checked ~ .icon-wrapper .checked {
+  display: inline;
 }
 
 .back-signup {
@@ -170,6 +153,12 @@ form>div {
     transition: transform 0.8s ease-out;
 }
 
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
 
 @media (max-width: 1920px) {
     .back-signup {
@@ -198,20 +187,12 @@ form>div {
 }
 
 @media (max-width: 1024px) {
-    /* .logo {
-        width: 192px;
-    } */
-
     .splash-screen {
         background-color: #2A3647;
     }
 }
 
 @media (max-width: 768px) {
-    /* .logo {
-        width: 168px;
-    } */
-
     .logo--moved {
         left: 36px;
         top: 36px;
@@ -248,13 +229,13 @@ form>div {
     .user-feedback-overlay button {
         max-width: 80%;
     }
+
+    label {
+        font-size: 16px !important;
+    }
 }
 
 @media (max-width: 520px) {
-    /* .logo {
-        width: 140px;
-    } */
-
     header {
         padding: 36px 36px 16px 36px;
     }
@@ -279,10 +260,6 @@ form>div {
 }
 
 @media (max-width: 350px) {
-    /* .logo {
-        width: 120px;
-    } */
-
     form {
         padding: 32px 0;
     }

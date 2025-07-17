@@ -40,27 +40,23 @@ function getSignupFormTemplate() {
                     </div>
                     <span class="err-msg hidden">Invalid input.</span>
                 </div>
-                <!-- <input type="checkbox" Accept Privacy policy required> -->
-                <!-- <div class="checkbox-wrapper">
-                    <input type="checkbox" id="checkbox_privacy_policy" required>
-                    <label for="checkbox_privacy_policy">
-                        I accept the <a href="#">Privacy policy</a>
-                    </label>
-                </div> -->
-                <label class="checkbox">
-                  <input type="checkbox" hidden>
+
+                <label class="checkbox checkbox-container">
+                  <input type="checkbox" id="checkbox_privacy_policy" required hidden>
+
                   <div class="icon-wrapper icon-checkbox-default">
-                      <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                      <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                      <img class="icon-default unchecked" src="../assets/img/icon-checkbutton-default.svg">
+                      <img class="icon-hover unchecked" src="../assets/img/icon-checkbutton-hover.svg">
+
+                      <img class="icon-default checked" src="../assets/img/icon-checkbutton-checked-default.svg">
+                      <img class="icon-hover checked" src="../assets/img/icon-checkbutton-checked-hover.svg">
                   </div>
+
                   <label for="checkbox_privacy_policy">
-                      I accept the <a href="#">Privacy policy</a>
+                      I accept the <a href="./html/privacy-policy.html">Privacy policy</a>
                   </label>
-                  <!-- <div class="icon-wrapper icon-checkbox-checked">
-                      <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                      <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-                  </div> -->
                 </label>
+
                 <div>
                     <button id="btn_signup" type="button" onclick="handleSignup()" class="btn-dark cta-text-mobile-sm" disabled>Sign up</button>
                 </div>
@@ -106,12 +102,12 @@ function getLoginFormTemplate() {
  * @param {string} param0.color - Background color for the contact icon.
  * @returns {string} HTML structure for a contact selection item.
  */
-function getContactSelectionTemplate({ initials, name, id, color }) {
+function getContactSelectionTemplate({ id, name, color }){
   return `
       <div class="select-contact">
           <div>
             <div class="icon-name-contact">
-              <div class="icon-contact" style="background-color: ${color}; color: white;">${initials}</div>
+              <div class="icon-contact" style="background-color: ${color}; color: white;">${getContactInitials(name)}</div>
               <span>${name}</span>
             </div>
           </div>
@@ -860,8 +856,10 @@ function getAssignedToTemplate() {
 }
 
 function getAddTaskNotificationTemplate() {
-  return `<div class="successfully-added-notification btn-dark">
-            <span>Task added to board</span>
-            <img src="../assets/img/icon-board.svg" alt="Board icon">
-          </div>`;
+  return `
+    <div class="successfully-added-notification btn-dark slide-in-out-add-task">
+      <span>Task added to board</span>
+      <img src="../assets/img/icon-board.svg" alt="Board icon">
+    </div>
+  `;
 }

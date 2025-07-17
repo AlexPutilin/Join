@@ -23,7 +23,7 @@ function replaceLogo() {
         let currentLogo = document.getElementById('logo');
         currentLogo.classList.add('d-none');
         let newLogo = document.getElementById('logo_new');
-        newLogo.classList.toggle('invisible');
+        newLogo.classList.toggle('hidden');
     }, 225);
 }
 
@@ -127,11 +127,11 @@ function renderForm(form) {
 
 
 /**
- * Hides the call-to-action container by adding the 'invisible' class.
+ * Hides the call-to-action container by adding the 'hidden' class.
  */
 function toggleCtaContainer() {
     let element = document.getElementById("cta-container");
-    element.classList.toggle("invisible");
+    element.classList.toggle("hidden");
 }
 
 
