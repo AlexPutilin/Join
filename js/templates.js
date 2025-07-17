@@ -41,35 +41,21 @@ function getSignupFormTemplate() {
                     <span class="err-msg hidden">Invalid input.</span>
                 </div>
 
-
-
-                <!-- <input type="checkbox" Accept Privacy policy required> -->
-
-                <!-- <div class="checkbox-wrapper">
-                    <input type="checkbox" id="checkbox_privacy_policy" required>
-                    <label for="checkbox_privacy_policy">
-                        I accept the <a href="#">Privacy policy</a>
-                    </label>
-                </div> -->
-
                 <label class="checkbox checkbox-container">
-                  <input type="checkbox" hidden>
+                  <input type="checkbox" id="checkbox_privacy_policy" required hidden>
+
                   <div class="icon-wrapper icon-checkbox-default">
-                      <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                      <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                      <img class="icon-default unchecked" src="../assets/img/icon-checkbutton-default.svg">
+                      <img class="icon-hover unchecked" src="../assets/img/icon-checkbutton-hover.svg">
+
+                      <img class="icon-default checked" src="../assets/img/icon-checkbutton-checked-default.svg">
+                      <img class="icon-hover checked" src="../assets/img/icon-checkbutton-checked-hover.svg">
                   </div>
+
                   <label for="checkbox_privacy_policy">
                       I accept the <a href="#">Privacy policy</a>
                   </label>
-
-                  <!-- <div class="icon-wrapper icon-checkbox-checked">
-                      <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                      <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-                  </div> -->
                 </label>
-
-
-
 
                 <div>
                     <button id="btn_signup" type="button" onclick="handleSignup()" class="btn-dark cta-text-mobile-sm" disabled>Sign up</button>

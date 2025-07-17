@@ -107,29 +107,16 @@ form>div {
     margin-top: 16px;
 }
 
-.checkbox-wrapper {
-    margin: 16px 0;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.icon-wrapper .checked {
+  display: none;
 }
 
-.checkbox-wrapper input {
-    width: auto;
+.checkbox-container input[type="checkbox"]:checked ~ .icon-wrapper .unchecked {
+  display: none;
 }
 
-.checkbox-wrapper input:hover {
-    cursor: pointer;
-}
-
-.checkbox-wrapper a {
-    color: #29abe3;
-}
-
-.checkbox-wrapper a:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
+.checkbox-container input[type="checkbox"]:checked ~ .icon-wrapper .checked {
+  display: inline;
 }
 
 .invisible {
