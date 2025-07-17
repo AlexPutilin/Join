@@ -342,7 +342,6 @@ async function addTaskBoard(status) {
                             ${getAddTaskFormTemplate()}
                           </div>`;
   clearAddTaskForm();
-  await tasksToArray();
 }
 
 
