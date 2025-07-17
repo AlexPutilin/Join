@@ -10,20 +10,27 @@ const overlayRef = document.getElementById('overlay');
 let placeholder = document.createElement('div');
 placeholder.classList.add('drop-placeholder');
 
-
+/**
+ * Initializes the task board by setting up the user profile,
+ * loading contacts, and converting tasks into an array format.
+ */
 async function initBoard() {
     initProfile();
     await loadContacts();
     await tasksToArray();
 }
 
+/**
+ * Renders all tasks grouped by their status.
+ * Enables drag-and-drop functionality after rendering.
+ * @param {*} taskList - The list of tasks to render (defaults to 'allTasks' if not provided).
+ */
 async function renderAllTasks(taskList = allTasks) {
     for (const status of statuses) {
         await renderTasksByStatus(status, taskList);
     }
     enableTaskDragging();
 }
-
 
 /**
  * @function tasksToArray - Convert all loaded tasks into an Array and push in Array allTasks
@@ -43,7 +50,11 @@ async function tasksToArray() {
     await renderAllTasks();
 }
 
-
+/**
+ * Calculates summary information about a task’s subtasks.
+ * @param {*} task - The task object containing subtasks.
+ * @returns {Object} - An object with the total number of subtasks, the count of completed subtasks, and the calculated progress value.
+ */
 function updateSubtasks(task) {
     let subtasks = Object.values(task.subtasks || {});
     let subtasksLength = subtasks.length;
@@ -51,7 +62,6 @@ function updateSubtasks(task) {
     let calcuProgress = calcuProgressbar(task);
     return { subtasksLength, doneTasksLength, calcuProgress };
 }
-
 
 /**
  * @function renderTasksByStatus - Filters the Tasks by Status and renders them in the respective Container
@@ -68,7 +78,12 @@ async function renderTasksByStatus(status, taskList) {
     await renderFilteredTaskStatus(filteredStatus, statusContainer);
 }
 
-
+/**
+ * Renders task cards for a filtered list of tasks within a given container.
+ * For each task, calculates subtask progress if subtasks exist, then appends the task card HTML.
+ * @param {*} filteredStatus - Array of tasks filtered by status.
+ * @param {*} statusContainer - The DOM element where the task cards will be rendered.
+ */
 async function renderFilteredTaskStatus(filteredStatus, statusContainer) {
     for (let i = 0; i < filteredStatus.length; i++) {
         const task = filteredStatus[i];
@@ -103,7 +118,6 @@ function updateNoTasksDisplay(status, statusContainer) {
     statusContainer.innerHTML = noTasksContainer(message);
 }
 
-
 /**
  * @function calcuProgressbar - Enables progress for the progress bar
  * @param {Object} task - individual Tasks
@@ -114,13 +128,11 @@ function calcuProgressbar(task) {
     const totalSubtaks = subtasksValue.length;
     const doneTasks = subtasksValue.filter(s => s.done).length;
     if (totalSubtaks === 0) {
-        console.log("no subtasks available", task.id);
         return 0;
     }
     const progress = (doneTasks / totalSubtaks) * 100;
     return progress;
 }
-
 
 /**
  * @function getBgCategory - determines the background color of the respective category
@@ -138,7 +150,11 @@ function getBgCategory(category) {
     }
 }
 
-
+/**
+ * Enables drag-and-drop functionality for task cards.
+ * Adds event listeners to handle drag start and drag end events, updating the UI and internal state accordingly.
+ * Also initializes drag reordering and touch-based dragging support.
+ */
 function enableTaskDragging() {
     const draggables = document.querySelectorAll('.card');
     draggables.forEach(draggable => {
@@ -147,7 +163,6 @@ function enableTaskDragging() {
             currentSourceContainer = draggable.parentNode;
             draggable.classList.add('dragging');
             document.body.classList.add('drag-active');
-            console.log("Dragging Task ID:", currentDraggedElement);
         });
         draggable.addEventListener('dragend', () => {
             draggable.classList.remove('dragging');
@@ -158,8 +173,11 @@ function enableTaskDragging() {
     enableTaskDraggingByTouch(draggables);
 }
 
-
-
+/**
+ * Enables touch-based dragging for a list of draggable elements.
+ * Creates a visual clone of the dragged element to follow the touch, handles touch start and end events, and updates the task order after drop.
+ * @param {*} draggables - A collection of draggable DOM elements.
+ */
 function enableTaskDraggingByTouch(draggables) {
     draggables.forEach(draggable => {
         draggable.addEventListener('touchstart', (event) => {
@@ -191,7 +209,12 @@ function enableTaskDraggingByTouch(draggables) {
     });
 }
 
-
+/**
+ * Enables touch-based movement for draggable elements.
+ * Tracks finger movement and updates the position of the dragged clone.
+ * Dynamically inserts a placeholder element in the appropriate drop zone to indicate the potential drop position based on the touch location.
+ * @param {*} draggables - A collection of draggable DOM elements.
+ */
 function moveByTouch(draggables) {
     draggables.forEach(draggable => {
         draggable.addEventListener('touchmove', (event) => {
@@ -221,6 +244,11 @@ function moveByTouch(draggables) {
     });
 }
 
+/**
+ * Updates the position of the touch clone element based on the current touch coordinates.
+ * Offsets the clone by 100 pixels to avoid covering the finger.
+ * @param {*} touch - The current touch event’s touch point.
+ */
 function updateTouchPosition(touch) {
     if (!touchClone) {
         return;
@@ -229,11 +257,15 @@ function updateTouchPosition(touch) {
     touchClone.style.top = `${touch.clientY + 100}px`;
 }
 
-
+/**
+ * Enables drag-and-drop reordering within each drag-and-drop container.
+ * Listens for 'dragover' events to determine the appropriate position for the draggable element by inserting a placeholder before or after existing tasks.
+ * Removes any existing placeholder before adding a new one.
+ * Also initializes drop handling based on task status after reordering.
+ */
 function enableDragReordering() {
     dragAndDropContainers.forEach(dragAndDropContainer => {
         dragAndDropContainer.addEventListener('dragover', event => {
-            console.log("dragover on", dragAndDropContainer.id);
             event.preventDefault();
             const afterElement = getDragAfterElement(dragAndDropContainer, event.clientY);
             const draggable = document.querySelector('.dragging');
@@ -253,38 +285,56 @@ function enableDragReordering() {
     enableTaskDropByStatus();
 }
 
+/**
+ * Handles the drop event for dragging tasks between containers.
+ * Moves the dragged task card to the drop position and updates the order of tasks.
+ * @param {DragEvent} event - The drop event triggered on the container.
+ * @param {HTMLElement} dragAndDropContainer - The container element where the task is dropped.
+ * @returns {Promise<void>} - Resolves after updating the order in both source and target containers.
+ */
+async function handleTaskDrop(event, dragAndDropContainer) {
+    event.preventDefault();
+    const draggedCard = document.getElementById(currentDraggedElement);
+    let placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
+    if (draggedCard) {
+        if (placeholder) {
+            dragAndDropContainer.insertBefore(draggedCard, placeholder);
+            placeholder.remove();
+        } else {
+            dragAndDropContainer.appendChild(draggedCard);
+        }
+    }
+    if (currentSourceContainer && currentSourceContainer !== dragAndDropContainer) {
+        await updateOrderInContainer(currentSourceContainer, currentSourceContainer.id);
+    }
+    await updateOrderInContainer(dragAndDropContainer, dragAndDropContainer.id);
+}
 
+/**
+ * Enables the drop event listeners on all drag-and-drop containers
+ * to allow dropping and reordering of task cards.
+ */
 function enableTaskDropByStatus() {
     dragAndDropContainers.forEach(dragAndDropContainer => {
-        dragAndDropContainer.addEventListener('drop', event => {
-            event.preventDefault();
-            const draggedCard = document.getElementById(currentDraggedElement);
-            let placeholder = dragAndDropContainer.querySelector('.drop-placeholder');
-            if (draggedCard) {
-                if (placeholder) {
-                    dragAndDropContainer.insertBefore(draggedCard, placeholder);
-                    placeholder.remove();
-                } else {
-                    dragAndDropContainer.appendChild(draggedCard);
-                }
-            }
-            if (currentSourceContainer && currentSourceContainer !== dragAndDropContainer) {
-                updateOrderInContainer(currentSourceContainer, currentSourceContainer.id);
-            }
-            updateOrderInContainer(dragAndDropContainer, dragAndDropContainer.id);
+        dragAndDropContainer.addEventListener('drop', (event) => {
+            handleTaskDrop(event, dragAndDropContainer);
         });
-
     });
 }
 
-
+/**
+ * Determines the closest draggable element in a container that is just below the given vertical coordinate.
+ * Used to find the element after which a dragged item should be inserted during drag-and-drop.
+ * @param {*} container - The container element holding draggable items.
+ * @param {*} y - The vertical coordinate (typically mouse or touch Y position).
+ * @returns {Element|null} - The element after which the dragged item should be placed, or null if none found.
+ */
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.card:not(.dragging):not(.drop-placeholder)')];
     let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
     for (const child of draggableElements) {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
-        // console.log(`offset for ${child.id}:`, offset);
         if (offset < 0 && offset > closest.offset) {
             closest = { offset, element: child };
         }
@@ -292,7 +342,12 @@ function getDragAfterElement(container, y) {
     return closest.element;
 }
 
-
+/**
+ * Updates the order and status of tasks based on their position within a container.
+ * Iterates over all task cards in the container, updates each task’s order and status, persists the changes via an async update call, and then re-renders all tasks.
+ * @param {*} container - The DOM container element holding task cards.
+ * @param {*} status - The new status to assign to all tasks in this container.
+ */
 async function updateOrderInContainer(container, status) {
     const cardElements = Array.from(container.querySelectorAll('.card'));
     for (let index = 0; index < cardElements.length; index++) {
@@ -303,27 +358,27 @@ async function updateOrderInContainer(container, status) {
         task.status = status;
         allTasks[taskIndex] = task;
         await updateData(`/board/tasks/${task.id}`, task);
-        console.log(`Task ${task.id}: oldOrder=${task.order}, newOrder=${index}, oldStatus=${task.status}, newStatus=${status}`);
     }
     await renderAllTasks();
 }
 
-
 /**
- * @function getTaskCard - Render the little Task-Card in Board
- * @param {Object} task - individual Tasks
+ * Renders a task card for the board with progress details.
+ * @param {Object} task - The task data object.
+ * @param {number} calcuProgress - Calculated progress percentage of subtasks.
+ * @param {number} subtasksLength - Total number of subtasks.
+ * @param {number} doneTasksLength - Number of completed subtasks.
+ * @param {boolean} showProgress - Whether to show the progress bar.
+ * @returns {Promise<string>} - HTML string representing the task card.
  */
 async function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength, showProgress) {
-    // const shortDescription = getShortenedField(task, "description_full", 30);
-    // const shortTitle = getShortenedField(task, "title", 30);
     const subtasksProgress = getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength);
     return await getTaskCardTemplate(task, subtasksProgress);
 }
 
-
 /**
- * @function showOverview -
- * @param {string} id - 
+ * Displays the detailed overview of a task in an overlay.
+ * @param {string} id - The ID of the task to show.
  */
 async function showOverview(id) {
     const task = allTasks.find(t => t.id.toString() === id.toString());
@@ -333,13 +388,11 @@ async function showOverview(id) {
     initSubtaskCheckboxListeners(task.id);
 }
 
-
 /**
  * @function deleteAndUpdateTasks - Deletes a task by ID, closes overview and refreshes tasks.
  * @param {string} taskID - The ID of the task to delete.
  */
 async function deleteAndUpdateTasks(taskID) {
-    console.log('delete the task with id:', taskID);
     await deleteData(`/board/tasks/${taskID}`);
     closeOverlay();
     await tasksToArray();
@@ -349,25 +402,22 @@ async function deleteAndUpdateTasks(taskID) {
     });
 }
 
+/**
+ * Checks if a task has assigned contacts.
+ * @param {*} task - The task object to check.
+ * @returns {boolean} - True if the task has a non-empty assigned_to string, otherwise false.
+ */
 function hasAssignedContacts(task) {
-    // console.log(allTasks);
-    // allTasks.forEach((task, index) => {
-    //     console.log(`Task ${index}:`, task.assigned_to);
-    // });
-    // const assignedToList = allTasks.map(task => task.assigned_to);
-    // console.log(assignedToList);
     return typeof task.assigned_to === "string" && task.assigned_to.trim() !== "";
 }
 
-
 /**
- * 
- * @param {Object} task - 
- * @param {Array} contacts - 
- * @returns {Array} 
+ * Retrieves the contact objects assigned to a specific task.
+ * @param {Object} task - The task object containing assigned contact names.
+ * @param {Array} contacts - The list of all available contact objects.
+ * @returns {Array} - Array of contact objects assigned to the task.
  */
 async function getContactsForTask(task) {
-    // console.log("Contacts-Array:", contacts);
     if (!hasAssignedContacts(task)) {
         return [];
     } else {
@@ -383,7 +433,12 @@ async function getContactsForTask(task) {
     }
 }
 
-
+/**
+ * Retrieves display data (name, initials, color) for all contacts assigned to a task.
+ * If a contact is not found in the matching contacts, a default color is used.
+ * @param {*} task - The task object containing assigned contact names.
+ * @returns {Promise<Array>} - An array of objects each containing the contact's name, initials, and color.
+ */
 async function getContactDisplayData(task) {
     if (!hasAssignedContacts(task)) {
         return [];
@@ -394,8 +449,7 @@ async function getContactDisplayData(task) {
         for (const name of names) {
             const contact = matchingContacts.find(contact => contact.name.trim().toLowerCase() === name.trim().toLowerCase());
             if (contact) {
-                displayData.push(
-                    { name: name, initial: getContactInitials(name), color: contact.color });
+                displayData.push({ name: name, initial: getContactInitials(name), color: contact.color });
             } else {
                 displayData.push({ name: name, initial: getContactInitials(name), color: "#ccc" });
             }
@@ -404,7 +458,11 @@ async function getContactDisplayData(task) {
     }
 }
 
-
+/**
+ * Generates HTML for displaying up to three contact initials for a task, plus an overflow icon indicating how many additional contacts are assigned.
+ * @param {*} task - The task object containing assigned contacts.
+ * @returns {Promise<string>} - HTML string with initials icons and optional overflow count.
+ */
 async function getInitialsOnly(task) {
     const displayData = await getContactDisplayData(task);
     const visibleData = displayData.slice(0, 3);
@@ -422,7 +480,11 @@ async function getInitialsOnly(task) {
     return initialsIcon + overflowNumberIcon;
 }
 
-
+/**
+ * Builds and returns a string of HTML elements containing initials and names for each contact assigned to the given task.
+ * @param {*} task - The task object containing contact/assignment information.
+ * @returns {Promise<string>} - HTML string with initials and names of assigned contacts.
+ */
 async function getInitialsWithNames(task) {
     const displayData = await getContactDisplayData(task);
     let resultIconWithName = "";
@@ -435,15 +497,18 @@ async function getInitialsWithNames(task) {
     return resultIconWithName;
 }
 
-
-
+/**
+ * Retrieves and returns the HTML content for the "Assigned To" section of a task.
+ * Uses user initials and names to build the content template.
+ * @param {*} task - The task object containing assigned user information.
+ * @returns {*} - The generated HTML Content
+ */
 async function getAssignedToContent(task) {
     const initialsWithName = await getInitialsWithNames(task);
     if (initialsWithName) {
         return getAssignedToContentTemplate(initialsWithName);
     }
 }
-
 
 /**
  * @function getSubtasksTemplate - Returns HTML-Template for subtasks and checkboxes or empty string.
@@ -462,35 +527,11 @@ function getSubtasksTemplate(task) {
     return subtasksTemplate;
 }
 
-
-
-
-function getSubtaskCheckboxTemplate(checked, subtask, taskId, subtaskKey) {
-    return `<div class="subtask-item flex-start">
-        <label class="checkbox">
-            <input 
-                type="checkbox" 
-                hidden 
-                class="subtask-checkbox"
-                ${checked}
-                data-task-id="${taskId}"
-                data-subtask-key="${subtaskKey}"
-            >
-            <div class="icon-wrapper icon-checkbox-default">
-                <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
-            </div>
-            <div class="icon-wrapper icon-checkbox-checked">
-                <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-            </div>
-        </label>
-        <span>${subtask.title}</span>
-    </div>`;
-}
-
-
-
+/**
+ * Initializes change event listeners for all subtask checkboxes.
+ * When a checkbox state changes, it updates the corresponding subtask status in the backend.
+ * @param {*} taskId - The ID of the task (not used inside the function but may be intended for future use).
+ */
 function initSubtaskCheckboxListeners(taskId) {
     const checkboxes = document.querySelectorAll('.subtask-checkbox');
     checkboxes.forEach(checkbox => {
@@ -498,26 +539,23 @@ function initSubtaskCheckboxListeners(taskId) {
             const subtaskKey = checkbox.dataset.subtaskKey;
             const taskId = checkbox.dataset.taskId;
             const done = checkbox.checked;
-
-            try {
-                await updateSubtaskStatus(taskId, subtaskKey, done);
-                console.log(`Subtask ${subtaskKey} of task ${taskId} updated to done = ${done}`);
-            } catch (err) {
-                console.error("Failed to update subtask in Firebase", err);
-            }
+            await updateSubtaskStatus(taskId, subtaskKey, done);
         });
     });
 }
+
+/**
+ * Updates the completion status of a specific subtask for a given task.
+ * @param {*} taskId - The ID of the task containing the subtask.
+ * @param {*} subtaskKey - The key identifying the subtask to update.
+ * @param {*} done - Boolean indicating whether the subtask is completed.
+ */
 async function updateSubtaskStatus(taskId, subtaskKey, done) {
     const updatePayload = {};
     updatePayload[`subtasks/${subtaskKey}/done`] = done;
     await patchData(`/board/tasks/${taskId}`, updatePayload);
     tasksToArray();
 }
-
-
-
-
 
 /**
  * @function filterAndShowTasks - Filters tasks by title and displays matching results. If the search input is empty, all tasks are displayed.
@@ -532,10 +570,7 @@ async function filterAndShowTasks(filterTask) {
     }
 }
 
-
-
 function switchToTaskEditmode() {
     overlayRef.innerHTML = getOverviewEditmodeTemplate(activeBoardCard);
     console.log(activeBoardCard);
-
 }
