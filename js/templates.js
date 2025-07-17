@@ -104,12 +104,12 @@ function getLoginFormTemplate() {
  * @param {string} param0.color - Background color for the contact icon.
  * @returns {string} HTML structure for a contact selection item.
  */
-function getContactSelectionTemplate({ initials, name, id, color }) {
+function getContactSelectionTemplate({ id, name, color }){
   return `
       <div class="select-contact">
           <div>
             <div class="icon-name-contact">
-              <div class="icon-contact" style="background-color: ${color}; color: white;">${initials}</div>
+              <div class="icon-contact" style="background-color: ${color}; color: white;">${getContactInitials(name)}</div>
               <span>${name}</span>
             </div>
           </div>
@@ -742,7 +742,7 @@ function getAssignedToTemplate() {
 
 function getAddTaskNotificationTemplate() {
   return `
-    <div class="successfully-added-notification btn-dark slide-in-out-add-task">
+    <div class="successfully-added-notification btn-dark">
       <span>Task added to board</span>
       <img src="../assets/img/icon-board.svg" alt="Board icon">
     </div>

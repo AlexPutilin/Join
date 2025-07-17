@@ -1,10 +1,4 @@
 /**
- * Stores contact information by their unique IDs.
- * @type {Object.<string, Object>}
- */
-contactsById = {};
-
-/**
  * Loads all users from the Firebase database.
  *
  * @async
@@ -20,21 +14,7 @@ async function loadAllUsers() {
   }
 }
 
-/**
- * Loads contacts data and resets color index, then renders them.
- * @async
- */
-async function loadAssignedToContacts() {
-  contactColorIndex = 0;
-  const contacts = await getData('/contacts');
-  if (contacts) {
-    renderContacts(contacts);
-  }
-}
 
-/**
- * Initializes the Add Task form when the DOM is fully loaded.
- */
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById('add-task-root');
   if (!container) return; 
@@ -44,9 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeAddTaskPage();
 });
 
-/**
- * Initializes the Add Task page components.
- */
+
 function initializeAddTaskPage() {
   renderCategoryField();
   renderAssignedToField();
@@ -55,9 +33,7 @@ function initializeAddTaskPage() {
   setupCreateButtonListeners();
 }
 
-  /**
- * Renders the priority selection buttons and enables their interaction.
- */
+
   function renderPriorityButtons() {
     const priorityWrapper = document.getElementById('priority-wrapper-template');
     if (!priorityWrapper) return;
@@ -111,12 +87,7 @@ function setupCategoryOptionSelection(wrapper, toggleBtn) {
   });
 }
 
-/**
- * Prüft, ob im Category-Input etwas steht,
- * blendet sonst die Fehlermeldung ein.
- *
- * @returns {boolean} true, wenn Kategorie gesetzt ist
- */
+
 function validateCategoryField() {
   const input    = document.getElementById('task-category');
   const wrapper  = input.closest('.input-wrapper');
@@ -133,22 +104,23 @@ function validateCategoryField() {
   return isValid;
 }
 
-/**
- * Master-Initializer fürs Assigned-To-Feld:
- * – Dropdown-Klick & Suche
- * – Kontakt-Selektion
- * – Outside-Click zum Schließen
- */
+
 async function renderAssignedToField() {
   if (!injectAssignedToTemplate()) return;
-  await loadAssignedToContacts();
+
+  // 1) Kontakte holen, falls noch nicht geschehen
+  if (contacts.length === 0) {
+    await loadContacts();        // füllt dein globales `contacts`-Array
+  }
+
+  // 2) Dropdown befüllen
+  renderContacts(contacts);     
+
+  // 3) Restliche Interaktionen
   initAssignedToInteractions();
 }
 
-/**
- * Injects the "Assigned To" template into its wrapper element.
- * @returns {boolean} True if injected, false otherwise.
- */
+
 function injectAssignedToTemplate() {
   const wrapper = document.getElementById('assigned-to-wrapper-template');
   if (!wrapper) return false;
@@ -156,24 +128,13 @@ function injectAssignedToTemplate() {
   return true;
 }
 
-/**
- * Renders contact entries into the "Assigned To" dropdown.
- * @param {Object.<string, {name:string}>} contactsData
- */
-function renderContacts(contactsData) {
+
+function renderContacts(contacts) {
   const dropdown = document.getElementById('contacts-dropdown');
   if (!dropdown) return;
-  dropdown.innerHTML = '';
-  Object.entries(contactsData).forEach(([id, info]) => {
-    contactsById[id] = info;
-    contactsById[id].color = getContactBackgroundColor();
-    const html = getContactSelectionTemplate({
-      initials: getContactInitials(info.name),
-      name: info.name,
-      id,
-      color: info.color
-    });
-    dropdown.insertAdjacentHTML('beforeend', html);
+  dropdown.innerHTML = "";
+  contacts.forEach(contact => {
+    dropdown.innerHTML += getContactSelectionTemplate(contact);
   });
 }
 
@@ -189,10 +150,7 @@ function initAssignedToInteractions() {
   setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
 }
 
-/**
- * 1) Klick auf den Pfeil öffnet/schließt das Menü
- * 2) Tippen öffnet (falls geschlossen) und filtert die Liste
- */
+
 function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
   toggleBtn.addEventListener('click', () => openDropDownMenu(toggleBtn));
   searchInput.addEventListener('input', () => {
@@ -202,16 +160,13 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
   });
 }
 
-/**
- * 3) Delegation auf Checkbox-Änderungen:
- *    setzt ausgewählten Style & updated Chips
- */
+
 function initAssignedToContactSelection() {
   document
     .getElementById('contacts-dropdown')
-    .addEventListener('change', event => {const cb = event.target;
-      if (!cb.matches('input[type="checkbox"]')) return;
-      cb.closest('.select-contact').classList.toggle('selected', cb.checked);
+    .addEventListener('change', event => {const checkbox = event.target;
+      if (!checkbox.matches('input[type="checkbox"]')) return;
+      checkbox.closest('.select-contact').classList.toggle('selected', checkbox.checked);
       renderAssignedChips();
     });
 }
@@ -230,20 +185,14 @@ function renderAssignedChips() {
     });
 }
 
-/**
- * Renders the input field for adding subtasks by injecting the corresponding template.
- */
+
 function renderSubtaskInput() {
   const subtaskWrapper = document.getElementById('subtask-wrapper-template');
   if (!subtaskWrapper) return;
   subtaskWrapper.innerHTML = getSubtaskInputTemplate();
 }
 
-/**
- * Extracts all subtasks currently entered in the DOM.
- *
- * @returns {Object.<string, {title: string, done: boolean}>} An object of subtasks indexed by key.
- */
+
 function getSubtasksFromDOM() {
   const subtaskElements = getAllSubtaskElements();
   const subtasks = {};
@@ -255,9 +204,7 @@ function getSubtasksFromDOM() {
   }); return subtasks;
 }
 
-/**
- * Sets up listeners on the task title and due date inputs to update create button state.
- */
+
 function setupCreateButtonListeners() {
   const titleInput = document.getElementById('task-title');
   const dueDateInput = document.getElementById('due-date');
@@ -269,10 +216,7 @@ function setupCreateButtonListeners() {
   }
 }
 
-/**
- * Sammelt die aktuell angewählten Kontakt‐IDs aus dem Dropdown.
- * @returns {string[]} Array der Contact‐IDs
- */
+
 function getSelectedContactIds() {
   return Array.from(
     document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked'),
@@ -291,11 +235,7 @@ function getStatusFromButtonId(buttonId) {
   return status;
 }
 
-/**
- * Bereitet alle Task‐Daten vor, inkl. assigned_to aus contactsById.
- *
- * @returns {Object} Das fertige Task‐Objekt
- */
+
 function prepareTaskData(status) {
   const taskData = getInputData('#add-task-form');
   const ids = getSelectedContactIds();
@@ -318,23 +258,15 @@ async function addTask(status = 'to-do') {
     showAddTaskNotification();
   } 
 
-/**
- * Validates the Add Task form before submission.
- * Nutzt checkFormValidation für alle Inputs und prüft zusätzlich
- * das Category-Feld.
- *
- * @returns {boolean} true, wenn alle Felder (inkl. Kategorie) gültig sind.
- */
+
+
 function validateFormBeforeSubmit() {
   const inputsValid = checkFormValidation('#add-task-form');
   const categoryValid = validateCategoryField();
   return inputsValid && categoryValid;
 }
 
-/**
- * Updates the state of the "Create Task" button based on required form field values.
- * Enables the button only when all required fields are filled.
- */
+
 function updateCreateButtonState() {
   const titleValue = document.getElementById('task-title')?.value.trim();
   const dueDateValue = document.getElementById('due-date')?.value.trim();
@@ -370,9 +302,7 @@ function resetForm(){
 }
 
 
-  /**
- * Displays a temporary task creation success notification.
- */
+
   function showAddTaskNotification() {
     const notificationWrapper = document.createElement('div');
     notificationWrapper.innerHTML = getAddTaskNotificationTemplate();

@@ -68,6 +68,29 @@
     font-size: 24px;
 }
 
+.list-subtasks {
+  height: 80px;
+  overflow-y: auto;
+}
+
+.list-subtasks::-webkit-scrollbar {
+  width: 10px;
+}
+
+.list-subtasks::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+.list-subtasks::-webkit-scrollbar-thumb {
+  background: rgb(42, 54, 71);
+  border-radius: 10px;
+}
+
+.list-subtasks::-webkit-scrollbar-thumb:hover {
+  background: #2a3d59;
+}
+
 .drop-down-menu {
   background-color: white;
   border-radius: 10px;
@@ -88,7 +111,6 @@
     background-color: #D1D1D1;
   }
 
-/* Desktop */
 .clear-save-btn-wrapper {
   position: static;
   width: 100%;
@@ -334,7 +356,6 @@
   gap: 12px;
   opacity: 0.95;
 }
-
 
 @media (max-width: 1200px) {
   .add-task-container {
