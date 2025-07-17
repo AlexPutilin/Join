@@ -448,6 +448,10 @@ function getOverviewEditmodeTemplate(task) {
   return `
     <div class="card-overview" onclick="eventBubblingProtection(event)">
       <form id="edit-task-form">
+        <button type="button" class="btn-small" onclick="closeOverlay()">
+          <img class="icon-default" src="../assets/img/icon-close-default.svg">
+          <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+        </button>
         <div class="input-wrapper">
           <label for="">Title</label>
           <div class="input-area">
@@ -489,6 +493,23 @@ function getOverviewEditmodeTemplate(task) {
             <div class="bg-checked"></div>
             <span class="err-msg hidden">Invalid input.</span>
           </label>
+        </div>
+        <div class="input-wrapper">
+          <div class="input-area drop-down-input">
+            <input type="text" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active="" onchange="opend">
+            <button type="button" class="btn-small" onclick="toggleDropDown(this), renderContacts2()">
+              <div class="icon-wrapper">
+                <img class="icon-default" src="../assets/img/icon-down-default.svg">
+                <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
+              </div>
+                <div class="icon-wrapper d-none">
+                  <img class="icon-default" src="../assets/img/icon-up-default.svg">
+                  <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
+                </div>
+            </button>
+          </div>
+          <div class="assigned-chips" id="assigned-chips-container"></div>
+          <div id="contacts-dropdown" class="drop-down-menu d-none" data-open="false"></div>
         </div>
       </form>
       <button class="btn-dark">
