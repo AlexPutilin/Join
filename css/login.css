@@ -160,7 +160,6 @@ form>div {
     margin-bottom: 16px;
 }
 
-
 @media (max-width: 1920px) {
     .back-signup {
         top: 48px;
@@ -188,20 +187,12 @@ form>div {
 }
 
 @media (max-width: 1024px) {
-    /* .logo {
-        width: 192px;
-    } */
-
     .splash-screen {
         background-color: #2A3647;
     }
 }
 
 @media (max-width: 768px) {
-    /* .logo {
-        width: 168px;
-    } */
-
     .logo--moved {
         left: 36px;
         top: 36px;
@@ -245,10 +236,6 @@ form>div {
 }
 
 @media (max-width: 520px) {
-    /* .logo {
-        width: 140px;
-    } */
-
     header {
         padding: 36px 36px 16px 36px;
     }
@@ -273,10 +260,6 @@ form>div {
 }
 
 @media (max-width: 350px) {
-    /* .logo {
-        width: 120px;
-    } */
-
     form {
         padding: 32px 0;
     }
