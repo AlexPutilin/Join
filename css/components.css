@@ -444,6 +444,7 @@ textarea {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    gap: 24px;
 }
 
 .subtask-item>.btn-collection-container {
@@ -499,7 +500,7 @@ textarea {
     background-color: #1FD7C1;
 }
 
-.default-category{
+.default-category {
     background-color: #fc49c0;
 }
 
