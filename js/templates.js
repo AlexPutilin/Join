@@ -281,8 +281,7 @@ function getCreateContactDialogTemplate() {
                     </form>
                 </div>
             </div>
-        </div>
-    `
+        </div>`;
 }
 
 
@@ -351,8 +350,7 @@ function getEditContactDialogTemplate(contact) {
                     </form>
                 </div>
             </div>
-        </div>
-    `
+        </div>`;
 }
 
 
@@ -389,8 +387,7 @@ function getMobileContactInformationTemplate(contact) {
                     <img src="../assets/img/icon-more-dots.svg">
                 </button>
             </div>
-        </div>
-    `
+        </div>`;
 }
 
 
@@ -405,13 +402,12 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
 }
 
 
-async function getTaskCardTemplate(task, shortTitle, shortDescription, subtasksProgress) {
+async function getTaskCardTemplate(task, subtasksProgress) {
   const onlyInitials = await getInitialsOnly(task);
   return `<div draggable="true" onclick="showOverview('${task.id}')" id="${task.id}" class="card">
                 <div class="label-wrapper"><span class="label ${getBgCategory(task.category)}">${task.category}</span></div>
-                <h4 class="task-title">${shortTitle}</h4>
-                <span>Order: ${task.order}</span>
-                <span class="task-description-short">${shortDescription}</span>
+                <h4 class="task-title-little">${task.title}</h4>
+                <span class="task-description-short">${task.description_full}</span>
                 ${subtasksProgress}
                 <div class="profiles-priority-container">
                     <div class="profil-initial-wrapper"> 
@@ -438,7 +434,7 @@ async function getOverviewTemplate(task) {
                             <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
                         </button>
                     </div>
-                    <h2 class="task-title">${task.title}</h2>
+                    <h2 class="task-title-big">${task.title}</h2>
                     <span class="task-description">${task.description_full}</span>
 
                     <div class="">
@@ -524,8 +520,7 @@ function getOverviewEditmodeTemplate(task) {
       <button class="btn-dark">
         <span>OK</span>
       </button>
-    </div>
-  `
+    </div>`;
 }
 
 
@@ -618,10 +613,6 @@ function getAddTaskFormTemplate() {
           <div class="mobile-h1">
             <div class="add-task-head-wrapper">
               <h1>Add Task</h1>
-              <button onclick="closeOverlay()" class="btn-small">
-                <img class="icon-default" src="../assets/img/icon-close-default.svg">
-                <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
-              </button>
             </div> 
           </div>
           <div class="add-task-container-wrapper">
@@ -655,9 +646,7 @@ function getAddTaskFormTemplate() {
         </div>
         ${getaddTaskButtonsTemplate()}
       </form>
-      </div>
- 
-  `;
+      </div>`;
 }
 
 
@@ -676,8 +665,7 @@ function getAddTaskTitleTemplate() {
       <input id="task-title" name="title" type="text" placeholder="Enter a title" required oninput="resetInputError()"/>
     </div>
     <span class="err-msg hidden">This field is required.</span>
-  </div>
-`;
+  </div>`;
 }
 
 /**
@@ -691,8 +679,7 @@ function getAddTaskDescriptionTemplate() {
     <div class="textarea">
       <textarea name="description_full" placeholder="Enter a description"></textarea>
     </div>
-  </div>
-`;
+  </div>`;
 }
 
 /**
@@ -709,8 +696,7 @@ function getAddTaskDueDateTemplate() {
       <input id="due-date" name="due_date" type="date" required/>
     </div>
     <span class="err-msg hidden">This field is required.</span>
-  </div>
-`;
+  </div>`;
 }
 
 /**
@@ -749,8 +735,7 @@ function getSubtaskInputTemplate() {
       <div class="required-description form-error-mobile-visible">
         <p class="redstar">*</p><p>This field is required</p>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 /**
@@ -779,8 +764,7 @@ function getaddTaskButtonsTemplate() {
           </button>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 /**
@@ -808,8 +792,7 @@ function getCategoryTemplate() {
       </div>
       <div id="category-options-container" class="drop-down-menu d-none" data-open="false"></div>
       <span class="err-msg hidden">This field is required.</span>
-    </div>
-  `;
+    </div>`;
 }
 
 /**
@@ -840,8 +823,7 @@ function getPriorityTemplate() {
           <div class="bg-checked"></div>
         </label>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 
@@ -850,35 +832,31 @@ function getPriorityTemplate() {
  * @returns {string} HTML structure for assigning contacts.
  */
 function getAssignedToTemplate() {
-  return `
-    <div class="input-wrapper">
-      <div class="required-description">
-        <span>Assigned to</span>
-      </div>
-      <div class="input-area drop-down-input">
-        <input type="text" name="assigned_to" id="assigned-input" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active="Search Contact"/>
-        <button type="button" class="btn-small" onclick="toggleDropDown(this)">
-          <div class="icon-wrapper">
-            <img class="icon-default" src="../assets/img/icon-down-default.svg" />
-            <img class="icon-hover" src="../assets/img/icon-down-hover.svg" />
+  return `<div class="input-wrapper">
+            <div class="required-description">
+              <span>Assigned to</span>
+            </div>
+            <div class="input-area drop-down-input">
+              <input type="text" name="assigned_to" id="assigned-input" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active="Search Contact"/>
+              <button type="button" class="btn-small" onclick="toggleDropDown(this)">
+                <div class="icon-wrapper">
+                  <img class="icon-default" src="../assets/img/icon-down-default.svg" />
+                  <img class="icon-hover" src="../assets/img/icon-down-hover.svg" />
+                </div>
+                <div class="icon-wrapper d-none">
+                  <img class="icon-default" src="../assets/img/icon-up-default.svg" />
+                  <img class="icon-hover" src="../assets/img/icon-up-hover.svg" />
+                </div>
+              </button>
+            </div>
+            <div id="contacts-dropdown" class="drop-down-menu d-none" data-open="false"></div>
           </div>
-          <div class="icon-wrapper d-none">
-            <img class="icon-default" src="../assets/img/icon-up-default.svg" />
-            <img class="icon-hover" src="../assets/img/icon-up-hover.svg" />
-          </div>
-        </button>
-      </div>
-      <div id="contacts-dropdown" class="drop-down-menu d-none" data-open="false"></div>
-    </div>
-    <div class="assigned-chips" id="assigned-chips-container"></div>
-  `;
+          <div class="assigned-chips" id="assigned-chips-container"></div>`;
 }
 
 function getAddTaskNotificationTemplate() {
-  return `
-    <div class="successfully-added-notification btn-dark slide-in-out-add-task">
-      <span>Task added to board</span>
-      <img src="../assets/img/icon-board.svg" alt="Board icon">
-    </div>
-  `;
+  return `<div class="successfully-added-notification btn-dark">
+            <span>Task added to board</span>
+            <img src="../assets/img/icon-board.svg" alt="Board icon">
+          </div>`;
 }
