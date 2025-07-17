@@ -52,7 +52,7 @@ function getSignupFormTemplate() {
                     </label>
                 </div> -->
 
-                <label class="checkbox">
+                <label class="checkbox checkbox-container">
                   <input type="checkbox" hidden>
                   <div class="icon-wrapper icon-checkbox-default">
                       <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">

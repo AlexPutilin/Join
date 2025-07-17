@@ -170,6 +170,13 @@ form>div {
     transition: transform 0.8s ease-out;
 }
 
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
 
 @media (max-width: 1920px) {
     .back-signup {
@@ -247,6 +254,10 @@ form>div {
 
     .user-feedback-overlay button {
         max-width: 80%;
+    }
+
+    label {
+        font-size: 16px !important;
     }
 }
 
