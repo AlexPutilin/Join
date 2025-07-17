@@ -119,10 +119,6 @@ form>div {
   display: inline;
 }
 
-.invisible {
-    visibility: hidden;
-}
-
 .back-signup {
     top: 40px;
     left: 40px;
