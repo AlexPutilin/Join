@@ -40,18 +40,13 @@ function getSignupFormTemplate() {
                     </div>
                     <span class="err-msg hidden">Invalid input.</span>
                 </div>
-
-
-
                 <!-- <input type="checkbox" Accept Privacy policy required> -->
-
                 <!-- <div class="checkbox-wrapper">
                     <input type="checkbox" id="checkbox_privacy_policy" required>
                     <label for="checkbox_privacy_policy">
                         I accept the <a href="#">Privacy policy</a>
                     </label>
                 </div> -->
-
                 <label class="checkbox">
                   <input type="checkbox" hidden>
                   <div class="icon-wrapper icon-checkbox-default">
@@ -61,23 +56,17 @@ function getSignupFormTemplate() {
                   <label for="checkbox_privacy_policy">
                       I accept the <a href="#">Privacy policy</a>
                   </label>
-
                   <!-- <div class="icon-wrapper icon-checkbox-checked">
                       <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
                       <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
                   </div> -->
                 </label>
-
-
-
-
                 <div>
                     <button id="btn_signup" type="button" onclick="handleSignup()" class="btn-dark cta-text-mobile-sm" disabled>Sign up</button>
                 </div>
             </form>
         </section>`;
 }
-
 
 function getLoginFormTemplate() {
   return /*html*/`
@@ -107,7 +96,6 @@ function getLoginFormTemplate() {
                 </form>
             </section>`;
 }
-
 
 /**
  * Returns the HTML template for displaying a selectable contact.
@@ -140,7 +128,6 @@ function getContactSelectionTemplate({ initials, name, id, color }) {
           </label>
       </div>`;
 }
-
 
 /**
  * Returns the HTML template for a single subtask item.
@@ -190,15 +177,12 @@ function getSubtaskTemplate(name) {
   `;
 }
 
-
 function getContactSectionTemplate(letter) {
   return `
         <div class="contact-section" data-section-letter="${letter}">
             <span>${letter}</span>
-        </div>
-    `
+        </div>`;
 }
-
 
 function getContactTemplate(contact, index) {
   return `
@@ -208,10 +192,8 @@ function getContactTemplate(contact, index) {
                 <span class="contact-name">${contact.name}</span>
                 <span class="contact-mail">${contact.email}</span>
             </div>
-        </div>
-    `
+        </div>`;
 }
-
 
 function getCreateContactDialogTemplate() {
   return `
@@ -284,7 +266,6 @@ function getCreateContactDialogTemplate() {
         </div>`;
 }
 
-
 function getEditContactDialogTemplate(contact) {
   return `
         <div class="contact-dialog" onclick="event.stopPropagation()">
@@ -353,7 +334,6 @@ function getEditContactDialogTemplate(contact) {
         </div>`;
 }
 
-
 function getMobileContactInformationTemplate(contact) {
   return `
         <div class="flex-column-layout pos-rel">
@@ -390,7 +370,6 @@ function getMobileContactInformationTemplate(contact) {
         </div>`;
 }
 
-
 function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLength, subtasksLength) {
   return showProgress ? `
         <div class="task-progress-container">
@@ -400,7 +379,6 @@ function getSubtasksProgressTemplate(showProgress, calcuProgress, doneTasksLengt
             <span class="task-progressbar-quotient">${doneTasksLength}/${subtasksLength} Subtasks</span>
         </div>` : '';
 }
-
 
 async function getTaskCardTemplate(task, subtasksProgress) {
   const onlyInitials = await getInitialsOnly(task);
@@ -417,7 +395,6 @@ async function getTaskCardTemplate(task, subtasksProgress) {
                 </div>
             </div>`;
 }
-
 
 /**
  * @function getOverviewTemplate - Returns the HTML template for the task detail view.
@@ -436,12 +413,10 @@ async function getOverviewTemplate(task) {
                     </div>
                     <h2 class="task-title-big">${task.title}</h2>
                     <span class="task-description">${task.description_full}</span>
-
                     <div class="">
                         <span style="padding-right: 16px;" class="font-color-grey">Due Date:</span>
                         <span> ${task.due_date}</span>
                     </div>
-                    
                     <div class="priority-wrapper ">
                         <span style="padding-right: 36px;" class="font-color-grey">Priority:</span>
                         <span style="text-transform: capitalize;"> ${task.priority} </span>
@@ -468,7 +443,6 @@ async function getOverviewTemplate(task) {
                     </div>
                 </div>`;
 }
-
 
 function getOverviewEditmodeTemplate(task) {
   return `
@@ -523,7 +497,6 @@ function getOverviewEditmodeTemplate(task) {
     </div>`;
 }
 
-
 /**
  * @function getPriority - Returns a priority icon based on the given priority level.
  * @param {Object} task - individual Tasks
@@ -541,6 +514,7 @@ function getPriority(task) {
       return '';
   }
 }
+
 /**
  * @function getSubtasksContent - Returns HTML-Template for subtasks section or empty string.
  * @param {Object} task - individually Task 
@@ -552,6 +526,23 @@ function getSubtasksContent(task) {
   } else {
     return "";
   }
+}
+
+function getSubtaskCheckboxTemplate(checked, subtask, taskId, subtaskKey) {
+    return `<div class="subtask-item flex-start">
+                <label class="checkbox">
+                    <input type="checkbox" hidden class="subtask-checkbox" ${checked} data-task-id="${taskId}" data-subtask-key="${subtaskKey}">
+                    <div class="icon-wrapper icon-checkbox-default">
+                        <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                    </div>
+                    <div class="icon-wrapper icon-checkbox-checked">
+                        <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
+                        <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                    </div>
+                </label>
+                <span>${subtask.title}</span>
+            </div>`;
 }
 
 /**
@@ -570,7 +561,6 @@ function noTasksContainer(message) {
  */
 function getInitialIcons(contact) {
   return `<div class="contact-icon initial-icon" style="background-color: ${contact.color};">${contact.initial}</div>`;
-
 }
 
 /**
@@ -582,7 +572,6 @@ function getOverflowNumberIcon(remainingCount) {
   return `<div class="more-icon font-color-grey">+${remainingCount}</div>`;
 }
 
-
 function getInitialsWithNamesTemplate(contact) {
   return `<div class="names-wrapper">
                 <div class="contact-icon" style="background-color: ${contact.color};">${contact.initial}</div>
@@ -590,16 +579,14 @@ function getInitialsWithNamesTemplate(contact) {
             </div>`;
 }
 
-
 function getAssignedToContentTemplate(initialsWithName) {
   return `<div>
-                <span class="font-color-grey">Assigned To:</span>
-                  <div class="initials-container">
-                     <div class="initials-wrapper">${initialsWithName} </div>
-                  </div>
-            </div>`;
+            <span class="font-color-grey">Assigned To:</span>
+            <div class="initials-container">
+              <div class="initials-wrapper">${initialsWithName} </div>
+            </div>
+          </div>`;
 }
-
 
 /**
  * Returns the HTML template for the "Add Task" form.
@@ -627,7 +614,6 @@ function getAddTaskFormTemplate() {
                 ${getAddTaskDueDateTemplate()}
               </div>
             </div>
-
             <div class="add-task-right">
               <div id="priority-wrapper-template">
                 ${getPriorityTemplate()}
@@ -648,8 +634,6 @@ function getAddTaskFormTemplate() {
       </form>
       </div>`;
 }
-
-
 
 /**
  * Returns the HTML template for the task title input field.
