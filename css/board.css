@@ -1,3 +1,9 @@
+.flex-col-noshrink {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
 .board {
     display: flex;
     flex-direction: column;
@@ -263,7 +269,7 @@
     overflow: auto;
 }
 
-#edit-task-form > .btn-small {
+#edit-task-form>.btn-small {
     align-self: flex-end;
 }
 
@@ -297,27 +303,31 @@
     max-height: 80px;
     overflow-y: auto;
 }
+
 .task-title-big::-webkit-scrollbar,
 .task-description::-webkit-scrollbar,
 .initials-wrapper::-webkit-scrollbar,
 .subtasks-wrapper::-webkit-scrollbar {
     width: 10px;
 }
-.task-title-big::-webkit-scrollbar-track, 
+
+.task-title-big::-webkit-scrollbar-track,
 .task-description::-webkit-scrollbar-track,
 .initials-wrapper::-webkit-scrollbar-track,
 .subtasks-wrapper::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
 }
-.task-title-big::-webkit-scrollbar-thumb, 
+
+.task-title-big::-webkit-scrollbar-thumb,
 .task-description::-webkit-scrollbar-thumb,
 .initials-wrapper::-webkit-scrollbar-thumb,
 .subtasks-wrapper::-webkit-scrollbar-thumb {
     background: rgb(42, 54, 71);
     border-radius: 10px;
 }
-.task-title-big::-webkit-scrollbar-thumb:hover, 
+
+.task-title-big::-webkit-scrollbar-thumb:hover,
 .task-description::-webkit-scrollbar-thumb:hover,
 .initials-wrapper::-webkit-scrollbar-thumb:hover,
 .subtasks-wrapper::-webkit-scrollbar-thumb:hover {
@@ -348,6 +358,10 @@
     align-items: center;
     justify-content: flex-end;
     gap: 16px;
+}
+
+.add-task-text {
+    min-width: 106px;
 }
 
 /* add task mobile */
