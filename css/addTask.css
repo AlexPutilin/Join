@@ -1,9 +1,9 @@
 .add-task-root {
-  position: relative;
   display: flex;
-  overflow: hidden;
-  padding: 12px;
   height: 100%;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
 }
 
 .add-task-form {
@@ -11,8 +11,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background-color: #f6f7f8;
-  padding: 36px;
   border-radius: 24px;
 }
 
@@ -21,7 +19,7 @@
   margin-bottom: 20px;
 }
 
-.add-task-head-wrapper{
+.add-task-head-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,6 +69,28 @@
   gap: 10px;
 }
 
+.list-subtasks {
+  height: 80px;
+  overflow-y: auto;
+}
+
+.list-subtasks::-webkit-scrollbar {
+  width: 10px;
+}
+
+.list-subtasks::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+.list-subtasks::-webkit-scrollbar-thumb {
+  background: rgb(42, 54, 71);
+  border-radius: 10px;
+}
+
+.list-subtasks::-webkit-scrollbar-thumb:hover {
+  background: #2a3d59;
+}
 
 .subtask-btn {
   background-color: transparent;
@@ -358,12 +378,16 @@
 }
 
 /* add Task Board */
-.add-task-wapper {
+.add-task-wrapper {
   background-color: #f6f7f8;
-  border-radius: 8px;
   padding: 24px;
+  border-radius: 24px;
+  height: auto;
+  width: 900px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row-reverse;
 }
-
 
 @media (max-width: 1200px) {
   .add-task-container {
@@ -418,7 +442,25 @@
     display: flex;
     justify-content: center;
     padding: 16px;
-    overflow: scroll;
+    overflow-y: auto;
+  }
+
+  .add-task-root::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .add-task-root::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  .add-task-root::-webkit-scrollbar-thumb {
+    background: rgb(42, 54, 71);
+    border-radius: 10px;
+  }
+
+  .add-task-root::-webkit-scrollbar-thumb:hover {
+    background: #2a3d59;
   }
 
   .add-task-container-wrapper {
@@ -434,7 +476,6 @@
     min-width: 580px;
     flex-direction: column;
     gap: none;
-
   }
 
   .add-task-left {
@@ -449,11 +490,11 @@
   }
 
   .clear-save-btn-wrapper {
-    position: fixed;
-    left: 0;
-    bottom: 82px;
+    /* position: fixed; */
+    /* left: 0;
+    bottom: 82px; */
     background: #f6f7f8;
-    z-index: 999;
+    /* z-index: 999; */
     padding: 16px;
     width: 100%;
     box-sizing: border-box;
