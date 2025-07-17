@@ -74,3 +74,22 @@ async function updateData(path = "", data = {}) {
         console.error("Error while update data in Firebase:", error);
     }
 }
+
+/**
+ * Sends a PATCH request to the specified Firebase path to update parts of data.
+ * 
+ * @param {string} [path=""] - The relative path in the Firebase database to patch data to.
+ * @param {Object} [data={}] - The partial data object to update.
+ * @returns {Promise<void>} A promise that resolves when the request is completed.
+ */
+async function patchData(path = "", data = {}) {
+    try {
+        await fetch(FIREBASE_URL + path + ".json", {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data),
+        });
+    } catch (error) {
+        console.error("Error while patching data in Firebase:", error);
+    }
+}
