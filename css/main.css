@@ -13,6 +13,10 @@
   visibility: hidden;
 }
 
+.flex-start{
+   justify-content: flex-start !important;
+}
+
 h1 {
   font-size: 72px;
 }
@@ -160,19 +164,16 @@ li::marker {
     width: 10px;
   }
 
-  .board::-webkit-scrollbar-track,
   .content::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
   }
 
-  .board::-webkit-scrollbar-thumb,
   .content::-webkit-scrollbar-thumb {
     background: rgb(42, 54, 71);
     border-radius: 10px;
   }
 
-  .board::-webkit-scrollbar-thumb:hover,
   .content::-webkit-scrollbar-thumb:hover {
     background: #2a3d59;
   }
