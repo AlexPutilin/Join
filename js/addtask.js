@@ -1,3 +1,4 @@
+let selectedStatusForNewTask = 'to-do';
 /**
  * Stores contact information by their unique IDs.
  * @type {Object.<string, Object>}
@@ -36,6 +37,7 @@ async function loadAssignedToContacts() {
  * Initializes the Add Task form when the DOM is fully loaded.
  */
 document.addEventListener("DOMContentLoaded", () => {
+  selectedStatusForNewTask = getStatusFromURL();
   const container = document.getElementById('add-task-root');
   if (!container) return;
   container.innerHTML = getAddTaskFormTemplate();
@@ -55,26 +57,26 @@ function initializeAddTaskPage() {
   setupCreateButtonListeners();
 }
 
-  /**
- * Renders the priority selection buttons and enables their interaction.
- */
-  function renderPriorityButtons() {
-    const priorityWrapper = document.getElementById('priority-wrapper-template');
-    if (!priorityWrapper) return;
-    priorityWrapper.innerHTML = getPriorityTemplate();
-    setDefaultPriority();
-    enablePrioritySelection();
-  }
+/**
+* Renders the priority selection buttons and enables their interaction.
+*/
+function renderPriorityButtons() {
+  const priorityWrapper = document.getElementById('priority-wrapper-template');
+  if (!priorityWrapper) return;
+  priorityWrapper.innerHTML = getPriorityTemplate();
+  setDefaultPriority();
+  enablePrioritySelection();
+}
 
 
 function initCategoryInteractions(wrapper) {
   const inputWrapper = wrapper.querySelector('.input-wrapper');
   const toggleBtn = inputWrapper.querySelector('button');
   const inputArea = inputWrapper.querySelector('.input-area');
-  [toggleBtn, inputArea].forEach(element =>element.addEventListener('click', () => toggleDropDown(toggleBtn)));
+  [toggleBtn, inputArea].forEach(element => element.addEventListener('click', () => toggleDropDown(toggleBtn)));
 
   setupCategoryOptionSelection(wrapper, toggleBtn);
-  setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
+  setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper', () => toggleDropDown(toggleBtn));
 }
 
 function renderCategoryField() {
@@ -99,7 +101,7 @@ function createCategoryOptions(wrapper) {
 
 function setupCategoryOptionSelection(wrapper, toggleBtn) {
   const optionsContainer = wrapper.querySelector('#category-options-container');
-  const inputWrapper     = wrapper.querySelector('.input-wrapper');
+  const inputWrapper = wrapper.querySelector('.input-wrapper');
   optionsContainer.addEventListener('click', event => {
     const opt = event.target.closest('.dropdown-single-option');
     const input = wrapper.querySelector('input');
@@ -118,11 +120,11 @@ function setupCategoryOptionSelection(wrapper, toggleBtn) {
  * @returns {boolean} true, wenn Kategorie gesetzt ist
  */
 function validateCategoryField() {
-  const input    = document.getElementById('task-category');
-  const wrapper  = input.closest('.input-wrapper');
-  const area     = wrapper.querySelector('.input-area');
-  const errMsg   = wrapper.querySelector('.err-msg');
-  const isValid  = !!input.value.trim();
+  const input = document.getElementById('task-category');
+  const wrapper = input.closest('.input-wrapper');
+  const area = wrapper.querySelector('.input-area');
+  const errMsg = wrapper.querySelector('.err-msg');
+  const isValid = !!input.value.trim();
   if (isValid) {
     area.classList.remove('invalid-input');
     errMsg.classList.add('hidden');
@@ -179,14 +181,14 @@ function renderContacts(contactsData) {
 
 
 function initAssignedToInteractions() {
-  const wrapper     = document.querySelector('#assigned-to-wrapper-template .input-wrapper');
-  const toggleBtn   = wrapper.querySelector('button.btn-small');
+  const wrapper = document.querySelector('#assigned-to-wrapper-template .input-wrapper');
+  const toggleBtn = wrapper.querySelector('button.btn-small');
   const searchInput = wrapper.querySelector('input[type="text"]');
-  const menu        = wrapper.querySelector('.drop-down-menu');
+  const menu = wrapper.querySelector('.drop-down-menu');
 
   initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu);
   initAssignedToContactSelection();
-  setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
+  setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper', () => toggleDropDown(toggleBtn));
 }
 
 /**
@@ -209,7 +211,8 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
 function initAssignedToContactSelection() {
   document
     .getElementById('contacts-dropdown')
-    .addEventListener('change', event => {const cb = event.target;
+    .addEventListener('change', event => {
+      const cb = event.target;
       if (!cb.matches('input[type="checkbox"]')) return;
       cb.closest('.select-contact').classList.toggle('selected', cb.checked);
       renderAssignedChips();
@@ -280,16 +283,18 @@ function getSelectedContactIds() {
   );
 }
 
-function getStatusFromButtonId(buttonId) {
-  let status = 'to-do';              
-  if (buttonId === 'in-progress-btn') {
-    status = 'in-progress';
-  }
-  else if (buttonId === 'await-feedback-btn') {
-    status = 'await-feedback';
-  }
-  return status;
-}
+// function getStatusFromButtonId(buttonId) {
+//   let status = 'to-do';
+//   if (buttonId === 'in-progress-btn') {
+//     status = 'in-progress';
+//   }
+//   else if (buttonId === 'await-feedback-btn') {
+//     status = 'await-feedback';
+//   } else{
+//     return status;
+//   }
+
+// }
 
 /**
  * Bereitet alle Task‐Daten vor, inkl. assigned_to aus contactsById.
@@ -300,7 +305,7 @@ function prepareTaskData(status) {
   const taskData = getInputData('#add-task-form');
   const ids = getSelectedContactIds();
   const names = ids.map(id => contactsById[id]?.name).filter(Boolean);
-  taskData.assigned_to = names.join(', '); 
+  taskData.assigned_to = names.join(', ');
   taskData.status = status;
   const subtasks = getSubtasksFromDOM();
   if (Object.keys(subtasks).length) {
@@ -313,14 +318,16 @@ function prepareTaskData(status) {
 /**
  * Speichert den Task, nachdem validateFormBeforeSubmit() grünes Licht gibt.
  */
-async function addTask(status = 'to-do') {
+async function addTask() {
   if (!validateFormBeforeSubmit()) return;
-  const taskData = prepareTaskData(status);
-    await postData('/board/tasks', taskData);
-    console.info('addTask: Task erfolgreich gespeichert.');
-    clearAddTaskForm();
-    showAddTaskNotification();
-  } 
+  const taskData = prepareTaskData(selectedStatusForNewTask);
+  await postData('/board/tasks', taskData);
+  console.info('addTask: Task erfolgreich gespeichert.');
+  clearAddTaskForm();
+  showAddTaskNotification();
+  overlayRef.classList.add('d-none');
+  refreshBoardContainer();
+}
 
 /**
  * Validates the Add Task form before submission.
@@ -364,6 +371,7 @@ function clearAddTaskForm() {
   hideErrorMessages();
   initializeAddTaskPage();
   updateCreateButtonState();
+  refreshBoardContainer();
 }
 
 function resetForm() {
@@ -388,20 +396,32 @@ function showAddTaskNotification() {
   });
 }
 
-async function addTaskBoard() {
+async function addTaskBoard(status) {
+  if (window.innerWidth <= 992) {
+
+    openPage(`addTask.html?status=${encodeURIComponent(status)}`);
+    return;
+  }
+  selectedStatusForNewTask = status;
+
   overlayRef.classList.remove('d-none');
-  //  let closeBtn = document.getElementsByClassName('btn-small');
-  // closeBtn.classList.remove('hidden');
-  overlayRef.innerHTML = `<div  onclick="eventBubblingProtection(event)" class="add-task-wrapper">
-                             ${getAddTaskFormTemplate()}
- 
-                           
+  overlayRef.innerHTML = `<div onclick="eventBubblingProtection(event)" class="add-task-wrapper">
+                            <button onclick="closeOverlay()" class="btn-small">
+                              <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                              <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                            </button>
+                            ${getAddTaskFormTemplate()}
                           </div>`;
   clearAddTaskForm();
-
+  await refreshBoardContainer();
 }
 
 async function refreshBoardContainer() {
   await tasksToArray();
   await renderAllTasks(allTasks);
+}
+
+function getStatusFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('status') || 'to-do';
 }
