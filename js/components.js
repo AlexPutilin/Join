@@ -404,9 +404,14 @@ function setupAssignedToSearch() {
  * @returns {NodeListOf<HTMLElement>} A list of subtask container elements.
  */
 function getAllSubtaskElements() {
-  const listContainer = document.querySelector('#subtask-input .list-subtasks');
-  return listContainer.querySelectorAll('.subtask-item-container');
+    const listContainer = document.querySelector('#subtask-input .list-subtasks');
+    if (!listContainer) {
+        console.warn('Element "#subtask-input .list-subtasks" nicht gefunden.');
+        return []; 
+    }
+    return listContainer.querySelectorAll('.subtask-item-container');
 }
+
 
 /**
  * Extracts and cleans the title of a subtask from its DOM container.
