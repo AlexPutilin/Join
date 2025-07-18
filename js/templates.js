@@ -449,21 +449,21 @@ function getOverviewEditmodeTemplate(task) {
           <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
         </button>
         <div class="input-wrapper">
-          <label for="">Title</label>
+          <span>Title</span>
           <div class="input-area">
               <input type="text" name="title" placeholder="Enter a title" value="${task.title}" oninput="resetInputError()">
           </div>
           <span class="err-msg hidden">Invalid input.</span>
         </div>
         <div class="input-wrapper">
-          <label>Description</label>
+          <span>Description</span>
           <textarea name="description" placeholder="Enter a description" value="${task.description_full}" rows="3"></textarea>
           <span class="err-msg hidden">Invalid input.</span>
         </div>
         <div class="input-wrapper">
-          <label for="">Due date</label>
+          <span>Due date</span>
           <div class="input-area">
-              <input type="date" name="date">
+              <input type="date" name="date" value="${task.due_date}">
           </div>
           <span class="err-msg hidden">Not a valid date.</span>
         </div>
@@ -490,23 +490,10 @@ function getOverviewEditmodeTemplate(task) {
             <span class="err-msg hidden">Invalid input.</span>
           </label>
         </div>
-        <div class="input-wrapper">
-          <div class="input-area drop-down-input">
-            <input type="text" placeholder="Select contacts to assign" data-placeholder="Select contacts to assign" data-placeholder-active="" onchange="opend">
-            <button type="button" class="btn-small" onclick="toggleDropDown(this), renderContacts2()">
-              <div class="icon-wrapper">
-                <img class="icon-default" src="../assets/img/icon-down-default.svg">
-                <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
-              </div>
-                <div class="icon-wrapper d-none">
-                  <img class="icon-default" src="../assets/img/icon-up-default.svg">
-                  <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
-                </div>
-            </button>
-          </div>
-          <div class="assigned-chips" id="assigned-chips-container"></div>
-          <div id="contacts-dropdown" class="drop-down-menu d-none" data-open="false"></div>
+        <div id="assigned-to-wrapper-template">
+          ${getAssignedToTemplate()}
         </div>
+        ${getSubtaskInputTemplate()}
       </form>
       <button class="btn-dark">
         <span>OK</span>

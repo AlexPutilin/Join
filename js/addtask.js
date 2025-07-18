@@ -124,7 +124,7 @@ async function renderAssignedToField() {
   }
 
   // 2) Dropdown befüllen
-  renderContacts(contacts);
+  renderContacts();
 
   // 3) Restliche Interaktionen
   initAssignedToInteractions();
@@ -139,7 +139,7 @@ function injectAssignedToTemplate() {
 }
 
 
-function renderContacts(contacts) {
+function renderContacts() {
   const dropdown = document.getElementById('contacts-dropdown');
   if (!dropdown) return;
   dropdown.innerHTML = "";
@@ -171,9 +171,7 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
 
 
 function initAssignedToContactSelection() {
-  document
-    .getElementById('contacts-dropdown')
-    .addEventListener('change', event => {
+  document.getElementById('contacts-dropdown').addEventListener('change', event => {
       const cb = event.target;
       if (!cb.matches('input[type="checkbox"]')) return;
       cb.closest('.select-contact').classList.toggle('selected', cb.checked);
