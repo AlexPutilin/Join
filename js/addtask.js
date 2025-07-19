@@ -16,16 +16,6 @@ function initAddTaskPage() {
   setupCreateButtonListeners();
 }
 
-function initCategoryInteractions(wrapper) {
-  const inputWrapper = wrapper.querySelector('.input-wrapper');
-  const toggleBtn = inputWrapper.querySelector('button');
-  const inputArea = inputWrapper.querySelector('.input-area');
-  [toggleBtn, inputArea].forEach(element =>element.addEventListener('click', () => toggleDropDown(toggleBtn)));
-
-  setupCategoryOptionSelection(wrapper, toggleBtn);
-  setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
-}
-
 function renderCategoryField() {
   const wrapper = document.getElementById('category-wrapper-template');
   if (!wrapper) return;
@@ -34,32 +24,39 @@ function renderCategoryField() {
   initCategoryInteractions(wrapper);
 }
 
+function initCategoryInteractions(wrapper) {
+  const inputWrapper = wrapper.querySelector('.input-wrapper');
+  const toggleBtn = inputWrapper.querySelector('button');
+  const inputArea = inputWrapper.querySelector('.input-area');
+  [toggleBtn, inputArea].forEach(element =>element.addEventListener('click', () => toggleDropDown(toggleBtn)));
+  setupCategoryOptionSelection(wrapper, toggleBtn);
+  setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
+}
+
 function createCategoryOptions(wrapper) {
   const optionsContainer = wrapper.querySelector('#category-options-container');
   optionsContainer.innerHTML = '';
   ['Technical Task', 'User Story'].forEach(name => {
-    const opt = document.createElement('div');
-    opt.classList.add('dropdown-single-option');
-    opt.textContent = name;
-    optionsContainer.appendChild(opt);
+    const option = document.createElement('div');
+    option.classList.add('dropdown-single-option');
+    option.textContent = name;
+    optionsContainer.appendChild(option);
   });
 }
-
 
 function setupCategoryOptionSelection(wrapper, toggleBtn) {
   const optionsContainer = wrapper.querySelector('#category-options-container');
   const inputWrapper     = wrapper.querySelector('.input-wrapper');
   optionsContainer.addEventListener('click', event => {
-    const opt = event.target.closest('.dropdown-single-option');
+    const option = event.target.closest('.dropdown-single-option');
     const input = wrapper.querySelector('input');
-    input.value = opt.textContent;
+    input.value = option.textContent;
     toggleDropDown(toggleBtn);
     inputWrapper.querySelector('.input-area').classList.remove('invalid-input');
     wrapper.querySelector('.err-msg').classList.add('hidden');
     updateCreateButtonState();
   });
 }
-
 
 function validateCategoryField() {
   const input    = document.getElementById('task-category');
@@ -77,7 +74,6 @@ function validateCategoryField() {
   return isValid;
 }
 
-
 async function renderAssignedToField() {
   if (!injectAssignedToTemplate()) return;
   if (contacts.length === 0) {
@@ -86,14 +82,12 @@ async function renderAssignedToField() {
   initAssignedToInteractions();
 }
 
-
 function injectAssignedToTemplate() {
   const wrapper = document.getElementById('assigned-to-wrapper-template');
   if (!wrapper) return false;
   wrapper.innerHTML = getAssignedToTemplate();
   return true;
 }
-
 
 function renderContacts() {
   const dropdown = document.getElementById('contacts-dropdown');
@@ -103,7 +97,6 @@ function renderContacts() {
     dropdown.innerHTML += getContactSelectionTemplate(contact);
   });
 }
-
 
 function initAssignedToInteractions() {
   const wrapper     = document.querySelector('#assigned-to-wrapper-template .input-wrapper');
@@ -126,7 +119,6 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
   });
 }
 
-
 function initAssignedToContactSelection() {
   document
     .getElementById('contacts-dropdown')
@@ -135,7 +127,6 @@ function initAssignedToContactSelection() {
       renderAssignedChips();
     });
 }
-
 
 function renderAssignedChips() {
   const container = document.getElementById('assigned-chips-container');
@@ -150,13 +141,11 @@ function renderAssignedChips() {
     });
 }
 
-
 function renderSubtaskInput() {
   const subtaskWrapper = document.getElementById('subtask-wrapper-template');
   if (!subtaskWrapper) return;
   subtaskWrapper.innerHTML = getSubtaskInputTemplate();
 }
-
 
 function getSubtasksFromDOM() {
   const subtaskElements = getAllSubtaskElements();
@@ -169,7 +158,6 @@ function getSubtasksFromDOM() {
   }); return subtasks;
 }
 
-
 function setupCreateButtonListeners() {
   const titleInput = document.getElementById('task-title');
   const dueDateInput = document.getElementById('due-date');
@@ -180,7 +168,6 @@ function setupCreateButtonListeners() {
     dueDateInput.addEventListener('input', updateCreateButtonState);
   }
 }
-
 
 function getSelectedContactIds() {
   return Array.from(
@@ -212,7 +199,7 @@ function prepareTaskData(status) {
   const subtasks = getSubtasksFromDOM();
   if (Object.keys(subtasks).length) {
     taskData.subtasks = subtasks;
-  }return taskData;
+  } return taskData;
 }
 
 async function addTask(status = 'to-do') {
