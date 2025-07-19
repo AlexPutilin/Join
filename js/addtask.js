@@ -215,30 +215,14 @@ function prepareTaskData(status) {
   }return taskData;
 }
 
-/**
- * Speichert den Task, nachdem validateFormBeforeSubmit() grünes Licht gibt.
- *
- * @param {string} [status='to-do']  Der Status, mit dem der neue Task abgelegt wird.
- */
 async function addTask(status = 'to-do') {
   if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData(status);
   await postData('/board/tasks', taskData);
-  console.info('addTask: Task erfolgreich gespeichert.');
+  console.info('addTask: Task successfully saved');
   clearAddTaskForm();
   showAddTaskNotification();
 }
-
-
-
-async function addTask(status = 'to-do') {
-  if (!validateFormBeforeSubmit()) return;
-  const taskData = prepareTaskData(status);
-    await postData('/board/tasks', taskData);
-    console.info('addTask: Task erfolgreich gespeichert.');
-    clearAddTaskForm();
-    showAddTaskNotification();
-  } 
 
 
 
