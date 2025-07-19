@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
   container.innerHTML = getAddTaskFormTemplate();
   initProfile();
   redirectIfNotLoggedIn();
-  initializeAddTaskPage();
+  initAddTaskPage();
 });
 
 
-function initializeAddTaskPage() {
+function initAddTaskPage() {
   renderCategoryField();
   renderAssignedToField();
   ensureDefaultPriority();
@@ -272,7 +272,7 @@ function clearAddTaskForm() {
   resetForm();
   hideDropdownMenus();
   hideErrorMessages();
-  initializeAddTaskPage();
+  initAddTaskPage();
   updateCreateButtonState();
 }
 
