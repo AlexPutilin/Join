@@ -107,16 +107,9 @@ function validateCategoryField() {
 
 async function renderAssignedToField() {
   if (!injectAssignedToTemplate()) return;
-
-  // 1) Kontakte holen, falls noch nicht geschehen
   if (contacts.length === 0) {
-    await loadContacts();        // füllt dein globales `contacts`-Array
-  }
-
-  // 2) Dropdown befüllen
-  renderContacts(contacts);     
-
-  // 3) Restliche Interaktionen
+    await loadContacts(); 
+  } renderContacts();     
   initAssignedToInteractions();
 }
 
@@ -129,7 +122,7 @@ function injectAssignedToTemplate() {
 }
 
 
-function renderContacts(contacts) {
+function renderContacts() {
   const dropdown = document.getElementById('contacts-dropdown');
   if (!dropdown) return;
   dropdown.innerHTML = "";
