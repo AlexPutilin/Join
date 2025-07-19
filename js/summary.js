@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
     redirectIfNotLoggedIn();
     initGreetingUser();
     showMobileWelcomeScreen();
-    initializeMetricCards();
+    initMetricCards();
   });
 
 
-  async function initializeMetricCards(){
+  async function initMetricCards(){
     try{
         const taskData = await getData("board/tasks");
         const tasks = Object.values(taskData);
@@ -76,17 +76,17 @@ function initGreetingUser() {
   }
   
 
-function showMobileWelcomeScreen() {
-    if (window.innerWidth > 992) return; 
-  
+  function showMobileWelcomeScreen() {
+    if (window.innerWidth > 992) return;
+    if (sessionStorage.getItem('welcomeScreen') === 'true') return;
     const welcomeScreen = document.getElementById('welcome-screen-mobile');
     if (!welcomeScreen) return;
-  
     welcomeScreen.classList.remove('d-none');
     welcomeScreen.classList.add('show');
-  
+    sessionStorage.setItem('welcomeScreen', 'true');
+
     setTimeout(() => {
       welcomeScreen.classList.remove('show');
       welcomeScreen.classList.add('d-none');
     }, 2000);
-}
+  }
