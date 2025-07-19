@@ -316,30 +316,11 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
     }
   });
 }
-  
-/**
- * Sets the default selected priority to "medium".
- */
-function setDefaultPriority() {
-  const mediumInput = document.querySelector('input[name="priority"][value="medium"]');
-  if (!mediumInput) return;
-  mediumInput.checked = true;
-  const mediumLabel = mediumInput.closest('.priority-option');
-  if (mediumLabel) mediumLabel.classList.add('active');
-}
 
-/**
- * Enables interaction with the priority selection buttons.
- */
-function enablePrioritySelection() {
-  document.querySelectorAll('.priority-option').forEach(label => {
-    label.addEventListener('click', () => {
-      document.querySelectorAll('.priority-option').forEach(l => l.classList.remove('active'));
-      label.classList.add('active');
-      const input = label.querySelector('input[name="priority"]');
-      if (input) input.checked = true;
-    });
-  });
+function ensureDefaultPriority() {
+  if (document.querySelector('input[name="priority"]:checked')) return;
+  const medium = document.querySelector('input[name="priority"][value="medium"]');
+  if (medium) medium.checked = true;
 }
 
   function createContactChip(initials, bgColor) {

@@ -28,12 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
 function initializeAddTaskPage() {
   renderCategoryField();
   renderAssignedToField();
-  renderPriorityButtons();
+  ensureDefaultPriority();
   renderSubtaskInput();
   setupCreateButtonListeners();
 }
 
-
+/*
   function renderPriorityButtons() {
     const priorityWrapper = document.getElementById('priority-wrapper-template');
     if (!priorityWrapper) return;
@@ -41,7 +41,7 @@ function initializeAddTaskPage() {
     setDefaultPriority();
     enablePrioritySelection();
   }
-
+ */
 
 function initCategoryInteractions(wrapper) {
   const inputWrapper = wrapper.querySelector('.input-wrapper');
@@ -159,7 +159,6 @@ function initAssignedToContactSelection() {
     .getElementById('contacts-dropdown')
     .addEventListener('change', event => {const checkbox = event.target;
       if (!checkbox.matches('input[type="checkbox"]')) return;
-      checkbox.closest('.select-contact').classList.toggle('selected', checkbox.checked);
       renderAssignedChips();
     });
 }
@@ -228,18 +227,35 @@ function getStatusFromButtonId(buttonId) {
   return status;
 }
 
-
 function prepareTaskData(status) {
   const taskData = getInputData('#add-task-form');
   const ids = getSelectedContactIds();
-  const names = ids.map(id => contactsById[id]?.name).filter(Boolean);
+  const names = ids.map(id => 
+    {const contact = contacts.find(checkedContacts => String(checkedContacts.id) === String(id));
+    return contact?.name;
+    }).filter(Boolean);
   taskData.assigned_to = names.join(', '); 
-  taskData.status = status;
+  taskData.status      = status;
   const subtasks = getSubtasksFromDOM();
   if (Object.keys(subtasks).length) {
     taskData.subtasks = subtasks;
-  } return taskData;
+  }return taskData;
 }
+
+/**
+ * Speichert den Task, nachdem validateFormBeforeSubmit() grünes Licht gibt.
+ *
+ * @param {string} [status='to-do']  Der Status, mit dem der neue Task abgelegt wird.
+ */
+async function addTask(status = 'to-do') {
+  if (!validateFormBeforeSubmit()) return;
+  const taskData = prepareTaskData(status);
+  await postData('/board/tasks', taskData);
+  console.info('addTask: Task erfolgreich gespeichert.');
+  clearAddTaskForm();
+  showAddTaskNotification();
+}
+
 
 
 async function addTask(status = 'to-do') {
