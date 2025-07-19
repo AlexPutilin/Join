@@ -1,20 +1,3 @@
-/**
- * Loads all users from the Firebase database.
- *
- * @async
- * @returns {Promise<Object>} A promise that resolves to an object containing all users.
- */
-async function loadAllUsers() {
-  try {
-    const users = await getData("/users");
-    console.log("Users loaded:", users);
-    return users;
-  } catch (error) {
-    console.error("Error while loading users:", error);
-  }
-}
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById('add-task-root');
   if (!container) return; 
@@ -32,16 +15,6 @@ function initializeAddTaskPage() {
   renderSubtaskInput();
   setupCreateButtonListeners();
 }
-
-/*
-  function renderPriorityButtons() {
-    const priorityWrapper = document.getElementById('priority-wrapper-template');
-    if (!priorityWrapper) return;
-    priorityWrapper.innerHTML = getPriorityTemplate();
-    setDefaultPriority();
-    enablePrioritySelection();
-  }
- */
 
 function initCategoryInteractions(wrapper) {
   const inputWrapper = wrapper.querySelector('.input-wrapper');
