@@ -168,12 +168,12 @@ function initAssignedToContactSelection() {
 function renderAssignedChips() {
   const container = document.getElementById('assigned-chips-container');
   container.innerHTML = '';
-  document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked')
+  document .querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked')
     .forEach(checkbox => {
       const id = checkbox.dataset.contactId;
-      const info = contactsById[id];
+      const info = contacts.find(contact => contact.id === id);
       if (!info) return;
-      const chip = createContactChip(getContactInitials(info.name), info.color);
+      const chip = createContactChip(getContactInitials(info.name),info.color);
       container.appendChild(chip);
     });
 }

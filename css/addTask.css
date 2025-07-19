@@ -1,9 +1,10 @@
 .add-task-root{
   position: relative;
   display: flex;
-  overflow: hidden;
   padding: 48px;
   height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .add-task-form {
@@ -87,14 +88,6 @@
   border-radius: 10px;
 }
 
-.list-subtasks::-webkit-scrollbar-thumb:hover {
-  background: #2a3d59;
-}
-
-.drop-down-menu {
-  background-color: white;
-  border-radius: 10px;
-}
   .dropdown-options.hidden {
     max-height: 0;
     opacity: 0;
@@ -114,7 +107,7 @@
 .clear-save-btn-wrapper {
   position: static;
   width: 100%;
-  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 .clear-save-btn {
@@ -266,21 +259,17 @@
   gap: 8px; 
 }
 
-.select-contact.selected {
-  background-color: #2A3647;
+#contacts-dropdown .select-contact:has(input[type="checkbox"]:checked),
+#contacts-dropdown .select-contact:has(input[type="checkbox"]:checked) .contact-name {
   color: #fff;
+}
+
+#contacts-dropdown .select-contact:has(input[type="checkbox"]:checked) {
+  background-color: #2A3647;
   border-radius: 10px;
 }
 
-.select-contact.selected .contact-name {
-  color: #fff;
-}
-
-.select-contact.selected .icon-contact {
-  border-color: #fff;
-}
-
-.select-contact.selected .icon-wrapper img {
+#contacts-dropdown .select-contact:has(input[type="checkbox"]:checked) .icon-wrapper img {
   filter: brightness(0) invert(1);
 }
 
@@ -502,13 +491,8 @@
     min-width: 320px;
   }
 
-  .btn-light,
-  .btn-dark {
-    font-size: 14px;
-  }
-
   .clear-save-btn-wrapper {
-    bottom: 74px;
+    bottom: 64px;
   }
 
   .priority-buttons-wrapper {
