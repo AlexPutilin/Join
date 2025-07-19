@@ -22,6 +22,10 @@
   border-radius: 10px;
 }
 
+.add-task-root::-webkit-scrollbar:horizontal {
+  height: 0;
+}
+
 .add-task-form {
   display: flex;
   flex-direction: column;
@@ -399,6 +403,7 @@
 
   .form-error-mobile-visible {
     display: flex;
+    padding-top: 20px;
   }
   
   .add-task-root{
@@ -442,7 +447,7 @@
     background: #f6f7f8;
     z-index: 999;
     padding: 16px;
-    width: 100%;
+    width: 96%;
     box-sizing: border-box;
   }
 
@@ -507,7 +512,7 @@
   }
 
   .clear-save-btn-wrapper {
-    bottom: 64px;
+    bottom: 66px;
   }
 
   .priority-buttons-wrapper {
@@ -523,6 +528,12 @@
     align-items: center;
     padding-bottom: 50px;
   }  
+
+  .btn-light,
+  .btn-dark {
+    font-size: 16px;
+    padding: 8px;
+  }
 
 }
 
@@ -548,12 +559,6 @@
     align-items: center;
     padding-bottom: 48px;
   }  
-
-  .btn-light,
-  .btn-dark {
-    font-size: 16px;
-    padding: 8px;
-  }
 }
 
 
