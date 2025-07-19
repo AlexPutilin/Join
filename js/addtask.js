@@ -111,13 +111,19 @@ function initAssignedToInteractions() {
 
 
 function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
-  toggleBtn.addEventListener('click', () => openDropDownMenu(toggleBtn));
-  searchInput.addEventListener('input', () => {
-    if (menu.dataset.open !== 'true') toggleDropDown(toggleBtn);
+  toggleBtn.onclick = () => toggleDropDown(toggleBtn);
+  searchInput.onkeydown = element => {
+    const key = element.key;
+    if ((key.length === 1 || key === 'Backspace') && menu.dataset.open !== 'true') {
+      toggleDropDown(toggleBtn);
+    }
+  };
+  searchInput.onkeyup = () => {
     const items = Array.from(menu.querySelectorAll('.select-contact'));
     filterItems(items, searchInput.value.toLowerCase().trim());
-  });
+  };
 }
+
 
 function initAssignedToContactSelection() {
   document
