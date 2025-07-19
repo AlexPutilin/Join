@@ -4,7 +4,22 @@
   padding: 48px;
   height: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.add-task-root::-webkit-scrollbar {
+  width: 10px;
+}
+
+.add-task-root::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+  background: #eee;
+}
+
+.add-task-root::-webkit-scrollbar-thumb {
+  background: #2A3647;
+  border-radius: 10px;
 }
 
 .add-task-form {
@@ -377,7 +392,6 @@
   }
 }
 
-
 @media (max-width: 992px) {
   .form-error-desktop-visible {
     display: none;
@@ -385,7 +399,6 @@
 
   .form-error-mobile-visible {
     display: flex;
-    padding-top: 16px;
   }
   
   .add-task-root{
@@ -405,10 +418,10 @@
 
   .add-task-container {
     width: 100%;
+    margin-bottom: 112px;
     min-width: 580px;
     flex-direction: column;
     gap: none;
-  
   }
 
   .add-task-left {
@@ -535,6 +548,12 @@
     align-items: center;
     padding-bottom: 48px;
   }  
+
+  .btn-light,
+  .btn-dark {
+    font-size: 16px;
+    padding: 8px;
+  }
 }
 
 
