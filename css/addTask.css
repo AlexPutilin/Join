@@ -32,6 +32,7 @@
   justify-content: center;
   align-items: flex-start;
   background-color: #f6f7f8;
+  max-width: 760px;
 }
 
 .mobile-h1 {
