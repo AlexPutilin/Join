@@ -742,7 +742,7 @@ function getAssignedToTemplate() {
 
 function getAddTaskNotificationTemplate() {
   return `
-    <div class="successfully-added-notification btn-dark">
+    <div class="successfully-added-notification btn-dark slide-in-out-add-task">
       <span>Task added to board</span>
       <img src="../assets/img/icon-board.svg" alt="Board icon">
     </div>

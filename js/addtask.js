@@ -269,13 +269,11 @@ function resetForm(){
 
 
 
-  function showAddTaskNotification() {
-    const notificationWrapper = document.createElement('div');
-    notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
-    const notificationElement = notificationWrapper.firstElementChild;
-    if (!notificationElement) return;
-    document.body.appendChild(notificationElement);
-    notificationElement.addEventListener('animationend', () => {
-      notificationElement.remove();
-    });
-  }
+function showAddTaskNotification() {
+  const notificationHtml = getAddTaskNotificationTemplate();
+  document.body.insertAdjacentHTML('beforeend', notificationHtml);
+  setTimeout(() => {
+    const notification = document.querySelector('.successfully-added-notification');
+    if (notification) notification.remove();
+  }, 2000);
+}
