@@ -5,13 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initProfile();
   redirectIfNotLoggedIn();
   initAddTaskPage();
-  const subtaskInput = document.getElementById('subtask-input').querySelector('input');
-  subtaskInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      addSubtask();
-    }
-  });
 });
 
 
@@ -22,6 +15,12 @@ function initAddTaskPage() {
   renderSubtaskInput();
   enterListenerSubtask();
   setupCreateButtonListeners();
+}
+
+function ensureDefaultPriority() {
+  if (document.querySelector('input[name="priority"]:checked')) return;
+  const medium = document.querySelector('input[name="priority"][value="medium"]');
+  if (medium) medium.checked = true;
 }
 
 function renderCategoryField() {
@@ -156,15 +155,23 @@ function renderSubtaskInput() {
   subtaskWrapper.innerHTML = getSubtaskInputTemplate();
 }
 
-function getSubtasksFromDOM() {
-  const subtaskElements = getAllSubtaskElements();
-  const subtasks = {};
-  subtaskElements.forEach((element, index) => {
-    const title = extractSubtaskTitle(element);
-    if (title) {
-      subtasks[`subtask${index + 1}`] = createSubtaskObject(title);
-    }
-  }); return subtasks;
+function getSubtasksForFirebase() {
+  const subtasksArray = getSubtasks(); 
+  const subtasksObject = {};
+  subtasksArray.forEach((subtask, subtaskIndex) => {
+    subtasksObject[`subtask${subtaskIndex + 1}`] = subtask;
+  });
+  return subtasksObject;
+}
+
+function getSubtasks() {
+  const containers = document.querySelectorAll('#subtask-input .list-subtasks .subtask-item-container');
+  return Array.from(containers).map(container => {
+    const span = container.querySelector('.subtask-name');
+    let raw = span ? span.textContent.trim() : '';
+    if (raw.startsWith('•')) raw = raw.slice(1).trim();
+    return { title: raw, done: false };
+  });
 }
 
 function setupCreateButtonListeners() {
@@ -205,7 +212,7 @@ function prepareTaskData(status) {
     }).filter(Boolean);
   taskData.assigned_to = names.join(', '); 
   taskData.status      = status;
-  const subtasks = getSubtasksFromDOM();
+  const subtasks = getSubtasksForFirebase();
   if (Object.keys(subtasks).length) {
     taskData.subtasks = subtasks;
   } return taskData;

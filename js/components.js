@@ -330,12 +330,6 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
   });
 }
 
-function ensureDefaultPriority() {
-  if (document.querySelector('input[name="priority"]:checked')) return;
-  const medium = document.querySelector('input[name="priority"][value="medium"]');
-  if (medium) medium.checked = true;
-}
-
   function createContactChip(initials, bgColor) {
     const chip = document.createElement('div');
     chip.classList.add('assigned-chip');
