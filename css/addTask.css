@@ -389,9 +389,10 @@
   .add-task-right {
     padding-left: 16px;
   }
-}
+  .add-task-form{
+  max-width: 704px;
+  }
 
-@media (max-width: 1008px){
   .add-task-root{
     padding: 48px 16px 48px 16px;
   }
@@ -420,6 +421,7 @@
 
   .add-task-form{
     align-items: center;
+    max-width: 560px;
   }
 
   .add-task-container {
@@ -521,7 +523,7 @@
 }
 
   .priority-option{
-    font-size: 16px;
+    font-size: 20px;
     padding: 4px 8px;
   }
 
@@ -543,22 +545,22 @@
   .add-task-form input,
   .add-task-form textarea,
   .add-task-form select {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .add-task-container {
-    width: 100%;
     min-width: 200px;
   }
 
   .priority-option{
-    font-size: 12px;
+    font-size: 14px;
     padding: 4px 8px;
   }
 
   .add-task-form {
     align-items: center;
     padding-bottom: 48px;
+    max-width: 330px;
   }  
 }
 
@@ -568,12 +570,6 @@
   .add-task-form textarea,
   .add-task-form select {
     font-size: 13px;
-  }
-
-  .btn-light,
-  .btn-dark {
-    font-size: 13px;
-    padding: 8px;
   }
 
   .priority-buttons-wrapper {

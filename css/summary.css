@@ -364,4 +364,8 @@ display: flex !important;
     height: 48px;
 }
 
+.add-task-form{
+  max-width: 332px;
+}
+
 }
