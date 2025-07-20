@@ -512,6 +512,7 @@
 @media (max-width: 476px){
   .add-task-container {
     min-width: 320px;
+    gap: 4px;
   }
 
   .clear-save-btn-wrapper {
@@ -578,9 +579,5 @@
 
   .priority-buttons-wrapper button {
     padding: 8px 10px;
-  }
-
-  .successfully-added-notification{
-    font-size: 10px;
   }
 }
