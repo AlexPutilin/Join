@@ -75,12 +75,25 @@ function toggleInputBtns(input) {
     }
 }
 
+function enterListenerSubtask(){
+  const subtaskInput = document.getElementById('subtask-input').querySelector('input');
+  subtaskInput.addEventListener('keydown', (enterEvent) => {
+    if (enterEvent.key === 'Enter') {
+      enterEvent.preventDefault();
+      addSubtask();
+    }
+  });
+}
+
 
 function addSubtask() {
     const subtaskInputField = document.getElementById('subtask-input');
-    // const inputWrapper = triggerElement.closest('.input-wrapper');
     const input = subtaskInputField.querySelector('input');
     const subtaskList = subtaskInputField.querySelector('.list-subtasks');
+    const value = input.value.trim();
+    if(!value){
+      return;
+    } 
     subtaskList.innerHTML += getSubtaskTemplate(input.value);
     resetSubtaskInput();
 }

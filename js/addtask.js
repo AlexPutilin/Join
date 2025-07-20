@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initProfile();
   redirectIfNotLoggedIn();
   initAddTaskPage();
+  const subtaskInput = document.getElementById('subtask-input').querySelector('input');
+  subtaskInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      addSubtask();
+    }
+  });
 });
 
 
@@ -13,6 +20,7 @@ function initAddTaskPage() {
   renderAssignedToField();
   ensureDefaultPriority();
   renderSubtaskInput();
+  enterListenerSubtask();
   setupCreateButtonListeners();
 }
 
@@ -109,7 +117,6 @@ function initAssignedToInteractions() {
   setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
 }
 
-
 function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
   toggleBtn.onclick = () => toggleDropDown(toggleBtn);
   searchInput.onkeydown = element => {
@@ -117,18 +124,14 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
     if ((key.length === 1 || key === 'Backspace') && menu.dataset.open !== 'true') {
       toggleDropDown(toggleBtn);
     }
-  };
-  searchInput.onkeyup = () => {
+  }; searchInput.onkeyup = () => {
     const items = Array.from(menu.querySelectorAll('.select-contact'));
     filterItems(items, searchInput.value.toLowerCase().trim());
   };
 }
 
-
 function initAssignedToContactSelection() {
-  document
-    .getElementById('contacts-dropdown')
-    .addEventListener('change', event => {const checkbox = event.target;
+  document.getElementById('contacts-dropdown').addEventListener('change', event => {const checkbox = event.target;
       if (!checkbox.matches('input[type="checkbox"]')) return;
       renderAssignedChips();
     });
@@ -217,14 +220,11 @@ async function addTask(status = 'to-do') {
   showAddTaskNotification();
 }
 
-
-
 function validateFormBeforeSubmit() {
   const inputsValid = checkFormValidation('#add-task-form');
   const categoryValid = validateCategoryField();
   return inputsValid && categoryValid;
 }
-
 
 function updateCreateButtonState() {
   const titleValue = document.getElementById('task-title')?.value.trim();
@@ -240,7 +240,6 @@ function updateCreateButtonState() {
     createButton.removeAttribute('title');
   }
 }
-
 
 function clearAddTaskForm() {
   const form = document.getElementById('add-task-form');
@@ -259,8 +258,6 @@ function resetForm(){
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
-
-
 
 function showAddTaskNotification() {
   const notificationHtml = getAddTaskNotificationTemplate();
