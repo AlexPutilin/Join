@@ -47,6 +47,10 @@ function hideElement(id) {
 }
 
 
+/**
+ * Shows the specified element by removing the 'd-none' class.
+ * @param {string} id - The ID of the element to hide.
+ */
 function showElement(id) {
     let element = document.getElementById(id);
     element.classList.remove("d-none");
@@ -84,6 +88,9 @@ function showSignupForm() {
 }
 
 
+/**
+ * Displays the login form by rendering the template and initializing form behavior.
+ */
 function showLoginForm() {
     renderForm(getLoginFormTemplate());
     showElement('cta-container');
