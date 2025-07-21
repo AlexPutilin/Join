@@ -102,13 +102,17 @@ function showLoginForm() {
  * Enables or disables the signup button depending on whether all required fields are filled.
  */
 function initSignupForm() {
+    // let form = document.getElementById('signup_form');
     let inputs = document.querySelectorAll('#signup_form input[required]');
     let signupBtn = document.getElementById('btn_signup');
 
     checkInputs(inputs, signupBtn);
 
+    // form.addEventListener('input', () => checkInputs(inputs, signupBtn));
+    // form.addEventListener('change', () => checkInputs(inputs, signupBtn));
     inputs.forEach(input => {
         input.addEventListener('input', () => checkInputs(inputs, signupBtn));
+        input.addEventListener('change', () => checkInputs(inputs, signupBtn));
     });
 }
 
@@ -124,8 +128,10 @@ function initSignupForm() {
 function checkInputs(inputs, signupBtn) {
     let allFilled = true;
 
+    let checkbox = document.getElementById('checkbox_privacy_policy');
+
     inputs.forEach(input => {
-        if (input.value.trim() === '') {
+        if (input.value.trim() === '' || checkbox.checked === false) {
             allFilled = false;
         }
     });
@@ -308,7 +314,7 @@ function validateUser(userArray, emailInput, passwordInput) {
  *
  * @param {Object} foundUser - The user object of the successfully logged-in user.
  */
-function onLogin(foundUser = {name: "Guest"}) {
+function onLogin(foundUser = { name: "Guest" }) {
     sessionStorage.removeItem('welcomeScreen');
     activeUser = foundUser.name;
     console.log(activeUser);
@@ -343,19 +349,19 @@ function showCustomInputError(selector, message) {
  * and back into the header on larger screens.
  */
 function moveCTA() {
-  const cta = document.getElementById('cta-container');
-  const formContainer = document.getElementById('form-container');
-  const header = document.querySelector('header');
+    const cta = document.getElementById('cta-container');
+    const formContainer = document.getElementById('form-container');
+    const header = document.querySelector('header');
 
-  if (window.innerWidth <= 520) {
-    if (cta.parentNode !== formContainer.parentNode) {
-      formContainer.insertAdjacentElement('afterend', cta);
+    if (window.innerWidth <= 520) {
+        if (cta.parentNode !== formContainer.parentNode) {
+            formContainer.insertAdjacentElement('afterend', cta);
+        }
+    } else {
+        if (cta.parentNode !== header) {
+            header.appendChild(cta);
+        }
     }
-  } else {
-    if (cta.parentNode !== header) {
-      header.appendChild(cta);
-    }
-  }
 }
 
 window.addEventListener('resize', moveCTA);
