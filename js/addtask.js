@@ -29,18 +29,23 @@ document.addEventListener("DOMContentLoaded", () => {
   container.innerHTML = getAddTaskFormTemplate();
   initProfile();
   redirectIfNotLoggedIn();
-  initializeAddTaskPage();
+  initAddTaskPage();
 });
 
 
-function initializeAddTaskPage() {
+function initAddTaskPage() {
   renderCategoryField();
   renderAssignedToField();
-  renderPriorityButtons();
+  ensureDefaultPriority();
   renderSubtaskInput();
+  enterListenerSubtask();
   setupCreateButtonListeners();
 }
 
+function ensureDefaultPriority() {
+  if (document.querySelector('input[name="priority"]:checked')) return;
+  const medium = document.querySelector('input[name="priority"][value="medium"]');
+  if (medium) medium.checked = true;
 /**
 * Renders the priority selection buttons and enables their interaction.
 */
@@ -71,32 +76,39 @@ function renderCategoryField() {
   initCategoryInteractions(wrapper);
 }
 
+function initCategoryInteractions(wrapper) {
+  const inputWrapper = wrapper.querySelector('.input-wrapper');
+  const toggleBtn = inputWrapper.querySelector('button');
+  const inputArea = inputWrapper.querySelector('.input-area');
+  [toggleBtn, inputArea].forEach(element =>element.addEventListener('click', () => toggleDropDown(toggleBtn)));
+  setupCategoryOptionSelection(wrapper, toggleBtn);
+  setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
+}
+
 function createCategoryOptions(wrapper) {
   const optionsContainer = wrapper.querySelector('#category-options-container');
   optionsContainer.innerHTML = '';
   ['Technical Task', 'User Story'].forEach(name => {
-    const opt = document.createElement('div');
-    opt.classList.add('dropdown-single-option');
-    opt.textContent = name;
-    optionsContainer.appendChild(opt);
+    const option = document.createElement('div');
+    option.classList.add('dropdown-single-option');
+    option.textContent = name;
+    optionsContainer.appendChild(option);
   });
 }
-
 
 function setupCategoryOptionSelection(wrapper, toggleBtn) {
   const optionsContainer = wrapper.querySelector('#category-options-container');
   const inputWrapper = wrapper.querySelector('.input-wrapper');
   optionsContainer.addEventListener('click', event => {
-    const opt = event.target.closest('.dropdown-single-option');
+    const option = event.target.closest('.dropdown-single-option');
     const input = wrapper.querySelector('input');
-    input.value = opt.textContent;
+    input.value = option.textContent;
     toggleDropDown(toggleBtn);
     inputWrapper.querySelector('.input-area').classList.remove('invalid-input');
     wrapper.querySelector('.err-msg').classList.add('hidden');
     updateCreateButtonState();
   });
 }
-
 
 function validateCategoryField() {
   const input = document.getElementById('task-category');
@@ -114,12 +126,11 @@ function validateCategoryField() {
   return isValid;
 }
 
-
 async function renderAssignedToField() {
   if (!injectAssignedToTemplate()) return;
-
-  // 1) Kontakte holen, falls noch nicht geschehen
   if (contacts.length === 0) {
+    await loadContacts(); 
+  } renderContacts();     
     await loadContacts();        // füllt dein globales `contacts`-Array
   }
 
@@ -130,7 +141,6 @@ async function renderAssignedToField() {
   initAssignedToInteractions();
 }
 
-
 function injectAssignedToTemplate() {
   const wrapper = document.getElementById('assigned-to-wrapper-template');
   if (!wrapper) return false;
@@ -138,6 +148,7 @@ function injectAssignedToTemplate() {
   return true;
 }
 
+function renderContacts() {
 
 function renderContacts() {
   const dropdown = document.getElementById('contacts-dropdown');
@@ -147,7 +158,6 @@ function renderContacts() {
     dropdown.innerHTML += getContactSelectionTemplate(contact);
   });
 }
-
 
 function initAssignedToInteractions() {
   const wrapper = document.querySelector('#assigned-to-wrapper-template .input-wrapper');
@@ -159,18 +169,22 @@ function initAssignedToInteractions() {
   setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper', () => toggleDropDown(toggleBtn));
 }
 
-
 function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
-  toggleBtn.addEventListener('click', () => openDropDownMenu(toggleBtn));
-  searchInput.addEventListener('input', () => {
-    if (menu.dataset.open !== 'true') toggleDropDown(toggleBtn);
+  toggleBtn.onclick = () => toggleDropDown(toggleBtn);
+  searchInput.onkeydown = element => {
+    const key = element.key;
+    if ((key.length === 1 || key === 'Backspace') && menu.dataset.open !== 'true') {
+      toggleDropDown(toggleBtn);
+    }
+  }; searchInput.onkeyup = () => {
     const items = Array.from(menu.querySelectorAll('.select-contact'));
     filterItems(items, searchInput.value.toLowerCase().trim());
-  });
+  };
 }
 
-
 function initAssignedToContactSelection() {
+  document.getElementById('contacts-dropdown').addEventListener('change', event => {const checkbox = event.target;
+      if (!checkbox.matches('input[type="checkbox"]')) return;
   document.getElementById('contacts-dropdown').addEventListener('change', event => {
       const cb = event.target;
       if (!cb.matches('input[type="checkbox"]')) return;
@@ -179,20 +193,18 @@ function initAssignedToContactSelection() {
     });
 }
 
-
 function renderAssignedChips() {
   const container = document.getElementById('assigned-chips-container');
   container.innerHTML = '';
-  document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked')
+  document .querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked')
     .forEach(checkbox => {
       const id = checkbox.dataset.contactId;
-      const info = contactsById[id];
+      const info = contacts.find(contact => contact.id === id);
       if (!info) return;
-      const chip = createContactChip(getContactInitials(info.name), info.color);
+      const chip = createContactChip(getContactInitials(info.name),info.color);
       container.appendChild(chip);
     });
 }
-
 
 function renderSubtaskInput() {
   const subtaskWrapper = document.getElementById('subtask-wrapper-template');
@@ -200,18 +212,24 @@ function renderSubtaskInput() {
   subtaskWrapper.innerHTML = getSubtaskInputTemplate();
 }
 
-
-function getSubtasksFromDOM() {
-  const subtaskElements = getAllSubtaskElements();
-  const subtasks = {};
-  subtaskElements.forEach((element, index) => {
-    const title = extractSubtaskTitle(element);
-    if (title) {
-      subtasks[`subtask${index + 1}`] = createSubtaskObject(title);
-    }
-  }); return subtasks;
+function getSubtasksForFirebase() {
+  const subtasksArray = getSubtasks(); 
+  const subtasksObject = {};
+  subtasksArray.forEach((subtask, subtaskIndex) => {
+    subtasksObject[`subtask${subtaskIndex + 1}`] = subtask;
+  });
+  return subtasksObject;
 }
 
+function getSubtasks() {
+  const containers = document.querySelectorAll('#subtask-input .list-subtasks .subtask-item-container');
+  return Array.from(containers).map(container => {
+    const span = container.querySelector('.subtask-name');
+    let raw = span ? span.textContent.trim() : '';
+    if (raw.startsWith('•')) raw = raw.slice(1).trim();
+    return { title: raw, done: false };
+  });
+}
 
 function setupCreateButtonListeners() {
   const titleInput = document.getElementById('task-title');
@@ -224,7 +242,6 @@ function setupCreateButtonListeners() {
   }
 }
 
-
 function getSelectedContactIds() {
   return Array.from(
     document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked'),
@@ -232,10 +249,28 @@ function getSelectedContactIds() {
   );
 }
 
+function getStatusFromButtonId(buttonId) {
+  let status = 'to-do';              
+  if (buttonId === 'in-progress-btn') {
+    status = 'in-progress';
+  }
+  else if (buttonId === 'await-feedback-btn') {
+    status = 'await-feedback';
+  }
+  return status;
+}
+
 
 function prepareTaskData(status) {
   const taskData = getInputData('#add-task-form');
   const ids = getSelectedContactIds();
+  const names = ids.map(id => 
+    {const contact = contacts.find(checkedContacts => String(checkedContacts.id) === String(id));
+    return contact?.name;
+    }).filter(Boolean);
+  taskData.assigned_to = names.join(', '); 
+  taskData.status      = status;
+  const subtasks = getSubtasksForFirebase();
   const names = ids.map(id => contactsById[id]?.name).filter(Boolean);
   taskData.assigned_to = names.join(', ');
   taskData.status = status;
@@ -247,12 +282,17 @@ function prepareTaskData(status) {
   return taskData;
 }
 
-
 /**
  * Speichert den Task, nachdem validateFormBeforeSubmit() grünes Licht gibt.
  */
 async function addTask(status = 'to-do') {
   if (!validateFormBeforeSubmit()) return;
+  const taskData = prepareTaskData(status);
+  await postData('/board/tasks', taskData);
+  console.info('addTask: Task successfully saved');
+  clearAddTaskForm();
+  showAddTaskNotification();
+}
   const taskData = prepareTaskData(selectedStatusForNewTask);
   await postData('/board/tasks', taskData);
   console.info('addTask: Task erfolgreich gespeichert.');
@@ -262,14 +302,11 @@ async function addTask(status = 'to-do') {
   await tasksToArray();
 }
 
-
-
 function validateFormBeforeSubmit() {
   const inputsValid = checkFormValidation('#add-task-form');
   const categoryValid = validateCategoryField();
   return inputsValid && categoryValid;
 }
-
 
 function updateCreateButtonState() {
   const titleValue = document.getElementById('task-title')?.value.trim();
@@ -286,7 +323,6 @@ function updateCreateButtonState() {
   }
 }
 
-
 async function clearAddTaskForm() {
   const form = document.getElementById('add-task-form');
   if (!form) return;
@@ -294,7 +330,7 @@ async function clearAddTaskForm() {
   resetForm();
   hideDropdownMenus();
   hideErrorMessages();
-  initializeAddTaskPage();
+  initAddTaskPage();
   updateCreateButtonState();
   await tasksToArray();
 }
@@ -304,6 +340,15 @@ function resetForm() {
   document.querySelectorAll('.drop-down-input input[type="text"]').forEach(input => { input.value = ""; input.removeAttribute("data-placeholder-active"); });
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
+}
+
+function showAddTaskNotification() {
+  const notificationHtml = getAddTaskNotificationTemplate();
+  document.body.insertAdjacentHTML('beforeend', notificationHtml);
+  setTimeout(() => {
+    const notification = document.querySelector('.successfully-added-notification');
+    if (notification) notification.remove();
+  }, 2000);
 }
 
 

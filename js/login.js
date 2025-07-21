@@ -288,6 +288,7 @@ function validateUser(userArray, emailInput, passwordInput) {
  * @param {Object} foundUser - The user object of the successfully logged-in user.
  */
 function onLogin(foundUser = {name: "Guest"}) {
+    sessionStorage.removeItem('welcomeScreen');
     activeUser = foundUser.name;
     console.log(activeUser);
 
