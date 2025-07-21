@@ -47,6 +47,12 @@ function hideElement(id) {
 }
 
 
+function showElement(id) {
+    let element = document.getElementById(id);
+    element.classList.remove("d-none");
+}
+
+
 /**
  * Replaces the responsive <picture> logo with a static image by:
  * - Removing the <source> to disable media-based switching
@@ -73,7 +79,14 @@ function changeImgSrc(id, ref) {
  */
 function showSignupForm() {
     renderForm(getSignupFormTemplate());
+    hideElement("cta-container");
     initSignupForm(); // -> handle disabled attribute of btn_signup
+}
+
+
+function showLoginForm() {
+    renderForm(getLoginFormTemplate());
+    showElement('cta-container');
 }
 
 
@@ -229,8 +242,9 @@ function showOverlayOnSignup() {
     }, 50);
 
     setTimeout(() => {
-        overlayContainer.classList.add('d-none')
-        renderForm(getLoginFormTemplate())
+        overlayContainer.classList.add('d-none');
+        showLoginForm();
+        // renderForm(getLoginFormTemplate())
     }, 1000);
 }
 

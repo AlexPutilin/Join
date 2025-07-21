@@ -259,6 +259,32 @@ form>div {
     }
 }
 
+@media (max-width: 375px) {
+    #logo_new {
+        width: 64px;
+    }
+    header {
+        padding: 24px 24px 8px 24px;
+    }
+    footer {
+        padding: 16px 0;
+    }
+    .cta-container {
+        margin-top: 0;
+    }
+    input {
+        height: 40px;
+    }
+    form {
+        padding: 24px 0;
+        gap: 0;
+    }
+    form>h1 {
+        margin-bottom: 24px;
+        font-size: 40px;
+    }
+}
+
 @media (max-width: 350px) {
     form {
         padding: 32px 0;
