@@ -102,14 +102,11 @@ function showLoginForm() {
  * Enables or disables the signup button depending on whether all required fields are filled.
  */
 function initSignupForm() {
-    // let form = document.getElementById('signup_form');
     let inputs = document.querySelectorAll('#signup_form input[required]');
     let signupBtn = document.getElementById('btn_signup');
 
     checkInputs(inputs, signupBtn);
 
-    // form.addEventListener('input', () => checkInputs(inputs, signupBtn));
-    // form.addEventListener('change', () => checkInputs(inputs, signupBtn));
     inputs.forEach(input => {
         input.addEventListener('input', () => checkInputs(inputs, signupBtn));
         input.addEventListener('change', () => checkInputs(inputs, signupBtn));
