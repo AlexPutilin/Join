@@ -1,31 +1,6 @@
-let selectedStatusForNewTask = 'to-do';
-/**
- * Stores contact information by their unique IDs.
- * @type {Object.<string, Object>}
- */
-contactsById = {};
-
-/**
- * Loads all users from the Firebase database.
- *
- * @async
- * @returns {Promise<Object>} A promise that resolves to an object containing all users.
- */
-async function loadAllUsers() {
-  try {
-    const users = await getData("/users");
-    console.log("Users loaded:", users);
-    return users;
-  } catch (error) {
-    console.error("Error while loading users:", error);
-  }
-}
-
-
 document.addEventListener("DOMContentLoaded", () => {
-  selectedStatusForNewTask = getStatusFromURL();
   const container = document.getElementById('add-task-root');
-  if (!container) return;
+  if (!container) return; 
   container.innerHTML = getAddTaskFormTemplate();
   initProfile();
   redirectIfNotLoggedIn();
@@ -46,26 +21,6 @@ function ensureDefaultPriority() {
   if (document.querySelector('input[name="priority"]:checked')) return;
   const medium = document.querySelector('input[name="priority"][value="medium"]');
   if (medium) medium.checked = true;
-/**
-* Renders the priority selection buttons and enables their interaction.
-*/
-function renderPriorityButtons() {
-  const priorityWrapper = document.getElementById('priority-wrapper-template');
-  if (!priorityWrapper) return;
-  priorityWrapper.innerHTML = getPriorityTemplate();
-  setDefaultPriority();
-  enablePrioritySelection();
-}
-
-
-function initCategoryInteractions(wrapper) {
-  const inputWrapper = wrapper.querySelector('.input-wrapper');
-  const toggleBtn = inputWrapper.querySelector('button');
-  const inputArea = inputWrapper.querySelector('.input-area');
-  [toggleBtn, inputArea].forEach(element => element.addEventListener('click', () => toggleDropDown(toggleBtn)));
-
-  setupCategoryOptionSelection(wrapper, toggleBtn);
-  setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper', () => toggleDropDown(toggleBtn));
 }
 
 function renderCategoryField() {
@@ -98,7 +53,7 @@ function createCategoryOptions(wrapper) {
 
 function setupCategoryOptionSelection(wrapper, toggleBtn) {
   const optionsContainer = wrapper.querySelector('#category-options-container');
-  const inputWrapper = wrapper.querySelector('.input-wrapper');
+  const inputWrapper     = wrapper.querySelector('.input-wrapper');
   optionsContainer.addEventListener('click', event => {
     const option = event.target.closest('.dropdown-single-option');
     const input = wrapper.querySelector('input');
@@ -111,11 +66,11 @@ function setupCategoryOptionSelection(wrapper, toggleBtn) {
 }
 
 function validateCategoryField() {
-  const input = document.getElementById('task-category');
-  const wrapper = input.closest('.input-wrapper');
-  const area = wrapper.querySelector('.input-area');
-  const errMsg = wrapper.querySelector('.err-msg');
-  const isValid = !!input.value.trim();
+  const input    = document.getElementById('task-category');
+  const wrapper  = input.closest('.input-wrapper');
+  const area     = wrapper.querySelector('.input-area');
+  const errMsg   = wrapper.querySelector('.err-msg');
+  const isValid  = !!input.value.trim();
   if (isValid) {
     area.classList.remove('invalid-input');
     errMsg.classList.add('hidden');
@@ -131,13 +86,6 @@ async function renderAssignedToField() {
   if (contacts.length === 0) {
     await loadContacts(); 
   } renderContacts();     
-    await loadContacts();        // füllt dein globales `contacts`-Array
-  }
-
-  // 2) Dropdown befüllen
-  renderContacts();
-
-  // 3) Restliche Interaktionen
   initAssignedToInteractions();
 }
 
@@ -149,8 +97,6 @@ function injectAssignedToTemplate() {
 }
 
 function renderContacts() {
-
-function renderContacts() {
   const dropdown = document.getElementById('contacts-dropdown');
   if (!dropdown) return;
   dropdown.innerHTML = "";
@@ -160,13 +106,14 @@ function renderContacts() {
 }
 
 function initAssignedToInteractions() {
-  const wrapper = document.querySelector('#assigned-to-wrapper-template .input-wrapper');
-  const toggleBtn = wrapper.querySelector('button.btn-small');
+  const wrapper     = document.querySelector('#assigned-to-wrapper-template .input-wrapper');
+  const toggleBtn   = wrapper.querySelector('button.btn-small');
   const searchInput = wrapper.querySelector('input[type="text"]');
-  const menu = wrapper.querySelector('.drop-down-menu');
+  const menu        = wrapper.querySelector('.drop-down-menu');
+
   initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu);
   initAssignedToContactSelection();
-  setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper', () => toggleDropDown(toggleBtn));
+  setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
 }
 
 function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
@@ -185,10 +132,6 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
 function initAssignedToContactSelection() {
   document.getElementById('contacts-dropdown').addEventListener('change', event => {const checkbox = event.target;
       if (!checkbox.matches('input[type="checkbox"]')) return;
-  document.getElementById('contacts-dropdown').addEventListener('change', event => {
-      const cb = event.target;
-      if (!cb.matches('input[type="checkbox"]')) return;
-      cb.closest('.select-contact').classList.toggle('selected', cb.checked);
       renderAssignedChips();
     });
 }
@@ -260,7 +203,6 @@ function getStatusFromButtonId(buttonId) {
   return status;
 }
 
-
 function prepareTaskData(status) {
   const taskData = getInputData('#add-task-form');
   const ids = getSelectedContactIds();
@@ -271,20 +213,11 @@ function prepareTaskData(status) {
   taskData.assigned_to = names.join(', '); 
   taskData.status      = status;
   const subtasks = getSubtasksForFirebase();
-  const names = ids.map(id => contactsById[id]?.name).filter(Boolean);
-  taskData.assigned_to = names.join(', ');
-  taskData.status = status;
-  const subtasks = getSubtasksFromDOM();
   if (Object.keys(subtasks).length) {
     taskData.subtasks = subtasks;
-  }
-
-  return taskData;
+  } return taskData;
 }
 
-/**
- * Speichert den Task, nachdem validateFormBeforeSubmit() grünes Licht gibt.
- */
 async function addTask(status = 'to-do') {
   if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData(status);
@@ -292,14 +225,6 @@ async function addTask(status = 'to-do') {
   console.info('addTask: Task successfully saved');
   clearAddTaskForm();
   showAddTaskNotification();
-}
-  const taskData = prepareTaskData(selectedStatusForNewTask);
-  await postData('/board/tasks', taskData);
-  console.info('addTask: Task erfolgreich gespeichert.');
-  clearAddTaskForm();
-  showAddTaskNotification();
-  overlayRef.classList.add('d-none');
-  await tasksToArray();
 }
 
 function validateFormBeforeSubmit() {
@@ -323,7 +248,7 @@ function updateCreateButtonState() {
   }
 }
 
-async function clearAddTaskForm() {
+function clearAddTaskForm() {
   const form = document.getElementById('add-task-form');
   if (!form) return;
   form.reset();
@@ -332,12 +257,11 @@ async function clearAddTaskForm() {
   hideErrorMessages();
   initAddTaskPage();
   updateCreateButtonState();
-  await tasksToArray();
 }
 
-function resetForm() {
-  document.querySelectorAll('input[name="priority"]').forEach(radio => { radio.checked = false; });
-  document.querySelectorAll('.drop-down-input input[type="text"]').forEach(input => { input.value = ""; input.removeAttribute("data-placeholder-active"); });
+function resetForm(){
+  document.querySelectorAll('input[name="priority"]').forEach(radio => {radio.checked = false;});
+  document.querySelectorAll('.drop-down-input input[type="text"]').forEach(input => {input.value = "";input.removeAttribute("data-placeholder-active");});
   document.getElementById('assigned-chips-container')?.replaceChildren();
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
@@ -349,51 +273,4 @@ function showAddTaskNotification() {
     const notification = document.querySelector('.successfully-added-notification');
     if (notification) notification.remove();
   }, 2000);
-}
-
-
-/**
-* Displays a temporary task creation success notification.
-*/
-function showAddTaskNotification() {
-  const notificationWrapper = document.createElement('div');
-  notificationWrapper.innerHTML = getAddTaskNotificationTemplate();
-  const notificationElement = notificationWrapper.firstElementChild;
-  if (!notificationElement) return;
-  document.body.appendChild(notificationElement);
-  notificationElement.addEventListener('animationend', () => {
-    notificationElement.remove();
-  });
-}
-
-
-/** 
-* Opens the Add Task form either on the Add Task page (for small screens)
-* or in an overlay (for larger screens), depending on the specified status.
-* @param {*} status – The status to pre-populate or assign to the new task.
-* @returns {Promise<void>}
- */
-async function addTaskBoard(status) {
-  if (window.innerWidth <= 992) {
-    openPage(`addTask.html?status=${encodeURIComponent(status)}`);
-    return;
-  }
-  selectedStatusForNewTask = status;
-  overlayRef.classList.remove('d-none');
-  overlayRef.innerHTML = `<div onclick="eventBubblingProtection(event)" class="add-task-wrapper">
-                            <button onclick="closeOverlay()" class="btn-small">
-                            ${getAddTaskFormTemplate()}
-                          </div>`;
-  clearAddTaskForm();
-}
-
-
-/**
- * Retrieves the 'status' parameter from the current URL.
- * If the parameter is missing, returns the default value 'to-do'.
- * @returns {string} The value of the 'status' parameter or 'to-do' if not present.
- */
-function getStatusFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get('status') || 'to-do';
 }
