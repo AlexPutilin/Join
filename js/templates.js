@@ -639,6 +639,16 @@ function getAddTaskFormTemplate() {
       </div>`;
 }
 
+function getDialogAddTaskOnBoard(){
+  return `<div onclick="eventBubblingProtection(event)" class="add-task-wrapper">
+            ${getAddTaskFormTemplate()}
+            <button onclick="closeOverlay()" class="btn-small" style="padding-top: 36px;">
+              <img class="icon-default" src="../assets/img/icon-close-default.svg">
+              <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+            </button>
+          </div>`;
+}
+
 /**
  * Returns the HTML template for the task title input field.
  * @returns {string} HTML structure for task title input.
