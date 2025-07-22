@@ -415,7 +415,7 @@
     }
 
     .no-tasks-text {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
@@ -495,7 +495,6 @@
 
 @media (max-width: 1023px) {
     .btn-dark {
-        width: 150px;
         font-size: 20px;
     }
 
