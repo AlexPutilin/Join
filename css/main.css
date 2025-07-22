@@ -14,6 +14,10 @@
   visibility: hidden;
 }
 
+.flex-start{
+   justify-content: flex-start !important;
+}
+
 h1 {
   font-size: 72px;
 }
@@ -76,6 +80,27 @@ main {
   flex-direction: column;
 }
 
+/* webit for scrollbars */
+.drag-drop-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.drag-drop-container::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+.drag-drop-container::-webkit-scrollbar-thumb {
+  background: rgb(42, 54, 71);
+  border-radius: 10px;
+}
+
+
+.drag-drop-container::-webkit-scrollbar-thumb:hover {
+  background: #2a3d59;
+}
+
+/* blue font color on Help and Legal Notice Pages */
 .flex-row-layout {
   display: flex;
   align-items: center;
@@ -132,6 +157,10 @@ li::marker {
 }
 
 @media (max-width: 992px) {
+  .content {
+    overflow-y: scroll;
+  }
+
   .content::-webkit-scrollbar {
     width: 10px;
   }

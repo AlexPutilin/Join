@@ -1,3 +1,5 @@
+let selectedStatusForNewTask = 'to-do';
+
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById('add-task-root');
   if (!container) return; 
@@ -220,7 +222,7 @@ function prepareTaskData(status) {
 
 async function addTask(status = 'to-do') {
   if (!validateFormBeforeSubmit()) return;
-  const taskData = prepareTaskData(status);
+  const taskData = prepareTaskData(selectedStatusForNewTask);
   await postData('/board/tasks', taskData);
   console.info('addTask: Task successfully saved');
   clearAddTaskForm();
@@ -273,4 +275,29 @@ function showAddTaskNotification() {
     const notification = document.querySelector('.successfully-added-notification');
     if (notification) notification.remove();
   }, 2000);
+}
+
+/**
+ * Opens the "Add Task" form either on a new page for small screens or in an overlay for larger screens, based on the given status.
+ * @param {string} status - The status the newly added task should be in.
+ * @returns {Promise<void>}
+ */
+async function addTaskBoard(status) {
+  if (window.innerWidth <= 992) {
+    openPage(`addTask.html?status=${encodeURIComponent(status)}`);
+    return;
+  }
+  selectedStatusForNewTask = status;
+  overlayRef.classList.remove('d-none');                   
+  overlayRef.innerHTML = getDialogAddTaskOnBoard();
+  clearAddTaskForm();
+  await tasksToArray();
+}
+/**
+ * 
+ * @returns 
+ */
+function getStatusFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('status') || 'to-do';
 }

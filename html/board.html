@@ -6,23 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
     <link rel="shortcut icon" href="../assets/img/logo.svg" type="image/x-icon">
-
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/board.css">
-
     <link rel="stylesheet" href="../css/sidebar-hug.css">
     <link rel="stylesheet" href="../css/fonts.css">
-
-
+    <link rel="stylesheet" href="../css/addTask.css">
     <script src="../js/templates.js" defer></script>
     <script src="../js/api.js" defer></script>
     <script src="../js/components.js" defer></script>
     <script src="../js/main.js" defer></script>
+    <script src="../js/contacts.js" defer></script>
+    <script src="../js/addtask.js" defer></script>
     <script src="../js/board.js" defer></script>
+    <script src="../js/drag-and-drop.js" defer></script>
 </head>
 
-<body onload="initBoardPage()">
+<body onload="initBoard()">
     <div onclick="closeOverlay()" id="overlay" class="overlay d-none"></div>
     <div id="profile-menu-overlay" class="d-none" onclick="toggleProfileMenu()">
         <div class="profile-menu" onclick="event.stopPropagation()">
@@ -50,21 +50,18 @@
                     </div>
                     <span>Summary</span>
                 </button>
-
                 <button onclick="openPage('addTask.html')" class="btn-menu ">
                     <div class="icon-wrapper">
                         <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
                     </div>
                     <span>Add Task</span>
                 </button>
-
                 <button onclick="openPage('board.html')" class="btn-menu menu-active">
                     <div class="icon-wrapper">
                         <img class="icon-default" src="../assets/img/icon-board-active.svg" alt="board icon">
                     </div>
                     <span>Board</span>
                 </button>
-
                 <button onclick="openPage('contacts.html')" class="btn-menu">
                     <div class="icon-wrapper">
                         <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
@@ -91,7 +88,6 @@
                         <img class="icon-default" src="../assets/img/icon-help-efault.svg" alt="help icon">
                         <img class="icon-hover" src="../assets/img/icon-help-hover.svg" alt="help icon">
                     </button>
-
                     <button class="btn-profile" onclick="toggleProfileMenu()">
                         <span id="profile"></span>
                     </button>
@@ -99,13 +95,12 @@
             </div>
         </section>
         <section class="board ">
-
-            <div style="display: flex; flex-direction: column; flex-shrink: 0;">
+            <div class="flex-col-noshrink">
                 <div class="board-head">
                     <div class="board-head-wrapper">
                         <div class="headling-add-btn-wrapper">
                             <h1>Board</h1>
-                            <button class="btn-small add-task-mobile">
+                            <button class="btn-small add-task-mobile" onclick="openPage('addTask.html')">
                                 <img class="icon-hover" src="../assets/img/icon-add-variant3-hover.svg" alt="">
                                 <img class="icon-default" src="../assets/img/icon-add-variant3-click.svg" alt="">
                             </button>
@@ -126,11 +121,10 @@
                                     </button>
                                 </div>
                             </div>
-                            <button id="add-task-btn" class="btn-dark">
-                                <span style="min-width: 106px;">Add Task</span>
+                            <button id="add-task-btn" class="btn-dark" onclick="addTaskBoard('to-do')">
+                                <span class="add-task-text">Add Task</span>
                                 <img class="icon-add" src="../assets/img/icon-add-white.svg" alt="">
                             </button>
-
                         </div>
                     </div>
                 </div>
@@ -139,10 +133,13 @@
                         <div class="stages-wrapper">
                             <div class="single-stages">
                                 <span>To Do</span>
-                                <button id="to-do-btn" class="btn-small">
-                                    <img class="icon-default icon-add" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                                    <img class="icon-hover icon-add" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                                    <img class="icon-active icon-add" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                                <button id="to-do-btn" class="btn-small" onclick="addTaskBoard('to-do')">
+                                    <img class="icon-default icon-add" src="../assets/img/icon-add-variant2-default.svg"
+                                        alt="">
+                                    <img class="icon-hover icon-add" src="../assets/img/icon-add-variant2-hover.svg"
+                                        alt="">
+                                    <img class="icon-active icon-add" src="../assets/img/icon-add-variant2-click.svg"
+                                        alt="">
                                 </button>
                             </div>
                             <div id="to-do" class="drag-drop-container"></div>
@@ -152,10 +149,13 @@
                         <div class="stages-wrapper">
                             <div class="single-stages">
                                 <span>In Progress</span>
-                                <button id="in-progress-btn" class="btn-small">
-                                    <img class="icon-default icon-add" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                                    <img class="icon-hover icon-add" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                                    <img class="icon-active icon-add" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                                <button id="in-progress-btn" class="btn-small" onclick="addTaskBoard('in-progress')">
+                                    <img class="icon-default icon-add" src="../assets/img/icon-add-variant2-default.svg"
+                                        alt="">
+                                    <img class="icon-hover icon-add" src="../assets/img/icon-add-variant2-hover.svg"
+                                        alt="">
+                                    <img class="icon-active icon-add" src="../assets/img/icon-add-variant2-click.svg"
+                                        alt="">
                                 </button>
                             </div>
                             <div id="in-progress" class="drag-drop-container"></div>
@@ -165,10 +165,14 @@
                         <div class="stages-wrapper">
                             <div class="single-stages">
                                 <span>Await Feedback</span>
-                                <button id="await-feedback-btn" class="btn-small">
-                                    <img class="icon-default icon-add" src="../assets/img/icon-add-variant2-default.svg" alt="">
-                                    <img class="icon-hover icon-add" src="../assets/img/icon-add-variant2-hover.svg" alt="">
-                                    <img class="icon-active icon-add" src="../assets/img/icon-add-variant2-click.svg" alt="">
+                                <button id="await-feedback-btn" class="btn-small"
+                                    onclick="addTaskBoard('await-feedback')">
+                                    <img class="icon-default icon-add" src="../assets/img/icon-add-variant2-default.svg"
+                                        alt="">
+                                    <img class="icon-hover icon-add" src="../assets/img/icon-add-variant2-hover.svg"
+                                        alt="">
+                                    <img class="icon-active icon-add" src="../assets/img/icon-add-variant2-click.svg"
+                                        alt="">
                                 </button>
                             </div>
                             <div id="await-feedback" class="drag-drop-container"></div>
@@ -184,7 +188,6 @@
                     </div>
                 </div>
             </div>
-
         </section>
         <section class="navbar-mobile">
             <div class="navbar-mobile-wrapper">
@@ -194,21 +197,18 @@
                     </div>
                     <span>Summary</span>
                 </button>
-
                 <button onclick="openPage('addTask.html')" class="btn-menu-mobile ">
                     <div class="">
                         <img class="icon-default" src="../assets/img/icon-task.svg" alt="add task icon">
                     </div>
                     <span>Add Tasks</span>
                 </button>
-
                 <button onclick="openPage('board.html')" class="btn-menu-mobile menu-active">
                     <div class="">
                         <img class="icon-default" src="../assets/img/icon-board-active.svg" alt="board icon">
                     </div>
                     <span>Board</span>
                 </button>
-
                 <button onclick="openPage('contacts.html')" class="btn-menu-mobile">
                     <div class="">
                         <img class="icon-default" src="../assets/img/icon-contacts.svg" alt="contacts icon">
@@ -218,9 +218,6 @@
             </div>
         </section>
     </main>
-
-
-
 </body>
 
 </html>

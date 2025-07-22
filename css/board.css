@@ -1,3 +1,9 @@
+.flex-col-noshrink {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
 .board {
     display: flex;
     flex-direction: column;
@@ -7,8 +13,6 @@
     max-width: calc(100vw - 232px);
     overflow: hidden;
     position: relative;
-    /* test zweck */
-    border: 2px dashed red;
 }
 
 .board-head {
@@ -69,7 +73,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     row-gap: 8px;
-
+    touch-action: none;
     display: flex;
     align-items: center;
 }
@@ -85,33 +89,14 @@
 .touch-clone {
     position: absolute;
     pointer-events: none;
-    opacity: 0.7;
+    opacity: 0.5;
     z-index: 1000;
-    transform: translate(10px, 10px);
-}
-
-.drag-drop-container::-webkit-scrollbar {
-    width: 10px;
-}
-
-.drag-drop-container::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
-}
-
-.drag-drop-container::-webkit-scrollbar-thumb {
-    background: rgb(42, 54, 71);
-    border-radius: 10px;
-}
-
-
-.drag-drop-container::-webkit-scrollbar-thumb:hover {
-    background: #2a3d59;
+    transform: none;
 }
 
 .safe-scrollbar {
     width: 370px;
-    height: 21%;
+    height: 75vh;
     padding: 1%;
 }
 
@@ -125,7 +110,8 @@
 
 .card {
     width: 290px;
-    min-height: fit-content;
+    max-height: max-content;
+    height: 260px;
     border-radius: 16px;
     padding: 7%;
     margin: 1%;
@@ -134,29 +120,72 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex-shrink: 0;
+    gap: 12px;
 }
 
 .card:hover {
     cursor: pointer;
 }
 
+.profil-initial-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.initial-icon {
+    z-index: 1;
+    position: relative;
+    display: inline-block;
+    margin-left: -12px;
+}
+
+.initial-icon:first-child {
+    margin-left: 0;
+}
+
+.more-icon {
+    font-size: 14px;
+    font-weight: 700;
+}
+
 .draggable.dragging {
     opacity: 0.5;
 }
 
-.task-title {
-    padding: 7% 0%;
+.task-title-little {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-title-big {
+    max-height: 120px;
+    overflow-y: auto;
 }
 
 .task-description-short {
     color: #cecece;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-description {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-height: 120px;
+    overflow-y: auto;
 }
 
 .task-progress-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 7% 0%;
 }
 
 .task-progressbar {
@@ -180,7 +209,7 @@
 .profiles-priority-container {
     display: flex;
     justify-content: space-between;
-    gap: 16px;
+    gap: 8px;
 }
 
 .no-tasks-text {
@@ -204,21 +233,23 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.26);
-    position: absolute;
-    z-index: 10;
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-overview {
-    position: absolute;
-    z-index: 99;
+    width: 500px;
+    height: 700px;
+    padding: 24px;
     background-color: white;
     border: 1px solid #f1f1f1;
     border-radius: 16px;
-    top: 20%;
-    left: 40%;
-    width: 25%;
-    height: 60%;
-    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-overview-header {
@@ -229,21 +260,78 @@
     width: 100%;
 }
 
+#edit-task-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 32px;
+    overflow: auto;
+}
+
+#edit-task-form>.btn-small {
+    align-self: flex-end;
+}
+
+.card-overview .btn-dark {
+    align-self: flex-end;
+}
+
 .priority-wrapper {
     display: flex;
     align-items: center;
+}
+
+.initials-wrapper {
+    padding: 0px 24px;
+    max-height: 126px;
+    overflow-y: auto;
+}
+
+.names-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 24px;
 }
 
 .font-color-grey {
     color: #42526e;
 }
 
-.d-none {
-    display: none;
+.subtasks-wrapper {
+    padding: 0px 24px;
+    max-height: 80px;
+    overflow-y: auto;
 }
 
-.hidden {
-    visibility: hidden;
+.task-title-big::-webkit-scrollbar,
+.task-description::-webkit-scrollbar,
+.initials-wrapper::-webkit-scrollbar,
+.subtasks-wrapper::-webkit-scrollbar {
+    width: 10px;
+}
+
+.task-title-big::-webkit-scrollbar-track,
+.task-description::-webkit-scrollbar-track,
+.initials-wrapper::-webkit-scrollbar-track,
+.subtasks-wrapper::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+.task-title-big::-webkit-scrollbar-thumb,
+.task-description::-webkit-scrollbar-thumb,
+.initials-wrapper::-webkit-scrollbar-thumb,
+.subtasks-wrapper::-webkit-scrollbar-thumb {
+    background: rgb(42, 54, 71);
+    border-radius: 10px;
+}
+
+.task-title-big::-webkit-scrollbar-thumb:hover,
+.task-description::-webkit-scrollbar-thumb:hover,
+.initials-wrapper::-webkit-scrollbar-thumb:hover,
+.subtasks-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #2a3d59;
 }
 
 .headling-add-btn-wrapper {
@@ -272,6 +360,10 @@
     gap: 16px;
 }
 
+.add-task-text {
+    min-width: 106px;
+}
+
 /* add task mobile */
 .add-task-mobile {
     visibility: hidden;
@@ -281,14 +373,11 @@
     .safe-scrollbar {
         padding: 24px;
     }
+
     .placeholder-box-no-task {
         width: 260px;
     }
 }
-
-@media (min-width: 2560px) {}
-
-@media (min-width: 1941px) and (max-width: 2251px) {}
 
 @media (max-width: 1650px) {
     .single-stages {
@@ -298,11 +387,6 @@
 
     .card {
         width: 250px;
-    }
-
-    .drag-drop-container {
-
-        height: 50%;
     }
 }
 
@@ -331,11 +415,7 @@
     }
 
     .no-tasks-text {
-        font-size: 16px;
-    }
-
-    .safe-scrollbar {
-        height: 30%;
+        font-size: 12px;
     }
 }
 
@@ -415,7 +495,6 @@
 
 @media (max-width: 1023px) {
     .btn-dark {
-        width: 150px;
         font-size: 20px;
     }
 
@@ -459,7 +538,7 @@
     }
 
     .board {
-        overflow-y: scroll;
+        overflow-y: auto;
         padding: 0.5%;
     }
 
@@ -480,6 +559,7 @@
     .board::-webkit-scrollbar-thumb:hover {
         background: #2a3d59;
     }
+
 
     .board-content {
         flex-direction: column;
@@ -507,10 +587,15 @@
         gap: 16px;
     }
 
+    .drop-placeholder {
+        width: 200px;
+        height: 200px;
+    }
+
     .card {
         padding: 2%;
         min-width: 200px;
-        height: 200px;
+        max-height: 200px;
     }
 }
 
@@ -542,6 +627,8 @@
     .stages-wrapper {
         width: 700px;
     }
+
+
 }
 
 @media (max-width: 708px) {
@@ -596,10 +683,16 @@
     .stages-wrapper {
         width: 450px;
     }
+
+    .card-overview {
+        height: auto;
+        gap: 12px;
+        width: 320px;
+    }
 }
 
 @media (max-width: 476px) {
-        .board-head {
+    .board-head {
         padding-left: 0;
     }
 
@@ -614,6 +707,7 @@
     .card {
         padding: 4%;
     }
+
     .search-area-wrapper {
         padding: 0 0 8px 0;
     }
@@ -627,6 +721,10 @@
     .stages-wrapper {
         width: 350px;
     }
+
+    .initials-wrapper {
+        max-height: 84px;
+    }
 }
 
 @media (max-width: 370px) {
@@ -638,22 +736,3 @@
         width: 300px;
     }
 }
-
-@media (max-width: 350px) {}
-
-/* 
-Breakpoint	Class	Dimensions
-X-Small	None	< 576px
-Small	sm	≥ 576px
-Medium	md	≥ 768px
-Large	lg	≥ 992px
-Extra large	xl	≥ 1200px
-Extra extra large	xxl	≥ 1400px */
-
-/* chat gpt
-Gerätetyp	                         Bildschirmbreite (px)	      Design-Stil
-Mobil (klein)	                            < 480 px	        Kompaktes, mobiles Design
-Mobil (groß)	                          481–767 px	        Mobiles Design
-Tablet (hoch)	                         768–1023 px	        Tablet-Layout, evtl. angepasst
-Tablet (quer) / kleiner Desktop	        1024–1279 px	        Übergangsdesign / Desktop light
-Desktop	                                   ≥ 1280 px	        Vollständiges Desktop-Layout */
