@@ -75,12 +75,25 @@ function toggleInputBtns(input) {
     }
 }
 
+function enterListenerSubtask(){
+  const subtaskInput = document.getElementById('subtask-input').querySelector('input');
+  subtaskInput.addEventListener('keydown', (enterEvent) => {
+    if (enterEvent.key === 'Enter') {
+      enterEvent.preventDefault();
+      addSubtask();
+    }
+  });
+}
+
 
 function addSubtask() {
     const subtaskInputField = document.getElementById('subtask-input');
-    // const inputWrapper = triggerElement.closest('.input-wrapper');
     const input = subtaskInputField.querySelector('input');
     const subtaskList = subtaskInputField.querySelector('.list-subtasks');
+    const value = input.value.trim();
+    if(!value){
+      return;
+    } 
     subtaskList.innerHTML += getSubtaskTemplate(input.value);
     resetSubtaskInput();
 }
@@ -316,31 +329,6 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
     }
   });
 }
-  
-/**
- * Sets the default selected priority to "medium".
- */
-function setDefaultPriority() {
-  const mediumInput = document.querySelector('input[name="priority"][value="medium"]');
-  if (!mediumInput) return;
-  mediumInput.checked = true;
-  const mediumLabel = mediumInput.closest('.priority-option');
-  if (mediumLabel) mediumLabel.classList.add('active');
-}
-
-/**
- * Enables interaction with the priority selection buttons.
- */
-function enablePrioritySelection() {
-  document.querySelectorAll('.priority-option').forEach(label => {
-    label.addEventListener('click', () => {
-      document.querySelectorAll('.priority-option').forEach(l => l.classList.remove('active'));
-      label.classList.add('active');
-      const input = label.querySelector('input[name="priority"]');
-      if (input) input.checked = true;
-    });
-  });
-}
 
   function createContactChip(initials, bgColor) {
     const chip = document.createElement('div');
@@ -353,22 +341,23 @@ function enablePrioritySelection() {
   
   
 
-function filterItems(contactEntries, searchTerm) {
-  let anyContactVisible = false;
-
-  contactEntries.forEach(contactEntry => {
-    const checkboxElement = contactEntry.querySelector('input[type="checkbox"]');
-    const contactId = checkboxElement.dataset.contactId;
-    const rawName = contactsById[contactId]?.name || '';
-    const normalizedFullName = rawName.toLowerCase().trim();
-    const filterdFirstName = normalizedFullName.split(' ')[0];
-    const nameMatch = filterdFirstName.startsWith(searchTerm);
-    contactEntry.style.display = nameMatch ? 'flex' : 'none';
-    if (nameMatch) anyContactVisible = true;
-  });
-
-  return anyContactVisible;
-}
+  function filterItems(contactEntries, searchTerm) {
+    let anyVisible = false;
+  
+    contactEntries.forEach(entry => {
+      const checkbox = entry.querySelector('input[type="checkbox"]');
+      const contactId = checkbox.dataset.contactId;
+      const contact = contacts.find(c => String(c.id) === String(contactId));
+      const rawName = contact?.name?.toLowerCase().trim() || '';
+      const firstName = rawName.split(' ')[0];
+      const matches = firstName.startsWith(searchTerm);
+  
+      entry.style.display = matches ? 'flex' : 'none';
+      if (matches) anyVisible = true;
+    });
+  
+    return anyVisible;
+  }
 
 
 function getDropdownElements(input) {
@@ -382,21 +371,19 @@ function getDropdownElements(input) {
 function setupAssignedToSearch() {
   const searchInput = document.getElementById('assigned-input');
   if (!searchInput) return;
-
   searchInput.addEventListener('input', () => {
     const term = searchInput.value.toLowerCase().trim();
-
     const wrapper = searchInput.closest('.input-wrapper');
     const dropdown = wrapper.querySelector('.drop-down-menu');
     if (dropdown && dropdown.dataset.open !== 'true') {
-      toggleDropDown(wrapper.querySelector('button'));
+      const btn = wrapper.querySelector('button');
+      toggleDropDown(btn);
     }
-
-    const { menu } = getDropdownElements(searchInput);
-    const items = Array.from(menu.querySelectorAll('.select-contact'));
-    filterItems(items, term);
+    const entries = Array.from(wrapper.querySelectorAll('.select-contact'));
+    filterItems(entries, term);
   });
 }
+
 
 /**
  * Retrieves all DOM elements representing individual subtasks.
