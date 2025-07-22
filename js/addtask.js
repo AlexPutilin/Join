@@ -293,9 +293,11 @@ async function addTaskBoard(status) {
   clearAddTaskForm();
   await tasksToArray();
 }
+
 /**
- * 
- * @returns 
+ * Extracts the 'status' query parameter from the current page URL.
+ * Defaults to 'to-do' if the parameter is not present.
+ * @returns {string} The task status from the URL, or 'to-do' as fallback.
  */
 function getStatusFromURL() {
   const params = new URLSearchParams(window.location.search);
