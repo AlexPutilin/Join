@@ -48,6 +48,16 @@ function hideElement(id) {
 
 
 /**
+ * Shows the specified element by removing the 'd-none' class.
+ * @param {string} id - The ID of the element to hide.
+ */
+function showElement(id) {
+    let element = document.getElementById(id);
+    element.classList.remove("d-none");
+}
+
+
+/**
  * Replaces the responsive <picture> logo with a static image by:
  * - Removing the <source> to disable media-based switching
  * - Setting a fixed image source on the <img> element
@@ -73,7 +83,17 @@ function changeImgSrc(id, ref) {
  */
 function showSignupForm() {
     renderForm(getSignupFormTemplate());
+    hideElement("cta-container");
     initSignupForm(); // -> handle disabled attribute of btn_signup
+}
+
+
+/**
+ * Displays the login form by rendering the template and initializing form behavior.
+ */
+function showLoginForm() {
+    renderForm(getLoginFormTemplate());
+    showElement('cta-container');
 }
 
 
@@ -89,6 +109,7 @@ function initSignupForm() {
 
     inputs.forEach(input => {
         input.addEventListener('input', () => checkInputs(inputs, signupBtn));
+        input.addEventListener('change', () => checkInputs(inputs, signupBtn));
     });
 }
 
@@ -104,8 +125,10 @@ function initSignupForm() {
 function checkInputs(inputs, signupBtn) {
     let allFilled = true;
 
+    let checkbox = document.getElementById('checkbox_privacy_policy');
+
     inputs.forEach(input => {
-        if (input.value.trim() === '') {
+        if (input.value.trim() === '' || checkbox.checked === false) {
             allFilled = false;
         }
     });
@@ -229,8 +252,9 @@ function showOverlayOnSignup() {
     }, 50);
 
     setTimeout(() => {
-        overlayContainer.classList.add('d-none')
-        renderForm(getLoginFormTemplate())
+        overlayContainer.classList.add('d-none');
+        showLoginForm();
+        // renderForm(getLoginFormTemplate())
     }, 1000);
 }
 
@@ -287,7 +311,7 @@ function validateUser(userArray, emailInput, passwordInput) {
  *
  * @param {Object} foundUser - The user object of the successfully logged-in user.
  */
-function onLogin(foundUser = {name: "Guest"}) {
+function onLogin(foundUser = { name: "Guest" }) {
     sessionStorage.removeItem('welcomeScreen');
     activeUser = foundUser.name;
     console.log(activeUser);
@@ -322,19 +346,19 @@ function showCustomInputError(selector, message) {
  * and back into the header on larger screens.
  */
 function moveCTA() {
-  const cta = document.getElementById('cta-container');
-  const formContainer = document.getElementById('form-container');
-  const header = document.querySelector('header');
+    const cta = document.getElementById('cta-container');
+    const formContainer = document.getElementById('form-container');
+    const header = document.querySelector('header');
 
-  if (window.innerWidth <= 520) {
-    if (cta.parentNode !== formContainer.parentNode) {
-      formContainer.insertAdjacentElement('afterend', cta);
+    if (window.innerWidth <= 520) {
+        if (cta.parentNode !== formContainer.parentNode) {
+            formContainer.insertAdjacentElement('afterend', cta);
+        }
+    } else {
+        if (cta.parentNode !== header) {
+            header.appendChild(cta);
+        }
     }
-  } else {
-    if (cta.parentNode !== header) {
-      header.appendChild(cta);
-    }
-  }
 }
 
 window.addEventListener('resize', moveCTA);
