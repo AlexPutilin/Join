@@ -303,14 +303,14 @@
     max-height: 80px;
     overflow-y: auto;
 }
-
+#edit-task-form::-webkit-scrollbar,
 .task-title-big::-webkit-scrollbar,
 .task-description::-webkit-scrollbar,
 .initials-wrapper::-webkit-scrollbar,
 .subtasks-wrapper::-webkit-scrollbar {
     width: 10px;
 }
-
+#edit-task-form::-webkit-scrollbar-track,
 .task-title-big::-webkit-scrollbar-track,
 .task-description::-webkit-scrollbar-track,
 .initials-wrapper::-webkit-scrollbar-track,
@@ -318,7 +318,7 @@
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
 }
-
+#edit-task-form::-webkit-scrollbar-thumb,
 .task-title-big::-webkit-scrollbar-thumb,
 .task-description::-webkit-scrollbar-thumb,
 .initials-wrapper::-webkit-scrollbar-thumb,
@@ -326,7 +326,7 @@
     background: rgb(42, 54, 71);
     border-radius: 10px;
 }
-
+#edit-task-form::-webkit-scrollbar-thumb:hover,
 .task-title-big::-webkit-scrollbar-thumb:hover,
 .task-description::-webkit-scrollbar-thumb:hover,
 .initials-wrapper::-webkit-scrollbar-thumb:hover,
