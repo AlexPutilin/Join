@@ -756,7 +756,7 @@ function getaddTaskButtonsTemplate() {
               <img class="icon-active"  src="../assets/img/icon-cancel-click.svg">
             </div>
           </button>
-          <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask()" disabled>
+          <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask(), closeOverlay()" disabled>
             <span>Create Task</span>
             <img src="../assets/img/icon-add-white.svg">
           </button>
