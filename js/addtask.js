@@ -339,6 +339,9 @@ async function addTaskBoard(status) {
   overlayRef.classList.remove('d-none');
   overlayRef.innerHTML = `<div onclick="eventBubblingProtection(event)" class="add-task-wrapper">
                             <button onclick="closeOverlay()" class="btn-small">
+                            <img class="icon-default" src="../assets/img/icon-close-default.svg">
+                            <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
+                        </button>
                             ${getAddTaskFormTemplate()}
                           </div>`;
   clearAddTaskForm();
