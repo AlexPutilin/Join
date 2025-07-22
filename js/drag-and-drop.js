@@ -5,14 +5,12 @@ let touchCurrentTarget;
 
 /**
  * All containers that support drag-and-drop.
- * 
  * @type {NodeListOf<HTMLElement>}
  */
 const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
 
 /**
  * Placeholder element inserted to show drop position.
- * 
  * @type {HTMLElement}
  */
 let placeholder = document.createElement('div');
@@ -20,7 +18,6 @@ placeholder.classList.add('drop-placeholder');
 
 /**
  * NodeList of all drop placeholder elements.
- * 
  * @type {NodeListOf<HTMLElement>}
  */
 const selectPlaceholder = document.querySelectorAll('.drop-placeholder');
@@ -48,12 +45,9 @@ function enableTaskDragging() {
 /**
  * Handles the start of a drag event for a task card.
  * Updates global state and UI appearance.
- * 
  * @param {HTMLElement} draggable - The element being dragged.
  */
 function handleTaskDragStart(draggable) {
-    // console.log("dragstart");
-
     currentDraggedElement = draggable.id;
     currentSourceContainer = draggable.parentNode;
     draggable.classList.add('dragging');
@@ -64,7 +58,6 @@ function handleTaskDragStart(draggable) {
  * Enables touch-based dragging for a list of draggable elements.
  * Creates a visual clone of the dragged element to follow the touch, 
  * handles touch start and end events, and updates the task order after drop.
- * 
  * @param {Element} draggables - A collection of draggable DOM elements.
  */
 function enableTaskDraggingByTouch(draggables) {
@@ -82,7 +75,6 @@ function enableTaskDraggingByTouch(draggables) {
 /**
  * Handles the end of a touch drag event.
  * Inserts the element at the placeholder position and updates task order.
- * 
  * @param {HTMLElement} draggable - The dragged element.
  */
 async function handleTaskTouchEnd(draggable) {
@@ -104,7 +96,6 @@ async function handleTaskTouchEnd(draggable) {
 /**
  * Handles the start of a touch drag.
  * Creates a visual clone and prepares for movement tracking.
- * 
  * @param {HTMLElement} draggable - The dragged element.
  * @param {TouchEvent} event - The touchstart event.
  */
@@ -122,7 +113,6 @@ function handleTaskTouchStart(draggable, event) {
 
 /**
  * Applies size and initial position styles to the touch clone element.
- * 
  * @param {DOMRect} rect - Bounding box of the original element.
  */
 function applyTouchCloneStyles(rect) {
@@ -137,7 +127,6 @@ function applyTouchCloneStyles(rect) {
  * Tracks finger movement and updates the position of the dragged clone.
  * Dynamically inserts a placeholder element in the appropriate drop zone, 
  * to indicate the potential drop position based on the touch location.
- * 
  * @param {HTMLElement} draggables - A collection of draggable DOM elements.
  */
 function moveByTouch(draggables) {
@@ -150,7 +139,6 @@ function moveByTouch(draggables) {
 
 /**
  * Handles touch movement during a drag.
- * 
  * @param {TouchEvent} event - The touchmove event.
  * @param {HTMLElement} draggable - The element being dragged.
  */
@@ -168,7 +156,6 @@ function handleTaskTouchMove(event, draggable) {
 
 /**
  * Positions the placeholder element within a drop zone based on touch Y position.
- * 
  * @param {HTMLElement} dropZone - The target container.
  * @param {HTMLElement} draggable - The currently dragged element.
  * @param {Touch} touch - The touch position object.
@@ -192,7 +179,6 @@ function positionPlaceholder(dropZone, draggable, touch) {
 
 /**
  * Updates the position of the touch clone element to follow the user's finger.
- * 
  * @param {Touch} touch - The touch point from the current event.
  */
 function updateTouchPosition(touch) {
@@ -219,10 +205,9 @@ function enableDragReordering() {
 }
 
 /**
-  * Handles the 'dragover' event during drag-and-drop reordering inside a container.
+ * Handles the 'dragover' event during drag-and-drop reordering inside a container.
  * Calculates the correct insertion position for the dragged element based on cursor Y-position,
  * removes any existing placeholder, and places a new one to visually indicate the drop position.
- * 
  * @param {DragEvent} event - The drop event triggered on the container.
  * @param {HTMLElement} dragAndDropContainer - The container element where the task is dropped.
  */
@@ -241,7 +226,6 @@ function handleTaskDragover(event, dragAndDropContainer) {
 
 /**
  * Inserts a placeholder into the correct position based on current drag target.
- * 
  * @param {HTMLElement|null} afterElement - The element after which the dragged item should be placed.
  * @param {HTMLElement} dragAndDropContainer - The container receiving the drag.
  */
@@ -255,7 +239,6 @@ function handleDragAndDropContainer(afterElement, dragAndDropContainer) {
 
 /**
  * Handles the drop event and updates task order accordingly.
- * 
  * @param {DragEvent} event - The drop event.
  * @param {HTMLElement} dragAndDropContainer - The container element where the task is dropped.
  * @returns {Promise<void>} - Resolves after updating the order in both source and target containers.
@@ -277,7 +260,6 @@ async function handleTaskDrop(event, dragAndDropContainer) {
 
 /**
  * Places the dragged element at the placeholder position or appends it to the end.
- * 
  * @param {HTMLElement} placeholder - The placeholder element in the container.
  * @param {HTMLElement} dragAndDropContainer - The container element where the task is dropped.
  * @param {HTMLElement} draggedCard - The element being dropped.
@@ -304,7 +286,6 @@ function enableTaskDropByStatus() {
 
 /**
  * Determines the element just below a given vertical point inside a container.
- * 
  * @param {HTMLElement} container - The container holding draggable cards.
  * @param {number} y - The vertical position of the pointer (mouse or touch).
  * @returns {Element|null} - The closest element below the given Y position.
@@ -326,7 +307,6 @@ function getDragAfterElement(container, y) {
 /**
  * Updates the order and status of tasks based on their position within a container.
  * Calls collectTasksToUpdate() to determine changes, then persists them and re-renders the task board.
- * 
  * @param {HTMLElement} container - The DOM container element holding task cards.
  * @param {string} newStatus - The new status to assign to all tasks in this container.
  */
@@ -341,7 +321,6 @@ async function updateOrderInContainer(container, newStatus) {
 
 /**
  * Compares and collects tasks that need an update based on order or status.
- * 
  * @param {HTMLElement} container - The container with the task cards.
  * @param {string} newStatus - The new status to assign to all tasks in this container.
  * @returns {Array<Object>} - A list of tasks with updated order and status.
@@ -365,8 +344,7 @@ function collectTasksToUpdate(container, newStatus) {
 }
 
 /**
- * Updates task's order and status, then adds it to the update queue.
- * 
+ * Updates task's order and status, then adds it to the update queue. 
  * @param {Object} task - The task object to update.
  * @param {number} index - The new order index.
  * @param {string} newStatus - The new status to assign.
@@ -380,7 +358,6 @@ function updateOrderAndStatus(task, index, newStatus, tasksToUpdate) {
 
 /**
  * Sends multiple task updates to the backend.
- * 
  * @param {Array<Object>} tasks - A list of task objects to update.
  */
 async function updateMultipleTasks(tasks) {
