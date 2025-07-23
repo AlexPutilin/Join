@@ -329,7 +329,7 @@ function prepareTaskData(status) {
  * @param {string} [status='to-do'] - Status for the created task.
  * @returns {Promise<void>}
  */
-async function addTask(status = 'to-do') {
+async function addTask() {
   if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData(selectedStatusForNewTask);
   await postData('/board/tasks', taskData);
