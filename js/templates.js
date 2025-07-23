@@ -718,7 +718,7 @@ function getCategoryTemplate(selected = '') {
         <span>Category</span><span class="redstar">*</span>
       </div>
       <div class="input-area drop-down-input">
-        <input id="task-category" placeholder="Select category" name="category" type="text" readonly required value="${selected}" oninput="resetInputError(event)">
+        <input id="task-category" placeholder="Select category" name="category" type="text" readonly required value="${selected ?? ''}" oninput="resetInputError(event)">
         <button type="button" class="btn-small" onclick="toggleDropDown(this)">
           <div class="icon-wrapper">
             <img class="icon-default" src="../assets/img/icon-down-default.svg">

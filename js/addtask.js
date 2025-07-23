@@ -50,10 +50,10 @@ function ensureDefaultPriority() {
  * @function renderCategoryField
  * @returns {void}
  */
-function renderCategoryField() {
+function renderCategoryField(task) {
   const wrapper = document.getElementById('category-wrapper-template');
   if (!wrapper) return;
-  wrapper.innerHTML = getCategoryTemplate();
+  wrapper.innerHTML = getCategoryTemplate(taskCategory)
   initCategoryInteractions(wrapper);
 }
 
@@ -127,7 +127,7 @@ async function renderAssignedToField() {
   if (contacts.length === 0) {
     await loadContacts(); 
   } renderContacts();     
-  initAssignedToInteractions();
+    assignedToInteractions();
 }
 
 /**
@@ -163,7 +163,7 @@ function renderContacts() {
  * @function initAssignedToInteractions
  * @returns {void}
  */
-function initAssignedToInteractions() {
+function assignedToInteractions() {
   const wrapper     = document.querySelector('#assigned-to-wrapper-template .input-wrapper');
   const toggleBtn   = wrapper.querySelector('button.btn-small');
   const searchInput = wrapper.querySelector('input[type="text"]');
@@ -326,7 +326,6 @@ function prepareTaskData(status) {
  * Validates the form and submits a new task to the server.
  * @async
  * @function addTask
- * @param {string} [status='to-do'] - Status for the created task.
  * @returns {Promise<void>}
  */
 async function addTask() {
