@@ -95,6 +95,12 @@ function createCategoryOptions(wrapper) {
   });
 }
 
+/**
+ * Handle clicks on category options: set input value, close dropdown,
+ * clear errors, and update button state.
+ * @param {HTMLElement} wrapper - Category field container.
+ * @param {HTMLElement} toggleBtn - Dropdown toggle button.
+ */
 function setupCategoryOptionSelection(wrapper, toggleBtn) {
   const optionsContainer = wrapper.querySelector('#category-options-container');
   const inputWrapper     = wrapper.querySelector('.input-wrapper');
@@ -109,6 +115,10 @@ function setupCategoryOptionSelection(wrapper, toggleBtn) {
   });
 }
 
+/**
+ * Validate the category input: ensures non‑empty value, toggles error UI.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 function validateCategoryField() {
   const input    = document.getElementById('task-category');
   const wrapper  = input.closest('.input-wrapper');
@@ -125,6 +135,12 @@ function validateCategoryField() {
   return isValid;
 }
 
+/**
+ * Injects the Assigned To template, loads contacts if empty,
+ * then renders contact items and initializes interactions.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function renderAssignedToField() {
   if (!injectAssignedToTemplate()) return;
   if (contacts.length === 0) {
@@ -133,6 +149,10 @@ async function renderAssignedToField() {
   initAssignedToInteractions();
 }
 
+/**
+ * Injects the Assigned To HTML into its wrapper element.
+ * @returns {boolean} True if the template was injected, false if the wrapper was not found.
+ */
 function injectAssignedToTemplate() {
   const wrapper = document.getElementById('assigned-to-wrapper-template');
   if (!wrapper) return false;
@@ -140,6 +160,10 @@ function injectAssignedToTemplate() {
   return true;
 }
 
+/**
+ * Populates the contacts dropdown with checkbox items for each contact.
+ * @returns {void}
+ */
 function renderContacts() {
   const dropdown = document.getElementById('contacts-dropdown');
   if (!dropdown) return;
@@ -149,17 +173,34 @@ function renderContacts() {
   });
 }
 
+/**
+ * Initializes interaction handlers for the "Assigned To" field:
+ * - Dropdown toggle and search integration.
+ * - Contact selection change handling.
+ * - Closes dropdown on outside click.
+ *
+ * @function initAssignedToInteractions
+ * @returns {void}
+ */
 function initAssignedToInteractions() {
   const wrapper     = document.querySelector('#assigned-to-wrapper-template .input-wrapper');
   const toggleBtn   = wrapper.querySelector('button.btn-small');
   const searchInput = wrapper.querySelector('input[type="text"]');
   const menu        = wrapper.querySelector('.drop-down-menu');
-
   initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu);
   initAssignedToContactSelection();
   setupCloseOnOutsideClick('#assigned-to-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
 }
 
+/**
+ * Sets up the dropdown toggle and live-search behavior for the contacts menu.
+ *
+ * @function initAssignedToDropdownAndSearch
+ * @param {HTMLElement} toggleBtn   - Button to open/close the dropdown.
+ * @param {HTMLInputElement} searchInput - Text field for filtering contacts.
+ * @param {HTMLElement} menu        - The dropdown menu container.
+ * @returns {void}
+ */
 function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
   toggleBtn.onclick = () => toggleDropDown(toggleBtn);
   searchInput.onkeydown = element => {
@@ -173,6 +214,13 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
   };
 }
 
+/**
+ * Attaches a change listener to the contacts dropdown to re-render chips whenever
+ * a contact checkbox is toggled.
+ *
+ * @function initAssignedToContactSelection
+ * @returns {void}
+ */
 function initAssignedToContactSelection() {
   document.getElementById('contacts-dropdown').addEventListener('change', event => {const checkbox = event.target;
       if (!checkbox.matches('input[type="checkbox"]')) return;
@@ -180,6 +228,13 @@ function initAssignedToContactSelection() {
     });
 }
 
+/**
+ * Renders the selected contacts as chips below the Assigned To field.
+ * Clears existing chips and creates a new chip for each checked contact.
+ *
+ * @function renderAssignedChips
+ * @returns {void}
+ */
 function renderAssignedChips() {
   const container = document.getElementById('assigned-chips-container');
   container.innerHTML = '';
@@ -206,13 +261,26 @@ function prefillAssignedTo(task) {
   renderAssignedChips();
 }
 
-
+/**
+ * Pre-fills the "Assigned To" checkboxes and chips based on the given task data.
+ * Marks checkboxes for contacts whose names appear in task.assigned_to array,
+ * then re-renders the chips.
+ *
+ * @function prefillAssignedTo
+ * @param {Object} task - The task object containing an assigned_to array of names.
+ * @returns {void}
+ */
 function renderSubtaskInput() {
   const subtaskWrapper = document.getElementById('subtask-wrapper-template');
   if (!subtaskWrapper) return;
   subtaskWrapper.innerHTML = getSubtaskInputTemplate();
 }
 
+/**
+ * Converts an array of subtask objects into a Firebase‑friendly object.
+ * @function getSubtasksForFirebase
+ * @returns {Object} Subtasks keyed as subtask1, subtask2, …
+ */
 function getSubtasksForFirebase() {
   const subtasksArray = getSubtasks(); 
   const subtasksObject = {};
@@ -222,6 +290,11 @@ function getSubtasksForFirebase() {
   return subtasksObject;
 }
 
+/**
+ * Reads subtask entries from the DOM and returns them as plain objects.
+ * @function getSubtasks
+ * @returns {Array<{title: string, done: boolean}>} List of subtasks.
+ */
 function getSubtasks() {
   const containers = document.querySelectorAll('#subtask-input .list-subtasks .subtask-item-container');
   return Array.from(containers).map(container => {
@@ -232,6 +305,12 @@ function getSubtasks() {
   });
 }
 
+/**
+ * Renders existing subtasks into the subtask input area using addSubtask().
+ * @function prefillSubtasks
+ * @param {Object} task - Task object containing a subtasks property.
+ * @returns {void}
+ */
 function prefillSubtasks(task) {
   const subtaskListContainer = document.querySelector('#subtask-input .list-subtasks');
   const newSubtaskInputField = document.getElementById('subtask-input-field');
@@ -243,7 +322,11 @@ function prefillSubtasks(task) {
   });
 }
 
-
+/**
+ * Attaches input listeners to title and date fields to toggle the create button.
+ * @function setupCreateButtonListeners
+ * @returns {void}
+ */
 function setupCreateButtonListeners() {
   const titleInput = document.getElementById('task-title');
   const dueDateInput = document.getElementById('due-date');
@@ -255,6 +338,11 @@ function setupCreateButtonListeners() {
   }
 }
 
+/**
+ * Returns the IDs of all checked contact checkboxes.
+ * @function getSelectedContactIds
+ * @returns {string[]} Array of selected contact IDs.
+ */
 function getSelectedContactIds() {
   return Array.from(
     document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]:checked'),
@@ -262,17 +350,12 @@ function getSelectedContactIds() {
   );
 }
 
-function getStatusFromButtonId(buttonId) {
-  let status = 'to-do';              
-  if (buttonId === 'in-progress-btn') {
-    status = 'in-progress';
-  }
-  else if (buttonId === 'await-feedback-btn') {
-    status = 'await-feedback';
-  }
-  return status;
-}
-
+/**
+ * Gathers form data, selected contacts, and subtasks into a single object.
+ * @function prepareTaskData
+ * @param {string} status - Desired status for the new task.
+ * @returns {Object} Combined task data ready for posting.
+ */
 function prepareTaskData(status) {
   const taskData = getInputData('#add-task-form');
   const ids = getSelectedContactIds();

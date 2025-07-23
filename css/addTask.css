@@ -385,7 +385,6 @@
   animation: slide-in-out-add-task 2s ease forwards;
 }
 
-
 @media (max-width: 1080px) {
 
   .add-task-left {
@@ -429,6 +428,7 @@
   .add-task-form {
     align-items: center;
     max-width: 560px;
+    margin-top: 200px
   }
 
   .add-task-container {
@@ -492,6 +492,7 @@
 
   .add-task-form {
     align-items: center;
+    margin-top: 100px;
     padding-bottom: 100px;
   }
 
