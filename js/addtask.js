@@ -371,6 +371,13 @@ function prepareTaskData(status) {
   } return taskData;
 }
 
+/**
+ * Validates the form and submits a new task to the server.
+ * @async
+ * @function addTask
+ * @param {string} [status='to-do'] - Status for the created task.
+ * @returns {Promise<void>}
+ */
 async function addTask(status = 'to-do') {
   if (!validateFormBeforeSubmit()) return;
   const taskData = prepareTaskData(selectedStatusForNewTask);
@@ -380,12 +387,22 @@ async function addTask(status = 'to-do') {
   showAddTaskNotification();
 }
 
+/**
+ * Checks that all required form fields pass validation.
+ * @function validateFormBeforeSubmit
+ * @returns {boolean} True if form is valid, false otherwise.
+ */
 function validateFormBeforeSubmit() {
   const inputsValid = checkFormValidation('#add-task-form');
   const categoryValid = validateCategoryField();
   return inputsValid && categoryValid;
 }
 
+/**
+ * Enables or disables the create‑task button based on form completeness.
+ * @function updateCreateButtonState
+ * @returns {void}
+ */
 function updateCreateButtonState() {
   const titleValue = document.getElementById('task-title')?.value.trim();
   const dueDateValue = document.getElementById('due-date')?.value.trim();
@@ -401,6 +418,11 @@ function updateCreateButtonState() {
   }
 }
 
+/**
+ * Resets and reinitializes the add‑task form UI to its default state.
+ * @function clearAddTaskForm
+ * @returns {void}
+ */
 function clearAddTaskForm() {
   const form = document.getElementById('add-task-form');
   if (!form) return;
@@ -412,6 +434,11 @@ function clearAddTaskForm() {
   updateCreateButtonState();
 }
 
+/**
+ * Clears priority, dropdown inputs, chips, and subtasks from the form.
+ * @function resetForm
+ * @returns {void}
+ */
 function resetForm(){
   document.querySelectorAll('input[name="priority"]').forEach(radio => {radio.checked = false;});
   document.querySelectorAll('.drop-down-input input[type="text"]').forEach(input => {input.value = "";input.removeAttribute("data-placeholder-active");});
@@ -419,6 +446,11 @@ function resetForm(){
   document.querySelector('#subtask-input .list-subtasks')?.replaceChildren();
 }
 
+/**
+ * Displays a transient success notification after adding a task.
+ * @function showAddTaskNotification
+ * @returns {void}
+ */
 function showAddTaskNotification() {
   const notificationHtml = getAddTaskNotificationTemplate();
   document.body.insertAdjacentHTML('beforeend', notificationHtml);
