@@ -53,6 +53,12 @@ function togglePasswordVisibility() {
     visibilityButton.classList.toggle('btn-active');    
 }
 
+/**
+ * Toggles subtask input buttons between default add and confirm/cancel.
+ * @function toggleInputBtns
+ * @param {HTMLInputElement} input - The subtask input element.
+ * @returns {void}
+ */
 function toggleInputBtns(input) {
     const subtaskInputField = document.getElementById('subtask-input');
     const defaultButton = subtaskInputField.querySelector('.btn-small');
@@ -66,6 +72,11 @@ function toggleInputBtns(input) {
     }
 }
 
+/**
+ * Adds an Enter key listener to the subtask input to submit on Enter.
+ * @function enterListenerSubtask
+ * @returns {void}
+ */
 function enterListenerSubtask(){
   const subtaskInput = document.getElementById('subtask-input').querySelector('input');
   subtaskInput.addEventListener('keydown', (enterEvent) => {
@@ -76,7 +87,11 @@ function enterListenerSubtask(){
   });
 }
 
-
+/**
+ * Reads the subtask input, appends a new subtask item, and resets the input.
+ * @function addSubtask
+ * @returns {void}
+ */
 function addSubtask() {
     const subtaskInputField = document.getElementById('subtask-input');
     const input = subtaskInputField.querySelector('input');
@@ -89,7 +104,11 @@ function addSubtask() {
     resetSubtaskInput();
 }
 
-
+/**
+ * Clears the subtask input field and resets its buttons.
+ * @function resetSubtaskInput
+ * @returns {void}
+ */
 function resetSubtaskInput() {
     const subtaskInputField = document.getElementById('subtask-input');
     const input = subtaskInputField.querySelector('input');
@@ -97,14 +116,24 @@ function resetSubtaskInput() {
     toggleInputBtns(input);
 }
 
-
+/**
+ * Focuses the subtask input field when its add button is clicked.
+ * @function setInputFocus
+ * @param {HTMLElement} triggerElement - The button triggering focus.
+ * @returns {void}
+ */
 function setInputFocus(triggerElement) {
     const inputWrapper = triggerElement.closest('.input-wrapper');
     const input = inputWrapper.querySelector('input');
     input.focus();
 }
 
-
+/**
+ * Opens the edit UI for a single subtask item.
+ * @function openSubtaskEditMenu
+ * @param {HTMLElement} triggerElement - The edit button element.
+ * @returns {void}
+ */
 function openSubtaskEditMenu(triggerElement) {
     resetSubtaskInput();
     closeAllSubtaskEdits();
@@ -119,6 +148,12 @@ function openSubtaskEditMenu(triggerElement) {
     editInput.focus();
 }
 
+/**
+ * Removes a subtask item from the list.
+ * @function deleteSubtaskItem
+ * @param {HTMLElement} triggerElement - The delete button element.
+ * @returns {void}
+ */
 function deleteSubtaskItem(triggerElement) {
     resetSubtaskInput();
     closeAllSubtaskEdits();
@@ -126,6 +161,12 @@ function deleteSubtaskItem(triggerElement) {
     subtaskContainer.remove();
 }
 
+/**
+ * Commits edits from the subtask edit UI back to the display.
+ * @function commitEditSubtask
+ * @param {HTMLElement} triggerElement - The confirm button element.
+ * @returns {void}
+ */
 function commitEditSubtask(triggerElement) {
     const subtaskContainer = triggerElement.closest('.subtask-item-container');
     const subtaskItem = subtaskContainer.querySelector('.subtask-item');
@@ -136,7 +177,11 @@ function commitEditSubtask(triggerElement) {
     closeAllSubtaskEdits();
 }
 
-
+/**
+ * Closes any open subtask edit menus and shows the static items.
+ * @function closeAllSubtaskEdits
+ * @returns {void}
+ */
 function closeAllSubtaskEdits() {
     const subtaskContainers = document.querySelectorAll('.subtask-item-container');
     subtaskContainers.forEach(item => {
@@ -305,6 +350,13 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
   });
 }
 
+/**
+ * Creates a visual chip element for a contact.
+ * @function createContactChip
+ * @param {string} initials - The contact’s initials to display.
+ * @param {string} bgColor - Background color for the chip.
+ * @returns {HTMLDivElement} The styled chip element.
+ */
   function createContactChip(initials, bgColor) {
     const chip = document.createElement('div');
     chip.classList.add('assigned-chip');
@@ -314,7 +366,13 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
     return chip;
   }
   
-
+/**
+ * Filters a list of contact entries by matching first name prefix.
+ * @function filterItems
+ * @param {HTMLElement[]} contactEntries - Array of contact entry elements.
+ * @param {string} searchTerm - Lower‑cased search prefix.
+ * @returns {boolean} True if at least one entry matches.
+ */
   function filterItems(contactEntries, searchTerm) {
     let anyVisible = false;
   
@@ -333,7 +391,13 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
     return anyVisible;
   }
 
-
+/**
+ * Retrieves dropdown menu and icon elements associated with an input.
+ * @function getDropdownElements
+ * @param {HTMLInputElement} input - The dropdown’s input element.
+ * @returns {{menu: HTMLElement, icons: NodeListOf<HTMLElement>}}
+ *   The menu container and its icon wrappers.
+ */
 function getDropdownElements(input) {
   const wrapper = input.closest('.input-wrapper');
   return {
@@ -342,6 +406,14 @@ function getDropdownElements(input) {
   };
 }
 
+/**
+ * Sets up live‑search behavior on the Assigned To input:
+ * - Opens dropdown on first input.
+ * - Filters entries by search term.
+ *
+ * @function setupAssignedToSearch
+ * @returns {void}
+ */
 function setupAssignedToSearch() {
   const searchInput = document.getElementById('assigned-input');
   if (!searchInput) return;
@@ -357,7 +429,6 @@ function setupAssignedToSearch() {
     filterItems(entries, term);
   });
 }
-
 
 /**
  * Retrieves all DOM elements representing individual subtasks.

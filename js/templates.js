@@ -712,26 +712,33 @@ function getaddTaskButtonsTemplate() {
     </div>`;
 }
 
-function getCategoryTemplate() {
+function getCategoryTemplate(selected = '') {
   return `
-    <div class="input-wrapper">
+    <div class="input-wrapper" id="category-wrapper-template">
       <div class="required-description">
         <span>Category</span><span class="redstar">*</span>
       </div>
       <div class="input-area drop-down-input">
-        <input id="task-category" name="category" type="text" placeholder="Select task category" data-placeholder="Select task category" data-placeholder-active="Select task category" readonly required oninput="resetInputError(event)">
+        <input id="task-category" placeholder="Select category" name="category" type="text" readonly required value="${selected ?? ''}" oninput="resetInputError(event)">
         <button type="button" class="btn-small" onclick="toggleDropDown(this)">
           <div class="icon-wrapper">
             <img class="icon-default" src="../assets/img/icon-down-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-down-hover.svg">
+            <img class="icon-hover"   src="../assets/img/icon-down-hover.svg">
           </div>
           <div class="icon-wrapper d-none">
             <img class="icon-default" src="../assets/img/icon-up-default.svg">
-            <img class="icon-hover" src="../assets/img/icon-up-hover.svg">
+            <img class="icon-hover"   src="../assets/img/icon-up-hover.svg">
           </div>
         </button>
       </div>
-      <div id="category-options-container" class="drop-down-menu d-none" data-open="false"></div>
+      <div id="category-options-container" class="drop-down-menu d-none" data-open="false">
+        <div class="dropdown-single-option" onclick="selectCategory(this)">
+          Technical Task
+        </div>
+        <div class="dropdown-single-option" onclick="selectCategory(this)">
+          User Story
+        </div>
+      </div>
       <span class="err-msg hidden">This field is required.</span>
     </div>`;
 }
