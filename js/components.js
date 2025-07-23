@@ -53,17 +53,8 @@ function togglePasswordVisibility() {
     visibilityButton.classList.toggle('btn-active');    
 }
 
-
-// function getInput(element) {
-//     const inputWrapper = element.closest('.input-wrapper');
-//     const input = inputWrapper.querySelector('input');
-//     return input;
-// }
-
-
 function toggleInputBtns(input) {
     const subtaskInputField = document.getElementById('subtask-input');
-    // const inputWrapper = input.closest('.input-wrapper');
     const defaultButton = subtaskInputField.querySelector('.btn-small');
     const btnCollection = subtaskInputField.querySelector('.btn-collection-container');
     if (input.value !== "") {
@@ -101,7 +92,6 @@ function addSubtask() {
 
 function resetSubtaskInput() {
     const subtaskInputField = document.getElementById('subtask-input');
-    // const inputWrapper = triggerElement.closest('.input-wrapper');
     const input = subtaskInputField.querySelector('input');
     input.value = "";
     toggleInputBtns(input);
@@ -129,23 +119,12 @@ function openSubtaskEditMenu(triggerElement) {
     editInput.focus();
 }
 
-
 function deleteSubtaskItem(triggerElement) {
     resetSubtaskInput();
     closeAllSubtaskEdits();
     const subtaskContainer = triggerElement.closest('.subtask-item-container');
     subtaskContainer.remove();
 }
-
-
-// function closeSubtaskEditMenu(triggerElement) {
-//     const subtaskContainer = triggerElement.closest('.subtask-item-container');
-//     const subtaskItem = subtaskContainer.querySelector('.subtask-item');
-//     const subtaskEditMenu = subtaskContainer.querySelector('.subtask-item-editmenu');
-//     subtaskEditMenu.classList.add('d-none');
-//     subtaskItem.classList.remove('d-none');
-// }
-
 
 function commitEditSubtask(triggerElement) {
     const subtaskContainer = triggerElement.closest('.subtask-item-container');
@@ -168,7 +147,6 @@ function closeAllSubtaskEdits() {
     });
 }
 
-
 /**
  * Toggles the visibility of the drop-down menu.
  * @param {HTMLElement} triggerElement - The element that triggered the toggle.
@@ -187,7 +165,6 @@ function toggleDropDown(triggerElement) {
     }
 }
 
-
 /**
  * Opens the drop-down menu and updates UI elements accordingly.
  * @param {HTMLInputElement} input - The input element within the wrapper.
@@ -203,7 +180,6 @@ function openDropDownMenu(input, menu, icons) {
     input.focus();
 }
 
-
 /**
  * Closes the drop-down menu and resets UI elements.
  * @param {HTMLInputElement} input - The input element within the wrapper.
@@ -217,7 +193,6 @@ function closeDropDownMenu(input, menu, icons) {
     input.style.cursor = "pointer"
     input.placeholder = input.dataset.placeholder;
 }
-
 
 /**
  * Collects and returns form input data from a specified form.
@@ -339,7 +314,6 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
     return chip;
   }
   
-  
 
   function filterItems(contactEntries, searchTerm) {
     let anyVisible = false;
@@ -391,14 +365,9 @@ function setupAssignedToSearch() {
  * @returns {NodeListOf<HTMLElement>} A list of subtask container elements.
  */
 function getAllSubtaskElements() {
-    const listContainer = document.querySelector('#subtask-input .list-subtasks');
-    if (!listContainer) {
-        console.warn('Element "#subtask-input .list-subtasks" nicht gefunden.');
-        return []; 
-    }
-    return listContainer.querySelectorAll('.subtask-item-container');
+  const listContainer = document.querySelector('#subtask-input .list-subtasks');
+  return listContainer.querySelectorAll('.subtask-item-container');
 }
-
 
 /**
  * Extracts and cleans the title of a subtask from its DOM container.
