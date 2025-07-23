@@ -1,5 +1,12 @@
 let selectedStatusForNewTask = 'to-do';
 
+/**
+ * On DOMContentLoaded, inject the add‑task form into #add-task-root,
+ * then initialize profile, auth redirect, and the add‑task page.
+ *
+ * @event DOMContentLoaded
+ * @returns {void}
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById('add-task-root');
   if (!container) return; 
@@ -9,7 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initAddTaskPage();
 });
 
-
+/**
+ * Renders and initializes all components of the "Add Task" page.
+ * Set up the Add Task page: render category, assigned‑to, default priority,
+ * subtask input, subtask entry listener, and create‑button listeners.
+ *
+ * @function initAddTaskPage
+ * @returns {void}
+ */
 function initAddTaskPage() {
   renderCategoryField();
   renderAssignedToField();
@@ -19,12 +33,23 @@ function initAddTaskPage() {
   setupCreateButtonListeners();
 }
 
+/**
+ * Ensures a default "medium" priority is selected if no priority option is checked.
+ * @function ensureDefaultPriority
+ * @returns {void}
+ */
 function ensureDefaultPriority() {
   if (document.querySelector('input[name="priority"]:checked')) return;
   const medium = document.querySelector('input[name="priority"][value="medium"]');
   if (medium) medium.checked = true;
 }
 
+/**
+ * Renders the category field by injecting its HTML template, creating options,
+ * and initializing dropdown interactions.
+ * @function renderCategoryField
+ * @returns {void}
+ */
 function renderCategoryField() {
   const wrapper = document.getElementById('category-wrapper-template');
   if (!wrapper) return;
@@ -33,6 +58,16 @@ function renderCategoryField() {
   initCategoryInteractions(wrapper);
 }
 
+/**
+ * Initializes category dropdown interactions:
+ * - Attaches click listeners to toggle button and input area to open/close dropdown.
+ * - Sets up option selection logic.
+ * - Closes dropdown when clicking outside of the input wrapper.
+ *
+ * @function initCategoryInteractions
+ * @param {HTMLElement} wrapper - The container element for the category field.
+ * @returns {void}
+ */
 function initCategoryInteractions(wrapper) {
   const inputWrapper = wrapper.querySelector('.input-wrapper');
   const toggleBtn = inputWrapper.querySelector('button');
@@ -42,6 +77,13 @@ function initCategoryInteractions(wrapper) {
   setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
 }
 
+/**
+ * Populates the category options dropdown with predefined values.
+ *
+ * @function createCategoryOptions
+ * @param {HTMLElement} wrapper - The container element containing the options container.
+ * @returns {void}
+ */
 function createCategoryOptions(wrapper) {
   const optionsContainer = wrapper.querySelector('#category-options-container');
   optionsContainer.innerHTML = '';
