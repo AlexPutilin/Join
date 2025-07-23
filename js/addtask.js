@@ -152,7 +152,7 @@ function renderAssignedChips() {
 }
 
 function prefillAssignedTo(task) {
-  const names = task.assigned_to.split(/\s*,\s*/); 
+  const names = task.assigned_to || [];  
   document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]').forEach(checkbox => {
       const contact = contacts.find(c => String(c.id) === checkbox.dataset.contactId);
       if (contact && names.includes(contact.name)) {
