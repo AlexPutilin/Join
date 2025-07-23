@@ -296,7 +296,6 @@ function getDragAfterElement(container, y) {
     for (const child of draggableElements) {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
-        // console.log(`offset for ${child.id}:`, offset);
         if (offset < 0 && offset > closest.offset) {
             closest = { offset, element: child };
         }
@@ -311,7 +310,6 @@ function getDragAfterElement(container, y) {
  * @param {string} newStatus - The new status to assign to all tasks in this container.
  */
 async function updateOrderInContainer(container, newStatus) {
-    console.log("Update container:", newStatus);
     const tasksToUpdate = collectTasksToUpdate(container, newStatus);
     if (tasksToUpdate.length > 0) {
         await updateMultipleTasks(tasksToUpdate);
@@ -362,7 +360,6 @@ function updateOrderAndStatus(task, index, newStatus, tasksToUpdate) {
  */
 async function updateMultipleTasks(tasks) {
     for (const task of tasks) {
-        console.log("updateMultipleTasks");
         const path = `/board/tasks/${task.id}`;
         await updateData(path, task);
     }
