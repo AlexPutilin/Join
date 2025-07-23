@@ -1,5 +1,5 @@
 let allTasks = [];
-let activeBoardCard;
+let activeTask;
 const statuses = ['to-do', 'in-progress', 'await-feedback', 'done'];
 const overlayRef = document.getElementById('overlay');
 
@@ -167,7 +167,7 @@ async function getTaskCard(task, calcuProgress, subtasksLength, doneTasksLength,
  */
 async function showOverview(id) {
     const task = allTasks.find(task => task.id.toString() === id.toString());
-    activeBoardCard = task;
+    activeTask = task;
     overlayRef.classList.remove('d-none');
     overlayRef.innerHTML = await getOverviewTemplate(task);
     initSubtaskCheckboxListeners(task.id);
@@ -394,25 +394,44 @@ function prefillAssignedTo(task) {
     renderAssignedChips();
   }
   
-// ALEX // 
 
+/**
+ * Enables edit mode for the active task.
+ * Updates the UI and pre-fills form fields with task data.
+ */
 function switchToTaskEditmode() {
-    overlayRef.innerHTML = getOverviewEditmodeTemplate(activeBoardCard);
-    console.log(activeBoardCard);
-    setPriorityValue("#edit-task-form");
+    overlayRef.innerHTML = getOverviewEditmodeTemplate(activeTask);
+    setPriorityValue("#add-task-form");
     renderAssignedToField();       
-    prefillAssignedTo(activeBoardCard);
+    prefillAssignedTo(activeTask);
     renderSubtaskInput();         
-    prefillSubtasks(activeBoardCard);
+    prefillSubtasks(activeTask);
 }
 
-
+/**
+ * Sets the priority input to match the active task's priority.
+ * @param {string} form - CSS selector for the form containing priority inputs.
+ */
 function setPriorityValue(form) {
     const inputs = document.querySelectorAll(`${form} input[name="priority"]`);
-    const priority = activeBoardCard.priority;
+    const priority = activeTask.priority;
     inputs.forEach(input => {
         if (input.value === priority) {
             input.checked = true;
         }
     });
+}
+
+/**
+ * Saves changes to the active task if the form is valid.
+ * Updates task data, closes the overlay, and refreshes the task list.
+ */
+async function commitEditTask() {
+    const form = '#edit-task-form';
+    if (checkFormValidation(form)) {
+        const taskData = prepareTaskData(activeTask.status);
+        await updateData(`/board/tasks/${activeTask.id}`, taskData);
+        closeOverlay();
+        await tasksToArray();
+    }
 }

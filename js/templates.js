@@ -438,7 +438,7 @@ async function getOverviewTemplate(task) {
 function getOverviewEditmodeTemplate(task) {
   return `
     <div class="card-overview" onclick="eventBubblingProtection(event)">
-      <form id="edit-task-form">
+      <form id="add-task-form">
         <button type="button" class="btn-small" onclick="closeOverlay()">
           <img class="icon-default" src="../assets/img/icon-close-default.svg">
           <img class="icon-hover" src="../assets/img/icon-close-hover.svg">
@@ -458,7 +458,7 @@ function getOverviewEditmodeTemplate(task) {
         <div class="input-wrapper">
           <span>Due date</span>
           <div class="input-area">
-              <input type="date" name="date" value="${task.due_date}">
+              <input type="date" name="due_date" value="${task.due_date}">
           </div>
           <span class="err-msg hidden">Not a valid date.</span>
         </div>
@@ -489,8 +489,9 @@ function getOverviewEditmodeTemplate(task) {
           ${getAssignedToTemplate()}
         </div>
         ${getSubtaskInputTemplate()}
+        <input type="text" name="category" value="${task.category}" hidden>
       </form>
-      <button class="btn-dark">
+      <button class="btn-dark" onclick="commitEditTask()">
         <span>OK</span>
       </button>
     </div>`;
