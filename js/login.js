@@ -254,7 +254,6 @@ function showOverlayOnSignup() {
     setTimeout(() => {
         overlayContainer.classList.add('d-none');
         showLoginForm();
-        // renderForm(getLoginFormTemplate())
     }, 1000);
 }
 

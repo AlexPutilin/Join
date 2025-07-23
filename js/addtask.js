@@ -151,6 +151,18 @@ function renderAssignedChips() {
     });
 }
 
+function prefillAssignedTo(task) {
+  const names = task.assigned_to.split(/\s*,\s*/); 
+  document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]').forEach(checkbox => {
+      const contact = contacts.find(c => String(c.id) === checkbox.dataset.contactId);
+      if (contact && names.includes(contact.name)) {
+        checkbox.checked = true;
+      }
+    });
+  renderAssignedChips();
+}
+
+
 function renderSubtaskInput() {
   const subtaskWrapper = document.getElementById('subtask-wrapper-template');
   if (!subtaskWrapper) return;
@@ -175,6 +187,19 @@ function getSubtasks() {
     return { title: raw, done: false };
   });
 }
+
+function prefillSubtasks(task) {
+  const subtaskListContainer = document.querySelector('#subtask-input .list-subtasks');
+  const newSubtaskInputField = document.getElementById('subtask-input-field');
+  subtaskListContainer.innerHTML = '';
+  const existingSubtasks = Object.values(task.subtasks || {});
+  existingSubtasks.forEach(subtask => {
+    newSubtaskInputField.value = subtask.title;
+    addSubtask();
+  });
+}
+
+
 
 function setupCreateButtonListeners() {
   const titleInput = document.getElementById('task-title');
