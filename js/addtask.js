@@ -53,7 +53,7 @@ function ensureDefaultPriority() {
 function renderCategoryField(task) {
   const wrapper = document.getElementById('category-wrapper-template');
   if (!wrapper) return;
-  wrapper.innerHTML = getCategoryTemplate(taskCategory)
+  wrapper.innerHTML = getCategoryTemplate(task)
   initCategoryInteractions(wrapper);
 }
 
