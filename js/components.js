@@ -305,6 +305,13 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
   });
 }
 
+/**
+ * Creates a visual chip element for a contact.
+ * @function createContactChip
+ * @param {string} initials - The contact’s initials to display.
+ * @param {string} bgColor - Background color for the chip.
+ * @returns {HTMLDivElement} The styled chip element.
+ */
   function createContactChip(initials, bgColor) {
     const chip = document.createElement('div');
     chip.classList.add('assigned-chip');
@@ -314,7 +321,13 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
     return chip;
   }
   
-
+/**
+ * Filters a list of contact entries by matching first name prefix.
+ * @function filterItems
+ * @param {HTMLElement[]} contactEntries - Array of contact entry elements.
+ * @param {string} searchTerm - Lower‑cased search prefix.
+ * @returns {boolean} True if at least one entry matches.
+ */
   function filterItems(contactEntries, searchTerm) {
     let anyVisible = false;
   
@@ -333,7 +346,13 @@ function setupCloseOnOutsideClick(wrapperSelector, onClose) {
     return anyVisible;
   }
 
-
+/**
+ * Retrieves dropdown menu and icon elements associated with an input.
+ * @function getDropdownElements
+ * @param {HTMLInputElement} input - The dropdown’s input element.
+ * @returns {{menu: HTMLElement, icons: NodeListOf<HTMLElement>}}
+ *   The menu container and its icon wrappers.
+ */
 function getDropdownElements(input) {
   const wrapper = input.closest('.input-wrapper');
   return {
@@ -342,6 +361,14 @@ function getDropdownElements(input) {
   };
 }
 
+/**
+ * Sets up live‑search behavior on the Assigned To input:
+ * - Opens dropdown on first input.
+ * - Filters entries by search term.
+ *
+ * @function setupAssignedToSearch
+ * @returns {void}
+ */
 function setupAssignedToSearch() {
   const searchInput = document.getElementById('assigned-input');
   if (!searchInput) return;
