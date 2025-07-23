@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     greeting = "Good afternoon,";
   } else {
     greeting = "Good morning,";
-  } document.querySelectorAll(".greeting-text").forEach((welcome) => {
+  }
+  document.querySelectorAll(".greeting-text").forEach((welcome) => {
     welcome.textContent = greeting;
   });
   initSummaryPage();
@@ -46,10 +47,22 @@ async function initMetricCards() {
 
     updateCount(tasks, "number-to-do", (task) => task.status === "to-do");
     updateCount(tasks, "number-done", (task) => task.status === "done");
-    updateCount(tasks,"number-urgent",(task) => task.status === "to-do" && task.priority === "urgent");
+    updateCount(
+      tasks,
+      "number-urgent",
+      (task) => task.status === "to-do" && task.priority === "urgent"
+    );
     updateCount(tasks, "number-tasks-total", () => true);
-    updateCount(tasks,"number-in-progress",(task) => task.status === "in-progress");
-    updateCount(tasks,"number-await-feedback",(task) => task.status === "await-feedback");
+    updateCount(
+      tasks,
+      "number-in-progress",
+      (task) => task.status === "in-progress"
+    );
+    updateCount(
+      tasks,
+      "number-await-feedback",
+      (task) => task.status === "await-feedback"
+    );
     updateUrgentDeadline(tasks);
   } catch (err) {
     console.error("Failed to initialize metric cards:", err);
@@ -63,7 +76,11 @@ async function initMetricCards() {
  * @returns {void}
  */
 function updateUrgentDeadline(tasks) {
-  const urgentTasks = tasks.filter((task) => task.status === "to-do" && task.priority === "urgent" && task.due_date)
+  const urgentTasks = tasks
+    .filter(
+      (task) =>
+        task.status === "to-do" && task.priority === "urgent" && task.due_date
+    )
     .sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
   const deadlineElement = document.getElementById("deadline-date-urgent");
   if (deadlineElement) {
