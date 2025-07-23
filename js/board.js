@@ -123,7 +123,7 @@ function updateNoTasksDisplay(status, statusContainer) {
 function calcuProgressbar(task) {
     const subtasksValue = Object.values(task.subtasks);
     const totalSubtaks = subtasksValue.length;
-    const doneTasks = subtasksValue.filter(s => s.done).length;
+    const doneTasks = subtasksValue.filter(subtask => subtask.done).length;
     if (totalSubtaks === 0) {
         return 0;
     }
