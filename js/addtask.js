@@ -196,10 +196,6 @@ function prefillSubtasks(task) {
   existingSubtasks.forEach(subtask => {
     newSubtaskInputField.value = subtask.title;
     addSubtask();
-    if (subtask.done) {
-      const lastCreatedItem = subtaskListContainer.lastElementChild;
-      lastCreatedItem.querySelector('input[type="checkbox"]').checked = true;
-    }
   });
 }
 
