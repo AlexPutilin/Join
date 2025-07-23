@@ -151,10 +151,12 @@ function renderAssignedChips() {
     });
 }
 
+
 function prefillAssignedTo(task) {
-  const names = task.assigned_to || [];  
-  document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]').forEach(checkbox => {
-      const contact = contacts.find(c => String(c.id) === checkbox.dataset.contactId);
+  const names = task.assigned_to || [];              
+  document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]')
+    .forEach(checkbox => {
+      const contact = contacts.find(checkedContact => checkedContact.id == checkbox.dataset.contactId);
       if (contact && names.includes(contact.name)) {
         checkbox.checked = true;
       }
@@ -198,7 +200,6 @@ function prefillSubtasks(task) {
     addSubtask();
   });
 }
-
 
 
 function setupCreateButtonListeners() {
