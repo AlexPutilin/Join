@@ -385,23 +385,6 @@
   animation: slide-in-out-add-task 2s ease forwards;
 }
 
-@media (max-width: 1200px) {
-  .add-task-container {
-    margin-bottom: 32px;
-  }
-
-  .add-task-right {
-    padding-left: 50px;
-  }
-
-  .clear-save-btn {
-    display: flex;
-    gap: 16px;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-}
 
 @media (max-width: 1080px) {
 
