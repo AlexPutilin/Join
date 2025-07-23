@@ -9,7 +9,7 @@ const overlayRef = document.getElementById('overlay');
  */
 async function initBoard() {
     initProfile();
-    // redirectIfNotLoggedIn();
+    redirectIfNotLoggedIn();
     await loadContacts();
     await tasksToArray();
 }
