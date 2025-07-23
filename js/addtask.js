@@ -248,19 +248,6 @@ function renderAssignedChips() {
     });
 }
 
-
-function prefillAssignedTo(task) {
-  const names = task.assigned_to || [];              
-  document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]')
-    .forEach(checkbox => {
-      const contact = contacts.find(checkedContact => checkedContact.id == checkbox.dataset.contactId);
-      if (contact && names.includes(contact.name)) {
-        checkbox.checked = true;
-      }
-    });
-  renderAssignedChips();
-}
-
 /**
  * Pre-fills the "Assigned To" checkboxes and chips based on the given task data.
  * Marks checkboxes for contacts whose names appear in task.assigned_to array,
@@ -302,23 +289,6 @@ function getSubtasks() {
     let raw = span ? span.textContent.trim() : '';
     if (raw.startsWith('•')) raw = raw.slice(1).trim();
     return { title: raw, done: false };
-  });
-}
-
-/**
- * Renders existing subtasks into the subtask input area using addSubtask().
- * @function prefillSubtasks
- * @param {Object} task - Task object containing a subtasks property.
- * @returns {void}
- */
-function prefillSubtasks(task) {
-  const subtaskListContainer = document.querySelector('#subtask-input .list-subtasks');
-  const newSubtaskInputField = document.getElementById('subtask-input-field');
-  subtaskListContainer.innerHTML = '';
-  const existingSubtasks = Object.values(task.subtasks || {});
-  existingSubtasks.forEach(subtask => {
-    newSubtaskInputField.value = subtask.title;
-    addSubtask();
   });
 }
 
