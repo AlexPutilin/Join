@@ -1,5 +1,5 @@
 function getSignupFormTemplate() {
-  return /*html*/`
+  return `
             <section class="form-wrapper">
             <form id="signup_form" class="pos-rel" action="#">
                 <!-- BACK to Login Form -->
@@ -65,7 +65,7 @@ function getSignupFormTemplate() {
 }
 
 function getLoginFormTemplate() {
-  return /*html*/`
+  return `
             <section id="form-container" class="form-wrapper">
                 <form action="submit">
                     <h1>Log in</h1>
@@ -93,15 +93,7 @@ function getLoginFormTemplate() {
             </section>`;
 }
 
-/**
- * Returns the HTML template for displaying a selectable contact.
- * @param {Object} param0 - Contact data.
- * @param {string} param0.initials - Contact initials.
- * @param {string} param0.name - Full name of the contact.
- * @param {string|number} param0.id - Unique contact ID.
- * @param {string} param0.color - Background color for the contact icon.
- * @returns {string} HTML structure for a contact selection item.
- */
+
 function getContactSelectionTemplate({ id, name, color }){
   return `
       <div class="select-contact">
@@ -125,11 +117,7 @@ function getContactSelectionTemplate({ id, name, color }){
       </div>`;
 }
 
-/**
- * Returns the HTML template for a single subtask item.
- * @param {string} name - Subtask name or description.
- * @returns {string} HTML structure for a subtask item.
- */
+
 function getSubtaskTemplate(name) {
   return `
       <div class="subtask-item-container">

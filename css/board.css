@@ -241,6 +241,7 @@
 }
 
 .card-overview {
+    max-height: 700px;
     width: 500px;
     gap: 8px;
     padding: 24px;
@@ -260,16 +261,21 @@
     width: 100%;
 }
 
-#edit-task-form {
+#add-task-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
+    gap: 24px;
     margin-bottom: 32px;
+    padding-right: 8px;
     overflow: auto;
 }
 
-#edit-task-form>.btn-small {
+#add-task-form .input-wrapper {
+    width: 100% !important;
+}
+
+#add-task-form > .btn-small {
     align-self: flex-end;
 }
 
@@ -304,7 +310,7 @@
     overflow-y: auto;
 }
 
-#edit-task-form::-webkit-scrollbar,
+#add-task-form::-webkit-scrollbar,
 .task-title-big::-webkit-scrollbar,
 .task-description::-webkit-scrollbar,
 .initials-wrapper::-webkit-scrollbar,
@@ -312,7 +318,7 @@
     width: 10px;
 }
 
-#edit-task-form::-webkit-scrollbar-track,
+#add-task-form::-webkit-scrollbar-track,
 .task-title-big::-webkit-scrollbar-track,
 .task-description::-webkit-scrollbar-track,
 .initials-wrapper::-webkit-scrollbar-track,
@@ -321,7 +327,7 @@
     border-radius: 10px;
 }
 
-#edit-task-form::-webkit-scrollbar-thumb,
+#add-task-form::-webkit-scrollbar-thumb,
 .task-title-big::-webkit-scrollbar-thumb,
 .task-description::-webkit-scrollbar-thumb,
 .initials-wrapper::-webkit-scrollbar-thumb,
@@ -330,7 +336,7 @@
     border-radius: 10px;
 }
 
-#edit-task-form::-webkit-scrollbar-thumb:hover,
+#add-task-form::-webkit-scrollbar-thumb:hover,
 .task-title-big::-webkit-scrollbar-thumb:hover,
 .task-description::-webkit-scrollbar-thumb:hover,
 .initials-wrapper::-webkit-scrollbar-thumb:hover,
@@ -663,8 +669,26 @@
 
     .card-overview {
         height: auto;
+        max-height: 600px;
         gap: 12px;
         width: 320px;
+        padding: 16px;
+    }
+
+    .card-overview .priority-option {
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
+    .card-overview .priority-option > img {
+        width: 16px;
+        height: 16px;
+    }
+
+    #add-task-form input,
+    #add-task-form textarea {
+        font-size: 16px;
     }
 }
 
