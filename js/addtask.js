@@ -54,8 +54,27 @@ function renderCategoryField() {
   const wrapper = document.getElementById('category-wrapper-template');
   if (!wrapper) return;
   wrapper.innerHTML = getCategoryTemplate();
-  createCategoryOptions(wrapper);
   initCategoryInteractions(wrapper);
+}
+
+/**
+ * Sets the category input value to the clicked option’s text,
+ * closes the dropdown, clears validation errors, and updates the create button state.
+ *
+ * @function selectCategory
+ * @param {HTMLElement} optionElement - The clicked dropdown option element.
+ * @returns {void}
+ */
+function selectCategory(optionElement) {
+  const wrapper   = optionElement.closest('#category-wrapper-template');
+  const input     = wrapper.querySelector('input[name="category"]');
+  const toggleBtn = wrapper.querySelector('button.btn-small');
+
+  input.value = optionElement.textContent.trim();
+  toggleDropDown(toggleBtn);
+  wrapper.querySelector('.input-area').classList.remove('invalid-input');
+  wrapper.querySelector('.err-msg').classList.add('hidden');
+  updateCreateButtonState();
 }
 
 /**
@@ -67,52 +86,14 @@ function renderCategoryField() {
  * @function initCategoryInteractions
  * @param {HTMLElement} wrapper - The container element for the category field.
  * @returns {void}
+ *  
  */
 function initCategoryInteractions(wrapper) {
   const inputWrapper = wrapper.querySelector('.input-wrapper');
   const toggleBtn = inputWrapper.querySelector('button');
   const inputArea = inputWrapper.querySelector('.input-area');
   [toggleBtn, inputArea].forEach(element =>element.addEventListener('click', () => toggleDropDown(toggleBtn)));
-  setupCategoryOptionSelection(wrapper, toggleBtn);
   setupCloseOnOutsideClick('#category-wrapper-template .input-wrapper',() => toggleDropDown(toggleBtn));
-}
-
-/**
- * Populates the category options dropdown with predefined values.
- *
- * @function createCategoryOptions
- * @param {HTMLElement} wrapper - The container element containing the options container.
- * @returns {void}
- */
-function createCategoryOptions(wrapper) {
-  const optionsContainer = wrapper.querySelector('#category-options-container');
-  optionsContainer.innerHTML = '';
-  ['Technical Task', 'User Story'].forEach(name => {
-    const option = document.createElement('div');
-    option.classList.add('dropdown-single-option');
-    option.textContent = name;
-    optionsContainer.appendChild(option);
-  });
-}
-
-/**
- * Handle clicks on category options: set input value, close dropdown,
- * clear errors, and update button state.
- * @param {HTMLElement} wrapper - Category field container.
- * @param {HTMLElement} toggleBtn - Dropdown toggle button.
- */
-function setupCategoryOptionSelection(wrapper, toggleBtn) {
-  const optionsContainer = wrapper.querySelector('#category-options-container');
-  const inputWrapper     = wrapper.querySelector('.input-wrapper');
-  optionsContainer.addEventListener('click', event => {
-    const option = event.target.closest('.dropdown-single-option');
-    const input = wrapper.querySelector('input');
-    input.value = option.textContent;
-    toggleDropDown(toggleBtn);
-    inputWrapper.querySelector('.input-area').classList.remove('invalid-input');
-    wrapper.querySelector('.err-msg').classList.add('hidden');
-    updateCreateButtonState();
-  });
 }
 
 /**
