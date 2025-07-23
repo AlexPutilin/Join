@@ -392,11 +392,6 @@ async function getTaskCardTemplate(task, subtasksProgress) {
             </div>`;
 }
 
-/**
- * @function getOverviewTemplate - Returns the HTML template for the task detail view.
- * @param {Object} task - The individual task object.
- * @returns {string} - HTML-Template representing the task detail view.
- */
 async function getOverviewTemplate(task) {
   const assignedToContent = await getAssignedToContent(task);
   return `    <div onclick="eventBubblingProtection(event)" class="card-overview">
@@ -501,11 +496,6 @@ function getOverviewEditmodeTemplate(task) {
     </div>`;
 }
 
-/**
- * @function getPriority - Returns a priority icon based on the given priority level.
- * @param {Object} task - individual Tasks
- * @returns - individual Priority depending on the Task
- */
 function getPriority(task) {
   switch (task.priority) {
     case "urgent":
@@ -519,11 +509,6 @@ function getPriority(task) {
   }
 }
 
-/**
- * @function getSubtasksContent - Returns HTML-Template for subtasks section or empty string.
- * @param {Object} task - individually Task 
- * @returns {string} - Returns Subtasks Container
- */
 function getSubtasksContent(task) {
   if (getSubtasksTemplate(task)) {
     return `<div><span class="font-color-grey">Subtasks:</span>${getSubtasksTemplate(task)}</div>`;
@@ -549,29 +534,14 @@ function getSubtaskCheckboxTemplate(checked, subtask, taskId, subtaskKey) {
             </div>`;
 }
 
-/**
- * creates the placeholder for the message “no tasks”
- * @param {String} message 
- * @returns HTML structure for placeholder box
- */
 function noTasksContainer(message) {
   return `<div class="placeholder-box-no-task"><p class="no-tasks-text">${message}</p></div>`;
 }
 
-/**
- * Creates an icon for user initials
- * @param {*} contact 
- * @returns HTML structure for user initials
- */
 function getInitialIcons(contact) {
   return `<div class="contact-icon initial-icon" style="background-color: ${contact.color};">${contact.initial}</div>`;
 }
 
-/**
- * Creates an icon for remaining user count
- * @param {Number} remainingCount - indicates the number of remaining users
- * @returns HTML structure for remaining number of users
- */
 function getOverflowNumberIcon(remainingCount) {
   return `<div class="more-icon font-color-grey">+${remainingCount}</div>`;
 }
@@ -592,10 +562,6 @@ function getAssignedToContentTemplate(initialsWithName) {
           </div>`;
 }
 
-/**
- * Returns the HTML template for the "Add Task" form.
- * @returns {string} HTML structure for the Add Task form section.
- */
 function getAddTaskFormTemplate() {
   return `
     <div class="add-task-form">
@@ -649,10 +615,6 @@ function getDialogAddTaskOnBoard(){
           </div>`;
 }
 
-/**
- * Returns the HTML template for the task title input field.
- * @returns {string} HTML structure for task title input.
- */
 function getAddTaskTitleTemplate() {
   return `
   <div class="input-wrapper">
@@ -666,10 +628,6 @@ function getAddTaskTitleTemplate() {
   </div>`;
 }
 
-/**
- * Returns the HTML template for the task description textarea.
- * @returns {string} HTML structure for task description input.
- */
 function getAddTaskDescriptionTemplate() {
   return `
   <div class="input-wrapper">
@@ -680,10 +638,6 @@ function getAddTaskDescriptionTemplate() {
   </div>`;
 }
 
-/**
- * Returns the HTML template for the task due date input.
- * @returns {string} HTML structure for due date field.
- */
 function getAddTaskDueDateTemplate() {
   return `              
   <div class="input-wrapper">
@@ -697,10 +651,6 @@ function getAddTaskDueDateTemplate() {
   </div>`;
 }
 
-/**
- * Returns the HTML template for the subtask input section.
- * @returns {string} HTML structure for subtask input field and buttons.
- */
 function getSubtaskInputTemplate() {
   return `
     <div class="input-wrapper" id="subtask-input">
@@ -736,10 +686,6 @@ function getSubtaskInputTemplate() {
     </div>`;
 }
 
-/**
- * Returns the HTML template for the "Clear" and "Create Task" buttons.
- * @returns {string} HTML structure for form action buttons.
- */
 function getaddTaskButtonsTemplate() {
   return `
     <div class="clear-save-btn-wrapper">
@@ -765,10 +711,6 @@ function getaddTaskButtonsTemplate() {
     </div>`;
 }
 
-/**
- * Returns the HTML template for the category dropdown input.
- * @returns {string} HTML structure for category selection.
- */
 function getCategoryTemplate() {
   return `
     <div class="input-wrapper">
@@ -793,10 +735,6 @@ function getCategoryTemplate() {
     </div>`;
 }
 
-/**
- * Returns the HTML template for priority selection radio buttons.
- * @returns {string} HTML structure for selecting task priority.
- */
 function getPriorityTemplate() {
   return `
     <div class="input-wrapper">
@@ -824,11 +762,6 @@ function getPriorityTemplate() {
     </div>`;
 }
 
-
-/**
- * Returns the HTML template for the assigned contacts input and dropdown.
- * @returns {string} HTML structure for assigning contacts.
- */
 function getAssignedToTemplate() {
   return `<div class="input-wrapper">
             <div class="required-description">
