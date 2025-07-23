@@ -364,8 +364,10 @@ function switchToTaskEditmode() {
     overlayRef.innerHTML = getOverviewEditmodeTemplate(activeBoardCard);
     console.log(activeBoardCard);
     setPriorityValue("#edit-task-form");
-    // initAssignedToInteractions();
-    // renderAssignedChips();
+    renderAssignedToField();       
+    prefillAssignedTo(activeBoardCard);
+    renderSubtaskInput();         
+    prefillSubtasks(activeBoardCard);
 }
 
 
