@@ -178,7 +178,6 @@ async function showOverview(id) {
  * @param {string} taskID - The ID of the task to delete.
  */
 async function deleteAndUpdateTasks(taskID) {
-    console.log('delete the task with id:', taskID);
     await deleteData(`/board/tasks/${taskID}`);
     closeOverlay();
     await tasksToArray();
