@@ -4,8 +4,8 @@ function getSignupFormTemplate() {
             <form id="signup_form" class="pos-rel" action="#">
                 <!-- BACK to Login Form -->
                 <button onclick="showLoginForm()" type="button" class="btn-small pos-abs back-signup bg-none">
-                    <img class="icon-default" src="../assets/img/icon-back-default.svg">
-                    <img class="icon-hover" src="../assets/img/icon-back-hover.svg">
+                    <img class="icon-default" src="./assets/img/icon-back-default.svg">
+                    <img class="icon-hover" src="./assets/img/icon-back-hover.svg">
                 </button>
                 <h1>Sign up</h1>
                 <!-- <input type="text" placeholder="Name" required> -->
@@ -45,11 +45,11 @@ function getSignupFormTemplate() {
                   <input type="checkbox" id="checkbox_privacy_policy" required hidden>
 
                   <div class="icon-wrapper icon-checkbox-default">
-                      <img class="icon-default unchecked" src="../assets/img/icon-checkbutton-default.svg">
-                      <img class="icon-hover unchecked" src="../assets/img/icon-checkbutton-hover.svg">
+                      <img class="icon-default unchecked" src="./assets/img/icon-checkbutton-default.svg">
+                      <img class="icon-hover unchecked" src="./assets/img/icon-checkbutton-hover.svg">
 
-                      <img class="icon-default checked" src="../assets/img/icon-checkbutton-checked-default.svg">
-                      <img class="icon-hover checked" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                      <img class="icon-default checked" src="./assets/img/icon-checkbutton-checked-default.svg">
+                      <img class="icon-hover checked" src="./assets/img/icon-checkbutton-checked-hover.svg">
                   </div>
 
                   <label for="checkbox_privacy_policy">
