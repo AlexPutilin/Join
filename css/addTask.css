@@ -31,7 +31,6 @@
   flex-direction: column;
   align-items: flex-start;
   background-color: #f6f7f8;
-  max-width: 760px;
 }
 
 .mobile-h1 {
@@ -67,6 +66,7 @@
   gap: 10px;
   padding-right: 40px;
   border-right: 1px solid #D1D1D1;
+  width: 400px;
 }
 
 .add-task-right {
@@ -135,7 +135,6 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 800px;
   gap: 16px;
 }
 
@@ -390,8 +389,10 @@
   animation: slide-in-out-add-task 2s ease forwards;
 }
 
-@media (max-width: 1080px) {
-
+@media (max-width: 1200px){
+  .add-task-root{
+  padding: 48px 8px;
+}
   .add-task-left {
     padding-right: 16px;
   }
@@ -400,8 +401,11 @@
     padding-left: 16px;
   }
 
-  .add-task-form {
-    max-width: 704px;
+}
+
+@media (max-width: 1120px) {
+  .add-task-left {
+    width: 280px;
   }
 
 }
@@ -443,6 +447,7 @@
   .add-task-left {
     padding: 0;
     border: none;
+    width: 100%;
   }
 
   .add-task-right {
@@ -485,7 +490,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 100px;
     width: 100%;
     min-width: 520px;
     box-sizing: border-box;
@@ -558,6 +563,8 @@
 
   .priority-buttons-wrapper {
     gap: 8px;
+    display: flex;
+    flex-direction: column;
   }
 
   .priority-buttons-wrapper button {
@@ -566,5 +573,13 @@
 
   .add-task-form {
     max-width: 330px;
+  }
+
+  .add-task-left{
+    width: 280px;
+  }
+
+  .add-task-right{
+    width: 280px;
   }
 }
