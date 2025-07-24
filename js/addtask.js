@@ -431,6 +431,8 @@ async function addTaskBoard(status) {
   overlayRef.classList.remove('d-none');                   
   overlayRef.innerHTML = getDialogAddTaskOnBoard();
   clearAddTaskForm();
+  initAddTaskPage();
+  updateCreateButtonState(); 
   await tasksToArray();
 }
 

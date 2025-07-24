@@ -294,17 +294,6 @@
   --disabled-btn-bg: #afafaf;
 }
 
-#add-task-root button#create-task-btn:disabled {
-  background-color: var(--disabled-btn-bg);
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-#add-task-root button#create-task-btn:disabled:hover {
-  background-color: var(--disabled-btn-bg);
-  cursor: not-allowed;
-  box-shadow: none;
-}
 
 .form-error-desktop-visible {
   display: flex;
@@ -318,11 +307,11 @@
 .add-task-wrapper {
   display: flex;
   padding: 8px;
-  width: 900px;
   background-color: #f6f7f8;
   border-radius: 36px;
   justify-content: space-around;
   align-items: flex-start;
+  width: 900px;
 }
 
 #assigned-to-wrapper-template {
