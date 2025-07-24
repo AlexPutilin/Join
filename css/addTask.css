@@ -306,12 +306,11 @@
 /* board */
 .add-task-wrapper {
   display: flex;
-  padding: 8px;
+  padding: 16px;
   background-color: #f6f7f8;
   border-radius: 36px;
   justify-content: space-around;
   align-items: flex-start;
-  width: 900px;
 }
 
 #assigned-to-wrapper-template {
