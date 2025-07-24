@@ -544,7 +544,7 @@
   .add-task-form input,
   .add-task-form textarea,
   .add-task-form select {
-    font-size: 13px;
+    font-size: 16px;
   }
 
   .add-task-container {
@@ -552,7 +552,7 @@
   }
 
   .priority-option {
-    font-size: 14px;
+    font-size: 16px;
     padding: 4px 8px;
   }
 
