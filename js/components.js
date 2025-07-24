@@ -173,6 +173,11 @@ function commitEditSubtask(triggerElement) {
     const subtaskEditMenu = subtaskContainer.querySelector('.subtask-item-editmenu');
     const subtaskValue = subtaskItem.querySelector('.subtask-name')
     const inputValue = subtaskEditMenu.querySelector('input').value;
+    const trimmedValue = inputValue.trim();
+    if (!trimmedValue) {
+        subtaskContainer.remove();
+        return;
+    }
     subtaskValue.innerText = "• " + inputValue;
     closeAllSubtaskEdits();
 }
