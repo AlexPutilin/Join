@@ -335,6 +335,9 @@ async function addTask() {
   console.info('addTask: Task successfully saved');
   clearAddTaskForm();
   showAddTaskNotification();
+  setTimeout(() => {
+    openPage('board.html');
+  }, 2000);
 }
 
 /**
