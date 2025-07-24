@@ -203,10 +203,14 @@ function initAssignedToDropdownAndSearch(toggleBtn, searchInput, menu) {
  * @returns {void}
  */
 function initAssignedToContactSelection() {
-  document.getElementById('contacts-dropdown').addEventListener('change', event => {const checkbox = event.target;
-      if (!checkbox.matches('input[type="checkbox"]')) return;
+  const dropdown = document.getElementById('contacts-dropdown');
+  if (!dropdown) return;
+  dropdown.addEventListener('change', checkEvent => {
+    if (checkEvent.target.matches('input[type="checkbox"]')) {
       renderAssignedChips();
-    });
+    }
+  });
+  renderAssignedChips();
 }
 
 /**

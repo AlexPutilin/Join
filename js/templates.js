@@ -96,25 +96,24 @@ function getLoginFormTemplate() {
 
 function getContactSelectionTemplate({ id, name, color }){
   return `
-      <div class="select-contact">
-          <div>
-            <div class="icon-name-contact">
-              <div class="icon-contact" style="background-color: ${color}; color: white;">${getContactInitials(name)}</div>
-              <span>${name}</span>
-            </div>
-          </div>
-          <label class="checkbox">
-              <input type="checkbox" hidden data-contact-id="${id}">
-              <div class="icon-wrapper icon-checkbox-default">
-                  <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                  <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
-              </div>
-              <div class="icon-wrapper icon-checkbox-checked">
-                  <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                  <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
-              </div>
-          </label>
-      </div>`;
+    <label class="select-contact" for="contact-${id}">
+      <div class="contact-info">
+        <div class="icon-contact" style="background-color: ${color};">${getContactInitials(name)}</div>
+        <span class="contact-name">${name}</span>
+      </div>
+
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="contact-${id}" data-contact-id="${id}"/>
+        <div class="icon-wrapper icon-checkbox-default">
+          <img src="../assets/img/icon-checkbutton-default.svg" />
+          <img src="../assets/img/icon-checkbutton-hover.svg" class="icon-hover" />
+        </div>
+        <div class="icon-wrapper icon-checkbox-checked">
+          <img src="../assets/img/icon-checkbutton-checked-white-default.svg"/>
+          <img src="../assets/img/icon-checkbutton-checked-hover.svg" class="icon-hover" />
+        </div>
+      </div>
+    </label>`;
 }
 
 
@@ -691,7 +690,7 @@ function getaddTaskButtonsTemplate() {
               <img class="icon-active"  src="../assets/img/icon-cancel-click.svg">
             </div>
           </button>
-          <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask(); closeOverlay(); openPage('board.html')" disabled>
+          <button type="button" class="btn-dark" id="create-task-btn" onclick="addTask(), closeOverlay()" disabled>
             <span>Create Task</span>
             <img src="../assets/img/icon-add-white.svg">
           </button>
