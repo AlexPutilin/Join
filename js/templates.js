@@ -1,41 +1,36 @@
 function getSignupFormTemplate() {
   return `
             <section class="form-wrapper">
-            <form id="signup_form" class="pos-rel" action="#">
-                <!-- BACK to Login Form -->
+            <form autocomplete="off" id="signup_form" class="pos-rel" action="#">
                 <button onclick="showLoginForm()" type="button" class="btn-small pos-abs back-signup bg-none">
                     <img class="icon-default" src="./assets/img/icon-back-default.svg">
                     <img class="icon-hover" src="./assets/img/icon-back-hover.svg">
                 </button>
                 <h1>Sign up</h1>
-                <!-- <input type="text" placeholder="Name" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input id="signup_name" type="text" placeholder="Name" required>
+                        <input id="signup_name" type="text" placeholder="Name" required oninput="resetInputError()">
                         <img src="./assets/img/icon-person.svg" alt="">
                     </div>
-                    <span class="err-msg hidden">Invalid input.</span>
+                    <span class="err-msg hidden">Please enter a valid name.</span>
                 </div>
-                <!-- <input type="email" placeholder="Email" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input id="signup_email" type="email" placeholder="Email" required>
+                        <input id="signup_email" type="email" placeholder="Email" required oninput="resetInputError()">
                         <img src="./assets/img/icon-mail.svg" alt="">
                     </div>
-                    <span class="err-msg hidden">Invalid input.</span>
+                    <span class="err-msg hidden">Please enter a valid Email.</span>
                 </div>
-                <!-- <input type="password" placeholder="Password" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input id="signup_password" type="password" placeholder="Password" required>
+                        <input id="signup_password" type="password" placeholder="Password" required oninput="resetInputError()">
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
                     <span class="err-msg hidden">Invalid input.</span>
                 </div>
-                <!-- <input type="password" placeholder="Password" required> -->
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input id="signup_password_confirmed" type="password" placeholder="Confirm Password" required>
+                        <input id="signup_password_confirmed" type="password" placeholder="Confirm Password" required oninput="resetInputError()">
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
                     <span class="err-msg hidden">Invalid input.</span>
@@ -67,23 +62,21 @@ function getSignupFormTemplate() {
 function getLoginFormTemplate() {
   return `
             <section id="form-container" class="form-wrapper">
-                <form action="submit">
+                <form autocomplete="off" action="submit">
                     <h1>Log in</h1>
-                    <!-- <input type="email" placeholder="Email" required> -->
                     <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
-                            <input id="emailInput" type="email" placeholder="Email" required>
+                            <input id="emailInput" type="email" placeholder="Email" required oninput="resetInputError()">
                             <img src="../assets/img/icon-mail.svg" alt="">
                         </div>
-                        <span class="err-msg hidden">Invalid input.</span>
+                        <span class="err-msg hidden">Incorrect email.</span>
                     </div>
-                    <!-- <input type="password" placeholder="Password" required> -->
                     <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
-                            <input id="passwordInput" type="password" placeholder="Password" required>
+                            <input id="passwordInput" type="password" placeholder="Password" required oninput="resetInputError()">
                             <img src="../assets/img/icon-lock.svg" alt="">
                         </div>
-                        <span class="err-msg hidden">Invalid input.</span>
+                        <span class="err-msg hidden">The password incorrect.</span>
                     </div>
                     <div class="login-btn-container form-elements-padding mobile-flex-col">
                         <button onclick="handleLogin()" type="button" class="btn-dark cta-text-mobile-sm">Log in</button>

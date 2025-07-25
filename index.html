@@ -48,7 +48,7 @@
 
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input id="emailInput" type="email" placeholder="Email" required>
+                        <input id="emailInput" type="email" placeholder="Email" required oninput="resetInputError()">
                         <img src="./assets/img/icon-mail.svg" alt="">
                     </div>
                     <span class="err-msg hidden">Incorrect email.</span>
@@ -56,10 +56,10 @@
 
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input id="passwordInput" type="password" placeholder="Password" required>
+                        <input id="passwordInput" type="password" placeholder="Password" required oninput="resetInputError()">
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
-                    <span class="err-msg hidden">The password incorrect..</span>
+                    <span class="err-msg hidden">The password incorrect.</span>
                 </div>
 
                 <div class="login-btn-container form-elements-padding mobile-flex-col">
