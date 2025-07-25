@@ -1,5 +1,5 @@
 .summary-content {
-  padding: 80px 48px;
+  padding: 24px 48px;
   background-color: #F6F7F8;
   position: relative;
   max-width: 1800px;
@@ -243,7 +243,7 @@ display: flex !important;
   }
 
   .summary-content {
-    padding: 80px 22px;
+    padding: 24px 22px;
   }
 }
 
@@ -253,7 +253,7 @@ display: flex !important;
   }
 
   .summary-content {
-    padding-top: 32px;
+    padding-top: 24px;
     display: flex;
     justify-content: center;
     overflow-x: hidden;

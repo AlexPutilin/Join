@@ -1,7 +1,7 @@
 .add-task-root {
   position: relative;
   display: flex;
-  padding: 48px;
+  padding: 24px 48px;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
@@ -51,7 +51,6 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  margin-top: 20px;
   margin-bottom: 30px;
 }
 
@@ -353,7 +352,7 @@
 
 @media (max-width: 1200px){
   .add-task-root{
-  padding: 48px 8px;
+  padding: 24px 8px;
 }
   .add-task-left {
     padding-right: 16px;
