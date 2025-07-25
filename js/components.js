@@ -30,7 +30,7 @@ function isCustomValid(input) {
     const value = input.value.trim();
     if (input.type === 'text') return !/^\s/.test(input.value);
     if (input.type === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    if (input.type === 'tel') return /^\d+$/.test(value);
+    if (input.type === 'tel') return /^\+?\d+( \d+)*$/.test(value);
     return true;
 }
 
