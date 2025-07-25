@@ -211,7 +211,7 @@ function getCreateContactDialogTemplate() {
                                 <input type="text" name="name" placeholder="Enter a name" required oninput="resetInputError()">
                                 <img src="../assets/img/icon-person.svg" alt="">
                             </div>
-                            <span class="err-msg hidden">Invalid input.</span>
+                            <span class="err-msg hidden">Please enter a valid name.</span>
                         </div>
                         <div class="input-wrapper">
                             <label for="">Email</label>
@@ -219,7 +219,7 @@ function getCreateContactDialogTemplate() {
                                 <input type="email" name="email" placeholder="Enter a email" oninput="resetInputError()">
                                 <img src="../assets/img/icon-mail.svg" alt="">
                             </div>
-                            <span class="err-msg hidden">Invalid input.</span>
+                            <span class="err-msg hidden">Please enter a valid email address.</span>
                         </div>
                         <div class="input-wrapper">
                             <label for="">Phone</label>
@@ -227,7 +227,7 @@ function getCreateContactDialogTemplate() {
                                 <input type="tel" name="phone" placeholder="Enter a phonenumber" oninput="resetInputError()">
                                 <img src="../assets/img/icon-phone.svg" alt="">
                             </div>
-                            <span class="err-msg hidden">Invalid input.</span>
+                            <span class="err-msg hidden">Phone number must contain digits only.</span>
                         </div>
                         <div class="form-btn-container">
                             <button id="create-contact-cancel-btn" class="btn-light" type="button" onclick="toggleDialogOverlay()">
@@ -279,7 +279,7 @@ function getEditContactDialogTemplate(contact) {
                                 <input type="text" name="name" placeholder="Enter a name" value="${contact.name}" required oninput="resetInputError()">
                                 <img src="../assets/img/icon-person.svg" alt="">
                             </div>
-                            <span class="err-msg hidden">Invalid input.</span>
+                            <span class="err-msg hidden">Please enter a valid name.</span>
                         </div>
                         <div class="input-wrapper">
                             <label for="">Email</label>
@@ -287,7 +287,7 @@ function getEditContactDialogTemplate(contact) {
                                 <input type="email" name="email" placeholder="Enter a email" value="${contact.email}" oninput="resetInputError()">
                                 <img src="../assets/img/icon-mail.svg" alt="">
                             </div>
-                            <span class="err-msg hidden">Invalid input.</span>
+                            <span class="err-msg hidden">Please enter a valid email address.</span>
                         </div>
                         <div class="input-wrapper">
                             <label for="">Phone</label>
@@ -295,7 +295,7 @@ function getEditContactDialogTemplate(contact) {
                                 <input type="tel" name="phone" placeholder="Enter a phonenumber" value="${contact.phone}" oninput="resetInputError()">
                                 <img src="../assets/img/icon-phone.svg" alt="">
                             </div>
-                            <span class="err-msg hidden">Invalid input.</span>
+                            <span class="err-msg hidden">Phone number must contain digits only.</span>
                         </div>
                         <div class="form-btn-container">
                             <button class="btn-light" type="button" onclick="deleteContact(), toggleDialogOverlay()">

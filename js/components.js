@@ -10,13 +10,30 @@ function checkFormValidation(form) {
     const inputs = document.querySelectorAll(`${form} input`);
     inputs.forEach(input => {
         const inputWrapper = input.closest('.input-wrapper');
-        if (!input.checkValidity()) {
+        const hasValue = input.value.trim().length > 0;
+        const mustValidate = input.required || hasValue;
+        if (mustValidate && (!isStandardValid(input) || !isCustomValid(input))) {
             addInputError(inputWrapper);
             isValid = false;
         }
     });
     return isValid;
 }
+
+
+function isStandardValid(input) {
+    return input.checkValidity();
+}
+
+
+function isCustomValid(input) {
+    const value = input.value.trim();
+    if (input.type === 'text') return !/^\s/.test(input.value);
+    if (input.type === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    if (input.type === 'tel') return /^\d+$/.test(value);
+    return true;
+}
+
 
 /**
  * Adds error styling to an input field and displays its associated error message.
