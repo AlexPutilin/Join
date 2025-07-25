@@ -34,6 +34,7 @@
 
 .contacts-container::-webkit-scrollbar-thumb:hover {
     background: #2a3d59;
+    cursor: pointer;
 }
 
 #contact-list {

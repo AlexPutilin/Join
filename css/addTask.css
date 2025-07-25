@@ -20,6 +20,7 @@
 .add-task-root::-webkit-scrollbar-thumb {
   background: #2A3647;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .add-task-root::-webkit-scrollbar:horizontal {
