@@ -63,7 +63,6 @@ nav {
 
 .hug-wrapper {
     width: 100%;
-    max-width: 1800px;
     display: flex;
     justify-content: space-between;
 }
@@ -79,11 +78,9 @@ nav {
     gap: 16px;
 }
 
-/* navbar-mobile */
 .navbar-mobile {
     width: 100vw;
     background-color: #2a3647;
-    /* position: relative; */
     bottom: unset;
 }
 
