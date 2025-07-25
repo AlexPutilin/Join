@@ -67,14 +67,14 @@ function getLoginFormTemplate() {
                     <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
                             <input id="emailInput" type="email" placeholder="Email" required oninput="resetInputError()">
-                            <img src="../assets/img/icon-mail.svg" alt="">
+                            <img src="./assets/img/icon-mail.svg" alt="">
                         </div>
                         <span class="err-msg hidden">Incorrect email.</span>
                     </div>
                     <div class="input-wrapper form-elements-padding">
                         <div class="input-area">
                             <input id="passwordInput" type="password" placeholder="Password" required oninput="resetInputError()">
-                            <img src="../assets/img/icon-lock.svg" alt="">
+                            <img src="./assets/img/icon-lock.svg" alt="">
                         </div>
                         <span class="err-msg hidden">The password incorrect.</span>
                     </div>
