@@ -20,19 +20,18 @@
 </head>
 
 <body onload="initLogin()">
-    <picture>
-        <source media="(max-width: 1024px)" srcset="./assets/img/logo-white.svg">
-        <img id="logo" class="logo" src="./assets/img/logo.svg" alt="Logo">
-    </picture>
-
     <section id="overlayContainerSignedUp" class="user-feedback-overlay d-none">
         <button id="overlayBtn" class="btn-dark">You successfully signed up!</button>
     </section>
 
     <section id="splash-screen" class="splash-screen "></section>
 
-    <section class="login-main-content">
+    <section class="login-main-content pos-rel">
         <header>
+            <picture>
+                <source media="(max-width: 1024px)" srcset="./assets/img/logo-white.svg">
+                <img id="logo" class="logo" src="./assets/img/logo.svg" alt="Logo">
+            </picture>
             <img id="logo_new" class="hidden" src="./assets/img/logo.svg" alt="Logo">
             <div class="cta-container hidden" id="cta-container">
                 <div>
@@ -56,7 +55,8 @@
 
                 <div class="input-wrapper form-elements-padding">
                     <div class="input-area">
-                        <input id="passwordInput" type="password" placeholder="Password" required oninput="resetInputError()">
+                        <input id="passwordInput" type="password" placeholder="Password" required
+                            oninput="resetInputError()">
                         <img src="./assets/img/icon-lock.svg" alt="">
                     </div>
                     <span class="err-msg hidden">The password incorrect.</span>
@@ -64,7 +64,8 @@
 
                 <div class="login-btn-container form-elements-padding mobile-flex-col">
                     <button onclick="handleLogin()" type="button" class="btn-dark cta-text-mobile-sm">Log in</button>
-                    <button onclick="openPage('./html/summary.html')" type="button" class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
+                    <button onclick="openPage('./html/summary.html')" type="button"
+                        class="btn-light cta-text-mobile-sm"><b>Guest Log in</b></button>
                 </div>
             </form>
         </section>
@@ -73,7 +74,7 @@
             <a href="./html/legal-notice.html">Legal Notice</a>
         </footer>
     </section>
-    
+
 </body>
 
 </html>

@@ -24,7 +24,8 @@ function replaceLogo() {
         currentLogo.classList.add('d-none');
         let newLogo = document.getElementById('logo_new');
         newLogo.classList.toggle('hidden');
-    }, 225);
+        document.querySelector("picture").classList.add('d-none');
+    }, 375);
 }
 
 

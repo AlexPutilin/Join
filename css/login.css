@@ -23,10 +23,11 @@ body {
     left: 50%;
     z-index: 999;
     transform: translate(-50%, -50%);
-    transition: all 225ms ease;
+    transition: all 375ms ease;
 }
 
 .logo--moved {
+    position: absolute;
     top: 80px;
     left: 80px;
     width: 100px;
