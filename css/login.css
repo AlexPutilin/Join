@@ -1,3 +1,7 @@
+body {
+    background-color: #f0f0f0;
+}
+
 .splash-screen {
     display: flex;
     justify-content: center;
@@ -108,15 +112,15 @@ form>div {
 }
 
 .icon-wrapper .checked {
-  display: none;
+    display: none;
 }
 
-.checkbox-container input[type="checkbox"]:checked ~ .icon-wrapper .unchecked {
-  display: none;
+.checkbox-container input[type="checkbox"]:checked~.icon-wrapper .unchecked {
+    display: none;
 }
 
-.checkbox-container input[type="checkbox"]:checked ~ .icon-wrapper .checked {
-  display: inline;
+.checkbox-container input[type="checkbox"]:checked~.icon-wrapper .checked {
+    display: inline;
 }
 
 .back-signup {
@@ -160,18 +164,16 @@ form>div {
     margin-bottom: 16px;
 }
 
-@media (max-width: 1920px) {
-    .back-signup {
-        top: 48px;
-    }
-
+@media (min-width: 1921px) {
     .login-main-content {
         max-width: 1920px;
         margin: 0 auto;
     }
+}
 
-    body {
-        background-color: #f0f0f0;
+@media (max-width: 1920px) {
+    .back-signup {
+        top: 48px;
     }
 }
 
@@ -263,22 +265,28 @@ form>div {
     #logo_new {
         width: 64px;
     }
+
     header {
         padding: 24px 24px 8px 24px;
     }
+
     footer {
         padding: 16px 0;
     }
+
     .cta-container {
         margin-top: 0;
     }
+
     input {
         height: 40px;
     }
+
     form {
         padding: 24px 0;
         gap: 0;
     }
+
     form>h1 {
         margin-bottom: 24px;
         font-size: 40px;
