@@ -21,11 +21,26 @@ function checkFormValidation(form) {
 }
 
 
+/**
+ * Performs native HTML5 validation on the given input element.
+ *
+ * @param {HTMLInputElement} input - The input element to validate.
+ * @returns {boolean} - True if the input passes built-in browser validation.
+ */
 function isStandardValid(input) {
     return input.checkValidity();
 }
 
 
+/**
+ * Performs additional custom validation rules for specific input types.
+ * - text: must not start with a space
+ * - email: must match a stricter email pattern (e.g. user@example.com)
+ * - tel: allows digits only, optionally starting with '+' and single spaces
+ *
+ * @param {HTMLInputElement} input - The input element to validate.
+ * @returns {boolean} - True if the input passes all custom validation rules.
+ */
 function isCustomValid(input) {
     const value = input.value.trim();
     if (input.type === 'text') return !/^\s/.test(input.value);

@@ -168,10 +168,10 @@ async function handleSignup() {
                 await addNewUser();
                 showOverlayOnSignup();
             } else {
-                showCustomInputError('#signup_password_confirmed', 'Passwörter stimmen nicht überein!');
+                showCustomInputError('#signup_password_confirmed', 'Passwords do not match.');
             }
         } else {
-            showCustomInputError('#signup_email', 'Diese E-Mail-Adresse ist bereits registriert!');
+            showCustomInputError('#signup_email', 'This email address is already registered.');
         }
     }
 }
@@ -291,12 +291,12 @@ function validateUser(userArray, emailInput, passwordInput) {
     let foundUser = userArray.find(user => user.email === emailInput);
 
     if (!foundUser) {
-        showCustomInputError('#emailInput', 'E-Mail Adresse existiert nicht!');
+        showCustomInputError('#emailInput', 'No correct email.');
         return null;
     }
 
     if (foundUser.password !== passwordInput) {
-        showCustomInputError('#passwordInput', 'Das eingegebene Passwort ist falsch');
+        showCustomInputError('#passwordInput', 'The password you entered is incorrect.');
         return null;
     }
 
