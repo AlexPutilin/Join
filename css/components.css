@@ -506,13 +506,13 @@ textarea {
 }
 
 .btn-dark:disabled {
-    background-color: var(--disabled-btn-bg);
+    background-color: #afafaf;
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 .btn-dark:disabled:hover {
-    background-color: var(--disabled-btn-bg);
+    background-color: #afafaf;
     cursor: not-allowed;
     box-shadow: none;
 }

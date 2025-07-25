@@ -290,10 +290,6 @@
   cursor: pointer;
 }
 
-:root {
-  --disabled-btn-bg: #afafaf;
-}
-
 
 .form-error-desktop-visible {
   display: flex;
