@@ -65,7 +65,7 @@
   gap: 20px;
   padding-right: 40px;
   border-right: 1px solid #D1D1D1;
-  width: 400px;
+  width: 470px;
 }
 
 .add-task-right {
@@ -73,6 +73,7 @@
   flex-direction: column;
   gap: 20px;
   padding-left: 40px;
+  max-width: 470px;
 }
 
 .priority-buttons-wrapper {
@@ -350,7 +351,7 @@
   animation: slide-in-out-add-task 2s ease forwards;
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1260px){
   .add-task-root{
   padding: 24px 8px;
 }
@@ -364,7 +365,7 @@
 
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1200px) {
   .add-task-left {
     width: 280px;
   }
@@ -415,6 +416,7 @@
     padding: 0;
     border: none;
     margin-top: 16px;
+    max-width: 100%;
   }
 
   .clear-save-btn-wrapper {
