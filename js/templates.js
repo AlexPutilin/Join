@@ -204,7 +204,7 @@ function getCreateContactDialogTemplate() {
                     <div class="empty-contact-icon">
                         <img src="../assets/img/icon-person-big.svg" alt="contact-picture">
                     </div>
-                    <form autocomplete="off" id="create-contact-form">
+                    <form autocomplete="off" id="create-contact-form" oninput="enableCreateContactBtn(this)">
                         <div class="input-wrapper">
                             <label for="">Name<span class="required-mark">*</span> </label>
                             <div class="input-area">
@@ -238,7 +238,7 @@ function getCreateContactDialogTemplate() {
                                     <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
                                 </div>
                             </button>
-                            <button class="btn-dark" type="button" onclick="createNewContact()" disabled>
+                            <button id="btn-contact-submit" class="btn-dark" type="button" onclick="createNewContact()" disabled>
                                 <span>Create contact</span>
                                 <img src="../assets/img/icon-check-white.svg">
                             </button>
@@ -272,7 +272,7 @@ function getEditContactDialogTemplate(contact) {
                 </button>
                 <div class="contact-form-container">
                     <div class="empty-contact-icon" style="background-color: ${contact.color};">${getContactInitials(contact.name)}</div>
-                    <form autocomplete="off" id="edit-contact-form">
+                    <form autocomplete="off" id="edit-contact-form" oninput="enableCreateContactBtn(this)">
                         <div class="input-wrapper">
                             <label for="">Name<span class="required-mark">*</span> </label>
                             <div class="input-area">
@@ -306,7 +306,7 @@ function getEditContactDialogTemplate(contact) {
                                     <img class="icon-active" src="../assets/img/icon-delete-default.svg">
                                 </div>
                             </button>
-                            <button class="btn-dark" type="button" onclick="editContact()">
+                            <button id="btn-contact-submit" class="btn-dark" type="button" onclick="editContact()">
                                 <span>Save</span>
                                 <img src="../assets/img/icon-check-white.svg">
                             </button>

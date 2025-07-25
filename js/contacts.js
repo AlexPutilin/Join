@@ -221,6 +221,34 @@ async function editContact() {
 
 
 /**
+ * Enables or disables the contact submit button based on whether
+ * all required input fields in the given form are filled.
+ *
+ * @param {HTMLFormElement} form - The form element containing required input fields.
+ */
+function enableCreateContactBtn(form) {
+    const inputs = form.querySelectorAll('input[required]');
+    const submitBtn = document.getElementById('btn-contact-submit');
+    submitBtn.disabled = !checkFilledRequiredInputs(inputs);
+}
+
+
+/**
+ * Checks if all required input fields have a non-empty value.
+ *
+ * @param {NodeListOf<HTMLInputElement>} inputs - A list of required input elements to check.
+ * @returns {boolean} - Returns true if all inputs are filled, otherwise false.
+ */
+function checkFilledRequiredInputs(inputs) {
+    let allFilled = true;
+    inputs.forEach(input => {
+        if (!input.value.trim()) allFilled = false;
+    })
+    return allFilled
+}
+
+
+/**
  * Displays a temporary user feedback message with a slide-in-out animation.
  * 
  * @param {string} text - The feedback message to display.
