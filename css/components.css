@@ -505,27 +505,17 @@ textarea {
     background-color: #fc49c0;
 }
 
-#add-task-root button#create-task-btn:disabled {
+.btn-dark:disabled {
     background-color: var(--disabled-btn-bg);
     opacity: 0.5;
     cursor: not-allowed;
-  }
-  
-  #add-task-root button#create-task-btn:disabled:hover {
-    background-color: var(--disabled-btn-bg);
-    cursor: not-allowed;
-    box-shadow: none;
-  }
+}
 
-.add-task-wrapper button#create-task-btn:disabled {
+.btn-dark:disabled:hover {
     background-color: var(--disabled-btn-bg);
-    opacity: 0.5;
     cursor: not-allowed;
-  }
-  .add-task-wrapper button#create-task-btn:disabled:hover {
-    background-color: var(--disabled-btn-bg);
     box-shadow: none;
-  }
+}
 
 @media (max-width: 1140px) {
     .icon-add {

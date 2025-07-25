@@ -238,7 +238,7 @@ function getCreateContactDialogTemplate() {
                                     <img class="icon-active" src="../assets/img/icon-cancel-click.svg">
                                 </div>
                             </button>
-                            <button class="btn-dark" type="button" onclick="createNewContact()">
+                            <button class="btn-dark" type="button" onclick="createNewContact()" disabled>
                                 <span>Create contact</span>
                                 <img src="../assets/img/icon-check-white.svg">
                             </button>
