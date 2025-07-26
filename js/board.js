@@ -343,16 +343,43 @@ async function updateSubtaskStatus(taskId, subtaskKey, done) {
 }
 
 /**
- * Filters tasks by title and displays matching results. If the search input is empty, all tasks are displayed.
- * @param {string} filterTask - The search string used to filter tasks by their title.
+ * Filters tasks by their title or description, case-insensitive.
+ * @param {string} searchTerm - The search string used to filter tasks.
+ * @returns {Array<Object>} - Array of tasks whose title or description includes the search term.
  */
-async function filterAndShowTasks(filterTask) {
-    if (filterTask.trim().length > 0) {
-        const filteredTasks = allTasks.filter(task => task.title.toLowerCase().includes(filterTask.toLowerCase()));
+function filterTasks(searchTerm) {
+    searchTerm = searchTerm.toLowerCase().trim();
+    const filteredTasks = [];
+    for (let i = 0; i < allTasks.length; i++) {
+        const task = allTasks[i];
+        let title = '';
+        let description = '';
+        if (task.title) {
+            title = task.title.toLowerCase();
+        }
+        if (task.description_full) {
+            description = task.description_full.toLowerCase();
+        }
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            filteredTasks.push(task);
+        }
+    }
+    return filteredTasks;
+}
+/**
+ * Filters tasks by title & description and displays matching results.
+ * If no results are found or the search term is empty, all tasks are displayed.
+ * @param {string} searchTerm - The search string used to filter tasks.
+ * @returns {Promise<Array<Object>>} - Promise resolving to array of filtered tasks.
+ */
+async function filterAndShowTasks(searchTerm) {
+    const filteredTasks = filterTasks(searchTerm);
+    if (filteredTasks.length > 0) {
         await renderAllTasks(filteredTasks);
     } else {
         await renderAllTasks(allTasks);
     }
+    return filteredTasks;
 }
 
 /**
@@ -367,32 +394,31 @@ function prefillSubtasks(task) {
     subtaskListContainer.innerHTML = '';
     const existingSubtasks = Object.values(task.subtasks || {});
     existingSubtasks.forEach(subtask => {
-      newSubtaskInputField.value = subtask.title;
-      addSubtask();
+        newSubtaskInputField.value = subtask.title;
+        addSubtask();
     });
-  }
+}
 
-  /**
- * Pre-fills the "Assigned To" checkboxes and chips based on the given task data.
- * Marks checkboxes for contacts whose names appear in task.assigned_to array,
- * then re-renders the chips.
- *
- * @function prefillAssignedTo
- * @param {Object} task - The task object containing an assigned_to array of names.
- * @returns {void}
- */
+/**
+* Pre-fills the "Assigned To" checkboxes and chips based on the given task data.
+* Marks checkboxes for contacts whose names appear in task.assigned_to array,
+* then re-renders the chips.
+*
+* @function prefillAssignedTo
+* @param {Object} task - The task object containing an assigned_to array of names.
+* @returns {void}
+*/
 function prefillAssignedTo(task) {
-    const names = task.assigned_to || [];              
+    const names = task.assigned_to || [];
     document.querySelectorAll('#contacts-dropdown .select-contact input[type="checkbox"]')
-      .forEach(checkbox => {
-        const contact = contacts.find(checkedContact => checkedContact.id == checkbox.dataset.contactId);
-        if (contact && names.includes(contact.name)) {
-          checkbox.checked = true;
-        }
-      });
+        .forEach(checkbox => {
+            const contact = contacts.find(checkedContact => checkedContact.id == checkbox.dataset.contactId);
+            if (contact && names.includes(contact.name)) {
+                checkbox.checked = true;
+            }
+        });
     renderAssignedChips();
-  }
-  
+}
 
 /**
  * Enables edit mode for the active task.
@@ -401,9 +427,9 @@ function prefillAssignedTo(task) {
 function switchToTaskEditmode() {
     overlayRef.innerHTML = getOverviewEditmodeTemplate(activeTask);
     setPriorityValue("#add-task-form");
-    renderAssignedToField();       
+    renderAssignedToField();
     prefillAssignedTo(activeTask);
-    renderSubtaskInput();         
+    renderSubtaskInput();
     prefillSubtasks(activeTask);
 }
 
