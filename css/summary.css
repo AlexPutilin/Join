@@ -257,7 +257,7 @@ display: flex !important;
     display: flex;
     justify-content: center;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .summary-main-section {
