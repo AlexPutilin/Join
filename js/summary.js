@@ -47,7 +47,7 @@ async function initMetricCards() {
 
     updateCount(tasks, "number-to-do", (task) => task.status === "to-do");
     updateCount(tasks, "number-done", (task) => task.status === "done");
-    updateCount(tasks,"number-urgent",(task) => task.status === "to-do" && task.priority === "urgent");
+    updateCount(tasks,"number-urgent",(task) => task.status !== "done" && task.priority === "urgent");
     updateCount(tasks, "number-tasks-total", task => task.status !== "done");
     updateCount(tasks,"number-in-progress",(task) => task.status === "in-progress");
     updateCount(tasks,"number-await-feedback",(task) => task.status === "await-feedback");
@@ -65,10 +65,7 @@ async function initMetricCards() {
  */
 function updateUrgentDeadline(tasks) {
   const urgentTasks = tasks
-    .filter(
-      (task) =>
-        task.status === "to-do" && task.priority === "urgent" && task.due_date
-    )
+    .filter((task) => task.status !== "done" && task.priority === "urgent" && task.due_date)
     .sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
   const deadlineElement = document.getElementById("deadline-date-urgent");
   if (deadlineElement) {
