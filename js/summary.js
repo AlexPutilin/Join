@@ -47,22 +47,10 @@ async function initMetricCards() {
 
     updateCount(tasks, "number-to-do", (task) => task.status === "to-do");
     updateCount(tasks, "number-done", (task) => task.status === "done");
-    updateCount(
-      tasks,
-      "number-urgent",
-      (task) => task.status === "to-do" && task.priority === "urgent"
-    );
-    updateCount(tasks, "number-tasks-total", () => true);
-    updateCount(
-      tasks,
-      "number-in-progress",
-      (task) => task.status === "in-progress"
-    );
-    updateCount(
-      tasks,
-      "number-await-feedback",
-      (task) => task.status === "await-feedback"
-    );
+    updateCount(tasks,"number-urgent",(task) => task.status === "to-do" && task.priority === "urgent");
+    updateCount(tasks, "number-tasks-total", task => task.status !== "done");
+    updateCount(tasks,"number-in-progress",(task) => task.status === "in-progress");
+    updateCount(tasks,"number-await-feedback",(task) => task.status === "await-feedback");
     updateUrgentDeadline(tasks);
   } catch (err) {
     console.error("Failed to initialize metric cards:", err);
