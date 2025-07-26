@@ -432,7 +432,7 @@ function getOverviewEditmodeTemplate(task) {
         </div>
         <div class="input-wrapper">
           <span>Description</span>
-          <textarea name="description" placeholder="Enter a description" value="${task.description_full}" rows="3"></textarea>
+          <textarea name="description" placeholder="Enter a description"rows="3">${task.description_full}</textarea>
           <span class="err-msg hidden">Invalid input.</span>
         </div>
         <div class="input-wrapper">
