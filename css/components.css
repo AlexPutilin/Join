@@ -145,6 +145,7 @@ a:hover {
 .icon-hover {
     position: absolute;
     opacity: 0;
+    transition: opacity 0.2s;
 }
 
 .icon-active {
@@ -377,6 +378,18 @@ textarea {
 
 .priority-option.urgent input:checked~div {
     background-color: #FF3D00;
+}
+
+.icon-checkbox-checked {
+    display: none;
+}
+
+input[type="checkbox"]:checked + .checkbox-wrapper .icon-checkbox-default {
+  display: none;
+}
+
+input[type="checkbox"]:checked + .checkbox-wrapper .icon-checkbox-checked {
+  display: flex;
 }
 
 /* CONTACT */

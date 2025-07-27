@@ -89,14 +89,13 @@ function getLoginFormTemplate() {
 
 function getContactSelectionTemplate({ id, name, color }){
   return `
-    <label class="select-contact" for="contact-${id}">
+    <label class="checkbox select-contact" for="contact-${id}">
       <div class="contact-info">
         <div class="icon-contact" style="background-color: ${color};">${getContactInitials(name)}</div>
         <span class="contact-name">${name}</span>
       </div>
-
+      <input type="checkbox" hidden id="contact-${id}" data-contact-id="${id}"/>
       <div class="checkbox-wrapper">
-        <input type="checkbox" id="contact-${id}" data-contact-id="${id}"/>
         <div class="icon-wrapper icon-checkbox-default">
           <img src="../assets/img/icon-checkbutton-default.svg" />
           <img src="../assets/img/icon-checkbutton-hover.svg" class="icon-hover" />
@@ -501,15 +500,17 @@ function getSubtasksContent(task) {
 function getSubtaskCheckboxTemplate(checked, subtask, taskId, subtaskKey) {
     return `<div class="subtask-item flex-start">
                 <label class="checkbox">
-                    <input type="checkbox" hidden class="subtask-checkbox" ${checked} data-task-id="${taskId}" data-subtask-key="${subtaskKey}">
+                  <input type="checkbox" hidden class="subtask-checkbox" ${checked} data-task-id="${taskId}" data-subtask-key="${subtaskKey}">
+                  <div class="checkbox-wrapper">
                     <div class="icon-wrapper icon-checkbox-default">
-                        <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg">
-                        <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg">
+                      <img class="icon-default" src="../assets/img/icon-checkbutton-default.svg" />
+                      <img class="icon-hover" src="../assets/img/icon-checkbutton-hover.svg"/>
                     </div>
                     <div class="icon-wrapper icon-checkbox-checked">
-                        <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg">
-                        <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg">
+                      <img class="icon-default" src="../assets/img/icon-checkbutton-checked-default.svg"/>
+                      <img class="icon-hover" src="../assets/img/icon-checkbutton-checked-hover.svg"/>
                     </div>
+                  </div>
                 </label>
                 <span>${subtask.title}</span>
             </div>`;
