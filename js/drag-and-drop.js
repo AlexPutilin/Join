@@ -7,7 +7,7 @@ let touchCurrentTarget;
  * All containers that support drag-and-drop.
  * @type {NodeListOf<HTMLElement>}
  */
-const dragAndDropContainers = document.querySelectorAll('.drag-drop-container');
+const dragAndDropContainers = document.querySelectorAll('.stages-wrapper');
 
 /**
  * Placeholder element inserted to show drop position.
