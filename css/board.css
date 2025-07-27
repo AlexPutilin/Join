@@ -523,7 +523,7 @@
 
     .board {
         overflow-y: auto;
-        padding: 0.5%;
+        padding: 16px 0px 16px 16px;
     }
 
     .board::-webkit-scrollbar {
