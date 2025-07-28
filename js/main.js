@@ -11,19 +11,29 @@ function initLogin() {
 }
 
 
+/**
+ * Redirects the user to the login page if no user is currently logged in.
+ */
 function redirectIfNotLoggedIn() {
     if (!activeUser) {
         openPage('../index.html');       
     }
 }
 
-  
+
+/**
+ * Initializes the UI for users who are not authenticated.
+ * Hides protected navigation buttons and shows login-related options.
+ */  
 function initUnauthUser() {
     updateMenuForUnauthUser();
     updateMobileMenuForUnauthUser();
 }
 
 
+/**
+ * Initializes the profile section by loading the current user and displaying their initials.
+ */
 function initProfile() {
     loadUser();
     const profile = document.getElementById('profile');
@@ -62,7 +72,9 @@ async function getAllEntries(path) {
  */
 function getInput(element) {
     return document.getElementById(element).value;
-}/**
+}
+
+/**
  * @function eventBubblingProtection - Stops the propagation of the event to parent elements.
  * @param {Event} event - The event object to stop from bubbling.
  */
@@ -72,7 +84,7 @@ function eventBubblingProtection(event) {
 
 
 /**
- * @function closeOverlay - Closes the task detail view.
+ * Closes the task detail view by hiding the overlay.
  */
 function closeOverlay() {
     let overlayRef = document.getElementById('overlay');
@@ -108,6 +120,10 @@ function toggleProfileMenu() {
 }
 
 
+/**
+ * Updates the main menu UI for users who are not logged in.
+ * Hides navigation buttons and enables login-related UI elements.
+ */
 function updateMenuForUnauthUser() {
     if (!activeUser) {
         const nav = document.querySelector('.navigate-btn-wrapper');
@@ -123,6 +139,10 @@ function updateMenuForUnauthUser() {
 }
 
 
+/**
+ * Updates the mobile menu UI for users who are not logged in.
+ * Hides protected buttons and shows login-related options.
+ */
 function updateMobileMenuForUnauthUser() {
     if (!activeUser) {
         const menuBtns = document.querySelectorAll('.btn-menu-mobile');
@@ -141,12 +161,18 @@ function updateMobileMenuForUnauthUser() {
 }
 
 
+/**
+ * Disables or hides the profile button in the UI.
+ */
 function disableProfileBtn() {
     const profileBtn = document.getElementById('btn-profile');
     profileBtn.classList.add('d-none');
 }
 
 
+/**
+ * Disables or hides the help button in the UI.
+ */
 function disableHelpBtn() {
     const helpBtn = document.getElementById('help-btn');
     helpBtn.classList.add('d-none');
@@ -164,11 +190,17 @@ function logout() {
 }
 
 
+/**
+ * Saves the current active user to sessionStorage.
+ */
 function saveUser() {
     sessionStorage.setItem("user", activeUser);
 }
 
 
+/**
+ * Loads the current user from sessionStorage and sets it as active.
+ */
 function loadUser() {
     activeUser = sessionStorage.getItem("user") || "";
 }

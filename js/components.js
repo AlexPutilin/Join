@@ -20,7 +20,6 @@ function checkFormValidation(form) {
     return isValid;
 }
 
-
 /**
  * Performs native HTML5 validation on the given input element.
  *
@@ -30,7 +29,6 @@ function checkFormValidation(form) {
 function isStandardValid(input) {
     return input.checkValidity();
 }
-
 
 /**
  * Performs additional custom validation rules for specific input types.
@@ -49,7 +47,6 @@ function isCustomValid(input) {
     return true;
 }
 
-
 /**
  * Adds error styling to an input field and displays its associated error message.
  *
@@ -62,7 +59,6 @@ function addInputError(inputWrapper) {
     errorMessage.classList.remove('hidden');
 }
 
-
 /**
  * Resets the validation-error from the focused textfield on input-change.
  */
@@ -73,7 +69,6 @@ function resetInputError() {
     inputArea.classList.remove('invalid-input');
     errorMessage.classList.add('hidden');
 }
-
 
 /**
  * Toggles the input-type between password and text to hide and show the password.
@@ -304,7 +299,6 @@ function getInputData(form) {
     return data; 
 }
 
-
 /**
  * Stores the value of a checked checkbox input into the data object.
  * If multiple checkboxes share the same name, their values are grouped in an array.
@@ -321,7 +315,6 @@ function storeCheckboxInput(input, data) {
     };
 }
 
-
 /**
  * Stores the value of a checked radio input into the data object.
  * Only the selected radio button's value is stored.
@@ -334,7 +327,6 @@ function storeRadioInput(input, data) {
         data[input.name] = input.value;
     };
 }
-
 
 /**
  * Stores the value of a text-based input or textarea into the data object.
@@ -499,4 +491,3 @@ function extractSubtaskTitle(container) {
 function createSubtaskObject(title) {
   return { title: title, done: false };
 }
-  
