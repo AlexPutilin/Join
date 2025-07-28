@@ -1,21 +1,21 @@
 # Join – Kanban Project Management Tool
 
-Willkommen bei **Join**, einem webbasierten Kanban-Tool zur einfachen und visuellen Verwaltung deiner Aufgaben und Projekte.
+Welcome to **Join**, a web-based Kanban tool for simple and visual task and project management.
 
-> Entwickelt als Teil eines Webentwicklungs-Bootcamps an der **Developer Akademie**.
+> Developed as part of a web development bootcamp at the **Developer Akademie**.
 
 ---
 
 ## 🔍 Features
 
-- **Add Task** – Erstelle neue Aufgaben mit Titel, Beschreibung, Fälligkeitsdatum und Zuweisungen.
-- **Board** – Visualisiere Aufgaben in Kanban-Listen: *To Do*, *In Progress*, *Await Feedback*, *Done*.
-- **Contacts** – Füge Kontakte hinzu und weise sie Aufgaben zu.
-- **Drag & Drop** – Verschiebe Aufgaben zwischen den Listen per Drag & Drop.
-- **Delete Tasks** – Lösche Aufgaben dauerhaft.
-- **Login/Logout** – Nutzerverwaltung mit Profilmenü.
-- **Responsive Design** – Optimiert für Desktop & Mobile.
+- **Add Task** – Create new tasks with title, description, due date, and assignees.
+- **Board** – Visualize tasks in Kanban lists: *To Do*, *In Progress*, *Await Feedback*, *Done*.
+- **Contacts** – Add contacts and assign them to tasks.
+- **Drag & Drop** – Move tasks between lists using drag and drop.
+- **Delete Tasks** – Permanently remove tasks from the board.
+- **Login/Logout** – User management with profile menu.
+- **Responsive Design** – Optimized for both desktop and mobile devices.
 
 ---
 
-## 🚀 Projektstart (lokal)
+## 🚀 Getting Started (Locally)
