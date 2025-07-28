@@ -19,3 +19,9 @@ Welcome to **Join**, a web-based Kanban tool for simple and visual task and proj
 ---
 
 ## 🚀 Getting Started (Locally)
+
+**Clone the repository:**
+
+```bash
+git clone https://github.com/YOUR-USERNAME/join.git
+cd join
