@@ -23,5 +23,5 @@ Welcome to **Join**, a web-based Kanban tool for simple and visual task and proj
 **Clone the repository:**
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/join.git
+git clone https://github.com/AlexPutilin/join.git
 cd join
